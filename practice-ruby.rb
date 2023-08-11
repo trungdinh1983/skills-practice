@@ -1,3 +1,22 @@
+# Given an array of numbers, write a function that returns a new array whose values are the original array’s value doubled.
+
+# Input: [4, 2, 5, 99, -4]
+# Output: [8, 4, 10, 198, -8]
+
+numbers = [4, 2, 5, 99, -4]
+new_numbers = []
+index = 0
+while index < numbers.length
+    new_numbers << numbers[index] * 2
+
+index = index + 1   
+end
+p new_numbers
+
+
+
+# -------------------------------------------------------------------------------------
+
 # Given an array of numbers, write a function that returns a new array that contains all numbers from the original array that are less than 100.
 
 # Input: [99, 101, 88, 4, 2000, 50]
