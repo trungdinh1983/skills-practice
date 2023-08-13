@@ -3,17 +3,16 @@
 // Input: [5, 17, -4, 20, 12]
 // Output: 20
 
-var array = [5, 17, -4, 20, 12];
-var greatest = array[0];
+int[] array = { 5, 17, -4, 20, 12 };
+int greatest = array[0];
 
-for (var i = 0; i < array.length; i++) {
-  if (array[i] > greatest) {
+for (int i = 0; i < array.length; i++) {
+  if array[i] > greatest {
     greatest = array[i];
   }
 }
 
-console.log(greatest);
-
+System.out.printLn(greatest);
 // -----------------------------------------------------------------
 
 // Given an array of numbers, write a function that returns a new array whose values are the original array’s value doubled.
@@ -21,15 +20,19 @@ console.log(greatest);
 // Input: [4, 2, 5, 99, -4]
 // Output: [8, 4, 10, 198, -8]
 
-const input_numbers = [4, 2, 5, 99, -4];
-let new_numbers = [];
-let index = 0;
-while (index < input_numbers.length) {
-  new_numbers.push(input_numbers[index] * 2);
+int[] array = { 4, 2, 5, 99, -4};
+int[] doubledarray = new int[array.length];
+int index = 0;
+
+while (index < array.length) {
+  doubledarray[index] = array[index] * 2;
   index = index + 1;
 }
 
-console.log(new_numbers);
+for (int i = 0; i < doubledarray.length; i++) {
+  System.out.print(doubledarray[i] + " ");
+}
+
 
 // -------------------------------------------------------------------------------------
 

@@ -1,3 +1,21 @@
+# Write a function that returns the greatest value from an array of numbers.
+
+# Input: [5, 17, -4, 20, 12]
+# Output: 20
+
+array = [5, 17, -4, 20, 12]
+greatest_number = array[0]
+
+for number in array
+  if number > greatest_number
+    greatest_number = number
+  end
+end
+
+p greatest_number
+
+# -----------------------------------------------------------------
+
 # Given an array of numbers, write a function that returns a new array whose values are the original array’s value doubled.
 
 # Input: [4, 2, 5, 99, -4]
@@ -7,13 +25,11 @@ numbers = [4, 2, 5, 99, -4]
 new_numbers = []
 index = 0
 while index < numbers.length
-    new_numbers << numbers[index] * 2
+  new_numbers << numbers[index] * 2
 
-index = index + 1   
+  index = index + 1
 end
 p new_numbers
-
-
 
 # -------------------------------------------------------------------------------------
 
