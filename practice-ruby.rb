@@ -1,9 +1,29 @@
-# Write a function that returns the greatest value from an array of numbers.
+# Write a function that accepts an array of numbers and returns the product of all the numbers.
 
-# Input: [5, 17, -4, 20, 12]
-# Output: 20
+# Input: [1, 2, 3, 4]
+# Output: 24
 
-array = [5, 17, -4, 20, 12]
+# Explanation: (1 x 2 x 3 x 4) = 24
+
+numbers = [1, 2, 3, 4]
+product = 1
+index = 0
+
+while index < numbers.length
+  product = product * numbers[index]
+  # Can be written as: product *= numbers[index]
+  index = index + 1
+  # can be written as: index += 1
+end
+
+puts product # => 24
+
+-----------------------------------------------------------------
+ # Write a function that returns the greatest value from an array of numbers.
+  
+ # Input: [5, 17, -4, 20, 12]
+   # Output: 20
+  array = [5, 17, -4, 20, 12]
 greatest_number = array[0]
 
 for number in array

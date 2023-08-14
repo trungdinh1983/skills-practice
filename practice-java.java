@@ -1,3 +1,25 @@
+// # Write a function that accepts an array of numbers and returns the product of all the numbers.
+
+// # Input: [1, 2, 3, 4]
+// # Output: 24
+
+// # Explanation: (1 x 2 x 3 x 4) = 24
+
+public class Main {
+  public static void main (String[] args) {
+    int[] numbers = { 1, 2, 3, 4 };
+    int product = 1;
+
+    for ( int i = 0; i < numbers.length; i++) {
+      product = product * numbers[i];
+    }
+    System.out.println(product); // Output: 24
+  }
+}
+// i++ is the same as i = i + 1
+// i = index
+// -----------------------------------------------------------------
+
 // Write a function that returns the greatest value from an array of numbers.
 
 // Input: [5, 17, -4, 20, 12]
@@ -13,6 +35,11 @@ for (int i = 0; i < array.length; i++) {
 }
 
 System.out.printLn(greatest);
+
+
+
+
+
 // -----------------------------------------------------------------
 
 // Given an array of numbers, write a function that returns a new array whose values are the original array’s value doubled.

@@ -1,3 +1,26 @@
+// # Write a function that accepts an array of numbers and returns the product of all the numbers.
+
+// # Input: [1, 2, 3, 4]
+// # Output: 24
+
+// # Explanation: (1 x 2 x 3 x 4) = 24
+
+let array = [1, 2, 3, 4];
+let product = 1;
+let index = 0;
+
+while (index < array.length) {
+  product = product * array[index];
+  // can be written product *= array[index];
+  index = index + 1;
+  // can be written index++;
+  // can be written index += 1;
+}
+
+console.log(product); //output: 24
+// note index can be shorted to i
+// -------------------------------------------------------------------------------------
+
 // Write a function that returns the greatest value from an array of numbers.
 
 // Input: [5, 17, -4, 20, 12]
