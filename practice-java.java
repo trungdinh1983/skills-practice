@@ -1,3 +1,36 @@
+// Given an array, write a function that returns an array that contains the original array’s values in reverse.
+
+// Input: [1, 2, 3, 4, 5]
+// Output: [5, 4, 3, 2, 1]
+
+// Must run with for class for online compiler:
+
+// public class Main {
+//   public static void main(String[] args) {
+
+
+int[] array = {1, 2, 3, 4, 5};
+    int[] newArray = new int[array.length];
+    int index = 0;
+
+    while (index < array.length) {
+      newArray[array.length - index - 1] = array[index];
+      index = index + 1;
+    }
+
+    // Printing the newArray
+    for (int i = 0; i < newArray.length; i++) {
+      System.out.print(newArray[i] + " ");
+    }
+    // Output: 5 4 3 2 1
+  } 
+} 
+
+
+// # -----------------------------------------------------------------
+
+
+
 // # Write a function that accepts an array of numbers and returns the product of all the numbers.
 
 // # Input: [1, 2, 3, 4]

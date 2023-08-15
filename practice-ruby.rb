@@ -1,3 +1,22 @@
+# Given an array, write a function that returns an array that contains the original array’s values in reverse.
+
+# Input: [1, 2, 3, 4, 5]
+# Output: [5, 4, 3, 2, 1]
+
+array = [1, 2, 3, 4, 5] # => [5, 4, 3, 2, 1]
+new_array = []
+index = 0
+
+while index < array.length
+  new_array << array[index]
+  index = index + 1
+  # could be written as: index += 1
+end
+
+puts new_array # => [5, 4, 3, 2, 1]
+
+# -----------------------------------------------------------------
+
 # Write a function that accepts an array of numbers and returns the product of all the numbers.
 
 # Input: [1, 2, 3, 4]
@@ -18,12 +37,12 @@ end
 
 puts product # => 24
 
------------------------------------------------------------------
- # Write a function that returns the greatest value from an array of numbers.
-  
- # Input: [5, 17, -4, 20, 12]
-   # Output: 20
-  array = [5, 17, -4, 20, 12]
+# -----------------------------------------------------------------
+# Write a function that returns the greatest value from an array of numbers.
+
+# Input: [5, 17, -4, 20, 12]
+# Output: 20
+array = [5, 17, -4, 20, 12]
 greatest_number = array[0]
 
 for number in array

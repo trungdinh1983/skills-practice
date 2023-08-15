@@ -1,3 +1,22 @@
+Given an array, write a function that returns an array that contains the original array’s values in reverse.
+
+Input: [1, 2, 3, 4, 5]
+Output: [5, 4, 3, 2, 1]
+
+var array = [1, 2, 3, 4, 5];
+var newArray = [];
+var index = 0;
+
+while (index < array.length) {
+  newArray[array.length - 1 - index] = array[index];
+  index = index + 1;
+}
+
+console.log(newArray); // => [5, 4, 3, 2, 1]
+
+// # -----------------------------------------------------------------
+
+
 // # Write a function that accepts an array of numbers and returns the product of all the numbers.
 
 // # Input: [1, 2, 3, 4]
