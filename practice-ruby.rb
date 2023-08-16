@@ -1,3 +1,23 @@
+# Given a string, write a function that returns true if the “$” character is contained within the string or false if it is not.
+
+# Input: “i hate $ but i love money i know i know im crazy”
+# Output: true
+
+# Input: “abcdefghijklmnopqrstuvwxyz”
+# Output: false
+
+# input = "i hate $ but i love money i know i know im crazy"
+# output
+
+while index < input.length
+  if input[index] == "$"
+    output = true
+  end
+
+  puts output
+# -----------------------------------------------------------------
+
+
 # Given an array of numbers, write a function that returns a new array in which only select numbers from the original array are included, based on the following details:
 
 # The new array should always start with the first number from the original array. The next number that should be included depends on what the first number is. The first number dictates how many spaces to the right the computer should move to pick the next number. For example, if the first number is 2, then the next number that the computer should select would be two spaces to the right. This number gets added to the new array. If this next number happens to be a 4, then the next number after that is the one four spaces to the right. And so on and so forth until the end of the array is reached.
@@ -15,6 +35,7 @@ index = 0
 while index < input.length
   output << input[index]
   index += input[index]
+  # can be written as: index = index + input[index]
 end
 
 puts output # Output will be: [2, 3, 1, 2, 2, 1, 5, 2, 2]

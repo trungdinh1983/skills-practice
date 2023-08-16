@@ -1,3 +1,12 @@
+
+// Java needs a main method to run the code. The main method is the entry point of the program, and it is where the program starts execution. The main method must be declared public, static, and void. The main method's name must be main, and it must accept a String array as a parameter. The main method's body is enclosed in curly braces.
+
+public class Main {
+  public static void main(String[] args) {
+
+// -------------------------------------------------------------------------------------
+
+
 // Write a function that returns the greatest value from an array of numbers.
 
 // Input: [5, 17, -4, 20, 12]
