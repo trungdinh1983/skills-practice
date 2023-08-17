@@ -1,3 +1,29 @@
+Given a string, write a function that returns a copy of the original string that has every other character capitalized. (Capitalization should begin with the second character.)
+
+  Input: “hello, how are your porcupines today?”
+  Output: “hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?”
+
+  public class Main {
+    public static void main(String[] args) {
+      String input = "hello, how are your porcupines today?";
+      StringBuilder output = new StringBuilder();
+
+      int index = 0;
+      while (index < input.length()) {
+        if (index % 2 == 1 && input.charAt(index) >= 'a' && input.charAt(index) <= 'z') {
+          output.append(Character.toUpperCase(input.charAt(index)));
+        } else {
+          output.append(input.charAt(index));
+        }
+        index = index + 1; // can be written as: index++
+      }
+      System.out.println(output.toString()); // Output: hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?
+    }
+  }
+
+// # -----------------------------------------------------------------
+
+
 // Given a string, write a function that returns true if the “$” character is contained within the string or false if it is not.
 
 // Input: “i hate $ but i love money i know i know im crazy”

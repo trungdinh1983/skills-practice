@@ -1,3 +1,26 @@
+Given a string, write a function that returns a copy of the original string that has every other character capitalized. (Capitalization should begin with the second character.)
+
+  Input: “hello, how are your porcupines today?”
+  Output: “hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?”
+
+var input = "hello, how are your porcupines today?";
+var output = "";
+
+var index = 0;
+while (index < input.length) {
+  if (index % 2 === 1 && input[index] <= 'z') {
+    output = output + input[index].toUpperCase();
+  } else {
+    output = output + input[index];
+  }
+  index = index + 1;
+  // can be written as: index++;
+}
+
+console.log(output); // Output can be written: hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?
+
+// # -----------------------------------------------------------------
+
 // Given a string, write a function that returns true if the “$” character is contained within the string or false if it is not.
 
 // Input: “i hate $ but i love money i know i know im crazy”

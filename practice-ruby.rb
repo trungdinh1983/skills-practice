@@ -1,3 +1,26 @@
+Given a string, write a function that returns a copy of the original string that has every other character capitalized. (Capitalization should begin with the second character.)
+
+  Input: “hello, how are your porcupines today?”
+  Output: “hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?”
+
+input = "hello, how are your porcupines today?"
+output = ""
+
+index = 0
+while index < input.length
+  if index % 2 == 1 && input[index] >='a' && input[index] <= 'z'
+    output << (input[index].upcase)
+  else
+output << input[index]
+  end
+  index = index + 1
+  # can write as: index += 1
+end
+
+puts output # => "hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?"
+
+# -----------------------------------------------------------------
+
 # Given a string, write a function that returns true if the “$” character is contained within the string or false if it is not.
 
 # Input: “i hate $ but i love money i know i know im crazy”
