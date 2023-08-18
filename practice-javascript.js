@@ -1,14 +1,34 @@
-Given a string, write a function that returns a copy of the original string that has every other character capitalized. (Capitalization should begin with the second character.)
+// Given a string, write a function that returns the first occurence of two duplicate characters in a row, and return the duplicated character.
 
-  Input: “hello, how are your porcupines today?”
-  Output: “hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?”
+// Input: “abcdefghhijkkloooop”
+// Output: “h”
+
+var input = "abcdefghhijkkloooooop";
+var output = "";
+var index = 0;
+
+while (index < input.lenth - 1) {
+  if (inout[index] === input[index + 1]) {
+    output = input[index];
+    break;
+  }
+  index = index + 1;
+}
+
+console.log(output); //Output will be "h"
+// # -----------------------------------------------------------------
+
+// Given a string, write a function that returns a copy of the original string that has every other character capitalized. (Capitalization should begin with the second character.)
+
+//   Input: “hello, how are your porcupines today?”
+//   Output: “hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?”
 
 var input = "hello, how are your porcupines today?";
 var output = "";
 
 var index = 0;
 while (index < input.length) {
-  if (index % 2 === 1 && input[index] <= 'z') {
+  if (index % 2 === 1 && input[index] <= "z") {
     output = output + input[index].toUpperCase();
   } else {
     output = output + input[index];
@@ -26,20 +46,19 @@ console.log(output); // Output can be written: hElLo, HoW ArE YoUr pOrCuPiNeS To
 // Input: “i hate $ but i love money i know i know im crazy”
 // Output: true
 
-// Input: “abcdefghijklmnopqrstuvwxyz”
-// Output: false
-
 var input = "i hate $ but i love money i know i know im crazy";
-var containsDollarSign = false;
+var output = false;
+var index = 0;
 
-for (var index = 0; index < input.length; index = index + 1) {
-  if (input.charAt(index) === "$") {
-    containsDollarSign = true;
+while (index < input.length) {
+  if (input[index] === "$") {
+    output = true;
     break;
   }
+  index = index + 1;
 }
 
-console.log(containsDollarSign); // Output will be: true
+console.log(output); // Output will be true
 
 // # -----------------------------------------------------------------
 

@@ -1,7 +1,27 @@
-Given a string, write a function that returns a copy of the original string that has every other character capitalized. (Capitalization should begin with the second character.)
+Given a string, write a function that returns the first occurence of two duplicate characters in a row, and return the duplicated character.
 
-  Input: “hello, how are your porcupines today?”
-  Output: “hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?”
+Input: “abcdefghhijkkloooop”
+Output: “h”
+
+input = "abcdefghhijkklooooop"
+output = ""
+index = 0
+
+while index < input.length - 1
+  if input[index] == input[index + 1]
+    output = input[index]
+    break
+  end
+  index = index + 1
+end
+puts output
+
+# -----------------------------------------------------------------
+
+# Given a string, write a function that returns a copy of the original string that has every other character capitalized. (Capitalization should begin with the second character.)
+
+#   Input: “hello, how are your porcupines today?”
+#   Output: “hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?”
 
 input = "hello, how are your porcupines today?"
 output = ""
@@ -26,17 +46,18 @@ puts output # => "hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?"
 # Input: “i hate $ but i love money i know i know im crazy”
 # Output: true
 
-# Input: “abcdefghijklmnopqrstuvwxyz”
-# Output: false
 
-# input = "i hate $ but i love money i know i know im crazy"
-# output
+input = "i hate $ but i love money i know i know im crazy"
+output = false
+index = 0
 
 while index < input.length
   if input[index] == "$"
     output = true
+    break
   end
-
+  index = index + 1
+end
   puts output
 # -----------------------------------------------------------------
 
@@ -166,13 +187,13 @@ p new_numbers
 
 # Explanation: (1 + 2 + 3 + 4) = 10
 
-# numbers = [1, 2, 3, 4]
+numbers = [1, 2, 3, 4]
 
-# sum = numbers[0]
-# index = 1
-# while index < numbers.length
-#   sum = sum + numbers[index]
-#   index = index + 1
-# end
+sum = numbers[0]
+index = 1
+while index < numbers.length
+  sum = sum + numbers[index]
+  index = index + 1
+end
 
-# p sum
+p sum

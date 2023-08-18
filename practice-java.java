@@ -1,7 +1,36 @@
-Given a string, write a function that returns a copy of the original string that has every other character capitalized. (Capitalization should begin with the second character.)
+// Given a string, write a function that returns the first occurence of two duplicate characters in a row, and return the duplicated character.
 
-  Input: “hello, how are your porcupines today?”
-  Output: “hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?”
+// Input: “abcdefghhijkkloooop”
+// Output: “h”
+
+public class Main {
+  public static void main(String[] args) {
+      String input = "abcdefghhijkklooooop";
+      String output = "";
+
+      int index = 0;
+      while (index < input.length() - 1) {
+          if (input.charAt(index) == input.charAt(index + 1)) {
+              output = String.valueOf(input.charAt(index));
+              break;
+          }
+          index = index + 1;
+      }
+
+      System.out.println(output); // Output: "h"
+  }
+}
+// The code uses the charAt method to access individual characters in the input string 
+
+
+
+
+// # -----------------------------------------------------------------
+
+// Given a string, write a function that returns a copy of the original string that has every other character capitalized. (Capitalization should begin with the second character.)
+
+//   Input: “hello, how are your porcupines today?”
+//   Output: “hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?”
 
   public class Main {
     public static void main(String[] args) {
@@ -32,22 +61,29 @@ Given a string, write a function that returns a copy of the original string that
 // Input: “abcdefghijklmnopqrstuvwxyz”
 // Output: false
 
+
+
 public class Main {
   public static void main(String[] args) {
       String input = "i hate $ but i love money i know i know im crazy";
-      boolean containsDollarSign = false;
+      boolean output = false;
+      int index = 0;
 
-      // Fixed the syntax here, including the variable name
-      for (int index = 0; index < input.length(); index++) {
+      while (index < input.length()) {
           if (input.charAt(index) == '$') {
-              containsDollarSign = true;
+              output = true;
               break;
           }
+          index = index + 1;
       }
 
-      System.out.println(containsDollarSign);
+      System.out.println(output); // Output will be true
   }
 }
+
+
+
+
 
 
 // # -----------------------------------------------------------------
@@ -62,29 +98,29 @@ public class Main {
 // Output:
 // [2, 3, 1, 2, 2, 1, 5, 2, 2]
 
+public class Main {
+  public static void main(String[] args) {
+      int[] input = {2, 1, 3, 2, 5, 1, 2, 6, 2, 7, 1, 5, 6, 3, 2, 6, 2, 1, 2};
+      int[] output = new int[input.length];
+      int index = 0;
+      int count = 0;
 
-int[] input = {2, 1, 3, 2, 5, 1, 2, 6, 2, 7, 1, 5, 6, 3, 2, 6, 2, 1, 2};
-int[] output = new int[input.length];
-int index = 0;
-int count = 0;
+      while (index < input.length) {
+          output[count] = input[index];
+          index += input[index]; // can be written as: index = index + input[index]
+          count++; // can be written as: count = count + 1
+      }
 
-while (index < input.length) {
-  output[count] = input[index];
-  index += input[index];
-  // can be written as: index = index + input[index]
-  count++;
-  // can be written as: count = count + 1
+      // If you need the exact result size, copy to a new array.
+      int[] result = new int[count];
+      System.arraycopy(output, 0, result, 0, count);
+
+      for (int num : result) {
+          System.out.print(num + " ");
+      }
+      // Output will be: 2 3 1 2 2 1 5 2 2
+  }
 }
-
-// If you need the exact result size, copy to a new array.
-int[] result = new int[count];
-System.arraycopy(output, 0, result, 0, count);
-
-for (int num : result) {
-  System.out.print(num + " ");
-}
-// Output will be: 2 3 1 2 2 1 5 2 2
-
 
 
 // # -----------------------------------------------------------------
@@ -99,8 +135,8 @@ for (int num : result) {
 
 // Must run with for class for online compiler:
 
-// public class Main {
-//   public static void main(String[] args) {
+public class Main {
+  public static void main(String[] args) {
 
 
 int[] array = {1, 2, 3, 4, 5};
@@ -152,16 +188,20 @@ public class Main {
 // Input: [5, 17, -4, 20, 12]
 // Output: 20
 
-int[] array = { 5, 17, -4, 20, 12 };
-int greatest = array[0];
+public class Main {
+  public static void main(String[] args) {
+      int[] array = {5, 17, -4, 20, 12};
+      int greatest = array[0];
 
-for (int i = 0; i < array.length; i++) {
-  if array[i] > greatest {
-    greatest = array[i];
+      for (int i = 0; i < array.length; i++) {
+          if (array[i] > greatest) {
+              greatest = array[i];
+          }
+      }
+
+      System.out.println(greatest); // Output will be 20
   }
 }
-
-System.out.printLn(greatest);
 
 
 
@@ -174,18 +214,29 @@ System.out.printLn(greatest);
 // Input: [4, 2, 5, 99, -4]
 // Output: [8, 4, 10, 198, -8]
 
-int[] array = { 4, 2, 5, 99, -4};
-int[] doubledarray = new int[array.length];
-int index = 0;
+public class Main {
+  public static void main(String[] args) {
+      int[] array = {4, 2, 5, 99, -4};
+      int[] doubledArray = new int[array.length];
+      int index = 0;
 
-while (index < array.length) {
-  doubledarray[index] = array[index] * 2;
-  index = index + 1;
-}
+      while (index < array.length) {
+          doubledArray[index] = array[index] * 2;
+          index = index + 1;
+      }
 
-for (int i = 0; i < doubledarray.length; i++) {
-  System.out.print(doubledarray[i] + " ");
+      for (int i = 0; i < doubledArray.length; i++) {
+          System.out.print(doubledArray[i] + " ");
+      }
+      // Output will be 8 4 10 198 -8
+  }
 }
+The output will be the doubled values of the original array: 8 4 10 198 -8.
+
+
+
+
+
 
 
 // -------------------------------------------------------------------------------------
@@ -195,16 +246,62 @@ for (int i = 0; i < doubledarray.length; i++) {
 // Input: [99, 101, 88, 4, 2000, 50]
 // Output: [99, 88, 4, 50]
 
-const input_numbers = [99, 101, 88, 4, 2000, 50];
-let new_numbers = [];
-let index = 0;
-while (index < input_numbers.length) {
-  if (input_numbers[index] < 100) {
-    new_numbers.push(input_numbers[index]);
-  }
-  index = index + 1;
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        int[] input_numbers = {99, 101, 88, 4, 2000, 50};
+        ArrayList<Integer> new_numbers = new ArrayList<>();
+        int index = 0;
+
+        while (index < input_numbers.length) {
+            if (input_numbers[index] < 100) {
+                new_numbers.add(input_numbers[index]);
+            }
+            index = index + 1;
+        }
+
+        System.out.println(new_numbers); // Output will be [99, 88, 4, 50]
+    }
 }
-console.log(new_numbers);
+
+// Or Use this if you don't want to use arraylist
+
+public class Main {
+  public static void main(String[] args) {
+      int[] input_numbers = {99, 101, 88, 4, 2000, 50};
+      int count = 0;
+
+      // Count the numbers that are less than 100
+      for (int number : input_numbers) {
+          if (number < 100) {
+              count++;
+          }
+      }
+
+      // Create an array of the appropriate size
+      int[] new_numbers = new int[count];
+      int index = 0;
+      int newIndex = 0;
+
+      // Add numbers that are less than 100 to the new array
+      while (index < input_numbers.length) {
+          if (input_numbers[index] < 100) {
+              new_numbers[newIndex++] = input_numbers[index];
+          }
+          index++;
+      }
+
+      // Print the new array
+      for (int i = 0; i < new_numbers.length; i++) {
+          System.out.print(new_numbers[i]);
+          if (i < new_numbers.length - 1) {
+              System.out.print(", ");
+          }
+      } // Output will be 99, 88, 4, 50
+  }
+}
+
 
 // -------------------------------------------------------------------------------------
 
@@ -217,13 +314,17 @@ console.log(new_numbers);
 
 // Explanation: (1 + 2 + 3 + 4) = 10
 
-const numbers = [1, 2, 3, 4];
-let sum = numbers[0];
-let index = 1;
+public class Main {
+  public static void main(String[] args) {
+      int[] numbers = {1, 2, 3, 4};
+      int sum = numbers[0];
+      int index = 1;
 
-while (index < numbers.length) {
-  sum = sum + numbers[index];
-  index = index + 1;
+      while (index < numbers.length) {
+          sum = sum + numbers[index];
+          index = index + 1;
+      }
+
+      System.out.println(sum); // Output will be 10
+  }
 }
-
-console.log(sum);
