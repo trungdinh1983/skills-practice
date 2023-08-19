@@ -1,7 +1,37 @@
-Given a string, write a function that returns the first occurence of two duplicate characters in a row, and return the duplicated character.
+# Given a string, write a function that returns true if it is a palindrome, and false if it is not. (A palindrome is a word that reads the same both forward and backward.)
 
-Input: “abcdefghhijkkloooop”
-Output: “h”
+# Input: “racecar”
+# Output: true
+
+# Input: “baloney”
+# Output: false
+
+input = "racecar"
+x = 0
+while input[x]
+  x += 1
+end
+
+index = 0
+palindrome = true
+
+while index < x / 2
+  if input[index] != input[x - index - 1]
+    palindrome = false
+    break
+  end
+  index = index + 1
+  # can be written as: index += 1
+end
+
+puts palindrome # => true
+
+# -----------------------------------------------------------------
+
+# Given a string, write a function that returns the first occurence of two duplicate characters in a row, and return the duplicated character.
+
+# Input: “abcdefghhijkkloooop”
+# Output: “h”
 
 input = "abcdefghhijkklooooop"
 output = ""
@@ -28,10 +58,10 @@ output = ""
 
 index = 0
 while index < input.length
-  if index % 2 == 1 && input[index] >='a' && input[index] <= 'z'
+  if index % 2 == 1 && input[index] >= "a" && input[index] <= "z"
     output << (input[index].upcase)
   else
-output << input[index]
+    output << input[index]
   end
   index = index + 1
   # can write as: index += 1
@@ -46,7 +76,6 @@ puts output # => "hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?"
 # Input: “i hate $ but i love money i know i know im crazy”
 # Output: true
 
-
 input = "i hate $ but i love money i know i know im crazy"
 output = false
 index = 0
@@ -58,9 +87,8 @@ while index < input.length
   end
   index = index + 1
 end
-  puts output
+puts output
 # -----------------------------------------------------------------
-
 
 # Given an array of numbers, write a function that returns a new array in which only select numbers from the original array are included, based on the following details:
 

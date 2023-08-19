@@ -1,3 +1,38 @@
+
+
+// Given a string, write a function that returns true if it is a palindrome, and false if it is not. (A palindrome is a word that reads the same both forward and backward.)
+
+// Input: “racecar”
+// Output: true
+
+// Input: “baloney”
+// Output: false
+
+public class Main {
+  public static void main(String[] args) {
+    String input = "racecar";
+    int x = 0;
+
+    while (x < input.length()) {
+      x++; //can be written as: x = x + 1
+    }
+
+    int index = 0;
+    boolean palindrome = true;
+
+    while (index < x / 2) {
+      if (input.charAt(index) != input.charAt(x - 1 - index)) {
+        palindrome = false;
+        break;
+      }
+      index = index + 1; //can be written as: index++
+    }
+    System.out.println(palindrome); // Output: true
+  }
+}
+
+// # -----------------------------------------------------------------
+
 // Given a string, write a function that returns the first occurence of two duplicate characters in a row, and return the duplicated character.
 
 // Input: “abcdefghhijkkloooop”

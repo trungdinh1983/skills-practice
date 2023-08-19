@@ -1,3 +1,34 @@
+// Given a string, write a function that returns true if it is a palindrome, and false if it is not. (A palindrome is a word that reads the same both forward and backward.)
+
+// Input: “racecar”
+// Output: true
+
+// Input: “baloney”
+// Output: false
+
+var input = "racecar";
+var x = 0;
+
+while (input[x]) {
+  // Fixed the missing parenthesis
+  x = x + 1; // can be written as: x += 1; or x++;
+}
+
+var index = 0;
+var palindrome = true;
+
+while (index < x / 2) {
+  if (input[index] !== input[x - 1 - index]) {
+    palindrome = false;
+    break;
+  }
+  index = index + 1; // can be written as: index += 1; or index++;
+}
+
+console.log(palindrome); // Output will be true
+
+// # -----------------------------------------------------------------
+
 // Given a string, write a function that returns the first occurence of two duplicate characters in a row, and return the duplicated character.
 
 // Input: “abcdefghhijkkloooop”
