@@ -8,6 +8,33 @@ Explanation: While the A, B, C, E, and G are in the same place for both strings,
 Input: "ABCDEFG", "ABCDEFG",
 Output: 0
 
+var string1 = "ABCDEFG";
+var string2 = "ABCXEOG";
+
+// check if the strings are the same length
+if (string1.length !== string2.length) {
+  console.log("Strings are not the same length");
+} else {
+  // Initialize a counter variable
+  var counter = 0;
+  var index = 0;
+
+  // Loop through the strings
+  while (index < string1.length) {
+    // Compare the characters at the current index
+    if (string1[index] !== string2[index]) {
+      // Increment the counter if they don't match
+      counter = counter + 1;
+      // can be written as: counter += 1; or counter++;
+
+    }
+    index = index + 1;
+    // can be written as: index += 1; or index++;
+  }
+  console.log(counter); // Output will be 2
+}
+
+
 // # -----------------------------------------------------------------
 
 // Given a string, write a function that returns true if it is a palindrome, and false if it is not. (A palindrome is a word that reads the same both forward and backward.)

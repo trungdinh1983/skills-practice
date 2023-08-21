@@ -8,6 +8,30 @@ Explanation: While the A, B, C, E, and G are in the same place for both strings,
 Input: "ABCDEFG", "ABCDEFG",
 Output: 0
 
+string1 = "ABCDEFG"
+string2 = "ABCXEOG"
+
+#check if the strings are the same length
+if string1.length != string2.length
+  puts "Strings are not the same length"
+else
+  # Initialize a count variable
+  count = 0
+  index = 0
+
+  # Iterate through the characters of the strings, comparing each character
+  while index < string1.length
+    if string1[index] != string2[index]
+      count += 1
+      # can be written as: count = count + 1
+    end
+    index += 1
+    # can be written as: index = index + 1
+  end
+
+  puts count # => 2
+end
+
 # -----------------------------------------------------------------
 
 # Given a string, write a function that returns true if it is a palindrome, and false if it is not. (A palindrome is a word that reads the same both forward and backward.)
