@@ -9,6 +9,41 @@ Explanation: While the A, B, C, E, and G are in the same place for both strings,
 Input: "ABCDEFG", "ABCDEFG",
 Output: 0
 
+public class Main {
+  public static void main(String[] args) {
+    String input1 = "ABCDEFG";
+    String input2 = "ABCXEOG";
+
+    // Check
+    if (input1.length() != input2.length()) {
+      System.out.println("Strings are not the same length");
+    } else {
+      // Initialize a counter variable
+      int counter = 0;
+      int index = 0;
+
+      // Loop through the strings
+      while (index < input1.length()) {
+        // Compare the characters at the current index
+        if (input1.charAt(index) != input2.charAt(index)) {
+          // Increment the counter if they are different
+          counter++;
+          // can be written as: counter = counter + 1
+        }
+        index++;
+        // can be written as: index = index + 1
+      }
+      System.out.println(counter); // Output: 2
+    }
+  }
+}
+I've also updated the increment statements to use the more concise ++ operator, which is what the comments were suggesting.
+
+
+
+
+
+
 // # -----------------------------------------------------------------
 
 
