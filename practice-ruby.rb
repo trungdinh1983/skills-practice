@@ -1,12 +1,59 @@
-Given two strings of equal length, write a function that returns the number of characters that are different between the two strings.
+# Basic String - Reverse Words - End of Basic String Section
 
-Input: "ABCDEFG", "ABCXEOG"
-Output: 2
+Given a string of words, write a function that returns a new string that contains the words in reverse order.
 
-Explanation: While the A, B, C, E, and G are in the same place for both strings, they have different characters in the other spaces. Since there are 2 such spaces that are different (the D and F in the first string), we return 2.
+Input: “popcorn is so cool isn’t it yeah i thought so”
+Output: “so thought i yeah it isn’t cool so is popcorn”
 
-Input: "ABCDEFG", "ABCDEFG",
-Output: 0
+#Assign the string to a variable
+input = "popcorn is so cool isn't it yeah i thought so"
+#initialize a new variable to store the reversed string
+output = ''
+#initialize a empty array to store the words
+words = ''
+#initialize a index variable to track the current word in the string
+index = 0
+
+# Continue looping until we reach the end of the string
+while index < input.length
+  # Get the character at the current index
+  char = input[index]
+  # Check if the character is a space or the last character in the string
+  if char == " " || index == input.length - 1
+   # Add the current word to the beginning of the output string
+   # If the character is a space, add the word and a space
+   output = words + (output == "" ? "" : " " + output)
+   # Reset the word to an empty string
+   words = ''
+  else
+    # If the character is not a space, add the word to the end of the word string
+    words = words + char
+  end
+  # Increment the index to move to the next character
+  index = index + 1
+  # can be written as: index += 1
+end
+
+
+#Print the output string
+puts output
+
+
+
+# -----------------------------------------------------------------
+
+# Basic String - Difference in string (Hamming)
+
+
+# Given two strings of equal length, write a function that returns the number of characters that are different between the two strings.
+
+# Input: "ABCDEFG", "ABCXEOG"
+# Output: 2
+
+# Explanation: While the A, B, C, E, and G are in the same place for both strings, they have different characters in the other spaces. Since there are 2 such spaces that are different (the D and F in the first string), we return 2.
+
+# Input: "ABCDEFG", "ABCDEFG",
+# Output: 0
 
 string1 = "ABCDEFG"
 string2 = "ABCXEOG"
@@ -33,6 +80,8 @@ else
 end
 
 # -----------------------------------------------------------------
+
+# Basic String - Reverse Words (Palindrome)
 
 # Given a string, write a function that returns true if it is a palindrome, and false if it is not. (A palindrome is a word that reads the same both forward and backward.)
 
@@ -64,6 +113,8 @@ puts palindrome # => true
 
 # -----------------------------------------------------------------
 
+# Basic String - First Duplicate Character
+
 # Given a string, write a function that returns the first occurence of two duplicate characters in a row, and return the duplicated character.
 
 # Input: “abcdefghhijkkloooop”
@@ -83,6 +134,8 @@ end
 puts output
 
 # -----------------------------------------------------------------
+
+# Basic String - Alertnate Capitals
 
 # Given a string, write a function that returns a copy of the original string that has every other character capitalized. (Capitalization should begin with the second character.)
 
@@ -107,6 +160,8 @@ puts output # => "hElLo, HoW ArE YoUr pOrCuPiNeS ToDaY?"
 
 # -----------------------------------------------------------------
 
+# Basic String - Dollar Signs - Show me the money
+
 # Given a string, write a function that returns true if the “$” character is contained within the string or false if it is not.
 
 # Input: “i hate $ but i love money i know i know im crazy”
@@ -125,6 +180,29 @@ while index < input.length
 end
 puts output
 # -----------------------------------------------------------------
+# Basic String - Reverse String - Start of Basic String Section
+
+# Write a function that returns the reverse of a given string.
+
+# Input: “abcde”
+# Output: “edcba”
+
+original_string = "abcde"
+reversed_string = ""
+index = 0
+
+while index < original_string.length
+  reversed_string = original_string[index] + reversed_string
+  index += 1
+  # can be written as: index = index + 1
+end
+
+puts reversed_string # => "edcba"
+
+
+# -----------------------------------------------------------------
+
+# Basic Array - Skip It - End of Basic Array Section
 
 # Given an array of numbers, write a function that returns a new array in which only select numbers from the original array are included, based on the following details:
 
@@ -150,6 +228,8 @@ puts output # Output will be: [2, 3, 1, 2, 2, 1, 5, 2, 2]
 
 # -----------------------------------------------------------------
 
+# Basic Array - Reverse Array
+
 # Given an array, write a function that returns an array that contains the original array’s values in reverse.
 
 # Input: [1, 2, 3, 4, 5]
@@ -168,6 +248,8 @@ end
 puts new_array # => [5, 4, 3, 2, 1]
 
 # -----------------------------------------------------------------
+
+# Basic Array - Reduce Product
 
 # Write a function that accepts an array of numbers and returns the product of all the numbers.
 
@@ -190,6 +272,9 @@ end
 puts product # => 24
 
 # -----------------------------------------------------------------
+
+# Basic array - Greatest number - Max
+
 # Write a function that returns the greatest value from an array of numbers.
 
 # Input: [5, 17, -4, 20, 12]
@@ -206,6 +291,8 @@ end
 p greatest_number
 
 # -----------------------------------------------------------------
+
+# Basic Array - Double It
 
 # Given an array of numbers, write a function that returns a new array whose values are the original array’s value doubled.
 
@@ -224,6 +311,8 @@ p new_numbers
 
 # -------------------------------------------------------------------------------------
 
+# Basic Array - Less Than 100
+
 # Given an array of numbers, write a function that returns a new array that contains all numbers from the original array that are less than 100.
 
 # Input: [99, 101, 88, 4, 2000, 50]
@@ -241,6 +330,8 @@ end
 p new_numbers
 
 # --------------------------------------------------
+
+# Basic Array - Reduce sum
 
 # Write a function that returns the sum of all numbers in a given array.
 

@@ -1,13 +1,61 @@
+// #Basic String - Reverse Words - End of Basic String section
 
-Given two strings of equal length, write a function that returns the number of characters that are different between the two strings.
+Given a string of words, write a function that returns a new string that contains the words in reverse order.
 
-Input: "ABCDEFG", "ABCXEOG"
-Output: 2
+Input: “popcorn is so cool isn’t it yeah i thought so”
+Output: “so thought i yeah it isn’t cool so is popcorn”
 
-Explanation: While the A, B, C, E, and G are in the same place for both strings, they have different characters in the other spaces. Since there are 2 such spaces that are different (the D and F in the first string), we return 2.
+public class ReverseWords {
+  public static void main(String[] args) {
+    // Assign the input string to a variable
+    String input = "popcorn is so cool isn't it yeah i thought so";
+    // Initialize an empty string variable
+    StringBuilder output = new StringBuilder();
+    // Initialize and empty string to hold the current word
+    StringBuilder currentWord = new StringBuilder();
+    // Initialize an index variable to 0;
+    int index = 0;
+    
+    // Continue looping until the index is equal to the length of the input string
+    while (index < input.length()) {
+      // Get the character at the current index
+      char currentCharacter = input.charAt(index);
+      // Check if the character is a space or the last character in the string
+      if (currentCharacter == ' ' || index == input.length() - 1) {
+        // If  the character is the last one and not a space, add it to the current word string
+        if (index == input.length() - 1 && currentCharacter != ' ') currentWord.append(currentCharacter);
+        // Add the current word to  the beginning of the output string
+        //If the output string is not empty, add a space before the current word
+        output.insert(0, currentWord + (output.length() == 0 ? "" : " "));
+        // Reset the current word to an empty string
+        currentWord = new StringBuilder();
+      } else {
+        // If the character is not a space, add it to the current word string
+        currentWord.append(currentCharacter);
+      }
+      // Increment the index
+      index++; // can be written as: index = index + 1, or index += 1
+    }
+    // Print the output string
+    System.out.println(output.toString()); // Output: so thought i yeah it isn't cool so is popcorn
+  }
+}
 
-Input: "ABCDEFG", "ABCDEFG",
-Output: 0
+
+// # -----------------------------------------------------------------
+
+// Basic String - Difference in string length (Hamming)
+
+
+// Given two strings of equal length, write a function that returns the number of characters that are different between the two strings.
+
+// Input: "ABCDEFG", "ABCXEOG"
+// Output: 2
+
+// Explanation: While the A, B, C, E, and G are in the same place for both strings, they have different characters in the other spaces. Since there are 2 such spaces that are different (the D and F in the first string), we return 2.
+
+// Input: "ABCDEFG", "ABCDEFG",
+// Output: 0
 
 public class Main {
   public static void main(String[] args) {
@@ -37,8 +85,6 @@ public class Main {
     }
   }
 }
-I've also updated the increment statements to use the more concise ++ operator, which is what the comments were suggesting.
-
 
 
 
@@ -46,6 +92,7 @@ I've also updated the increment statements to use the more concise ++ operator, 
 
 // # -----------------------------------------------------------------
 
+// Basic String - Palindrome - Read the same forward and backward
 
 
 // Given a string, write a function that returns true if it is a palindrome, and false if it is not. (A palindrome is a word that reads the same both forward and backward.)
@@ -81,6 +128,8 @@ public class Main {
 
 // # -----------------------------------------------------------------
 
+// Basic String - First Duplicate Character
+
 // Given a string, write a function that returns the first occurence of two duplicate characters in a row, and return the duplicated character.
 
 // Input: “abcdefghhijkkloooop”
@@ -110,6 +159,8 @@ public class Main {
 
 // # -----------------------------------------------------------------
 
+// Basic String - Capitalize Every Other Letter - Aternate Capitalization
+
 // Given a string, write a function that returns a copy of the original string that has every other character capitalized. (Capitalization should begin with the second character.)
 
 //   Input: “hello, how are your porcupines today?”
@@ -134,6 +185,8 @@ public class Main {
   }
 
 // # -----------------------------------------------------------------
+
+// Basic String - Dollar Sign - Show me the money
 
 
 // Given a string, write a function that returns true if the “$” character is contained within the string or false if it is not.
@@ -164,12 +217,38 @@ public class Main {
   }
 }
 
+// # -----------------------------------------------------------------
 
+
+// Basic String - Reverse String - Start of basic string section
+
+// Write a function that returns the reverse of a given string.
+
+// Input: “abcde”
+// Output: “edcba”
+
+public class ReverseString {
+  public static void main(String[] args) {
+    String originalString = "abcde";
+    String reversedString = "";
+    int index = 0;
+    // can be written as: index = index + 1
+    while (index < originalString.length()) {
+      reversedString = originalString.charAt(index) +
+      reversedString;
+      index++;
+      // can be written as: index = index + 1 or index += 1
+    }
+    System.out.println(reversedString); // Output: edcba
+  }
+}
 
 
 
 
 // # -----------------------------------------------------------------
+
+Basic Array Skip IT - End of Basic Array section
 
 // Given an array of numbers, write a function that returns a new array in which only select numbers from the original array are included, based on the following details:
 
@@ -208,7 +287,7 @@ public class Main {
 
 // # -----------------------------------------------------------------
 
-
+Basic Array Reverse 
 
 
 // Given an array, write a function that returns an array that contains the original array’s values in reverse.
@@ -242,7 +321,7 @@ int[] array = {1, 2, 3, 4, 5};
 
 // # -----------------------------------------------------------------
 
-
+Basic Array Reduce an Product array
 
 // # Write a function that accepts an array of numbers and returns the product of all the numbers.
 
@@ -265,6 +344,8 @@ public class Main {
 // i++ is the same as i = i + 1
 // i = index
 // -----------------------------------------------------------------
+
+Basic Array MAX
 
 // Write a function that returns the greatest value from an array of numbers.
 
@@ -291,6 +372,8 @@ public class Main {
 
 
 // -----------------------------------------------------------------
+
+Basic array Map: Double 
 
 // Given an array of numbers, write a function that returns a new array whose values are the original array’s value doubled.
 
@@ -324,6 +407,8 @@ The output will be the doubled values of the original array: 8 4 10 198 -8.
 
 // -------------------------------------------------------------------------------------
 
+Basic array - Less than 100
+
 // Given an array of numbers, write a function that returns a new array that contains all numbers from the original array that are less than 100.
 
 // Input: [99, 101, 88, 4, 2000, 50]
@@ -348,7 +433,7 @@ public class Main {
     }
 }
 
-// Or Use this if you don't want to use arraylist
+Or Use this if you dont want to use arraylist 
 
 public class Main {
   public static void main(String[] args) {
@@ -387,6 +472,8 @@ public class Main {
 
 
 // -------------------------------------------------------------------------------------
+
+// Basic Array - Reduce Sum
 
 // Write a function that returns the sum of all numbers in a given array.
 

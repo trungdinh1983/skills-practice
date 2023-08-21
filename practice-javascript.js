@@ -1,12 +1,58 @@
-Given two strings of equal length, write a function that returns the number of characters that are different between the two strings.
+// #Basic String - Reverse Words - End of Basic String section
 
-Input: "ABCDEFG", "ABCXEOG"
-Output: 2
+// Given a string of words, write a function that returns a new string that contains the words in reverse order.
 
-Explanation: While the A, B, C, E, and G are in the same place for both strings, they have different characters in the other spaces. Since there are 2 such spaces that are different (the D and F in the first string), we return 2.
+// Input: “popcorn is so cool isn’t it yeah i thought so”
+// Output: “so thought i yeah it isn’t cool so is popcorn”
 
-Input: "ABCDEFG", "ABCDEFG",
-Output: 0
+// Assign the input string to a variable
+const input = "popcorn is so cool isn't it yeah i thought so";
+// Initialize an empty string variable
+let output = "";
+// initialize an empty string to store current word
+let words = "";
+// initialize an index variable
+let index = 0;
+
+// Continue looping until the end of the string
+while (index < input.length) {
+  // Get character at current index
+  let char = input[index];
+  // check if the character is a space or the last character in the string
+  if (char === " " || index === input.length - 1) {
+    // if the character ise last one and not a space , add it to the current word
+    if (index === input.length - 1 && char !== " ") words += char;
+    // add the current word to beginning of the output string
+    // If the output string is not empty, add a space before the current word
+    output = words + (output === "" ? "" : " ") + output;
+    // reset the word to an empty string
+    words = "";
+  } else {
+    // If the character is not a space, add it to the current word string
+    words += char;
+    //can be written as: words = words + char;
+  }
+  // increment the index
+  index++;
+  // can be written as: index = index + 1; or index += 1;
+}
+
+// Output the result
+console.log(output);
+
+// # -----------------------------------------------------------------
+
+// Basic String - Difference in Length (Hamming)
+
+// Given two strings of equal length, write a function that returns the number of characters that are different between the two strings.
+
+// Input: "ABCDEFG", "ABCXEOG"
+// Output: 2
+
+// Explanation: While the A, B, C, E, and G are in the same place for both strings, they have different characters in the other spaces. Since there are 2 such spaces that are different (the D and F in the first string), we return 2.
+
+// Input: "ABCDEFG", "ABCDEFG",
+// Output: 0
 
 var string1 = "ABCDEFG";
 var string2 = "ABCXEOG";
@@ -26,7 +72,6 @@ if (string1.length !== string2.length) {
       // Increment the counter if they don't match
       counter = counter + 1;
       // can be written as: counter += 1; or counter++;
-
     }
     index = index + 1;
     // can be written as: index += 1; or index++;
@@ -34,8 +79,9 @@ if (string1.length !== string2.length) {
   console.log(counter); // Output will be 2
 }
 
-
 // # -----------------------------------------------------------------
+
+// Basic String - Reading Reverse (palindrome)
 
 // Given a string, write a function that returns true if it is a palindrome, and false if it is not. (A palindrome is a word that reads the same both forward and backward.)
 
@@ -68,6 +114,8 @@ console.log(palindrome); // Output will be true
 
 // # -----------------------------------------------------------------
 
+// Basic String - First Duplicate Character
+
 // Given a string, write a function that returns the first occurence of two duplicate characters in a row, and return the duplicated character.
 
 // Input: “abcdefghhijkkloooop”
@@ -87,6 +135,8 @@ while (index < input.lenth - 1) {
 
 console.log(output); //Output will be "h"
 // # -----------------------------------------------------------------
+
+// Basic String  - Capitalize
 
 // Given a string, write a function that returns a copy of the original string that has every other character capitalized. (Capitalization should begin with the second character.)
 
@@ -111,6 +161,8 @@ console.log(output); // Output can be written: hElLo, HoW ArE YoUr pOrCuPiNeS To
 
 // # -----------------------------------------------------------------
 
+// Basic Array - Show me the money
+
 // Given a string, write a function that returns true if the “$” character is contained within the string or false if it is not.
 
 // Input: “i hate $ but i love money i know i know im crazy”
@@ -131,6 +183,30 @@ while (index < input.length) {
 console.log(output); // Output will be true
 
 // # -----------------------------------------------------------------
+
+// Basic String - Reverse String - beginning of Basic String section
+
+// Write a function that returns the reverse of a given string.
+
+// Input: “abcde”
+// Output: “edcba”
+
+var input = "abcde";
+var output = "";
+var index = 0;
+// can be written as: var index = input.length - 1;
+
+while (index < input.length) {
+  output = input[index] + output;
+  index = index + 1;
+  // can be written as: index++;
+}
+
+console.log(output); // Output will be: edcba
+
+// -----------------------------------------------------------------
+
+// Basic Array - Skip It - End of Basic Array section
 
 // Given an array of numbers, write a function that returns a new array in which only select numbers from the original array are included, based on the following details:
 
@@ -156,6 +232,8 @@ console.log(output); // Output will be: [2, 3, 1, 2, 2, 1, 5, 2, 2]
 
 // # -----------------------------------------------------------------
 
+// Basic Array Reverse Array
+
 // Given an array, write a function that returns an array that contains the original array’s values in reverse.
 
 // Input: [1, 2, 3, 4, 5]
@@ -173,6 +251,8 @@ while (index < array.length) {
 console.log(newArray); // => [5, 4, 3, 2, 1]
 
 // # -----------------------------------------------------------------
+
+// Basic Array Reduce Product
 
 // # Write a function that accepts an array of numbers and returns the product of all the numbers.
 
@@ -197,6 +277,8 @@ console.log(product); //output: 24
 // note index can be shorted to i
 // -------------------------------------------------------------------------------------
 
+// Basic Array Greatest Number - Max
+
 // Write a function that returns the greatest value from an array of numbers.
 
 // Input: [5, 17, -4, 20, 12]
@@ -213,7 +295,9 @@ for (var i = 0; i < array.length; i++) {
 
 console.log(greatest);
 
-// -----------------------------------------------------------------
+// -------------------------------------------------------------------------------------
+
+// Basic Array - Double
 
 // Given an array of numbers, write a function that returns a new array whose values are the original array’s value doubled.
 
@@ -232,6 +316,8 @@ console.log(new_numbers);
 
 // -------------------------------------------------------------------------------------
 
+// Basic Array - Less Than 100
+
 // Given an array of numbers, write a function that returns a new array that contains all numbers from the original array that are less than 100.
 
 // Input: [99, 101, 88, 4, 2000, 50]
@@ -249,6 +335,8 @@ while (index < input_numbers.length) {
 console.log(new_numbers);
 
 // -------------------------------------------------------------------------------------
+
+// Basic Array - Sum - Start of Basic Array section
 
 // Write a function that returns the sum of all numbers in a given array.
 
