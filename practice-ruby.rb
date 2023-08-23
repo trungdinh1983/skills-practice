@@ -1,3 +1,31 @@
+Basic Numbers - FIZZBUZZ - divisible by 3 and/or 5
+
+Write a function that prints out every number from 1 to N, with the following exceptions:
+
+If the number is divisible by 3, print out "FIZZ".
+If the number is divisible by 5, print out "BUZZ".
+If the number is divisible by both 3 and 5, print out "FIZZBUZZ".
+
+# =============================================
+
+N = 15
+x = 1
+
+while x <= N
+  if x % 3 == 0  && x % 5 == 0
+    puts "FIZZBUZZ"
+  elsif x % 3 == 0
+    puts "FIZZ"
+  elsif x % 5 == 0
+      puts "BUZZ"
+  else
+      puts x 
+  end
+  x = x + 1
+  end
+
+# -----------------------------------------------------------------
+
 Basic numbers - Prime numbers - Start of Basic Numbers Section
 
 Write a function that returns whether a given number is a prime number.

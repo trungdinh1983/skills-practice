@@ -1,3 +1,35 @@
+Basic Numbers - FIZZBUZZ - divisible by 3 and/or 5
+
+Write a function that prints out every number from 1 to N, with the following exceptions:
+
+If the number is divisible by 3, print out "FIZZ".
+If the number is divisible by 5, print out "BUZZ".
+If the number is divisible by both 3 and 5, print out "FIZZBUZZ".
+
+// =============================================
+
+public class FizzBuzz {
+  public static void main (String[] args) {
+      int N = 15; // Change number to test
+      int x = 1;
+      
+      while (x <= N) {
+          if(x % 3 == 0 && x % 5 == 0) {
+              System.out.println("FIZZBUZZ");
+          } else if(x % 3 == 0) {
+              System.out.println("FIZZ");
+          } else if (x % 5 == 0) {
+              System.out.println("BUZZ");
+          } else {
+              System.out.println(x);
+          }
+          x = x + 1;
+}
+}
+}
+
+// # -----------------------------------------------------------------
+
 Basic numbers - Prime numbers - Start of Basic Numbers Section
 
 Write a function that returns whether a given number is a prime number.
