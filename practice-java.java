@@ -1,3 +1,36 @@
+Basic numbers - Prime numbers - Start of Basic Numbers Section
+
+Write a function that returns whether a given number is a prime number.
+
+public class PrimeCheck {
+  public static void main(String[] args) {
+    int number = 7; // Change this number to test
+    boolean isPrime = true;
+
+    if (number == 1) {
+      isPrime = false;
+    } else {
+      int i = 2;
+      while (i * i <= number) {
+        if (number % i == 0) {
+          isPrime = false;
+          break;
+        }
+        i++; //can be written as: i = i + 1 or i += 1
+      }
+    }
+    if (isPrime) {
+      System.out.println(number + " is a prime number");
+    } else {
+      System.out.println(number + " is not a prime number");
+    }
+    }
+
+  }
+
+
+// # -----------------------------------------------------------------
+
 // #Basic String - Reverse Words - End of Basic String section
 
 Given a string of words, write a function that returns a new string that contains the words in reverse order.

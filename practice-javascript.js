@@ -1,3 +1,31 @@
+Basic numbers - Prime numbers - Start of Basic Numbers Section
+
+Write a function that returns whether a given number is a prime number.
+
+var number = 7; // Change this number to test
+var prime = true;
+if (number === 1) {
+  prime = false;
+} else {
+  var x = 2;
+  while (x * x <= number) {
+    if (number % x === 0) {
+      prime = false;
+      break;
+    }
+    x = x + 1;
+  }
+}
+
+if (prime) {
+  console.log(number + " is prime");
+} else {
+  console.log(number + " is not prime");
+}
+
+
+// # -----------------------------------------------------------------
+
 // #Basic String - Reverse Words - End of Basic String section
 
 // Given a string of words, write a function that returns a new string that contains the words in reverse order.

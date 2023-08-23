@@ -1,3 +1,31 @@
+Basic numbers - Prime numbers - Start of Basic Numbers Section
+
+Write a function that returns whether a given number is a prime number.
+
+number = 7
+
+prime = true  
+if number < 2
+  prime = false
+else
+  x = 2
+  while x * x <= number
+    if number % x == 0
+      prime = false
+      break
+    end
+    x = x + 1
+    # can be written as: x += 1
+  end
+end
+
+if prime
+  puts "#{number} is prime"
+else
+  puts "#{number} is not prime"
+end
+# -----------------------------------------------------------------
+
 # Basic String - Reverse Words - End of Basic String Section
 
 Given a string of words, write a function that returns a new string that contains the words in reverse order.
