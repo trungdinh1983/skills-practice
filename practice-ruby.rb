@@ -1,3 +1,36 @@
+# Basic Numbers - Fibonacci Numbers - sum of previous two numbers
+
+Write a function that gives the Nth number of the Fibonacci Sequence. The Fibonacci sequence begins with 0 and 1, and every number thereafter is the sum of the previous two numbers. So the sequence goes like this:
+
+0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, and so on until infinity...
+
+Input: 9
+Output: 21 (as this is the 9th number of the Fibonacci Sequence)
+
+
+# =============================================
+
+n = 0
+a = 0
+b = 1
+counter = 3
+
+if n == 1 
+    puts a  
+    elsif n == 2
+        puts b
+    else
+      while counter <= n
+          temp = a
+          a = b
+          b = temp + b
+          counter += 1
+      end
+      puts b
+  end
+
+# -----------------------------------------------------------------
+
 Basic Numbers - FIZZBUZZ - divisible by 3 and/or 5
 
 Write a function that prints out every number from 1 to N, with the following exceptions:

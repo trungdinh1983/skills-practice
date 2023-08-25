@@ -1,3 +1,38 @@
+# Basic Numbers - Fibonacci Numbers - sum of previous two numbers
+
+Write a function that gives the Nth number of the Fibonacci Sequence. The Fibonacci sequence begins with 0 and 1, and every number thereafter is the sum of the previous two numbers. So the sequence goes like this:
+
+0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, and so on until infinity...
+
+Input: 9
+Output: 21 (as this is the 9th number of the Fibonacci Sequence)
+
+
+// # =============================================
+
+var n = 9;
+var a = 0;
+var b = 1;
+var counter = 3;
+
+if (n === 1) {
+    console.log(a);
+} else if (n === 2) {
+    console.log(b);
+} else {
+    while (counter <= n) {
+        var temp = a;
+        a = b;
+        b = temp + b;
+        counter += 1;
+    }
+    console.log(b);
+}
+    
+
+// # -----------------------------------------------------------------
+
+
 Basic Numbers - FIZZBUZZ - divisible by 3 and/or 5
 
 Write a function that prints out every number from 1 to N, with the following exceptions:

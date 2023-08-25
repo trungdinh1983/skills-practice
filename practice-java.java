@@ -1,4 +1,50 @@
+Write a function that gives the Nth number of the Fibonacci Sequence. The Fibonacci sequence begins with 0 and 1, and every number thereafter is the sum of the previous two numbers. So the sequence goes like this:
+
+0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, and so on until infinity...
+
+Input: 9
+Output: 21 (as this is the 9th number of the Fibonacci Sequence)
+
+
 Basic Numbers - FIZZBUZZ - divisible by 3 and/or 5
+
+# Basic Numbers - Fibonacci Numbers - sum of previous two numbers
+
+Write a function that gives the Nth number of the Fibonacci Sequence. The Fibonacci sequence begins with 0 and 1, and every number thereafter is the sum of the previous two numbers. So the sequence goes like this:
+
+0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, and so on until infinity...
+
+Input: 9
+Output: 21 (as this is the 9th number of the Fibonacci Sequence)
+
+
+// # =============================================
+
+public class Fibonacci {
+  public static void main(String[] args) {
+      int n = 9;
+      int a = 0;
+      int b = 1;
+      int counter = 3;
+      
+      if (n == 1) {
+          System.out.println(a);
+      } else if ( n == 2) {
+  System.out.println(b);
+      } else {
+          while (counter <= n) {
+              int temp = a;
+              a = b;
+              b = temp + b;
+              counter += 1;
+          }
+          System.out.println(b);
+      }
+}
+}
+
+// # -----------------------------------------------------------------
+
 
 Write a function that prints out every number from 1 to N, with the following exceptions:
 
