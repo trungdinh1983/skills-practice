@@ -11,7 +11,21 @@ Find the sum of all the multiples of 3 or 5 below 1000.
 
 // # =============================================
 
+public class Main {
+  public static void main(String[] args) {
+    int sum = 0;
+    int num = 1;
 
+    while (num < 1000) {
+      if (num % 3 == 0 || num % 5 == 0) {
+        sum += num;
+      }
+      num++;
+    }
+
+    System.out.println("The sum of all multiples of 3 or 5 below 1000 is " + sum);
+  }
+}
 
 // # -----------------------------------------------------------------
 
