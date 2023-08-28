@@ -28,6 +28,16 @@ public class Main {
   public static void main(String[] args) {
     int n = 12; // Change this number to test
     int steps = 0; // Initialize steps to 0
+
+    while (n != 1) {
+      if (n % 2 == 0) {
+        n = n / 2;
+      } else {
+        n = n * 3 + 1;
+      }
+      steps++; // Increment steps by 1; can be written: steps = steps + 1 or steps += 1
+    }
+    System.out.println("It took " + steps + " steps to reach 1"); // Output: It took 9 steps to reach 1
   }
 }
 
