@@ -1,3 +1,55 @@
+
+Basic Numbers - Largest Palindrome Product
+
+A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+
+Find the largest palindrome made from the product of two 3-digit numbers.
+
+// # =============================================
+
+// Initialize variables
+let largestPalindrome = 0;
+let i = 100;
+let j = 100;
+
+// Loop until both i and j reach 999
+while (i <= 999 && j <= 999) {
+  // Calculate the product
+  let product = i * j;
+  let strProduct = product.toString();
+  let isPalindrome = true;
+
+  // Manually check if it's a palindrome
+  let len = strProduct.length;
+  let halfLen = Math.floor(len / 2); // Math.floor used to round number
+  let index = 0;
+
+  while (index < halfLen) {
+    if (strProduct[index] !== strProduct[len - index - 1]) {
+      isPalindrome = false;
+      break;
+    }
+    index++; // can be written as index = index + 1
+  }
+
+  // Update largestPalindrome if it's a palindrome and bigger
+  if (isPalindrome && product > largestPalindrome) {
+    largestPalindrome = product;
+  }
+
+  // Update i and j
+  if (j < 999) {
+    j++;
+  } else {
+    i++;
+    j = 100;
+  }
+}
+
+console.log(`The largest palindrome made from the product of two 3-digit numbers is ${largestPalindrome}`);  // Output: 906609
+
+// # -----------------------------------------------------------------
+
 Basic Numbers - Collatz Conjecture
 
 The Collatz Conjecture or 3x+1 problem can be summarized as follows:
