@@ -17,6 +17,41 @@ Output: ["ad", "ae", "af", "ag", "bd", "be", "bf", "bg", "cd", "ce", "cf", "cg"]
 
 // # =============================================
 
+class Main {
+  public static void main (String[] args) {
+      
+      //Initialize variables
+      String[] firstArray = {"a", "b", "c"};
+      String[] secondArray = {"d", "e", "f", "g"};
+      String[] result = new String[firstArray.length * secondArray.length];
+      
+      //Loop through both arrays
+      int i = 0;
+      int j = 0;
+      int k = 0; // index for result array
+      
+      while (i < firstArray.length) {
+          j = 0; // REset j for each new i
+          while (j < secondArray.length) {
+              // Combine strings from both arrays
+              String combo = firstArray[i] + secondArray[j];
+              
+              // Add the comb to the result array
+              result[k] = combo; // This line replaces the .add() in ArrayList
+              k++; //Move to the next position in the result array
+              
+              // Move to the next string in the second array
+              j++; // same as j = j + 1
+          }
+          
+          // Move to the next string in the first array
+          i++; // same as i = i + 1;
+      }
+      System.out.print("Combinations are: ");
+      for (String s : result) {
+          System.out.print(s + " "); 
+      }
+  }
 
 // # -----------------------------------------------------------------
 

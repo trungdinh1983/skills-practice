@@ -16,6 +16,34 @@ Output: ["ad", "ae", "af", "ag", "bd", "be", "bf", "bg", "cd", "ce", "cf", "cg"]
 
  # =============================================
 
+# Initalize variables
+first_array = ["a", "b", "c"]
+second_array = ["d", "e", "f", "g"]
+result = []
+
+# Loop through both arrays
+i = 0
+j = 0
+
+while i < first_array.length
+    j = 0 # Reset j for each new i
+    while j < second_array.length
+        #Combine strings from both arrays
+        combo = first_array[i] + second_array[j]
+        
+        #Add the combo to the result array
+        result << combo # same as result.push(combo)
+        
+        #Move to the next string in the second array
+        j += 1 # can be written j = j + 1
+    end
+        
+        #Move to the next string in the first array
+        i += 1 # can be written i = i + 1
+    end
+    
+    #Print the result
+    puts "Combinations are: #{result}" # Result # ["ad", "ae", "af", "ag", "bd", "be", "bf", "bg", "cd", "ce", "cf", "cg"]
 
  # -----------------------------------------------------------------
 

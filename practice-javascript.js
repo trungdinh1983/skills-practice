@@ -17,6 +17,34 @@ Output: ["ad", "ae", "af", "ag", "bd", "be", "bf", "bg", "cd", "ce", "cf", "cg"]
 
 // # =============================================
 
+// Initialize variables
+const firstArray = ["a", "b", "c"]
+const secondArray = ["d", "e", "f", "g"]
+let result = [];
+
+//Loop through both arrays
+let i = 0;
+let j = 0;
+
+while (i < firstArray.length) {
+    j = 0; // Reset j for each new i
+    while (j < secondArray.length) {
+        // Combine strings from both arrays
+        const combo = firstArray[i] + secondArray[j];
+        
+        //Add the combo to the result array
+        result[result.length] = combo;
+        
+        //Move to the next string in the second array
+        j++; // same as j = j + 1
+    }
+    
+    // Move to the next string in the first array
+    i++; // same as i = i + 1;
+}
+
+//Print the result
+console.log("Combinations are:", result);
 
 // # -----------------------------------------------------------------
 
