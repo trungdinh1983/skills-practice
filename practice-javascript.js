@@ -1,4 +1,25 @@
 
+
+
+
+// # =============================================
+
+
+// # -----------------------------------------------------------------
+
+
+Two Pointers Array Mesh I
+
+Given two arrays of strings, return a new string that contains every combination of a string from the first array concatenated with a string from the second array.
+
+Input: ["a", "b", "c"], ["d", "e", "f", "g"]
+Output: ["ad", "ae", "af", "ag", "bd", "be", "bf", "bg", "cd", "ce", "cf", "cg"]
+
+// # =============================================
+
+
+// # -----------------------------------------------------------------
+
 Basic Numbers - Largest Palindrome Product
 
 A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
