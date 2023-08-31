@@ -1,7 +1,52 @@
 
+ # =============================================
+
+
+ # -----------------------------------------------------------------
+
+ Given ONE array of strings, return a new array that contains every combination of each string with every other string in the array.
+
+Input: ["a", "b", "c", "d"]
+Output: ["ab", "ac", "ad", "ba", "bc", "bd", "ca", "cb", "cd", "da", "db", "dc"]
 
 
  # =============================================
+
+
+
+
+# Input array of strings
+input_array = ["a", "b", "c", "d"]
+
+# Initialize variables
+result = []
+i = 0
+
+# Loop through the array
+while i < input_array.length
+    j = 0 # Reset j for each new i
+    while j < input_array.length
+        # Skip if it's the same index
+        if i != j
+            # Combine strings from the array
+            combo = input_array[i] + input_array[j]
+            
+            # Add the combo to the result array
+            result << combo
+            
+            # Move to the next string
+            j += 1
+        else
+            j += 1
+        end
+    end
+    
+    # Move to the next string
+    i += 1
+end
+
+# Print the result
+puts "Combinations are: #{result}"
 
 
  # -----------------------------------------------------------------
