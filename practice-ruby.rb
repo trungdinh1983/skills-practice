@@ -4,6 +4,51 @@
 
  # -----------------------------------------------------------------
 
+ Two Pointers - Largest Product 
+
+ Find the largest product of any two numbers within a given array.
+
+Input: [5, -2, 1, -9, -7, 2, 6]
+Output: 63 (-9 * -7)
+
+
+
+ # =============================================
+# Initialize variables
+input_array = [5, -2, 1, -9, -7, 2, 6]
+largest_product = input_array[0] * input_array[1] # Start with the product of the first two numbers
+
+# Loop through the array
+i = 0
+j = 0
+
+while i < input_array.length
+  j = i + 1 # Start j from the next element of i
+  while j < input_array.length
+    # Calculate the product of the two numbers
+    current_product = input_array[i] * input_array[j]
+    
+    # Check if this product is larger than the current largest_product
+    if current_product > largest_product
+      largest_product = current_product
+    end
+    
+    # Move to the next number in the second loop
+    j += 1 # can be written as: j = j + 1
+  end
+  
+  # Move to the next number in the first loop
+  i += 1 # can be written as: i = i + 1
+end
+
+# Print the largest product
+puts "The largest product is: #{largest_product}" # Output should be 63 (-9 * -7)
+
+NOTE: So, what this code does is it goes through each pair of numbers in the array and multiplies them. If the product is bigger than the current largest product, it updates the largest product. Finally, it prints out the largest product. Hope that helps!
+
+
+ # -----------------------------------------------------------------
+
  Given ONE array of strings, return a new array that contains every combination of each string with every other string in the array.
 
 Input: ["a", "b", "c", "d"]
