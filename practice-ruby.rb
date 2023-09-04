@@ -1,8 +1,109 @@
 
- # =============================================
+
+# Solution =============================================
 
 
- # -----------------------------------------------------------------
+ # Problem -----------------------------------------------------------------
+
+# Two Pointers - 100 Coolio Array
+
+ Use example structure below and using Ruby language solve  Given an array of numbers, return true if the array is a "100 Coolio Array", or false if it is not.
+
+A "100 Coolio Array" meets the following criteria:
+
+Its first and last numbers add up to 100,
+Its second and second-to-last numbers add up to 100,
+Its third and third-to-last numbers add up to 100,
+and so on and so forth.
+
+Here are examples of 100 Coolio Arrays:
+
+[1, 2, 3, 97, 98, 99]
+[90, 20, 70, 100, 30, 80, 10]
+
+
+
+
+# Solution =============================================
+
+# Initialize variables
+num_array = [1, 2, 3, 97, 98, 99]
+is_coolio = true # We'll assume it's a Coolio array until proven otherwise
+
+# Initialize loop variables
+i = 0
+j = num_array.length - 1 # Start at the last element
+
+# Loop through the array
+while i < j
+  # Check if the sum of the i-th and j-th elements is 100
+  if num_array[i] + num_array[j] != 100
+    is_coolio = false # Not a Coolio array
+    break # No need to check further
+  end
+  
+  # Move to the next pair of elements
+  i += 1
+  j -= 1
+end
+
+# Print the result
+if is_coolio
+  puts "Yep, it's a 100 Coolio Array!"
+else
+  puts "Nah, it's not a 100 Coolio Array."
+end
+
+
+
+ # Problem -----------------------------------------------------------------
+
+
+Two Pointers - Merge Sorted Arrays
+
+ Given two sorted arrays, merge the second array into the first array while ensuring that the first array remains sorted. Do not use any built-in sort methods.
+
+ Input :
+ A : [1, 5, 8]
+ B : [6, 9]
+ 
+ Modified A : [1, 5, 6, 8, 9]
+
+ # Solution =============================================
+
+ # Initialize variables
+first_array = [1, 5, 8]
+second_array = [6, 9]
+result = []
+
+# Pointers for first and second array
+i = 0
+j = 0
+
+# Loop through both arrays
+while i < first_array.length || j < second_array.length
+  # Check the elements in both arrays and merge
+  if i >= first_array.length
+    result << second_array[j]
+    j += 1
+  elsif j >= second_array.length
+    result << first_array[i]
+    i += 1
+  elsif first_array[i] < second_array[j]
+    result << first_array[i]
+    i += 1
+  else
+    result << second_array[j]
+    j += 1
+  end
+end
+
+# Print the result
+puts "Merged and sorted array is: #{result}"
+
+
+ # Problem -----------------------------------------------------------------
+
 
  Two Pointers - Two sums
 
