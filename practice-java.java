@@ -5,6 +5,70 @@
 // # =============================================
 
 
+
+
+
+
+// # =============================================
+
+
+
+# Solution =============================================
+
+
+ //# Problem -----------------------------------------------------------------
+
+# Two Pointers - 100 Coolio Array
+
+ Use example structure below and using Ruby language solve  Given an array of numbers, return true if the array is a "100 Coolio Array", or false if it is not.
+
+A "100 Coolio Array" meets the following criteria:
+
+Its first and last numbers add up to 100,
+Its second and second-to-last numbers add up to 100,
+Its third and third-to-last numbers add up to 100,
+and so on and so forth.
+
+Here are examples of 100 Coolio Arrays:
+
+[1, 2, 3, 97, 98, 99]
+[90, 20, 70, 100, 30, 80, 10]
+
+
+
+
+// Solution =============================================
+
+public class Main {
+  public static void main(String[] arg) {
+      //Intialize variables
+      int[] numArray = {1, 2, 3, 97, 98, 99};
+      boolean isCoolio = true; // We'll assume it's a Coolio array until prvoen otherwise
+      
+      //Initialize loop variables
+      int i = 0; //Start with first variable
+      int j = numArray.length - 1; //Start with last variable
+      
+      //Loop. through the array
+      while (i < j) {
+          // Check if the sum of i and j is less than 100 than Coolio Array is false
+          if (numArray[i] + numArray[j] != 100) {
+              isCoolio = false; // Not Coolio array
+              break; //No need to check further
+          }
+          // Move to the next pair of elements
+          i++; //i = i + 1
+          j--; //j = j - 1
+      }
+      // Print the result
+      if (isCoolio) {
+          System.out.println(" Yep, it's 100 coolio array");
+      } else {
+          System.out.println("Nah, its's not a 100 Coolio Array");
+  }
+}
+}
+
 // # -----------------------------------------------------------------
 
 
