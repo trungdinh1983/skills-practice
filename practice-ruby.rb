@@ -1,7 +1,73 @@
+# Solution =============================================
 
+
+ # Problem -----------------------------------------------------------------
 
 # Solution =============================================
 
+
+ # Problem -----------------------------------------------------------------
+
+Two Pointers - Longest Common Prefix
+
+ Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+Example 1:
+
+Input: ["flower","flow","flight"]
+Output: "fl"
+Example 2:
+
+Input: ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+Note:
+
+All given inputs are in lowercase letters a-z.
+
+# Solution =============================================
+
+def longest_common_prefix(strings)
+  # Initialize variables
+  return "" if strings.length == 0
+  
+  #Take the first string as a reference for the longest_common_prefix
+  prefix = strings[0]
+  i = 1
+  
+  # Loop through the other strings in the array
+  while i < strings.length
+      # REset j ofr each new string
+      j = 0
+      
+      # Loop through characters of prefix and each string
+      while j < prefix.length && j < strings[i].length
+          # If characters don't match, break
+          break if prefix[j] != strings[i][j]
+          
+          # Move to the next character in prefix and string
+          j += 1
+      end
+          
+          #update the prefix
+          prefix = prefix[0, j]
+          
+          # If prefix has no length, no point in continuing
+          return "" if prefix.length == 0
+          
+          # Move to the next string in the array
+          i += 1
+      end
+      
+      # Return the longest common prefix
+      return prefix
+  end
+  
+  # Test the function
+  puts longest_common_prefix(["flower", "flow", "flight"])
+  puts longest_common_prefix(["dog", "racecar", "car"])
 
  # Problem -----------------------------------------------------------------
 
