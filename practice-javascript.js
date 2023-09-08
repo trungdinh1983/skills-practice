@@ -1,16 +1,81 @@
-
 # Solution =============================================
 
 
  # Problem -----------------------------------------------------------------
 
-
-// # =============================================
-
-
-
 # Solution =============================================
 
+
+//  # Problem -----------------------------------------------------------------
+
+Two Pointers - Longest Common Prefix
+
+ Write a function to find the longest common prefix string amongst an array of strings.
+
+If there is no common prefix, return an empty string "".
+
+Example 1:
+
+Input: ["flower","flow","flight"]
+Output: "fl"
+Example 2:
+
+Input: ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+Note:
+
+All given inputs are in lowercase letters a-z.
+
+// # Solution =============================================
+
+function longestCommonPrefix(strings) {
+  // If there's nothing in the array, just return an empty string
+  if (strings.length === 0) return "";
+
+
+  // Start with the first string in the array as a reference
+  let refString = strings[0];
+
+  // An array to hold the prefix
+  let newPrefix = new Array(refString.length)
+  let newPrefixLength = refString.length;
+
+  for ( let i = 1; i < strings.length; i++) {
+    let j = 0;
+    let tempLength = 0;
+
+ 
+
+    // Loop through and compare each char
+    while (j < newPrefixLength && j < refString.length && j < strings[i].length) {
+      // If the letters don't match, time to break
+      if (refString[j] !== strings[i][j]) break;
+newPrefix[tempLength] = refString[j];
+      // Move on to the next letter
+      j++;
+      tempLength++;
+    }
+
+    // Uodate the prefix with only the matching part
+    newPrefixLength = tempLength;
+
+    // If prefix is empty, no common prefix
+    if (newPrefixLength === 0) return "";
+  }
+
+  //Convert the array to a string manually
+  let prefixStr = "";
+  for (let i = 0; i < newPrefixLength; i++) {
+    prefixStr += newPrefix[i];
+  }
+
+  return prefixStr;
+}
+
+// Test the code
+console.log(longestCommonPrefix(["flower", "flow", "flight"])); //should be fl
+console.log(longestCommonPrefix(["dog", "racecar", "car"])); // Should be ""
 
  //# Problem -----------------------------------------------------------------
 
