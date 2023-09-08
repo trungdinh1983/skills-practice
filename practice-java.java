@@ -1,23 +1,82 @@
-# Solution =============================================
-
-
-//  # Problem -----------------------------------------------------------------
+ //# Problem -----------------------------------------------------------------
 
 
 
-// # =============================================
+// # Solution =============================================
 
 
 
 
 
 
-// # =============================================
+ //# Problem -----------------------------------------------------------------
 
+ Two Pointers - Longest Common Prefix
 
+ Write a function to find the longest common prefix string amongst an array of strings.
 
-# Solution =============================================
+If there is no common prefix, return an empty string "".
 
+Example 1:
+
+Input: ["flower","flow","flight"]
+Output: "fl"
+Example 2:
+
+Input: ["dog","racecar","car"]
+Output: ""
+Explanation: There is no common prefix among the input strings.
+Note:
+
+All given inputs are in lowercase letters a-z.
+
+// # Solution =============================================
+
+public class Main {
+  public static void main(String[] args) {
+      System.out.println(longestCommonPrefix(new String[]{"flower", "flow", "flight"})); // Should be "fl"
+      System.out.println(longestCommonPrefix(new String[]{"dog", "racecar", "car"})); //Should be ""
+  }
+  
+  public static String longestCommonPrefix(String[] strings) {
+      // If there's nothing in the array, just return an empty string
+      if (strings.length == 0) return "";
+      
+      // Start with the first string in the array as a reference
+      String refString = strings[0];
+      
+      // An array to hold the prefix
+      char[] newPrefix = new char[refString.length()];
+      //Initialize newPrefixLength with refString.length()
+      int newPrefixLength = refString.length();
+      
+      for (int i = 1; i < strings.length; i++) {
+          int j = 0;
+          int tempLength = 0;
+          
+          // Loop through and compare each char
+          while (j < newPrefixLength && j < refString.length() && j < strings[i].length()) {
+              //If the letters don't match, time to break
+              if (refString.charAt(j) != strings[i].charAt(j)) break;
+              newPrefix[tempLength] = refString.charAt(j);
+              
+              // Move on. to the next letter
+              j++;
+              // Increment tempLength
+              tempLength++;
+          }
+          
+          //update the prefic with only the matching part
+          newPrefixLength = tempLength;
+          
+          // If prefix is empty, no common prefix
+          if (newPrefixLength == 0) return "";
+      }
+      
+      // Convert the array to a string manually
+      return new String(newPrefix, 0, newPrefixLength);
+  }
+}
 
  //# Problem -----------------------------------------------------------------
 
