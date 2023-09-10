@@ -13,9 +13,40 @@ Output: “p”
 
 
 
-
-
 // # Solution =============================================
+
+// Input String
+const inputStr = "peter piper picked a peck of pickled peppers"
+
+// Initialize variables
+const charCount = {};
+let mostCommonChar = null;
+let maxCount = 0;
+
+// Initialize loop counter
+let i = 0; // initalize i
+
+// Loop through the characters in the input string using a while loop
+while (i < inputStr.length) {
+    const char = inputStr[i]; // Get the current character at position i
+    if (char === ' ') {
+        i++; // Move to the next character
+        continue; // skip empty space
+    }
+    const charLowerCase = char.toLowerCase(); // Convert the character to lowercase
+    
+    // Assign the current value if it exist if not assign 0
+    charCount[charLowerCase] = charCount[charLowerCase] || 0;
+    charCount[charLowerCase]++;
+    
+    // Check if this character has the highest count currently
+    if (charCount[charLowerCase] > maxCount) { maxCount = charCount[charLowerCase];
+        mostCommonChar = charLowerCase;
+}
+i++; // move to the next character
+}
+// Print the most common letter
+console.log(`Most common character is: '${mostCommonChar}'`);
 
 
 //  # Problem -----------------------------------------------------------------

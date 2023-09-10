@@ -19,6 +19,32 @@ Output: “p”
  
 # Solution =============================================
 
+# Input String
+input_str = "peter piper picked a peck of pickled peppers"
+
+# Initialize variables
+char_count = {}
+most_common_char = nil
+max_count = 0
+
+# Loop through the characters in the input string using each_char
+input_str.each_char do |char|
+  next if char == ' '  # Skip empty space
+
+  # Assign the current value if it exists, if not assign 0
+  char_count[char] ||= 0
+  char_count[char] += 1
+
+  # Check if this character has the highest count currently
+  if char_count[char] > max_count
+    max_count = char_count[char]
+    most_common_char = char
+  end
+end
+
+# Print the most common letter
+puts "Most common character is: '#{most_common_char}'"
+
 
  # Problem -----------------------------------------------------------------
 
