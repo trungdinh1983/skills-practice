@@ -1,10 +1,14 @@
 //  # Problem -----------------------------------------------------------------
 
 
+
 // # Solution =============================================
 
 
+
 //  # Problem -----------------------------------------------------------------
+
+Basic Hash: Most Common Letter
 
 Given a string, find the most commonly occurring letter.
 

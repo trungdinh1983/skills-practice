@@ -1,3 +1,12 @@
+    //# Problem -----------------------------------------------------------------
+
+ 
+  
+  
+  // # Solution =============================================
+
+
+  
   //# Problem -----------------------------------------------------------------
 
  
@@ -8,6 +17,8 @@
  
  //# Problem -----------------------------------------------------------------
 
+Basic Hash: Most Common Letter
+
  Given a string, find the most commonly occurring letter.
 
 Input: “peter piper picked a peck of pickled peppers”
@@ -17,9 +28,41 @@ Output: “p”
 
 // # Solution =============================================
 
-
-
-
+public class Main {
+    public static void main(String[] args) {
+        // Input String
+        String inputStr = "peter piper picked a peck of pickled peppers";
+        
+        // Initiatize variables
+        char[] characters = new char[256]; // Store unique characters(Not Use)
+        int[] counts = new int[256]; // Store counts of characters
+        char mostCommonChar = ' ';
+        int maxCount = 0;
+        
+        // Loop through the characters in the input string
+        for (int i = 0; i < inputStr.length(); i++) {
+            char currentChar = inputStr.charAt(i); // Get the current chracter at position i
+            
+            if (currentChar == ' ') {
+                continue; // Skip empty space
+            }
+            
+            char lowerChar = Character.toLowerCase(currentChar); // Convert the character to lowercase
+            
+            // Increase the count for this character
+            counts[lowerChar]++;
+            
+            //Check if this character has the highest count currently
+            if (counts[lowerChar] > maxCount) {
+                maxCount = counts[lowerChar];
+                mostCommonChar = lowerChar;
+            }
+        }
+        
+        // Print the most common letter
+        System.out.println("Most common character is: '" + mostCommonChar + "'");
+    }
+}
 
 
  //# Problem -----------------------------------------------------------------
