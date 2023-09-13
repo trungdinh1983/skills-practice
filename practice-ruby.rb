@@ -3,9 +3,41 @@
 
  # Problem -----------------------------------------------------------------
 
+ Basic Hash: Count Words
+
+Given an array of strings, return a hash that provides of a count of how many times each string occurs.
+
+Input: ["Dewey", "Truman", "Dewey", "Dewey", "Truman", "Truman", "Dewey", "Truman", "Truman", "Dewey", "Dewey"]
+
+Output: {"Dewey" => 6, "Truman" => 5}
+
+Explanation: "Dewey" occurs 6 times in the array, while "Truman" occurs 5 times.
+
 # Solution =============================================
 
+# Initialize variables
+words_array = ["Dewey", "Truman", "Dewey", "Dewey", "Truman", "Truman", "Dewey", "Truman", "Truman", "Dewey", "Dewey"]
+word_count = {}
 
+# Loop through the array
+i = 0
+while i < words_array.length
+    word = words_array[i]
+    
+    # Check if the word is already in the hash
+    if word_count [word]
+        word_count[word] += 1 # Increment the count
+    else
+        word_count[word] = 1 # Initialize the count
+    end
+    
+    # Move to the next word in the array
+    i += 1 # Same as i = i + 1
+end
+
+# Print the result
+
+puts "Word counts are: #{word_count}"  # Output: {"Dewey" => 6, "Truman" => 5}
 
  # Problem -----------------------------------------------------------------
 
