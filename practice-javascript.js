@@ -14,7 +14,24 @@ Explanation: "Dewey" occurs 6 times in the array, while "Truman" occurs 5 times.
 
 // # Solution =============================================
 
+// Initalize variables
+let wordsArray = ["Dewey", "Truman", "Dewey", "Dewey", "Truman", "Truman", "Dewey", "Truman", "Truman", "Dewey", "Dewey"];
+let wordCount = {};
 
+// Loop through the Array
+for (let i = 0; i < wordsArray.length; i++) {
+  let word = wordsArray[i];
+  
+  // Check if the word is already in the Object
+  if (wordCount[word]) {
+    wordCount[word] += 1; //Increment the count
+  } else {
+    wordCount[word] = 1; // Initialize the count]
+}
+}
+
+// Print the result
+console.log("Words counts are:", wordCount); // Words counts are: { Dewey: 6, Truman: 5 }
 
 
 //  # Problem -----------------------------------------------------------------

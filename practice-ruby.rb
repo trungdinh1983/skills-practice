@@ -3,6 +3,12 @@
 
  # Problem -----------------------------------------------------------------
 
+
+# Solution =============================================
+
+
+ # Problem -----------------------------------------------------------------
+
  Basic Hash: Count Words
 
 Given an array of strings, return a hash that provides of a count of how many times each string occurs.
