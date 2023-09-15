@@ -16,6 +16,30 @@ Explanation:"Dewey"occurs 6 times in the array,while"Truman"occurs 5 times.
 
 // # Solution =============================================
 
+import java.util.HashMap;
+
+public class Main {
+    public static void main(String[] args) {
+        String[] wordsArray = {"Dewey", "Truman", "Dewey", "Dewey", "Truman", "Truman", "Dewey", "Truman", "Truman", "Dewey", "Dewey"};
+        HashMap<String, Integer> wordCount = new HashMap<>();
+        
+        // Loop through the Array
+        for (String word : wordsArray) {
+            int count = 0;
+            // Check if the word is already in the HashMap
+          if (wordCount.containsKey(word)) {
+                count = wordCount.remove(word);
+            }
+                wordCount.put(word, count + 1); // Initialize the count
+     
+        }
+        
+        // Print the result
+        System.out.println("Words counts are: " + wordCount);
+    }
+}
+
+
 //# Problem -----------------------------------------------------------------
 
 Basic Hash:Most Common Letter
