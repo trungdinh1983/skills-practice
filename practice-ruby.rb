@@ -4,7 +4,48 @@
  # Problem -----------------------------------------------------------------
 
 
+
 # Solution =============================================
+
+
+ # Problem -----------------------------------------------------------------
+
+ Given a hash, where the keys are strings representing food items, and the values are numbers representing the price of each food, return the amount someone would pay if they'd order one of each food from the entire menu.
+
+ Input: {"hot dog" => 2, "hamburger" => 3, "steak sandwich" => 5, "fries" => 1, "cole slaw" => 1, "soda" => 2}
+ 
+ Output: 14
+ 
+ Explanation: If someone would order one of everything on the menu, they'd pay a total of 14 (the sum of all the hash's values).
+ 
+ 
+
+#Solution =============================================
+
+# Initialize variables
+menu = {"hot dog" => 2, "hamburger" => 3, "steak sandwich" => 5, "fries" => 1, "cole slaw" => 1, "soda" => 2}
+total_price = 0
+
+# We need keys from the hash to loop through it
+menu_keys = menu.keys
+
+# Loop through the hash using while loop
+i = 0
+
+while i < menu_keys.length
+    # Get the food item
+    food_item = menu_keys[i]
+    
+    # Add its price to total_price
+    total_price += menu[food_item]  # total_price = total_price + menu[food_item]
+    
+    # Move to the next food item in the hash
+    i += 1  # same as i = i + 1
+end
+
+# Print the total_price
+puts "Total price of one of everything: #{total_price}"  # Output should be 14
+
 
 
 
@@ -46,6 +87,7 @@ end
 
 puts "Word counts are: #{word_count}"  # Output: {"Dewey" => 6, "Truman" => 5}
 
+
  # Problem -----------------------------------------------------------------
 
  Basic Hash: Most Common Letter
@@ -54,8 +96,6 @@ puts "Word counts are: #{word_count}"  # Output: {"Dewey" => 6, "Truman" => 5}
 
 Input: “peter piper picked a peck of pickled peppers”
 Output: “p”
-
-
 
 
  
