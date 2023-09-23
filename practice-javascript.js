@@ -21,6 +21,43 @@
 
 // # Solution =============================================
 
+// Initialize variables
+const menu = {
+  "hot dog": 2,
+  "hamburger": 3,
+  "steak sandwich": 5,
+  "fries": 1,
+  "cole slaw": 1,
+  "soda": 2
+};
+let total_price = 0;
+
+// Get the first food item in the menu
+let food_item = "";
+for (food_item in menu) {
+  break; // Exit the loop after getting the first food item
+}
+
+// Loop through the menu using a while loop
+while (food_item !== undefined) {
+  // Add the price of the food item to total_price
+  total_price += menu[food_item];
+  
+  // Get the next food item
+  let found = false;
+  for (const key in menu) {
+    if (found) {
+      food_item = key;
+      break;
+    }
+    if (key === food_item) {
+      found = true;
+    }
+  }
+}
+
+// Print the total_price
+console.log(`Total price of one of everything: ${total_price}`); // Output should be 14
 
 
 
