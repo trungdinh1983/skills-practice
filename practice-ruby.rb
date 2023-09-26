@@ -3,9 +3,51 @@
 
  # Problem -----------------------------------------------------------------
 
+ Basic Hash: Popular Post
+
+ Description
+Given an array of hashes that represent a list of social media posts, return a new array that only contains the posts that have at least 1000 likes.
+
+Input: [
+{title: 'Me Eating Pizza', submitted_by: "Joelle P.", likes: 1549},
+{title: 'i never knew how cool i was until now', submitted_by: "Lyndon Johnson", likes: 3},
+{title: 'best selfie evar!!!', submitted_by: "Patti Q.", likes: 1092},
+{title: 'Mondays are the worst', submitted_by: "Aunty Em", likes: 644}
+]
+
+Output: [
+{title: 'Me Eating Pizza', submitted_by: "Joelle P.", likes: 1549},
+{title: 'best selfie evar!!!', submitted_by: "Patti Q.", likes: 1092},
+]
+
+
+
 
 
 # Solution =============================================
+
+# Given input
+posts = [
+  { title: 'Me Eating Pizza', submitted_by: "Joelle P.", likes: 1549 },
+  { title: 'i never knew how cool i was until now', submitted_by: "Lyndon Johnson", likes: 3 },
+  { title: 'best selfie evar!!!', submitted_by: "Patti Q.", likes: 1092 },
+  { title: 'Mondays are the worst', submitted_by: "Aunty Em", likes: 644 }
+]
+
+# Initialize an empty array to store posts with at least 1000 likes
+popular_posts = []
+
+# Iterate through each post in the input array
+posts.each do |post|
+  # Check if the post has at least 1000 likes
+  if post[:likes] >= 1000
+    # If yes, add it to the popular_posts array
+    popular_posts << post
+  end
+end
+
+# Output the filtered array of popular posts
+puts popular_posts
 
 
  # Problem -----------------------------------------------------------------
