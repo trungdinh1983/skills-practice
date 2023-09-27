@@ -20,6 +20,28 @@ Output: [
 
 //# Solution =============================================
 
+const posts = [
+  { title: 'Me Eating Pizza', submitted_by: "Joelle P.", likes: 1549 },
+  { title: 'i never knew how cool i was until now', submitted_by: "Lyndon Johnson", likes: 3 },
+  { title: 'best selfie evar!!!', submitted_by: "Patti Q.", likes: 1092 },
+  { title: 'Mondays are the worst', submitted_by: "Aunty Em", likes: 644 }
+];
+
+// Initialize an empty array to store popular posts
+const popularPosts = [];
+
+// Iterate through each post in the input array
+for (const post of posts) {
+  // Check if the post has at least 1000 likes
+  if (post.likes >= 1000) {
+    // If yes, add it to the popularPosts array
+    popularPosts.push(post);
+  }
+}
+
+// Output the filtered array of popular posts
+console.log(popularPosts);
+
 
 //  # Problem -----------------------------------------------------------------
 
