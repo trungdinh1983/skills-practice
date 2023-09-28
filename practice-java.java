@@ -20,6 +20,47 @@ Output: [
 
 // # Solution =============================================
 
+public class Post {
+  String title;
+  String submittedBy;
+  int likes;
+
+  public Post(String title, String submittedBy, int likes) {
+      this.title = title;
+      this.submittedBy = submittedBy;
+      this.likes = likes;
+  }
+
+  public static void main(String[] args) {
+      Post[] posts = new Post[4];
+      posts[0] = new Post("Me Eating Pizza", "Joelle P.", 1549);
+      posts[1] = new Post("i never knew how cool i was until now", "Lyndon Johnson", 3);
+      posts[2] = new Post("best selfie evar!!!", "Patti Q.", 1092);
+      posts[3] = new Post("Mondays are the worst", "Aunty Em", 644);
+
+      // Initialize variables to count popular posts and store them
+      int popularCount = 0;
+      Post[] popularPosts = new Post[posts.length];
+
+      // Iterate through each post in the input array
+      for (Post post : posts) {
+          // Check if the post has at least 1000 likes
+          if (post.likes >= 1000) {
+              // If yes, add it to the popularPosts array
+              popularPosts[popularCount] = post;
+              popularCount++;
+          }
+      }
+
+      // Output the filtered list of popular posts
+      for (int i = 0; i < popularCount; i++) {
+          System.out.println("Title: " + popularPosts[i].title);
+          System.out.println("Submitted by: " + popularPosts[i].submittedBy);
+          System.out.println("Likes: " + popularPosts[i].likes);
+          System.out.println(); // Add a newline for separation
+      }
+  }
+}
 
 
 //# Problem -----------------------------------------------------------------
