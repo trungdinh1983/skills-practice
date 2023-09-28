@@ -1,4 +1,63 @@
+ # Problem -----------------------------------------------------------------
+
+
+
 # Solution =============================================
+
+
+
+ # Problem -----------------------------------------------------------------
+
+ Basic Hash: RNA Transcription
+
+ Given a DNA strand, return its RNA complement (per RNA transcription).
+
+Both DNA and RNA strands are a sequence of nucleotides. Here we're representing the sequences with single-letter characters (e.g. a sample strand may look like: "AGCA".)
+
+Given a string representing a DNA strand, provide its transcribed RNA strand, according to the following pattern:
+
+G becomes C
+C becomes G
+T becomes A
+A becomes U
+
+So based on all this, here's a sample input/output:
+
+Input: 'ACGTGGTCTTAA'
+Output: 'UGCACCAGAAUU'
+
+
+# Solution =============================================
+
+# Initialize variables
+dna_strand = 'ACGTGGTCTTAA'
+rna_strand = ''
+i = 0
+
+# Loop through the DNA strand
+while i < dna_strand.length
+  nucleotide = dna_strand[i]
+  
+  # Transcribe the current nucleotide and add it to the RNA strand
+  if nucleotide == 'G'
+    rna_strand += 'C'
+  elsif nucleotide == 'C'
+    rna_strand += 'G'
+  elsif nucleotide == 'T'
+    rna_strand += 'A'
+  elsif nucleotide == 'A'
+    rna_strand += 'U'
+  else
+    # Handle invalid input (if any)
+    puts "Invalid nucleotide found: #{nucleotide}"
+  end
+  
+  # Move to the next nucleotide in the DNA strand
+  i += 1
+end
+
+# Print the transcribed RNA strand
+puts "Transcribed RNA strand: #{rna_strand}"
 
 
  # Problem -----------------------------------------------------------------
