@@ -29,6 +29,35 @@ Output: 'UGCACCAGAAUU'
 
 // # Solution =============================================
 
+// Initialize variables
+const dnaStrand = 'ACGTGGTCTTAA';
+let rnaStrand = '';
+let i = 0;
+
+// Loop through the DNA strand
+while (i < dnaStrand.length) {
+  const nucleotide = dnaStrand.charAt(i);
+
+  // Transcribe the current nucleotide and add it to the RNA strand
+  if (nucleotide === 'G') {
+    rnaStrand += 'C';
+  } else if (nucleotide === 'C') {
+    rnaStrand += 'G';
+  } else if (nucleotide === 'T') {
+    rnaStrand += 'A';
+  } else if (nucleotide === 'A') {
+    rnaStrand += 'U';
+  } else {
+    // Handle invalid input (if any)
+    console.log(`Invalid nucleotide found: ${nucleotide}`);
+  }
+
+  // Move to the next nucleotide in the DNA strand
+  i++;
+}
+
+// Print the transcribed RNA strand
+console.log(`Transcribed RNA strand: ${rnaStrand}`);
 
 
 
