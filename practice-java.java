@@ -29,6 +29,39 @@ Output: 'UGCACCAGAAUU'
 
 // # Solution =============================================
 
+public class DNAToRNA {
+  public static void main(String[] args) {
+      // Initialize variables
+      String dnaStrand = "ACGTGGTCTTAA";
+      StringBuilder rnaStrand = new StringBuilder();
+      int i = 0;
+
+      // Loop through the DNA strand
+      while (i < dnaStrand.length()) {
+          char nucleotide = dnaStrand.charAt(i);
+
+          // Transcribe the current nucleotide and add it to the RNA strand
+          if (nucleotide == 'G') {
+              rnaStrand.append('C');
+          } else if (nucleotide == 'C') {
+              rnaStrand.append('G');
+          } else if (nucleotide == 'T') {
+              rnaStrand.append('A');
+          } else if (nucleotide == 'A') {
+              rnaStrand.append('U');
+          } else {
+              // Handle invalid input (if any)
+              System.out.println("Invalid nucleotide found: " + nucleotide);
+          }
+
+          // Move to the next nucleotide in the DNA strand
+          i++;
+      }
+
+      // Print the transcribed RNA strand
+      System.out.println("Transcribed RNA strand: " + rnaStrand.toString());
+  }
+}
 
 
 
