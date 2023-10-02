@@ -6,7 +6,7 @@
  
  
  # Problem -----------------------------------------------------------------
-
+Basic Hash: Complete Data
 
  Given an array of social media posts and a hash of users, return a list of posts (as an array of hashes) that replaces the submitted_by id number as the person's actual name.
 
@@ -37,6 +37,36 @@ Return the array of posts as follows:
 
 # Solution =============================================
 
+# Initialize variables
+posts = [
+  {title: 'Me Eating Pizza', submitted_by: 231, likes: 1549},
+  {title: 'i never knew how cool i was until now', submitted_by: 989, likes: 3},
+  {title: 'best selfie evar!!!', submitted_by: 111, likes: 1092},
+  {title: 'Mondays are the worst', submitted_by: 403, likes: 644}
+]
+
+users = {403 => "Aunty Em", 231 => "Joelle P.", 989 => "Lyndon Johnson", 111 => "Patti Q."}
+updated_posts = []
+
+# Loop through the posts array
+i = 0
+while i < posts.length
+    # Create a new post hash and update the submitted_by field with the name
+    post = posts[i]
+    user_name = users[post[:submitted_by]]
+    
+    # Replace the ID with the actual name
+    post[:submitted_by] = user_name
+    
+    # Add the updated post to the updated_posts array
+    updated_posts << post
+    
+    # Move to the next post in the posts array
+    i += 1
+end
+
+# Print the updated posts
+puts "Updated posts are: #{updated_posts}"
 
 
  # Problem -----------------------------------------------------------------
