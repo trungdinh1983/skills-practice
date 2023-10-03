@@ -36,6 +36,61 @@ Return the array of posts as follows:
 
 // # Solution =============================================
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        // Create the list of posts
+        List<HashMap<String, Object>> posts = new ArrayList<>();
+        
+        HashMap<String, Object> post1 = new HashMap<>();
+        post1.put("title", "Me Eating Pizza");
+        post1.put("submitted_by", 231);
+        post1.put("likes", 1549);
+        posts.add(post1);
+
+        HashMap<String, Object> post2 = new HashMap<>();
+        post2.put("title", "i never knew how cool i was until now");
+        post2.put("submitted_by", 989);
+        post2.put("likes", 3);
+        posts.add(post2);
+
+        HashMap<String, Object> post3 = new HashMap<>();
+        post3.put("title", "best selfie evar!!!");
+        post3.put("submitted_by", 111);
+        post3.put("likes", 1092);
+        posts.add(post3);
+
+        HashMap<String, Object> post4 = new HashMap<>();
+        post4.put("title", "Mondays are the worst");
+        post4.put("submitted_by", 403);
+        post4.put("likes", 644);
+        posts.add(post4);
+
+        // Create the hash of users
+        HashMap<Integer, String> users = new HashMap<>();
+        users.put(403, "Aunty Em");
+        users.put(231, "Joelle P.");
+        users.put(989, "Lyndon Johnson");
+        users.put(111, "Patti Q.");
+
+        // Replace submitted_by id with actual name using while loop
+        int i = 0;
+        while (i < posts.size()) {
+            HashMap<String, Object> post = posts.get(i);
+            int id = (int) post.get("submitted_by");
+            if (users.containsKey(id)) {
+                post.put("submitted_by", users.get(id));
+            }
+            i++;
+        }
+
+        // Print the updated posts
+        System.out.println(posts);
+    }
+}
 
 
  // # Problem -----------------------------------------------------------------
