@@ -7,6 +7,26 @@
 
 // # Problem -----------------------------------------------------------------
 
+
+Basic Hash: Anagrams
+
+Given two strings, return true if they are anagrams of each other, and false if they are not. An anagram is a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
+
+Do not use any built-in sort methods.
+
+Input: “silent”, “listen”
+Output: true
+
+Input: “frog”, “bear”
+Output: false
+
+
+// # Solution =============================================
+
+
+
+// # Problem -----------------------------------------------------------------
+
 Basic Hash: Complete Data
 
 Given an array of social media posts and a hash of users, return a list of posts (as an array of hashes) that replaces the submitted_by id number as the person's actual name.

@@ -1,9 +1,71 @@
+
   # Problem -----------------------------------------------------------------
 
 
 
 # Solution =============================================
+
+
+
+# Problem -----------------------------------------------------------------
+
+Basic Hash: Anagrams
+
+Given two strings, return true if they are anagrams of each other, and false if they are not. An anagram is a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
+
+Do not use any built-in sort methods.
+
+Input: “silent”, “listen”
+Output: true
+
+Input: “frog”, “bear”
+Output: false
+
+
+
+
+# Solution =============================================
  
+# Initialize variables
+first_string = "silent"
+second_string = "listen"
+result = true
+
+# Check if the lengths are the same, if not, they can't be anagrams
+if first_string.length != second_string.length
+  result = false
+else
+  # Loop through each character in the first string
+  i = 0
+  while i < first_string.length
+    char = first_string[i]
+    found = false
+
+    # Loop through each character in the second string
+    j = 0
+    while j < second_string.length
+      if char == second_string[j]
+        # Remove the found character from the second string
+        second_string = second_string[0, j] + second_string[j + 1, second_string.length]
+        found = true
+        break
+      end
+      j += 1
+    end
+
+    # If a character in the first string is not found in the second string, they are not anagrams
+    if !found
+      result = false
+      break
+    end
+
+    i += 1
+  end
+end
+
+# Print the result
+puts "Are they anagrams? #{result}"  # Output should be true or false
+
  
  # Problem -----------------------------------------------------------------
 Basic Hash: Complete Data
