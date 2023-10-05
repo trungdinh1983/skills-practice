@@ -21,6 +21,40 @@ Output: false
 
 // # Solution =============================================
 
+// Initialize variables
+let firstString = "silent";
+let secondString = "listen";
+let result = true;
+
+// Check if the lengths are the same, if not, they can't be anagrams
+if (firstString.length !== secondString.length) {
+  result = false;
+} else {
+  // Loop through each character in the first string
+  for (let i = 0; i < firstString.length; i++) {
+    let char = firstString[i];
+    let found = false;
+
+    // Loop through each character in the second string
+    for (let j = 0; j < secondString.length; j++) {
+      if (char === secondString[j]) {
+        // Remove the found character from the second string
+        secondString = secondString.substring(0, j) + secondString.substring(j + 1);
+        found = true;
+        break;
+      }
+    }
+
+    // If a character in the first string is not found in the second string, they are not anagrams
+    if (!found) {
+      result = false;
+      break;
+    }
+  }
+}
+
+// Print the result
+console.log(`Are they anagrams? ${result}`);  // Output should be true or false
 
 
 // # Problem -----------------------------------------------------------------
