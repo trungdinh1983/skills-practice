@@ -6,6 +6,46 @@
 # Solution =============================================
 
 
+  # Problem -----------------------------------------------------------------
+
+  Data Transformation: Flatten Hash
+
+  Given a hash, return a flat array containing all the hash’s keys and values.
+  
+  Input: {“a” => 1, “b” => 2, “c” => 3, “d” => 4}
+  Output: [“a”, 1, “b”, 2, “c”, 3, “d”, 4]
+  
+
+# Solution =============================================
+
+# Initialize variables
+input_hash = {"a" => 1, "b" => 2, "c" => 3, "d" => 4}
+output_array = []
+
+# Get keys and values arrays from the hash
+keys_array = input_hash.keys
+values_array = input_hash.values
+
+# Initialize loop variables
+i = 0
+
+# Loop through the hash
+while i < keys_array.length
+  # Add the key to the output array
+  output_array << keys_array[i]
+  
+  # Add the value to the output array
+  output_array << values_array[i]
+  
+  # Move to the next key-value pair in the hash
+  i += 1
+end
+
+# Print the result
+puts "Flattened array is: #{output_array}"
+
+#Flattened array is: ["a", 1, "b", 2, "c", 3, "d", 4]
+
 
 # Problem -----------------------------------------------------------------
 
