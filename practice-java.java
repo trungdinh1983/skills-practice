@@ -17,6 +17,34 @@ Output: [“a”, 1, “b”, 2, “c”, 3, “d”, 4]
 
 // # Solution =============================================
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Main {
+    public static void main(String[] args) {
+        // Initialize HashMap
+        HashMap<String, Integer> inputMap = new HashMap<>();
+        inputMap.put("a", 1);
+        inputMap.put("b", 2);
+        inputMap.put("c", 3);
+        inputMap.put("d", 4);
+
+        // Initialize ArrayList for the output
+        ArrayList<Object> outputList = new ArrayList<>();
+
+        // Loop through the HashMap
+        for (String key : inputMap.keySet()) {
+            // Add the key to the output ArrayList
+            outputList.add(key);
+
+            // Add the value to the output ArrayList
+            outputList.add(inputMap.get(key));
+        }
+
+        // Print the result
+        System.out.println("Flattened ArrayList is: " + outputList);
+    }
+}
 
 
 // # Problem -----------------------------------------------------------------
