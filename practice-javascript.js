@@ -18,6 +18,32 @@ Output: [“a”, 1, “b”, 2, “c”, 3, “d”, 4]
 
 // # Solution =============================================
 
+// Initialize variables
+const inputObj = {"a": 1, "b": 2, "c": 3, "d": 4};
+let outputArray = [];
+
+// Get keys and values arrays from the object
+const keysArray = Object.keys(inputObj);
+const valuesArray = Object.values(inputObj);
+
+// Initialize loop variable
+let i = 0;
+
+// Loop through the object
+while (i < keysArray.length) {
+  // Add the key to the output array
+  outputArray.push(keysArray[i]);
+  
+  // Add the value to the output array
+  outputArray.push(valuesArray[i]);
+  
+  // Move to the next key-value pair in the object
+  i++;
+}
+
+// Print the result
+console.log("Flattened array is:", outputArray);
+
 
 // # Problem -----------------------------------------------------------------
 
