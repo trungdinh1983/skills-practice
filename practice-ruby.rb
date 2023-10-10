@@ -1,9 +1,50 @@
 
-  # Problem -----------------------------------------------------------------
+    # Problem -----------------------------------------------------------------
 
 
 
 # Solution =============================================
+
+
+  
+  # Problem -----------------------------------------------------------------
+
+  Data Transformation: Flip Hash
+
+  Given a hash, create a new hash that has the keys and values switched.
+
+Input: {"a" => 1, "b" => 2, "c" => 3}
+Output: {1 => "a", 2 => "b", 3 => "c"}
+
+
+
+
+# Solution =============================================
+
+# Initialize variables
+original_hash = {"a" => 1, "b" => 2, "c" => 3}
+keys = original_hash.keys
+values = original_hash.values
+new_hash = {}
+
+# Initialize loop variables
+i = 0
+
+# Loop through the original hash
+while i < keys.length
+  # Switch keys and values
+  new_key = values[i]
+  new_value = keys[i]
+  
+  # Add the switched key-value pair to the new hash
+  new_hash[new_key] = new_value
+  
+  # Move to the next key-value pair in the original hash
+  i += 1 # same as i = i + 1
+end
+
+# Print the new hash
+puts "The new hash is: #{new_hash}" # Output: {1 => "a", 2 => "b", 3 => "c"}
 
 
   # Problem -----------------------------------------------------------------
