@@ -19,6 +19,24 @@ Output: {1 => "a", 2 => "b", 3 => "c"}
 
 // # Solution =============================================
 
+// Initialize variables
+const originalHash = { "a": 1, "b": 2, "c": 3 };
+const keys = Object.keys(originalHash);
+const values = Object.values(originalHash);
+let newHash = {};
+
+// Loop through the original hash
+for (let i = 0; i < keys.length; i++) {
+  // Switch keys and values
+  const newKey = values[i];
+  const newValue = keys[i];
+  
+  // Add the switched key-value pair to the new hash
+  newHash[newKey] = newValue;
+}
+
+// Print the new hash
+console.log("The new hash is:", newHash); // Output: { '1': 'a', '2': 'b', '3': 'c' }
 
 
 
