@@ -20,6 +20,32 @@ Output: {1 => "a", 2 => "b", 3 => "c"}
 
 // # Solution =============================================
 
+import java.util.HashMap;
+
+public class Main {
+    public static void main(String[] args) {
+        // Initialize variables
+        HashMap<String, Integer> originalHash = new HashMap<>();
+        originalHash.put("a", 1);
+        originalHash.put("b", 2);
+        originalHash.put("c", 3);
+
+        HashMap<Integer, String> newHash = new HashMap<>();
+
+        // Loop through the original hash
+        for (var entry : originalHash.entrySet()) {
+            // Switch keys and values
+            Integer newKey = entry.getValue();
+            String newValue = entry.getKey();
+
+            // Add the switched key-value pair to the new hash
+            newHash.put(newKey, newValue);
+        }
+
+        // Print the new hash
+        System.out.println("The new hash is: " + newHash);  // Output: {1=a, 2=b, 3=c}
+    }
+}
 
 
 // # Problem -----------------------------------------------------------------
