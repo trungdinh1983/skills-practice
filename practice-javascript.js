@@ -85,6 +85,36 @@ Data transformation: ETL #2
 
 // # Solution =============================================
 
+// Initialize variables
+const inputHash = {
+  1: ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
+  2: ["D", "G"],
+  3: ["B", "C", "M", "P"],
+  4: ["F", "H", "V", "W", "Y"],
+  5: ["K"],
+  8: ["J", "X"],
+  10: ["Q", "Z"]
+};
+
+const outputHash = {};
+
+// Loop through the input hash
+const keys = Object.keys(inputHash);
+for (let i = 0; i < keys.length; i++) {
+  const key = keys[i];
+  const valueArray = inputHash[key];
+
+  for (let j = 0; j < valueArray.length; j++) {
+    // Convert each letter to lowercase and add to output hash
+    const letter = valueArray[j].toLowerCase();
+    outputHash[letter] = parseInt(key);
+
+    // Move to the next letter in the value array
+  }
+}
+
+// Print the result
+console.log("Transformed hash is:", outputHash);
 
 
 // # Problem -----------------------------------------------------------------
