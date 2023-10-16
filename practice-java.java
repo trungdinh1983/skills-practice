@@ -88,6 +88,41 @@ Data transformation: ETL #2
 // # Solution =============================================
 
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+import java.util.Arrays;
+
+public class Main {
+    public static void main(String[] args) {
+        // Initialize variables
+        Map<Integer, List<String>> inputHash = new HashMap<>();
+        inputHash.put(1, Arrays.asList("A", "E", "I", "O", "U", "L", "N", "R", "S", "T"));
+        inputHash.put(2, Arrays.asList("D", "G"));
+        inputHash.put(3, Arrays.asList("B", "C", "M", "P"));
+        inputHash.put(4, Arrays.asList("F", "H", "V", "W", "Y"));
+        inputHash.put(5, Arrays.asList("K"));
+        inputHash.put(8, Arrays.asList("J", "X"));
+        inputHash.put(10, Arrays.asList("Q", "Z"));
+
+        Map<String, Integer> outputHash = new HashMap<>();
+
+        // Loop through the input hash
+        for (Map.Entry<Integer, List<String>> entry : inputHash.entrySet()) {
+            Integer key = entry.getKey();
+            List<String> valueList = entry.getValue();
+
+            for (String letter : valueList) {
+                // Convert each letter to lowercase and add to output hash
+                String lowercaseLetter = letter.toLowerCase();
+                outputHash.put(lowercaseLetter, key);
+            }
+        }
+
+        // Print the result
+        System.out.println("Transformed hash is: " + outputHash);
+    }
+}
 
 
 // # Problem -----------------------------------------------------------------
