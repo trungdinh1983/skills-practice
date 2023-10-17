@@ -43,6 +43,48 @@ Return the array of posts as follows:
 
 // # Solution =============================================
 
+// Given array of posts
+const posts = [
+  { title: 'Me Eating Pizza', submitted_by: 231, likes: 1549 },
+  { title: 'i never knew how cool i was until now', submitted_by: 989, likes: 3 },
+  { title: 'best selfie evar!!!', submitted_by: 111, likes: 1092 },
+  { title: 'Mondays are the worst', submitted_by: 403, likes: 644 }
+];
+
+// Given array of users
+const users = [
+  { user_id: 403, name: "Aunty Em" },
+  { user_id: 231, name: "Joelle P." },
+  { user_id: 989, name: "Lyndon Johnson" },
+  { user_id: 111, name: "Patti Q." }
+];
+
+// Initialize an empty result array
+const result = [];
+
+// Loop through posts
+for (let i = 0; i < posts.length; i++) {
+  const post = posts[i];
+  const user_id = post.submitted_by;
+
+  // Find the user with the matching user_id
+  for (let j = 0; j < users.length; j++) {
+    const user = users[j];
+    if (user.user_id === user_id) {
+      // Replace the user_id with the user's name
+      post.submitted_by = user.name;
+      break; // No need to continue searching for this post
+    }
+  }
+
+  // Add the modified post to the result array
+  result.push(post);
+}
+
+// Print the result
+result.forEach(post => {
+  console.log(post);
+});
 
 
 
