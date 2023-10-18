@@ -44,6 +44,102 @@ Return the array of posts as follows:
 
 // # Solution =============================================
 
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        // Given array of posts
+        List<Post> posts = new ArrayList<>();
+        posts.add(new Post("Me Eating Pizza", 231, 1549));
+        posts.add(new Post("i never knew how cool i was until now", 989, 3));
+        posts.add(new Post("best selfie evar!!!", 111, 1092));
+        posts.add(new Post("Mondays are the worst", 403, 644));
+
+        // Given array of users
+        List<User> users = new ArrayList<>();
+        users.add(new User(403, "Aunty Em"));
+        users.add(new User(231, "Joelle P."));
+        users.add(new User(989, "Lyndon Johnson"));
+        users.add(new User(111, "Patti Q."));
+
+        // Initialize an empty result array
+        List<Post> result = new ArrayList<>();
+
+        // Loop through posts
+        for (Post post : posts) {
+            int userId = post.getSubmittedBy();
+
+            // Find the user with the matching user_id
+            for (User user : users) {
+                if (user.getUserId() == userId) {
+                    // Replace the user_id with the user's name
+                    post.setSubmittedBy(user.getName());
+                    break; // No need to continue searching for this post
+                }
+            }
+
+            // Add the modified post to the result array
+            result.add(post);
+        }
+
+        // Print the result
+        for (Post post : result) {
+            System.out.println(post);
+        }
+    }
+}
+
+class Post {
+    private String title;
+    private int submittedBy;
+    private int likes;
+
+    public Post(String title, int submittedBy, int likes) {
+        this.title = title;
+        this.submittedBy = submittedBy;
+        this.likes = likes;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public int getSubmittedBy() {
+        return submittedBy;
+    }
+
+    public void setSubmittedBy(String name) {
+        this.submittedBy = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                ", submittedBy='" + submittedBy + '\'' +
+                ", likes=" + likes +
+                '}';
+    }
+}
+
+class User {
+    private int userId;
+    private String name;
+
+    public User(int userId, String name) {
+        this.userId = userId;
+        this.name = name;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
 
 
 // # Problem -----------------------------------------------------------------
