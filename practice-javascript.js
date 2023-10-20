@@ -46,6 +46,36 @@ return the data in this new author-centric format:
 
 // # Solution =============================================
 
+// Given list of books
+const books = [
+  { title: "The Lord of the Rings", author: "J. R. R. Tolkien", year: 1954 },
+  { title: "To Kill a Mockingbird", author: "Harper Lee", year: 1960 },
+  { title: "1984", author: "George Orwell", year: 1949 },
+  { title: "Go Set a Watchman", author: "Harper Lee", year: 2015 },
+  { title: "The Hobbit", author: "J. R. R. Tolkien", year: 1937 },
+  { title: "The Great Gatsby", author: "F. Scott Fitzgerald", year: 1925 },
+  { title: "The Two Towers", author: "J. R. R. Tolkien", year: 1954 }
+];
+
+// Initialize an object to store author-centric data
+const authorCentric = {};
+
+// Loop through the list of books
+for (let i = 0; i < books.length; i++) {
+  const book = books[i];
+  const author = book.author;
+
+  // Create a new entry for the author if it doesn't exist
+  if (!authorCentric[author]) {
+    authorCentric[author] = [];
+  }
+
+  // Add book information to the author's entry
+  authorCentric[author].push({ title: book.title, year: book.year });
+}
+
+// Print the author-centric data (you can use console.log for that)
+console.log(authorCentric);
 
 
 
