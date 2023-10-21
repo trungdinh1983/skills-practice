@@ -50,6 +50,43 @@ return the data in this new author-centric format:
 
 // # Solution =============================================
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class BookConversion {
+    public static void main(String[] args) {
+        // Given list of books
+        List<Map<String, Object>> books = new ArrayList<>();
+        books.add(Map.of("title", "The Lord of the Rings", "author", "J. R. R. Tolkien", "year", 1954));
+        books.add(Map.of("title", "To Kill a Mockingbird", "author", "Harper Lee", "year", 1960));
+        books.add(Map.of("title", "1984", "author", "George Orwell", "year", 1949));
+        books.add(Map.of("title", "Go Set a Watchman", "author", "Harper Lee", "year", 2015));
+        books.add(Map.of("title", "The Hobbit", "author", "J. R. R. Tolkien", "year", 1937));
+        books.add(Map.of("title", "The Great Gatsby", "author", "F. Scott Fitzgerald", "year", 1925));
+        books.add(Map.of("title", "The Two Towers", "author", "J. R. R. Tolkien", "year", 1954));
+
+        // Initialize a map to store author-centric data
+        Map<String, List<Map<String, Object>>> authorCentric = new HashMap<>();
+
+        // Loop through the list of books
+        for (Map<String, Object> book : books) {
+            String author = (String) book.get("author");
+
+            // Create a new entry for the author if it doesn't exist
+            authorCentric.putIfAbsent(author, new ArrayList<>());
+
+            // Add book information to the author's entry
+            authorCentric.get(author).add(
+                Map.of("title", book.get("title"), "year", book.get("year"))
+            );
+        }
+
+        // Print the author-centric data
+        System.out.println(authorCentric);
+    }
+}
 
 
 
