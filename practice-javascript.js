@@ -44,6 +44,52 @@ Return a new array of videos in the following format, and only include videos th
 // # Solution =============================================
 
 
+// Given data
+const videos = [
+  { title: 'How to Make Wood', author_id: 4, views: 6 },
+  { title: 'How to Seem Perfect', author_id: 4, views: 111 },
+  { title: 'Review of the New "Unbreakable Mug"', author_id: 2, views: 202 },
+  { title: 'Why Pigs Stink', author_id: 1, views: 12 }
+];
+
+const authors = [
+  { id: 1, first_name: 'Jazz', last_name: 'Callahan' },
+  { id: 2, first_name: 'Ichabod', last_name: 'Loadbearer' },
+  { id: 3, first_name: 'Saron', last_name: 'Kim' },
+  { id: 4, first_name: 'Teena', last_name: 'Burgess' }
+];
+
+// Initialize variables
+let result = [];
+
+// Loop through the videos array
+for (let i = 0; i < videos.length; i++) {
+  const video = videos[i];
+
+  // Check if the video has at least 100 views
+  if (video.views >= 100) {
+
+    // Find the author associated with the video
+    const author = authors.find(author => author.id === video.author_id);
+
+    // Create the author's full name
+    const author_name = `${author.first_name} ${author.last_name}`;
+
+    // Create a formatted video object
+    const formatted_video = {
+      title: video.title,
+      views: video.views,
+      author_name: author_name
+    };
+
+    // Add the formatted video to the result array
+    result.push(formatted_video);
+  }
+}
+
+// Print the result
+console.log("Filtered and formatted videos:");
+console.log(result);
 
 
 
