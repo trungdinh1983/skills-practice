@@ -43,6 +43,89 @@ Return a new array of videos in the following format, and only include videos th
 
 // # Solution =============================================
 
+import java.util.ArrayList;
+import java.util.List;
+
+// Define a class to represent video data
+class Video {
+    String title;
+    int author_id;
+    int views;
+
+    Video(String title, int author_id, int views) {
+        this.title = title;
+        this.author_id = author_id;
+        this.views = views;
+    }
+}
+
+// Define a class to represent author data
+class Author {
+    int id;
+    String first_name;
+    String last_name;
+
+    Author(int id, String first_name, String last_name) {
+        this.id = id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+    }
+}
+
+public class VideoFilter {
+    public static void main(String[] args) {
+        // Given data
+        List<Video> videos = new ArrayList<>();
+        videos.add(new Video("How to Make Wood", 4, 6));
+        videos.add(new Video("How to Seem Perfect", 4, 111));
+        videos.add(new Video("Review of the New \"Unbreakable Mug\"", 2, 202));
+        videos.add(new Video("Why Pigs Stink", 1, 12));
+
+        List<Author> authors = new ArrayList<>();
+        authors.add(new Author(1, "Jazz", "Callahan"));
+        authors.add(new Author(2, "Ichabod", "Loadbearer"));
+        authors.add(new Author(3, "Saron", "Kim"));
+        authors.add(new Author(4, "Teena", "Burgess"));
+
+        // Initialize a list to store the filtered and formatted videos
+        List<Video> result = new ArrayList<>();
+
+        // Loop through the videos list
+        for (Video video : videos) {
+            // Check if the video has at least 100 views
+            if (video.views >= 100) {
+                // Find the author associated with the video
+                Author author = null;
+                for (Author a : authors) {
+                    if (a.id == video.author_id) {
+                        author = a;
+                        break;
+                    }
+                }
+
+                // Create the author's full name
+                String authorName = author.first_name + " " + author.last_name;
+
+                // Create a formatted video object
+                Video formattedVideo = new Video(video.title, 0, video.views); // Omit author_id
+
+                // Set the author_name attribute
+                formattedVideo.author_id = authorName;
+
+                // Add the formatted video to the result list
+                result.add(formattedVideo);
+            }
+        }
+
+        // Print the filtered and formatted videos
+        System.out.println("Filtered and formatted videos:");
+        for (Video video : result) {
+            System.out.println("Title: " + video.title);
+            System.out.println("Views: " + video.views);
+            System.out.println("Author Name: " + video.author_id);
+        }
+    }
+}
 
 
 
