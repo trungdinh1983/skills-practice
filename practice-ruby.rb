@@ -1,4 +1,3 @@
-
    
 # Problem -----------------------------------------------------------------
 
@@ -7,6 +6,50 @@
 # Solution =============================================
 
     
+     
+   
+# Problem -----------------------------------------------------------------
+
+
+From Brute to Linear: Array Intersection
+
+Given two arrays, return a new array that contains the intersection of the two arrays. The intersection means the values that are contained in both of the arrays. Do not use the "&", or any built-in intersection methods.
+
+NOTE: You must accomplish this in O(n) time. This is also known as linear time.
+
+Input: [1, 2, 3, 4, 5], [1, 3, 5, 7, 9]
+Output: [1, 3, 5]
+
+
+
+# Solution =============================================
+
+   # Initialize variables
+first_array = [1, 2, 3, 4, 5]
+second_array = [1, 3, 5, 7, 9]
+result = []
+
+# Create a hash to store elements of the first array
+hash_map = {}
+i = 0
+while i < first_array.length
+  hash_map[first_array[i]] = true
+  i += 1
+end
+
+# Loop through the second array to find common elements
+j = 0
+while j < second_array.length
+  # Check if the element exists in the hash
+  if hash_map[second_array[j]]
+    result << second_array[j] # Add to the result array
+  end
+  j += 1
+end
+
+# Print the result
+puts "Intersection is: #{result}" # Output should be [1, 3, 5]
+ 
      
         
         
