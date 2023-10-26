@@ -21,6 +21,31 @@ Output: [1, 3, 5]
 
 // # Solution =============================================
 
+// Initialize variables
+const firstArray = [1, 2, 3, 4, 5];
+const secondArray = [1, 3, 5, 7, 9];
+const result = [];
+
+// Create an object to store elements of the first array
+const hashMap = {};
+let i = 0;
+while (i < firstArray.length) {
+  hashMap[firstArray[i]] = true;
+  i++;
+}
+
+// Loop through the second array to find common elements
+let j = 0;
+while (j < secondArray.length) {
+  // Check if the element exists in the object
+  if (hashMap[secondArray[j]]) {
+    result.push(secondArray[j]); // Add to the result array
+  }
+  j++;
+}
+
+// Print the result
+console.log(`Intersection is: ${result}`); // Output should be [1, 3, 5]
 
 
 
