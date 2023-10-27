@@ -22,6 +22,37 @@ Output: [1, 3, 5]
 
 // #Solution =============================================
 
+import java.util.HashSet;
+
+public class Main {
+    public static void main(String[] args) {
+        // Initialize variables
+        int[] firstArray = {1, 2, 3, 4, 5};
+        int[] secondArray = {1, 3, 5, 7, 9};
+        HashSet<Integer> resultSet = new HashSet<>();
+
+        // Create a HashSet to store elements of the first array
+        HashSet<Integer> hashMap = new HashSet<>();
+        int i = 0;
+        while (i < firstArray.length) {
+            hashMap.add(firstArray[i]);
+            i++;
+        }
+
+        // Loop through the second array to find common elements
+        int j = 0;
+        while (j < secondArray.length) {
+            // Check if the element exists in the HashSet
+            if (hashMap.contains(secondArray[j])) {
+                resultSet.add(secondArray[j]); // Add to the result set
+            }
+            j++;
+        }
+
+        // Print the result
+        System.out.println("Intersection is: " + resultSet); // Output should be [1, 3, 5]
+    }
+}
 
 
 
