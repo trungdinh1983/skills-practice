@@ -1,4 +1,4 @@
-   
+    
 # Problem -----------------------------------------------------------------
 
 
@@ -6,6 +6,51 @@
 # Solution =============================================
 
     
+
+# Problem -----------------------------------------------------------------
+
+From Brute to Linear: Array Subset
+
+Given two arrays, determine whether one is a subset of the other. It is considered a subset if all the values in one array are contained within the other.
+
+NOTE: You must accomplish this in O(n) time. This is also known as linear time.
+
+Input: [1, 2, 3, 4, 5, 6], [6, 3, 2]
+Output: true
+
+Input: [1, 2, 3, 4, 5, 6], [6, 3, 7]
+Output: false
+
+# Solution =============================================
+
+    # Initialize variables
+first_array = [1, 2, 3, 4, 5, 6]
+second_array = [6, 3, 2]
+result = true
+
+# Create a hash to store the elements of the first array
+hash_map = {}
+
+# Loop through the first array to populate the hash
+i = 0
+while i < first_array.length
+  hash_map[first_array[i]] = true
+  i += 1
+end
+
+# Loop through the second array to check if each element exists in the hash
+j = 0
+while j < second_array.length
+  unless hash_map[second_array[j]]
+    result = false
+    break
+  end
+  j += 1
+end
+
+# Print the result
+puts "Is the second array a subset of the first? #{result}"
+
      
    
 # Problem -----------------------------------------------------------------

@@ -8,6 +8,25 @@
 
 // # Problem -----------------------------------------------------------------
 
+From Brute to Linear: Array Subset
+
+Given two arrays, determine whether one is a subset of the other. It is considered a subset if all the values in one array are contained within the other.
+
+NOTE: You must accomplish this in O(n) time. This is also known as linear time.
+
+Input: [1, 2, 3, 4, 5, 6], [6, 3, 2]
+Output: true
+
+Input: [1, 2, 3, 4, 5, 6], [6, 3, 7]
+Output: false
+
+
+// # Solution =============================================
+
+
+
+// # Problem -----------------------------------------------------------------
+
 From Brute to Linear: Array Intersection
 
 Given two arrays, return a new array that contains the intersection of the two arrays. The intersection means the values that are contained in both of the arrays. Do not use the "&", or any built-in intersection methods.
