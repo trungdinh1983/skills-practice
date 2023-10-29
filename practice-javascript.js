@@ -23,6 +23,33 @@ Output: false
 
 // # Solution =============================================
 
+// Initialize variables
+const firstArray = [1, 2, 3, 4, 5, 6];
+const secondArray = [6, 3, 2];
+let result = true;
+
+// Create an object to store the elements of the first array
+const hashMap = {};
+
+// Loop through the first array to populate the object
+let i = 0;
+while (i < firstArray.length) {
+  hashMap[firstArray[i]] = true;
+  i++;
+}
+
+// Loop through the second array to check if each element exists in the object
+let j = 0;
+while (j < secondArray.length) {
+  if (!hashMap[secondArray[j]]) {
+    result = false;
+    break;
+  }
+  j++;
+}
+
+// Print the result
+console.log(`Is the second array a subset of the first? ${result}`);
 
 
 // # Problem -----------------------------------------------------------------
