@@ -23,6 +23,39 @@ Output: false
 
 // # Solution =============================================
 
+import java.util.HashMap;
+
+public class Main {
+    public static void main(String[] args) {
+        // Initialize variables
+        int[] firstArray = {1, 2, 3, 4, 5, 6};
+        int[] secondArray = {6, 3, 2};
+        boolean result = true;
+
+        // Create a HashMap to store the elements of the first array
+        HashMap<Integer, Boolean> hashMap = new HashMap<>();
+
+        // Loop through the first array to populate the HashMap
+        int i = 0;
+        while (i < firstArray.length) {
+            hashMap.put(firstArray[i], true);
+            i++;
+        }
+
+        // Loop through the second array to check if each element exists in the HashMap
+        int j = 0;
+        while (j < secondArray.length) {
+            if (!hashMap.containsKey(secondArray[j])) {
+                result = false;
+                break;
+            }
+            j++;
+        }
+
+        // Print the result
+        System.out.println("Is the second array a subset of the first? " + result);
+    }
+}
 
 
 
