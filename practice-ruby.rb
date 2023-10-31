@@ -1,4 +1,4 @@
-    
+       
 # Problem -----------------------------------------------------------------
 
 
@@ -6,6 +6,50 @@
 # Solution =============================================
 
     
+
+# Problem -----------------------------------------------------------------
+
+From Brute to Linear: Array Duplicate
+
+A given array has one pair of duplicate values. Return the first duplicate value.
+
+NOTE: You must accomplish this in O(n) time. This is also known as linear time.
+
+Input: [5, 2, 9, 7, 2, 6]
+Output: 2
+
+
+# Solution =============================================
+
+# Initialize variables
+input_array = [5, 2, 9, 7, 2, 6]
+seen_numbers = {}
+first_duplicate = nil
+
+# Loop through the array
+i = 0
+
+while i < input_array.length
+  # Check if the number is already in the hash
+  if seen_numbers[input_array[i]]
+    first_duplicate = input_array[i]
+    break
+  else
+    # Add the number to the hash
+    seen_numbers[input_array[i]] = true
+  end
+  
+  # Move to the next number in the array
+  i += 1
+end
+
+# Print the first duplicate
+if first_duplicate
+  puts "First duplicate is: #{first_duplicate}" # Output: 2
+else
+  puts "No duplicates found."
+end
+
 
 # Problem -----------------------------------------------------------------
 

@@ -8,6 +8,24 @@
 
 // # Problem -----------------------------------------------------------------
 
+From Brute to Linear: Array Duplicate
+
+A given array has one pair of duplicate values. Return the first duplicate value.
+
+NOTE: You must accomplish this in O(n) time. This is also known as linear time.
+
+Input: [5, 2, 9, 7, 2, 6]
+Output: 2
+
+
+
+
+// # Solution =============================================
+
+
+
+// # Problem -----------------------------------------------------------------
+
 From Brute to Linear: Array Subset
 
 Given two arrays, determine whether one is a subset of the other. It is considered a subset if all the values in one array are contained within the other.
