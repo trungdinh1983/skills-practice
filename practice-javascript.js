@@ -20,6 +20,34 @@ Output: 2
 
 // # Solution =============================================
 
+// Initialize variables
+const inputArray = [5, 2, 9, 7, 2, 6];
+const seenNumbers = {};
+let firstDuplicate = null;
+
+// Loop through the array
+let i = 0;
+
+while (i < inputArray.length) {
+  // Check if the number is already in the object
+  if (seenNumbers[inputArray[i]]) {
+    firstDuplicate = inputArray[i];
+    break;
+  } else {
+    // Add the number to the object
+    seenNumbers[inputArray[i]] = true;
+  }
+  
+  // Move to the next number in the array
+  i++;
+}
+
+// Print the first duplicate
+if (firstDuplicate !== null) {
+  console.log(`First duplicate is: ${firstDuplicate}`); // Output: 2
+} else {
+  console.log("No duplicates found.");
+}
 
 
 // # Problem -----------------------------------------------------------------
