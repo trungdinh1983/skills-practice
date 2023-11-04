@@ -22,6 +22,41 @@ Output: 2
 
 // # Solution =============================================
 
+import java.util.HashSet;
+import java.util.Set;
+
+public class Main {
+    public static void main(String[] args) {
+        // Initialize variables
+        int[] inputArray = {5, 2, 9, 7, 2, 6};
+        Set<Integer> seenNumbers = new HashSet<>();
+        Integer firstDuplicate = null;
+
+        // Loop through the array
+        int i = 0;
+
+        while (i < inputArray.length) {
+            // Check if the number is already in the set
+            if (seenNumbers.contains(inputArray[i])) {
+                firstDuplicate = inputArray[i];
+                break;
+            } else {
+                // Add the number to the set
+                seenNumbers.add(inputArray[i]);
+            }
+
+            // Move to the next number in the array
+            i++;
+        }
+
+        // Print the first duplicate
+        if (firstDuplicate != null) {
+            System.out.println("First duplicate is: " + firstDuplicate); // Output: 2
+        } else {
+            System.out.println("No duplicates found.");
+        }
+    }
+}
 
 
 // # Problem -----------------------------------------------------------------
