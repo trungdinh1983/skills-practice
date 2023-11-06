@@ -22,7 +22,39 @@ Output: “f”
 
 # Solution =============================================
 
-    
+# Initialize variables
+input_string = "The quick brown box jumps over a lazy dog"
+alphabet = ("a".."z").to_a
+result = nil
+
+# Convert input string to downcase and split into an array of characters
+input_array = input_string.downcase.chars
+
+# Sort the array to ensure the order (not necessary if input is already sorted)
+input_array.sort!
+
+# Loop through the alphabet
+i = 0
+j = 0
+
+while i < alphabet.length
+  # Check if the current letter in the alphabet is in the input array
+  if j < input_array.length && alphabet[i] == input_array[j]
+    # If it is, move to the next letter in the input array
+    j += 1
+  else
+    # If it isn't, we've found our missing letter
+    result = alphabet[i]
+    break # Exit the loop since we found the missing letter
+  end
+
+  # Move to the next letter in the alphabet
+  i += 1
+end
+
+# Print the result
+puts "The missing letter is: #{result}"
+  
 
 # Problem -----------------------------------------------------------------
 
