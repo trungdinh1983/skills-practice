@@ -18,6 +18,38 @@ Output: “f”
 
 // # Solution =============================================
 
+// Initialize variables
+const input_string = "The quick brown box jumps over a lazy dog";
+const alphabet = Array.from("abcdefghijklmnopqrstuvwxyz");
+let result = null;
+
+// Convert input string to lowercase and split into an array of characters
+const input_array = input_string.toLowerCase().split('');
+
+// Sort the array to ensure the order (not necessary if input is already sorted)
+input_array.sort();
+
+// Loop through the alphabet
+let i = 0;
+let j = 0;
+
+while (i < alphabet.length) {
+  // Check if the current letter in the alphabet is in the input array
+  if (j < input_array.length && alphabet[i] === input_array[j]) {
+    // If it is, move to the next letter in the input array
+    j++;
+  } else {
+    // If it isn't, we've found our missing letter
+    result = alphabet[i];
+    break; // Exit the loop since we found the missing letter
+  }
+
+  // Move to the next letter in the alphabet
+  i++;
+}
+
+// Print the result
+console.log("The missing letter is: " + result);
 
 
 // # Problem -----------------------------------------------------------------
