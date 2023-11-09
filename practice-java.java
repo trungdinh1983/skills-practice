@@ -18,6 +18,46 @@ Output: “f”
 
 // # Solution =============================================
 
+public class MissingLetterFinder {
+  public static void main(String[] args) {
+      // Initialize variables
+      String inputString = "The quick brown box jumps over a lazy dog";
+      char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+      Character result = null;
+
+      // Convert input string to lowercase and split into an array of characters
+      char[] inputArray = inputString.toLowerCase().toCharArray();
+
+      // Sort the array to ensure the order (not necessary if input is already sorted)
+      java.util.Arrays.sort(inputArray);
+
+      // Loop through the alphabet
+      int i = 0;
+      int j = 0;
+
+      while (i < alphabet.length) {
+          // Check if the current letter in the alphabet is in the input array
+          if (j < inputArray.length && alphabet[i] == inputArray[j]) {
+              // If it is, move to the next letter in the input array
+              j++;
+          } else {
+              // If it isn't, we've found our missing letter
+              result = alphabet[i];
+              break; // Exit the loop since we found the missing letter
+          }
+
+          // Move to the next letter in the alphabet
+          i++;
+      }
+
+      // Print the result
+      if (result != null) {
+          System.out.println("The missing letter is: " + result);
+      } else {
+          System.out.println("No missing letters found.");
+      }
+  }
+}
 
 
 // # Problem -----------------------------------------------------------------
