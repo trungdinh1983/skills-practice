@@ -1,4 +1,4 @@
-         
+             
 # Problem -----------------------------------------------------------------
 
 
@@ -6,6 +6,60 @@
 # Solution =============================================
 
     
+
+       
+# Problem -----------------------------------------------------------------
+
+
+ Brute to Linear: First Unique Character
+
+ Given a string, find the first non-repeating character in it and return its index. If it doesn't exist, return -1.
+
+NOTE: You must accomplish this in O(n) time. This is also known as linear time.
+
+Examples:
+
+s = "leetcode"
+return 0.
+(The "l" is the first character that only appears once in the string, and appears at index 0.)
+
+s = "loveleetcode",
+return 2.
+(The "l" and "o" are repeated, so the first non-repeating character is the "v", which is at index 2.)
+
+Note: You may assume the string contain only lowercase letters.
+
+# Solution =============================================
+
+def first_uniq_char(s)
+  # Initialize variables
+  char_count = Hash.new(0) # Hash to store character counts
+  char_order = []          # Array to store the order of characters
+
+  # First loop: Count characters and store their order
+  i = 0
+  while i < s.length
+      char = s[i]
+      char_count[char] += 1
+      char_order << char unless char_count[char] > 1
+      i += 1
+  end
+
+  # Second loop: Find the first unique character
+  j = 0
+  while j < char_order.length
+      return s.index(char_order[j]) if char_count[char_order[j]] == 1
+      j += 1
+  end
+
+  # If no unique character found, return -1
+  -1
+end
+
+# Test the function
+puts first_uniq_char("leetcode")      # Output: 0
+puts first_uniq_char("loveleetcode")  # Output: 2
+
 
   
 
