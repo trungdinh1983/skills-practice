@@ -29,6 +29,34 @@ Note: You may assume the string contain only lowercase letters.
 
 // # Solution =============================================
 
+function firstUniqChar(s) {
+  // Initialize objects
+  let charCount = {}; // Object to store character counts
+  let charOrder = []; // Array to store the order of characters
+
+  // First loop: Count characters and store their order
+  for (let i = 0; i < s.length; i++) {
+      let char = s[i];
+      charCount[char] = (charCount[char] || 0) + 1;
+      if (charCount[char] === 1) {
+          charOrder.push(char);
+      }
+  }
+
+  // Second loop: Find the first unique character
+  for (let j = 0; j < charOrder.length; j++) {
+      if (charCount[charOrder[j]] === 1) {
+          return s.indexOf(charOrder[j]);
+      }
+  }
+
+  // If no unique character found, return -1
+  return -1;
+}
+
+// Test the function
+console.log(firstUniqChar("leetcode"));      // Output: 0
+console.log(firstUniqChar("loveleetcode"));  // Output: 2
 
 
 // # Problem -----------------------------------------------------------------
