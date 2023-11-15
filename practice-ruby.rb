@@ -1,4 +1,4 @@
-             
+               
 # Problem -----------------------------------------------------------------
 
 
@@ -6,6 +6,53 @@
 # Solution =============================================
 
     
+
+             
+# Problem -----------------------------------------------------------------
+
+
+Brute to Linear: Two Sum II
+
+This is the same exercise as Two Sum I, but you must now solve it in linear time.
+
+Given an array of numbers, return a new array containing just two numbers (from the original array) that add up to the number 10. If there are no two numbers that add up to 10, return false.
+
+Input: [2, 5, 3, 1, 0, 7, 11]
+Output: [3, 7]
+
+Input: [1, 2, 3, 4, 5]
+Output: false (While 1, 2, 3, and 4 altogether add up to 10, we're seeking just one pair of numbers.)
+
+# Solution =============================================
+
+# Function to find two numbers that add up to 10
+def find_two_sum(numbers)
+    # Initialize variables
+    i = 0
+    j = 0
+
+    # Loop through the array with two pointers
+    while i < numbers.length
+        j = i + 1 # Start j from the next element of i
+        while j < numbers.length
+            # Check if the sum of numbers at i and j is 10
+            if numbers[i] + numbers[j] == 10
+                # Return the pair if the sum is 10
+                return [numbers[i], numbers[j]]
+            end
+            j += 1 # Move to the next element in the array
+        end
+        i += 1 # Move to the next element in the array
+    end
+
+    # Return false if no pair adds up to 10
+    false
+end
+
+# Test the function with your examples
+puts "Output: #{find_two_sum([2, 5, 3, 1, 0, 7, 11])}" # Should output [3, 7]
+puts "Output: #{find_two_sum([1, 2, 3, 4, 5])}"       # Should output false
+
 
        
 # Problem -----------------------------------------------------------------
