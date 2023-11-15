@@ -25,6 +25,39 @@ Note: You may assume the string contain only lowercase letters.
 
 // # Solution =============================================
 
+import java.util.HashMap;
+import java.util.ArrayList;
+
+public class UniqueCharFinder {
+    public static int firstUniqChar(String s) {
+        HashMap<Character, Integer> charCount = new HashMap<>();
+        ArrayList<Character> charOrder = new ArrayList<>();
+
+        // First loop: Count characters and store their order
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            charCount.put(ch, charCount.getOrDefault(ch, 0) + 1);
+            if (charCount.get(ch) == 1) {
+                charOrder.add(ch);
+            }
+        }
+
+        // Second loop: Find the first unique character
+        for (char ch : charOrder) {
+            if (charCount.get(ch) == 1) {
+                return s.indexOf(ch);
+            }
+        }
+
+        // If no unique character found, return -1
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(firstUniqChar("leetcode"));      // Output: 0
+        System.out.println(firstUniqChar("loveleetcode"));  // Output: 2
+    }
+}
 
 
 // # Problem -----------------------------------------------------------------
