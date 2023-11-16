@@ -25,6 +25,33 @@ Output: false (While 1, 2, 3, and 4 altogether add up to 10, we're seeking just 
 
 // # Solution =============================================
 
+// Function to find two numbers that add up to 10
+function findTwoSum(numbers) {
+  // Initialize variables
+  let i = 0;
+  let j = 0;
+
+  // Loop through the array with two pointers
+  while (i < numbers.length) {
+      j = i + 1; // Start j from the next element of i
+      while (j < numbers.length) {
+          // Check if the sum of numbers at i and j is 10
+          if (numbers[i] + numbers[j] === 10) {
+              // Return the pair if the sum is 10
+              return [numbers[i], numbers[j]];
+          }
+          j++; // Move to the next element in the array
+      }
+      i++; // Move to the next element in the array
+  }
+
+  // Return false if no pair adds up to 10
+  return false;
+}
+
+// Test the function with your examples
+console.log("Output:", findTwoSum([2, 5, 3, 1, 0, 7, 11])); // Should output [3, 7]
+console.log("Output:", findTwoSum([1, 2, 3, 4, 5]));         // Should output false
 
 
 
