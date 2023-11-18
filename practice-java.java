@@ -23,6 +23,42 @@ Output: false (While 1, 2, 3, and 4 altogether add up to 10, we're seeking just 
 
 // # Solution =============================================
 
+public class TwoSum {
+  public static void main(String[] args) {
+      // Test the function with your examples
+      int[] testArray1 = {2, 5, 3, 1, 0, 7, 11};
+      int[] result1 = findTwoSum(testArray1);
+      if (result1 != null) {
+          System.out.println("Output: [" + result1[0] + ", " + result1[1] + "]");
+      } else {
+          System.out.println("Output: false");
+      }
+
+      int[] testArray2 = {1, 2, 3, 4, 5};
+      int[] result2 = findTwoSum(testArray2);
+      if (result2 != null) {
+          System.out.println("Output: [" + result2[0] + ", " + result2[1] + "]");
+      } else {
+          System.out.println("Output: false");
+      }
+  }
+
+  // Function to find two numbers that add up to 10
+  public static int[] findTwoSum(int[] numbers) {
+      // Loop through the array with two pointers
+      for (int i = 0; i < numbers.length; i++) {
+          for (int j = i + 1; j < numbers.length; j++) {
+              // Check if the sum of numbers at i and j is 10
+              if (numbers[i] + numbers[j] == 10) {
+                  // Return the pair if the sum is 10
+                  return new int[]{numbers[i], numbers[j]};
+              }
+          }
+      }
+      // Return null if no pair adds up to 10
+      return null;
+  }
+}
 
 
 
