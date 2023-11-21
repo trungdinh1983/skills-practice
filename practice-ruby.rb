@@ -1,4 +1,4 @@
-               
+                  
 # Problem -----------------------------------------------------------------
 
 
@@ -6,6 +6,96 @@
 # Solution =============================================
 
     
+
+             
+# Problem -----------------------------------------------------------------
+
+
+Brute to Linear: ETL #4
+
+This is very similar to ETL #3, but you must now accomplish the task in linear time (O(N)).
+
+Given an array of Youtube videos, for example:
+
+[
+{title: 'How to Make Wood', author_id: 4, views: 6},
+{title: 'How to Seem Perfect', author_id: 4, views: 111},
+{title: 'Review of the New "Unbreakable Mug"', author_id: 2, views: 202},
+{title: 'Why Pigs Stink', author_id: 1, views: 12}
+]
+
+and an array of authors, for example:
+
+[
+{id: 1, first_name: 'Jazz', last_name: 'Callahan'},
+{id: 2, first_name: 'Ichabod', last_name: 'Loadbearer'},
+{id: 3, first_name: 'Saron', last_name: 'Kim'},
+{id: 4, first_name: 'Teena', last_name: 'Burgess'},
+]
+
+Return a new array of videos in the following format, and only include videos that have at least 100 views:
+
+[
+{title: 'How to Seem Perfect', views: 111, author_name: 'Teena Burgess' }
+{title: 'Review of the New "Unbreakable Mug"', views: 202, author_name: 'Ichabod Loadbearer' },
+]
+
+# Solution =============================================
+
+  # Initialize the arrays
+videos = [
+  {title: 'How to Make Wood', author_id: 4, views: 6},
+  {title: 'How to Seem Perfect', author_id: 4, views: 111},
+  {title: 'Review of the New "Unbreakable Mug"', author_id: 2, views: 202},
+  {title: 'Why Pigs Stink', author_id: 1, views: 12}
+]
+
+authors = [
+  {id: 1, first_name: 'Jazz', last_name: 'Callahan'},
+  {id: 2, first_name: 'Ichabod', last_name: 'Loadbearer'},
+  {id: 3, first_name: 'Saron', last_name: 'Kim'},
+  {id: 4, first_name: 'Teena', last_name: 'Burgess'},
+]
+
+# Prepare the result array
+result = []
+
+# Loop through the videos array
+i = 0
+while i < videos.length
+  video = videos[i]
+
+  # Check if the video has at least 100 views
+  if video[:views] >= 100
+    # Find the author of the video
+    j = 0
+    while j < authors.length
+      author = authors[j]
+
+      # Check if the author's id matches the video's author_id
+      if author[:id] == video[:author_id]
+        # Combine the video and author information
+        video_info = {
+          title: video[:title],
+          views: video[:views],
+          author_name: "#{author[:first_name]} #{author[:last_name]}"
+        }
+
+        # Add the combined information to the result array
+        result << video_info
+        break # Exit the inner loop once the author is found
+      end
+
+      j += 1
+    end
+  end
+
+  i += 1
+end
+
+# Print the result
+puts "Filtered videos are: #{result}"
+  
 
              
 # Problem -----------------------------------------------------------------
