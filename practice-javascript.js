@@ -42,6 +42,59 @@ Return a new array of videos in the following format, and only include videos th
 
 // # Solution =============================================
 
+// Initialize the arrays
+const videos = [
+  { title: 'How to Make Wood', author_id: 4, views: 6 },
+  { title: 'How to Seem Perfect', author_id: 4, views: 111 },
+  { title: 'Review of the New "Unbreakable Mug"', author_id: 2, views: 202 },
+  { title: 'Why Pigs Stink', author_id: 1, views: 12 }
+];
+
+const authors = [
+  { id: 1, first_name: 'Jazz', last_name: 'Callahan' },
+  { id: 2, first_name: 'Ichabod', last_name: 'Loadbearer' },
+  { id: 3, first_name: 'Saron', last_name: 'Kim' },
+  { id: 4, first_name: 'Teena', last_name: 'Burgess' }
+];
+
+// Prepare the result array
+let result = [];
+
+// Loop through the videos array
+let i = 0;
+while (i < videos.length) {
+  const video = videos[i];
+
+  // Check if the video has at least 100 views
+  if (video.views >= 100) {
+    // Find the author of the video
+    let j = 0;
+    while (j < authors.length) {
+      const author = authors[j];
+
+      // Check if the author's id matches the video's author_id
+      if (author.id === video.author_id) {
+        // Combine the video and author information
+        const videoInfo = {
+          title: video.title,
+          views: video.views,
+          author_name: `${author.first_name} ${author.last_name}`
+        };
+
+        // Add the combined information to the result array
+        result.push(videoInfo);
+        break; // Exit the inner loop once the author is found
+      }
+
+      j++;
+    }
+  }
+
+  i++;
+}
+
+// Print the result
+console.log("Filtered videos are:", result);
 
 
 
