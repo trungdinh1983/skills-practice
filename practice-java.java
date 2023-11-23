@@ -41,6 +41,68 @@ Return a new array of videos in the following format, and only include videos th
 
 // # Solution =============================================
 
+import java.util.ArrayList;
+import java.util.List;
+
+// Changed the access modifier of the Video class to default (package-private)
+class Video {
+    String title;
+    int authorId;
+    int views;
+
+    Video(String title, int authorId, int views) {
+        this.title = title;
+        this.authorId = authorId;
+        this.views = views;
+    }
+}
+
+// Changed the access modifier of the Author class to default (package-private)
+class Author {
+    int id;
+    String firstName;
+    String lastName;
+
+    Author(int id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+}
+
+// The VideoProcessor class remains public. This is the only public class in this file.
+public class VideoProcessor {
+    public static void main(String[] args) {
+        List<Video> videos = new ArrayList<>();
+        videos.add(new Video("How to Make Wood", 4, 6));
+        videos.add(new Video("How to Seem Perfect", 4, 111));
+        videos.add(new Video("Review of the New \"Unbreakable Mug\"", 2, 202));
+        videos.add(new Video("Why Pigs Stink", 1, 12));
+
+        List<Author> authors = new ArrayList<>();
+        authors.add(new Author(1, "Jazz", "Callahan"));
+        authors.add(new Author(2, "Ichabod", "Loadbearer"));
+        authors.add(new Author(3, "Saron", "Kim"));
+        authors.add(new Author(4, "Teena", "Burgess"));
+
+        List<String> result = new ArrayList<>();
+
+        for (Video video : videos) {
+            if (video.views >= 100) {
+                for (Author author : authors) {
+                    if (author.id == video.authorId) {
+                        String videoInfo = String.format("Title: %s, Views: %d, Author: %s %s",
+                                video.title, video.views, author.firstName, author.lastName);
+                        result.add(videoInfo);
+                        break;
+                    }
+                }
+            }
+        }
+
+        System.out.println("Filtered videos are: " + result);
+    }
+}
 
 
 // # Problem -----------------------------------------------------------------
