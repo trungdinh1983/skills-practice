@@ -1,4 +1,4 @@
-                  
+                   
 # Problem -----------------------------------------------------------------
 
 
@@ -6,6 +6,46 @@
 # Solution =============================================
 
     
+
+
+# Problem -----------------------------------------------------------------
+
+Total Sum: 10
+
+Find a pair with the given sum in an array
+Given an unsorted integer array, find a pair with the given sum in it.
+
+For example,
+
+Input: nums = [8, 7, 2, 5, 3, 1]target = 10 Output: Pair found (8, 2)orPair found (7, 3)  Input: nums = [5, 2, 6, 8, 1, 9]target = 12 Output: Pair not found
+
+# Solution =============================================
+
+ # Initialize variables
+nums = [8, 7, 2, 5, 3, 1]
+target = 10
+pair_found = false
+
+# Loop through the array
+i = 0
+
+while i < nums.length
+    j = i + 1 # Start j from the next element of i
+    while j < nums.length
+        # Check if the current pair sums up to the target
+        if nums[i] + nums[j] == target
+            puts "Pair found (#{nums[i]}, #{nums[j]})"
+            pair_found = true
+            break # Exit the loop once a pair is found
+        end
+        j += 1
+    end
+    break if pair_found # Exit the outer loop if a pair is found
+    i += 1
+end
+
+puts "Pair not found" unless pair_found
+   
                   
 # Problem -----------------------------------------------------------------
 
