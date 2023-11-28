@@ -20,6 +20,32 @@ Input: nums = [8, 7, 2, 5, 3, 1]target = 10 Output: Pair found (8, 2)orPair foun
 
 // # Solution =============================================
 
+// Initialize variables
+let nums = [8, 7, 2, 5, 3, 1];
+let target = 10;
+let pairFound = false;
+
+// Loop through the array
+let i = 0;
+
+while (i < nums.length) {
+    let j = i + 1; // Start j from the next element of i
+    while (j < nums.length) {
+        // Check if the current pair sums up to the target
+        if (nums[i] + nums[j] === target) {
+            console.log(`Pair found (${nums[i]}, ${nums[j]})`);
+            pairFound = true;
+            break; // Exit the loop once a pair is found
+        }
+        j++;
+    }
+    if (pairFound) break; // Exit the outer loop if a pair is found
+    i++;
+}
+
+if (!pairFound) {
+    console.log("Pair not found");
+}
 
 
 // # Problem -----------------------------------------------------------------
