@@ -17,6 +17,36 @@ Input: nums = [8, 7, 2, 5, 3, 1]target = 10 Output: Pair found (8, 2)orPair foun
 
 // # Solution =============================================
 
+public class FindPairWithSum {
+  public static void main(String[] args) {
+      // Initialize variables
+      int[] nums = {8, 7, 2, 5, 3, 1};
+      int target = 10;
+      boolean pairFound = false;
+
+      // Loop through the array
+      int i = 0;
+
+      while (i < nums.length) {
+          int j = i + 1; // Start j from the next element of i
+          while (j < nums.length) {
+              // Check if the current pair sums up to the target
+              if (nums[i] + nums[j] == target) {
+                  System.out.println("Pair found (" + nums[i] + ", " + nums[j] + ")");
+                  pairFound = true;
+                  break; // Exit the loop once a pair is found
+              }
+              j++;
+          }
+          if (pairFound) break; // Exit the outer loop if a pair is found
+          i++;
+      }
+
+      if (!pairFound) {
+          System.out.println("Pair not found");
+      }
+  }
+}
 
 
 // # Problem -----------------------------------------------------------------
