@@ -1,10 +1,53 @@
-                   
+                    
 # Problem -----------------------------------------------------------------
 
 
 
 # Solution =============================================
 
+    
+                  
+# Problem -----------------------------------------------------------------
+
+Check if a subarray with 0 sum exists or not
+Given an integer array, check if it contains a subarray having zero-sum.
+
+For example,
+
+Input:  { 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 } Output: Subarray with zero-sum exists The subarrays with a sum of 0 are: { 3, 4, -7 }{ 4, -7, 3 }{ -7, 3, 1, 3 }{ 3, 1, -4 }{ 3, 1, 3, 1, -4, -2, -2 }{ 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 }
+
+
+# Solution =============================================
+
+# Initialize variables
+input_array = [3, 4, -7, 3, 1, 3, 1, -4, -2, -2]
+sums = Hash.new(0) # This hash will store the sums
+sum = 0
+zero_sum_subarray_exists = false
+
+i = 0
+
+# Loop through the array
+while i < input_array.length
+    sum += input_array[i] # Add current element to sum
+
+    # Check if sum is 0 or if sum already exists in the hash
+    if sum == 0 || sums[sum]
+        zero_sum_subarray_exists = true
+        break
+    end
+
+    sums[sum] = true # Store the sum in the hash
+
+    i += 1 # Move to the next element
+end
+
+# Print the result
+if zero_sum_subarray_exists
+    puts "Subarray with zero-sum exists"
+else
+    puts "No subarray with zero-sum"
+end
     
 
 
