@@ -21,6 +21,37 @@ Input:  { 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 } Output: Subarray with zero-sum exis
 // # Solution =============================================
 
 
+// Initialize variables
+let inputArray = [3, 4, -7, 3, 1, 3, 1, -4, -2, -2];
+let sums = {}; // This object will store the sums
+let sum = 0;
+let zeroSumSubarrayExists = false;
+
+let i = 0;
+
+// Loop through the array
+while (i < inputArray.length) {
+    sum += inputArray[i]; // Add current element to sum
+
+    // Check if sum is 0 or if sum already exists in the sums object
+    if (sum === 0 || sums[sum]) {
+        zeroSumSubarrayExists = true;
+        break;
+    }
+
+    sums[sum] = true; // Store the sum in the sums object
+
+    i += 1; // Move to the next element
+}
+
+// Print the result
+if (zeroSumSubarrayExists) {
+    console.log("Subarray with zero-sum exists");
+} else {
+    console.log("No subarray with zero-sum");
+}
+
+
 
 // # Problem -----------------------------------------------------------------
 
