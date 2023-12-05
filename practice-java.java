@@ -18,6 +18,38 @@ Input:  { 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 } Output: Subarray with zero-sum exis
 
 // # Solution =============================================
 
+import java.util.HashMap;
+import java.util.Map;
+
+public class ZeroSumSubarray {
+    public static void main(String[] args) {
+        int[] inputArray = {3, 4, -7, 3, 1, 3, 1, -4, -2, -2};
+        boolean zeroSumSubarrayExists = checkForZeroSumSubarray(inputArray);
+        
+        if (zeroSumSubarrayExists) {
+            System.out.println("Subarray with zero-sum exists");
+        } else {
+            System.out.println("No subarray with zero-sum");
+        }
+    }
+
+    private static boolean checkForZeroSumSubarray(int[] arr) {
+        Map<Integer, Boolean> sums = new HashMap<>();
+        int sum = 0;
+
+        for (int value : arr) {
+            sum += value;
+
+            if (sum == 0 || sums.get(sum) != null) {
+                return true;
+            }
+
+            sums.put(sum, true);
+        }
+
+        return false;
+    }
+}
 
 
 // # Problem -----------------------------------------------------------------
