@@ -6,6 +6,50 @@
 # Solution =============================================
 
     
+
+
+# Problem -----------------------------------------------------------------
+
+Print all subarrays with 0 sum
+Given an integer array, print all subarrays with zero-sum.
+
+For example,
+
+Input:  { 4, 2, -3, -1, 0, 4 } Subarrays with zero-sum are { -3, -1, 0, 4 }{ 0 }  Input:  { 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 } Subarrays with zero-sum are { 3, 4, -7 }{ 4, -7, 3 }{ -7, 3, 1, 3 }{ 3, 1, -4 }{ 3, 1, 3, 1, -4, -2, -2 }{ 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 }
+
+
+
+# Solution =============================================
+
+# Initialize variables
+input_array = [3, 4, -7, 3, 1, 3, 1, -4, -2, -2]
+subarrays = []
+
+# Loop through the array
+i = 0
+while i < input_array.length
+    sum = 0
+    j = i
+
+    # Check for subarrays starting at index i
+    while j < input_array.length
+        sum += input_array[j] # Add the current element to sum
+
+        # If sum becomes zero, we found a subarray
+        if sum == 0
+            subarrays << input_array[i..j] # Add the subarray to the result
+        end
+
+        j += 1 # Move to the next element
+    end
+
+    i += 1 # Move to the next starting point
+end
+
+# Print the result
+puts "Subarrays with zero-sum are: #{subarrays}"
+
+    
                   
 # Problem -----------------------------------------------------------------
 
