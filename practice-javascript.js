@@ -20,6 +20,33 @@ Input:  { 4, 2, -3, -1, 0, 4 } Subarrays with zero-sum are { -3, -1, 0, 4 }{ 0 }
 
 // # Solution =============================================
 
+// Initialize variables
+let inputArray = [3, 4, -7, 3, 1, 3, 1, -4, -2, -2];
+let subarrays = [];
+
+// Loop through the array
+let i = 0;
+while (i < inputArray.length) {
+    let sum = 0;
+    let j = i;
+
+    // Check for subarrays starting at index i
+    while (j < inputArray.length) {
+        sum += inputArray[j]; // Add the current element to sum
+
+        // If sum becomes zero, we found a subarray
+        if (sum === 0) {
+            subarrays.push(inputArray.slice(i, j + 1)); // Add the subarray to the result
+        }
+
+        j++; // Move to the next element
+    }
+
+    i++; // Move to the next starting point
+}
+
+// Print the result
+console.log("Subarrays with zero-sum are:", subarrays);
 
 
 
