@@ -17,6 +17,41 @@ Input:  { 4, 2, -3, -1, 0, 4 } Subarrays with zero-sum are { -3, -1, 0, 4 }{ 0 }
 
 // # Solution =============================================
 
+import java.util.ArrayList;
+import java.util.List;
+
+public class ZeroSumSubarrays {
+    public static void main(String[] args) {
+        int[] inputArray = {3, 4, -7, 3, 1, 3, 1, -4, -2, -2};
+        List<List<Integer>> subarrays = findZeroSumSubarrays(inputArray);
+
+        // Print the result
+        System.out.println("Subarrays with zero-sum are: " + subarrays);
+    }
+
+    private static List<List<Integer>> findZeroSumSubarrays(int[] arr) {
+        List<List<Integer>> subarrays = new ArrayList<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            int sum = 0;
+
+            for (int j = i; j < arr.length; j++) {
+                sum += arr[j];
+
+                // If sum becomes zero, we found a subarray
+                if (sum == 0) {
+                    List<Integer> subarray = new ArrayList<>();
+                    for (int k = i; k <= j; k++) {
+                        subarray.add(arr[k]);
+                    }
+                    subarrays.add(subarray);
+                }
+            }
+        }
+
+        return subarrays;
+    }
+}
 
 
 // # Problem -----------------------------------------------------------------
