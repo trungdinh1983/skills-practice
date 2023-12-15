@@ -20,7 +20,39 @@ Input:  { 1, 0, 1, 0, 1, 0, 0, 1 } Output: { 0, 0, 0, 0, 1, 1, 1, 1 }
 
 # Solution =============================================
 
-    
+    # Initialize the binary array
+binary_array = [1, 0, 1, 0, 1, 0, 0, 1]
+
+# Variables to keep track of zeros and array index
+zero_count = 0
+i = 0
+
+# Loop through the binary array
+while i < binary_array.length
+    # Count the number of zeros
+    if binary_array[i] == 0
+        zero_count += 1
+    end
+
+    # Move to the next element in the array
+    i += 1
+end
+
+# Fill the array with zeros and ones
+i = 0
+while i < zero_count
+    binary_array[i] = 0
+    i += 1
+end
+
+while i < binary_array.length
+    binary_array[i] = 1
+    i += 1
+end
+
+# Print the sorted array
+puts "Sorted array: #{binary_array}" # Output: [0, 0, 0, 0, 1, 1, 1, 1]
+
 
 
 # Problem -----------------------------------------------------------------
