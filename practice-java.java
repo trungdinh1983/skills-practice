@@ -17,6 +17,37 @@ Input:  { 1, 0, 1, 0, 1, 0, 0, 1 } Output: { 0, 0, 0, 0, 1, 1, 1, 1 }
 
 // # Solution =============================================
 
+public class BinaryArraySort {
+  public static void main(String[] args) {
+      // Initialize the binary array
+      int[] binaryArray = {1, 0, 1, 0, 1, 0, 0, 1};
+
+      // Variable to keep track of zeros
+      int zeroCount = 0;
+
+      // Loop through the binary array to count zeros
+      for (int i = 0; i < binaryArray.length; i++) {
+          if (binaryArray[i] == 0) {
+              zeroCount++;
+          }
+      }
+
+      // Fill the array with zeros and ones
+      for (int i = 0; i < binaryArray.length; i++) {
+          if (i < zeroCount) {
+              binaryArray[i] = 0;
+          } else {
+              binaryArray[i] = 1;
+          }
+      }
+
+      // Print the sorted array
+      System.out.print("Sorted array: ");
+      for (int num : binaryArray) {
+          System.out.print(num + " ");
+      }
+  }
+}
 
 
 // # Problem -----------------------------------------------------------------
