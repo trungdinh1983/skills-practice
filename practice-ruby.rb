@@ -1,4 +1,5 @@
                      
+                     
 # Problem -----------------------------------------------------------------
 
 
@@ -6,6 +7,48 @@
 # Solution =============================================
 
     
+
+ # Problem -----------------------------------------------------------------
+
+ Find the duplicate element in a limited range array
+ Given a limited range array of size n containing elements between 1 and n-1 with one element repeating, find the duplicate number in it without using any extra space.
+ 
+ For example,
+ 
+ Input:  { 1, 2, 3, 4, 4 }Output: The duplicate element is 4  Input:  { 1, 2, 3, 4, 2 }Output: The duplicate element is 2
+
+# Solution =============================================
+
+    # Initialize the array
+input_array = [1, 2, 3, 4, 4] # You can change this array to test different inputs
+
+# Function to find the duplicate
+def find_duplicate(arr)
+    i = 0
+
+    while i < arr.length
+        # Check if the current element is at its correct position
+        # If not, swap it to its correct position
+        if arr[i] != arr[arr[i] - 1]
+            arr[i], arr[arr[i] - 1] = arr[arr[i] - 1], arr[i]
+        else
+            # If we find a number which is already at its correct position
+            # and it's not the first occurrence, it's the duplicate
+            if i != arr[i] - 1
+                return arr[i]
+            end
+            i += 1
+        end
+    end
+
+    # If no duplicate found
+    return "No duplicate found"
+end
+
+# Call the function and print the result
+duplicate = find_duplicate(input_array)
+puts "The duplicate element is #{duplicate}"
+
 
  
 
