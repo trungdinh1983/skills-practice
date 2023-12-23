@@ -6,6 +6,51 @@
 // # Solution =============================================
 
 
+// # Problem -----------------------------------------------------------------
+
+Find the duplicate element in a limited range array
+ Given a limited range array of size n containing elements between 1 and n-1 with one element repeating, find the duplicate number in it without using any extra space.
+ 
+ For example,
+ 
+ Input:  { 1, 2, 3, 4, 4 }Output: The duplicate element is 4  Input:  { 1, 2, 3, 4, 2 }Output: The duplicate element is 2
+
+
+// # Solution =============================================
+
+// Initialize the array with some numbers
+const inputArray = [1, 2, 3, 4, 4]; // You can change this array to test different inputs
+
+// Initialize a variable to hold the duplicate value, starting with "No duplicate found"
+let duplicate = "No duplicate found";
+
+// Start a counter at 0
+let i = 0;
+
+// Start a while loop that will run as long as i is less than the length of the array
+while (i < inputArray.length) {
+    // Check if the current element is not at its correct position
+    if (inputArray[i] !== inputArray[inputArray[i] - 1]) {
+        // If it's not, swap it with the element at its supposed correct position
+        let temp = inputArray[i]; // Store the current element in a temporary variable
+        inputArray[i] = inputArray[inputArray[i] - 1]; // Move the element at the correct position to the current position
+        inputArray[inputArray[i] - 1] = temp; // Put the element from the temporary variable to its correct position
+    } else {
+        // If the current element is at its correct position
+        if (i !== inputArray[i] - 1) {
+            // And if it's not the first occurrence, it's the duplicate
+            duplicate = inputArray[i]; // Set the duplicate variable to the current element
+            break; // Break out of the loop since we've found the duplicate
+        }
+        i++; // If it's the first occurrence, increment i to check the next element
+    }
+}
+
+// Print the result to the console
+console.log("The duplicate element is " + duplicate);
+
+
+//This code will go through each element in the array and try to place it in its correct position (e.g., the number 1 should be in the 0th index, 2 in the 1st index, and so on). If it finds an element that's already in its correct position and it's not the first occurrence of that number, it identifies that number as the duplicate.
 
 // # Problem -----------------------------------------------------------------
 
