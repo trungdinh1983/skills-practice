@@ -8,6 +8,57 @@
 
 // # Problem -----------------------------------------------------------------
 
+Find the duplicate element in a limited range array
+ Given a limited range array of size n containing elements between 1 and n-1 with one element repeating, find the duplicate number in it without using any extra space.
+ 
+ For example,
+ 
+ Input:  { 1, 2, 3, 4, 4 }Output: The duplicate element is 4  Input:  { 1, 2, 3, 4, 2 }Output: The duplicate element is 2
+
+
+
+// # Solution =============================================
+
+public class DuplicateFinder {
+  public static void main(String[] args) {
+      // Initialize the array with some numbers
+      int[] inputArray = {1, 2, 3, 4, 4}; // You can change this array to test different inputs
+
+      // Variable to store the duplicate number, initialized to -1 (indicating no duplicate found yet)
+      int duplicate = -1;
+
+      // Start a loop to go through each element of the array
+      int i = 0;
+      while (i < inputArray.length) {
+          // Check if the current element is not at its correct position
+          if (inputArray[i] != inputArray[inputArray[i] - 1]) {
+              // If it's not, swap it with the element at its supposed correct position
+              int temp = inputArray[i];
+              inputArray[i] = inputArray[inputArray[i] - 1];
+              inputArray[inputArray[i] - 1] = temp;
+          } else {
+              // If the current element is at its correct position
+              if (i != inputArray[i] - 1) {
+                  // And if it's not the first occurrence, it's the duplicate
+                  duplicate = inputArray[i];
+                  break; // Break out of the loop since we've found the duplicate
+              }
+              i++; // If it's the first occurrence, increment i to check the next element
+          }
+      }
+
+      // Print the result
+      if (duplicate != -1) {
+          System.out.println("The duplicate element is " + duplicate);
+      } else {
+          System.out.println("No duplicate found");
+      }
+  }
+}
+
+
+// # Problem -----------------------------------------------------------------
+
 Sort binary array in linear time
 Given a binary array, sort it in linear time and constant space. The output should print all zeros, followed by all ones.
 
