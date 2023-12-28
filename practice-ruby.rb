@@ -1,5 +1,4 @@
-                     
-                     
+                             
 # Problem -----------------------------------------------------------------
 
 
@@ -7,6 +6,95 @@
 # Solution =============================================
 
     
+             
+                     
+# Problem -----------------------------------------------------------------
+
+Find the duplicate element in a limited range array
+Given a limited range array of size n containing elements between 1 and n-1 with one element repeating, find the duplicate number in it without using any extra space.
+
+Find the largest subarray formed by consecutive integers
+Given an integer array, find the largest subarray formed by consecutive integers. The subarray should contain all distinct values.
+
+For example,
+
+Input:  { 2, 0, 2, 1, 4, 3, 1, 0 } Output: The largest subarray is { 0, 2, 1, 4, 3 }
+
+
+# Solution =============================================
+
+
+1. Find the Duplicate Element in a Limited Range Array
+
+def find_duplicate(arr)
+  i = 0
+  while i < arr.length
+      # Use the absolute value as index
+      index = arr[i].abs
+
+      # If the value at this index is negative, it's a duplicate
+      if arr[index - 1] < 0
+          return index
+      else
+          # Negate the value at this index
+          arr[index - 1] = -arr[index - 1]
+      end
+
+      i += 1
+  end
+
+  # No duplicate found
+  return -1
+end
+
+# Example usage
+arr = [1, 2, 3, 4, 2]
+puts "Duplicate element is: #{find_duplicate(arr)}"
+
+2. Find the Largest Subarray Formed by Consecutive Integers
+
+def is_consecutive(subarr)
+  min_val = subarr.min
+  max_val = subarr.max
+
+  # If the subarray is not formed by consecutive integers
+  return false if max_val - min_val != subarr.length - 1
+
+  # Check for duplicate elements
+  seen = {}
+  subarr.each do |num|
+      return false if seen[num]
+      seen[num] = true
+  end
+
+  true
+end
+
+def largest_consecutive_subarray(arr)
+  max_length = 0
+  start_index = 0
+
+  i = 0
+  while i < arr.length
+      j = i
+      while j < arr.length
+          subarr = arr[i..j]
+          if is_consecutive(subarr) && subarr.length > max_length
+              max_length = subarr.length
+              start_index = i
+          end
+          j += 1
+      end
+      i += 1
+  end
+
+  arr[start_index, max_length]
+end
+
+# Example usage
+arr = [2, 0, 2, 1, 4, 3, 1, 0]
+puts "The largest subarray is: #{largest_consecutive_subarray(arr).inspect}"
+
 
  # Problem -----------------------------------------------------------------
 

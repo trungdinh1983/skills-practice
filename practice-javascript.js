@@ -9,6 +9,22 @@
 // # Problem -----------------------------------------------------------------
 
 Find the duplicate element in a limited range array
+Given a limited range array of size n containing elements between 1 and n-1 with one element repeating, find the duplicate number in it without using any extra space.
+
+Find the largest subarray formed by consecutive integers
+Given an integer array, find the largest subarray formed by consecutive integers. The subarray should contain all distinct values.
+
+For example,
+
+Input:  { 2, 0, 2, 1, 4, 3, 1, 0 } Output: The largest subarray is { 0, 2, 1, 4, 3 }
+
+
+// # Solution =============================================
+
+
+// # Problem -----------------------------------------------------------------
+
+Find the duplicate element in a limited range array
  Given a limited range array of size n containing elements between 1 and n-1 with one element repeating, find the duplicate number in it without using any extra space.
  
  For example,
