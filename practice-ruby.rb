@@ -1,12 +1,42 @@
-                     
-                     
+                      
 # Problem -----------------------------------------------------------------
 
 
 
 # Solution =============================================
 
-    
+                        
+                     
+# Problem -----------------------------------------------------------------
+
+Given an array (or string), the task is to reverse the array/string.
+Examples : 
+ 
+
+Input  : arr[] = {1, 2, 3}
+Output : arr[] = {3, 2, 1}
+
+Input :  arr[] = {4, 5, 1, 2}
+Output : arr[] = {2, 1, 5, 4}
+
+# Solution =============================================
+
+    # Initialize variables
+arr = [1, 2, 3]
+reversed_arr = []
+
+# Initialize index variables
+i = arr.length - 1
+
+# Use a while loop to reverse the array
+while i >= 0
+    reversed_arr << arr[i]
+    i -= 1
+end
+
+# Print the reversed array
+puts "Reversed array: #{reversed_arr}" # Output: Reversed array: [3, 2, 1]
+
 
  # Problem -----------------------------------------------------------------
 
