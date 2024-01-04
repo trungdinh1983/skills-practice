@@ -8,6 +8,40 @@
 
 // # Problem -----------------------------------------------------------------
 
+Write a program to reverse an array or string.
+
+Given an array (or string), the task is to reverse the array/string.
+Examples : 
+ 
+
+Input  : arr[] = {1, 2, 3}
+Output : arr[] = {3, 2, 1}
+
+Input :  arr[] = {4, 5, 1, 2}
+Output : arr[] = {2, 1, 5, 4}
+
+
+// # Solution =============================================
+
+// Initialize variables
+let arr = [1, 2, 3];
+let reversedArr = [];
+
+// Initialize index variable
+let i = arr.length - 1;
+
+// Use a while loop to reverse the array
+while (i >= 0) {
+    reversedArr.push(arr[i]);
+    i--;
+}
+
+// Print the reversed array
+console.log("Reversed array: " + reversedArr); // Output: Reversed array: [3, 2, 1]
+
+
+// # Problem -----------------------------------------------------------------
+
 Find the duplicate element in a limited range array
  Given a limited range array of size n containing elements between 1 and n-1 with one element repeating, find the duplicate number in it without using any extra space.
  
