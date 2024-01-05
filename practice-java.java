@@ -5,6 +5,53 @@
 // # Solution =============================================
 
 
+// # Problem -----------------------------------------------------------------
+
+Write a program to reverse an array or string.
+
+Given an array (or string), the task is to reverse the array/string.
+Examples : 
+ 
+
+Input  : arr[] = {1, 2, 3}
+Output : arr[] = {3, 2, 1}
+
+Input :  arr[] = {4, 5, 1, 2}
+Output : arr[] = {2, 1, 5, 4}
+
+
+
+// # Solution =============================================
+
+public class ReverseArray {
+    public static void main(String[] args) {
+        // Initialize variables
+        int[] arr = {1, 2, 3};
+        int[] reversedArr = new int[arr.length];
+
+        // Initialize index variable
+        int i = arr.length - 1;
+        int j = 0;
+
+        // Use a while loop to reverse the array
+        while (i >= 0) {
+            reversedArr[j] = arr[i];
+            i--;
+            j++;
+        }
+
+        // Print the reversed array
+        System.out.print("Reversed array: [");
+        for (int k = 0; k < reversedArr.length; k++) {
+            System.out.print(reversedArr[k]);
+            if (k < reversedArr.length - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]"); // Output: Reversed array: [3, 2, 1]
+    }
+}
+
 
 // # Problem -----------------------------------------------------------------
 
