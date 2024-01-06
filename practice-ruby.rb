@@ -1,10 +1,39 @@
-                      
-# Problem -----------------------------------------------------------------
+ # Problem -----------------------------------------------------------------
 
 
 
 # Solution =============================================
 
+                        
+                            
+# Problem -----------------------------------------------------------------
+
+find the minimum element of an array
+
+# Initialize the array
+arr = [38, 27, 43, 10]
+
+# Solution =============================================
+
+# Initialize the array
+arr = [38, 27, 43, 10]
+
+# Initialize variables
+min_element = arr[0] # Assume the first element is the minimum
+
+# Loop through the array
+i = 1 # Start from the second element
+
+while i < arr.length
+    if arr[i] < min_element
+        min_element = arr[i]
+    end
+    
+    i += 1
+end
+
+# Print the minimum element
+puts "The minimum element in the array is: #{min_element}"
                         
                      
 # Problem -----------------------------------------------------------------
