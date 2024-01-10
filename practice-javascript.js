@@ -8,7 +8,7 @@
 
 // # Problem -----------------------------------------------------------------
 
-find minimum element of an array
+find the minimum element of an array
 
 # Initialize the array
 arr = [38, 27, 43, 10]
