@@ -7,6 +7,40 @@
 
 // # Problem -----------------------------------------------------------------
 
+find the minimum element of an array
+
+# Initialize the array
+arr = [38, 27, 43, 10]
+
+// # Solution =============================================
+
+public class MinimumElementFinder {
+    public static void main(String[] args) {
+        // Initialize the array
+        int[] arr = {38, 27, 43, 10};
+
+        // Initialize variables
+        int minElement = arr[0]; // Assume the first element is the minimum
+
+        // Loop through the array
+        int i = 1; // Start from the second element
+
+        while (i < arr.length) {
+            if (arr[i] < minElement) {
+                minElement = arr[i];
+            }
+
+            i++;
+        }
+
+        // Print the minimum element
+        System.out.println("The minimum element in the array is: " + minElement);
+    }
+}
+
+
+// # Problem -----------------------------------------------------------------
+
 Write a program to reverse an array or string.
 
 Given an array (or string), the task is to reverse the array/string.
