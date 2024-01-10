@@ -33,7 +33,7 @@ while (i < arr.length) {
     i++;
 }
 
-// Print the minimum element
+// Print out the minimum element
 console.log("The minimum element in the array is: " + minElement);
 
 
