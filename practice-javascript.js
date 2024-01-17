@@ -8,6 +8,64 @@
 
 // # Problem -----------------------------------------------------------------
 
+Problem: Finding a Book in a Library
+
+ Story:
+ You are in charge of managing a small library, and you want to help the library visitors find books easily. You have a list of books stored in an array, and you need to create a program that allows visitors to search for a book by its title. You decide to implement a linear search algorithm to achieve this.
+ 
+ Variables:
+ 
+ libraryBooks: An array that stores the titles of books in the library.
+ targetBook: The title of the book that the visitor is looking for.
+ foundBookIndex: A variable to store the index of the book if found, or -1 if not found.
+ Task:
+ Write a Ruby program to implement the linear search algorithm to help library visitors find a book by its title. Your program should do the following:
+ 
+ Prompt the visitor to enter the title of the book they are looking for.
+ Perform a linear search on the libraryBooks array to find the book.
+ If the book is found, store its index in the foundBookIndex variable.
+ If the book is not found, set foundBookIndex to -1.
+ Display a message to the visitor indicating whether the book was found or not, along with its index if found.
+
+
+// # Solution =============================================
+
+// Sample array of library books
+const libraryBooks = ["Harry Potter and the Sorcerer's Stone", "To Kill a Mockingbird", "The Great Gatsby", "1984", "The Catcher in the Rye", "Pride and Prejudice"];
+
+// Prompt the visitor to enter the title of the book they are looking for
+const readline = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+readline.question('Enter the title of the book you are looking for: ', (targetBook) => {
+  // Initialize the foundBookIndex variable to -1
+  let foundBookIndex = -1;
+
+  // Perform a linear search to find the book
+  for (let i = 0; i < libraryBooks.length; i++) {
+    if (libraryBooks[i] === targetBook) {
+      foundBookIndex = i;
+      break;
+    }
+  }
+
+  // Display the result
+  if (foundBookIndex !== -1) {
+    console.log(`The book '${targetBook}' was found at index ${foundBookIndex}.`);
+  } else {
+    console.log(`The book '${targetBook}' was not found in the library.`);
+  }
+
+  // Close the input stream
+  readline.close();
+});
+
+
+
+// # Problem -----------------------------------------------------------------
+
 find the minimum element of an array
 
 # Initialize the array

@@ -7,6 +7,44 @@
 
 // # Problem -----------------------------------------------------------------
 
+
+// # Solution =============================================
+
+// Sample array of library books
+const libraryBooks = ["Harry Potter and the Sorcerer's Stone", "To Kill a Mockingbird", "The Great Gatsby", "1984", "The Catcher in the Rye", "Pride and Prejudice"];
+
+// Prompt the visitor to enter the title of the book they are looking for
+const readline = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+readline.question('Enter the title of the book you are looking for: ', (targetBook) => {
+  // Initialize the foundBookIndex variable to -1
+  let foundBookIndex = -1;
+
+  // Perform a linear search to find the book
+  for (let i = 0; i < libraryBooks.length; i++) {
+    if (libraryBooks[i] === targetBook) {
+      foundBookIndex = i;
+      break;
+    }
+  }
+
+  // Display the result
+  if (foundBookIndex !== -1) {
+    console.log(`The book '${targetBook}' was found at index ${foundBookIndex}.`);
+  } else {
+    console.log(`The book '${targetBook}' was not found in the library.`);
+  }
+
+  // Close the input stream
+  readline.close();
+});
+
+
+// # Problem -----------------------------------------------------------------
+
 find the minimum element of an array
 
 # Initialize the array
