@@ -1,10 +1,63 @@
-  # Problem -----------------------------------------------------------------
+
+  
+ 
+ 
+ # Problem -----------------------------------------------------------------
 
 
 
 # Solution =============================================
 
     
+ 
+ 
+ # Problem -----------------------------------------------------------------
+
+ Search element in array
+
+ Given an integer array and another integer element. The task is to find if the given element is present in array or not.
+
+ Example 1:
+ 
+ Input:
+ n = 4
+ arr[] = {1,2,3,4}
+ x = 3
+ Output: 2
+ Explanation: There is one test case 
+ with array as {1, 2, 3 4} and element 
+ to be searched as 3.  Since 3 is 
+ present at index 2, output is 2.
+
+# Solution =============================================
+
+# Initialize variables
+arr = [1, 2, 3, 4] # The array of integers
+x = 3              # The element to find
+index = -1         # Default index if element is not found
+
+# Loop through the array
+i = 0
+
+while i < arr.length
+    # Check if the current element is the one we're looking for
+    if arr[i] == x
+        # If found, set index to the current position
+        index = i
+        break      # Exit the loop since we found the element
+    end
+
+    # Move to the next element in the array
+    i += 1
+end
+
+# Print the result
+if index != -1
+    puts "Element found at index: #{index}"
+else
+    puts "Element not found in the array"
+end
+ 
  
  
  # Problem -----------------------------------------------------------------
