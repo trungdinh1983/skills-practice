@@ -1,11 +1,20 @@
+<<<<<<< HEAD
                              
 # Problem -----------------------------------------------------------------
+=======
+
+  
+ 
+ 
+ # Problem -----------------------------------------------------------------
+>>>>>>> 415f04a2222abe4015bcde9bf424347fccff49c6
 
 
 
 # Solution =============================================
 
     
+<<<<<<< HEAD
              
                      
 # Problem -----------------------------------------------------------------
@@ -94,6 +103,170 @@ end
 # Example usage
 arr = [2, 0, 2, 1, 4, 3, 1, 0]
 puts "The largest subarray is: #{largest_consecutive_subarray(arr).inspect}"
+=======
+ 
+ 
+ # Problem -----------------------------------------------------------------
+
+ Search element in array
+
+ Given an integer array and another integer element. The task is to find if the given element is present in array or not.
+
+ Example 1:
+ 
+ Input:
+ n = 4
+ arr[] = {1,2,3,4}
+ x = 3
+ Output: 2
+ Explanation: There is one test case 
+ with array as {1, 2, 3 4} and element 
+ to be searched as 3.  Since 3 is 
+ present at index 2, output is 2.
+
+# Solution =============================================
+
+# Initialize variables
+arr = [1, 2, 3, 4] # The array of integers
+x = 3              # The element to find
+index = -1         # Default index if element is not found
+
+# Loop through the array
+i = 0
+
+while i < arr.length
+    # Check if the current element is the one we're looking for
+    if arr[i] == x
+        # If found, set index to the current position
+        index = i
+        break      # Exit the loop since we found the element
+    end
+
+    # Move to the next element in the array
+    i += 1
+end
+
+# Print the result
+if index != -1
+    puts "Element found at index: #{index}"
+else
+    puts "Element not found in the array"
+end
+ 
+ 
+ 
+ # Problem -----------------------------------------------------------------
+
+ Problem: Finding a Book in a Library
+
+ Story:
+ You are in charge of managing a small library, and you want to help the library visitors find books easily. You have a list of books stored in an array, and you need to create a program that allows visitors to search for a book by its title. You decide to implement a linear search algorithm to achieve this.
+ 
+ Variables:
+ 
+ libraryBooks: An array that stores the titles of books in the library.
+ targetBook: The title of the book that the visitor is looking for.
+ foundBookIndex: A variable to store the index of the book if found, or -1 if not found.
+ Task:
+ Write a Ruby program to implement the linear search algorithm to help library visitors find a book by its title. Your program should do the following:
+ 
+ Prompt the visitor to enter the title of the book they are looking for.
+ Perform a linear search on the libraryBooks array to find the book.
+ If the book is found, store its index in the foundBookIndex variable.
+ If the book is not found, set foundBookIndex to -1.
+ Display a message to the visitor indicating whether the book was found or not, along with its index if found.
+
+# Solution =============================================
+
+# Sample array of library books
+libraryBooks = ["Harry Potter and the Sorcerer's Stone", "To Kill a Mockingbird", "The Great Gatsby", "1984", "The Catcher in the Rye", "Pride and Prejudice"]
+
+# Prompt the visitor to enter the title of the book they are looking for
+puts "Enter the title of the book you are looking for:"
+targetBook = gets.chomp
+
+# Initialize the foundBookIndex variable to -1
+foundBookIndex = -1
+
+# Perform a linear search to find the book
+for i in 0..(libraryBooks.length - 1)
+  if libraryBooks[i] == targetBook
+    foundBookIndex = i
+    break
+  end
+end
+
+# Display the result
+if foundBookIndex != -1
+  puts "The book '#{targetBook}' was found at index #{foundBookIndex}."
+else
+  puts "The book '#{targetBook}' was not found in the library."
+end
+
+                        
+                            
+# Problem -----------------------------------------------------------------
+
+find the minimum element of an array
+
+# Initialize the array
+arr = [38, 27, 43, 10]
+
+# Solution =============================================
+
+# Initialize the array
+arr = [38, 27, 43, 10]
+
+# Initialize variables
+min_element = arr[0] # Assume the first element is the minimum
+
+# Loop through the array
+i = 1 # Start from the second element
+
+while i < arr.length
+    if arr[i] < min_element
+        min_element = arr[i]
+    end
+    
+    i += 1
+end
+
+# Print the minimum element
+puts "The minimum element in the array is: #{min_element}"
+                        
+                     
+# Problem -----------------------------------------------------------------
+
+Write a program to reverse an array or string.
+
+Given an array (or string), the task is to reverse the array/string.
+Examples : 
+ 
+
+Input  : arr[] = {1, 2, 3}
+Output : arr[] = {3, 2, 1}
+
+Input :  arr[] = {4, 5, 1, 2}
+Output : arr[] = {2, 1, 5, 4}
+
+# Solution =============================================
+
+    # Initialize variables
+arr = [1, 2, 3]
+reversed_arr = []
+
+# Initialize index variables
+i = arr.length - 1
+
+# Use a while loop to reverse the array
+while i >= 0
+    reversed_arr << arr[i]
+    i -= 1
+end
+
+# Print the reversed array
+puts "Reversed array: #{reversed_arr}" # Output: Reversed array: [3, 2, 1]
+>>>>>>> 415f04a2222abe4015bcde9bf424347fccff49c6
 
 
  # Problem -----------------------------------------------------------------

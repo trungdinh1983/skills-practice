@@ -5,6 +5,125 @@
 // # Solution =============================================
 
 
+// # Problem -----------------------------------------------------------------
+
+
+// # Solution =============================================
+
+// Sample array of library books
+const libraryBooks = ["Harry Potter and the Sorcerer's Stone", "To Kill a Mockingbird", "The Great Gatsby", "1984", "The Catcher in the Rye", "Pride and Prejudice"];
+
+// Prompt the visitor to enter the title of the book they are looking for
+const readline = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+readline.question('Enter the title of the book you are looking for: ', (targetBook) => {
+  // Initialize the foundBookIndex variable to -1
+  let foundBookIndex = -1;
+
+  // Perform a linear search to find the book
+  for (let i = 0; i < libraryBooks.length; i++) {
+    if (libraryBooks[i] === targetBook) {
+      foundBookIndex = i;
+      break;
+    }
+  }
+
+  // Display the result
+  if (foundBookIndex !== -1) {
+    console.log(`The book '${targetBook}' was found at index ${foundBookIndex}.`);
+  } else {
+    console.log(`The book '${targetBook}' was not found in the library.`);
+  }
+
+  // Close the input stream
+  readline.close();
+});
+
+
+// # Problem -----------------------------------------------------------------
+
+find the minimum element of an array
+
+# Initialize the array
+arr = [38, 27, 43, 10]
+
+// # Solution =============================================
+
+public class MinimumElementFinder {
+    public static void main(String[] args) {
+        // Initialize the array
+        int[] arr = {38, 27, 43, 10};
+
+        // Initialize variables
+        int minElement = arr[0]; // Assume the first element is the minimum
+
+        // Loop through the array
+        int i = 1; // Start from the second element
+
+        while (i < arr.length) {
+            if (arr[i] < minElement) {
+                minElement = arr[i];
+            }
+
+            i++;
+        }
+
+        // Print the minimum element
+        System.out.println("The minimum element in the array is: " + minElement);
+    }
+}
+
+
+// # Problem -----------------------------------------------------------------
+
+Write a program to reverse an array or string.
+
+Given an array (or string), the task is to reverse the array/string.
+Examples : 
+ 
+
+Input  : arr[] = {1, 2, 3}
+Output : arr[] = {3, 2, 1}
+
+Input :  arr[] = {4, 5, 1, 2}
+Output : arr[] = {2, 1, 5, 4}
+
+
+
+// # Solution =============================================
+
+public class ReverseArray {
+    public static void main(String[] args) {
+        // Initialize variables
+        int[] arr = {1, 2, 3};
+        int[] reversedArr = new int[arr.length];
+
+        // Initialize index variable
+        int i = arr.length - 1;
+        int j = 0;
+
+        // Use a while loop to reverse the array
+        while (i >= 0) {
+            reversedArr[j] = arr[i];
+            i--;
+            j++;
+        }
+
+        // Print the reversed array
+        System.out.print("Reversed array: [");
+        for (int k = 0; k < reversedArr.length; k++) {
+            System.out.print(reversedArr[k]);
+            if (k < reversedArr.length - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println("]"); // Output: Reversed array: [3, 2, 1]
+    }
+}
+
 
 // # Problem -----------------------------------------------------------------
 
