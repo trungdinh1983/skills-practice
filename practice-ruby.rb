@@ -4,6 +4,58 @@
 
 # Solution =============================================
 
+         
+
+# Problem -----------------------------------------------------------------
+
+Find maximum length subarray having a given sum
+Given an integer array, find the maximum length subarray having a given sum.
+
+For example, consider the following array:
+
+nums[] = { 5, 6, -5, 5, 3, 5, 3, -2, 0 }target = 8  Subarrays with sum 8 are { -5, 5, 3, 5 }{ 3, 5 }{ 5, 3 } The longest subarray is { -5, 5, 3, 5 } having length 4
+
+# Solution =============================================
+
+# Initialize variables
+nums = [5, 6, -5, 5, 3, 5, 3, -2, 0]
+target_sum = 8
+max_length = 0
+start_index = 0
+
+# Loop through the array
+i = 0
+while i < nums.length
+  current_sum = 0
+  j = i # Start j from i
+  
+  while j < nums.length
+    # Add the current number to the current_sum
+    current_sum += nums[j]
+    
+    # Check if current_sum equals target_sum
+    if current_sum == target_sum
+      # Update max_length if this subarray is longer
+      if (j - i + 1) > max_length
+        max_length = j - i + 1
+        start_index = i
+      end
+    end
+    
+    # Move to the next number in the array
+    j += 1
+  end
+  
+  # Move to the next starting point in the array
+  i += 1
+end
+
+# Print the result
+puts "Maximum length subarray with sum #{target_sum} is of length #{max_length}"
+puts "Subarray: #{nums[start_index, max_length]}"
+
+ #Output answer: Maximum length subarray with sum 8 is of length 4
+#Subarray: [-5, 5, 3, 5]
                                  
 # Problem -----------------------------------------------------------------
 
@@ -67,7 +119,7 @@ input_array = [2, 0, 2, 1, 4, 3, 1, 0]
 result = find_largest_consecutive_subarray(input_array)
 puts "The largest subarray is #{result}"
 
- 
+
  
  # Problem -----------------------------------------------------------------
 
