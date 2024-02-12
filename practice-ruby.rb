@@ -6,9 +6,64 @@
 
          
 
+
 # Problem -----------------------------------------------------------------
 
-Find maximum length subarray having a given sum
+8.Find maximum length sub-array having equal number of 0’s and 1’s
+
+Find the largest subarray having an equal number of 0’s and 1’s
+Given a binary array containing 0’s and 1’s, find the largest subarray with equal numbers of 0’s and 1’s.
+
+For example,
+
+Input:  { 0, 0, 1, 0, 1, 0, 0 } Output: Largest subarray is { 0, 1, 0, 1 } or { 1, 0, 1, 0 }
+
+# Solution =============================================
+
+def find_largest_subarray(arr)
+  # Initialize variables
+  max_length = 0
+  end_index = -1
+  count = 0
+  hash = {0 => -1} # To handle the case when subarray starts from index 0
+  
+  i = 0 # Start of the while loop
+  while i < arr.length
+      # Update count: +1 for 1, -1 for 0
+      count += (arr[i] == 1) ? 1 : -1
+      
+      # Check if count is already in hash
+      if hash[count]
+          # Calculate the length of the current subarray
+          if i - hash[count] > max_length
+              max_length = i - hash[count]
+              end_index = i
+          end
+      else
+          # Store the first occurrence of this count
+          hash[count] = i
+      end
+      
+      i += 1 # Move to the next element
+  end
+  
+  # Check if we found a subarray
+  if end_index != -1
+      # Return the subarray
+      return arr[(end_index - max_length + 1)..end_index]
+  else
+      return "No such subarray exists"
+  end
+end
+
+# Test the function
+arr = [0, 0, 1, 0, 1, 0, 0]
+puts "Largest subarray is: #{find_largest_subarray(arr)}"
+       
+
+# Problem -----------------------------------------------------------------
+
+7.Find maximum length sub-array having given sum
 Given an integer array, find the maximum length subarray having a given sum.
 
 For example, consider the following array:
