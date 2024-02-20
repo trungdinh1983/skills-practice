@@ -1,10 +1,54 @@
 # Problem -----------------------------------------------------------------
 
 
-
 # Solution =============================================
 
          
+
+# Problem -----------------------------------------------------------------
+
+9. Sort an array of 0’s, 1’s, and 2’s (Dutch National Flag Problem)
+Given an array containing only 0’s, 1’s, and 2’s, sort it in linear time and using constant space.
+
+For example,
+
+Input:  { 0, 1, 2, 2, 1, 0, 0, 2, 0, 1, 1, 0 } Output: { 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2 }
+
+//We're going to use three pointers to solve it: one for 0s (let's call it low), one for the current element (let's call it mid), and one for 2s (let's call it high). The idea is to move 0s to the beginning, 2s to the end,
+
+# Solution =============================================
+
+ # Initialize the array
+arr = [0, 1, 2, 2, 1, 0, 0, 2, 0, 1, 1, 0]
+
+# Initialize pointers
+low = 0
+mid = 0
+high = arr.length - 1
+
+# Use while loop to sort
+while mid <= high
+  case arr[mid]
+  when 0
+    # Swap if the element is 0
+    arr[low], arr[mid] = arr[mid], arr[low]
+    low += 1
+    mid += 1
+  when 1
+    # Move to the next element if it's 1
+    mid += 1
+  when 2
+    # Swap if the element is 2
+    arr[mid], arr[high] = arr[high], arr[mid]
+    high -= 1
+  end
+end
+
+# Print the sorted array
+puts "Sorted array: #{arr.inspect}"
+        
+
+
 
 
 # Problem -----------------------------------------------------------------
