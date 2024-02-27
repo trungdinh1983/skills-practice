@@ -7,6 +7,56 @@
 
 # Problem -----------------------------------------------------------------
 
+10. In-place merge two sorted arrays
+Given two sorted arrays, X[] and Y[] of size m and n each, merge elements of X[] with elements of array Y[] by maintaining the sorted order, i.e., fill X[] with the first m smallest elements and fill Y[] with remaining elements.
+
+Do the conversion in-place and without using any other data structure.
+
+ For example,
+
+Input: X[] = { 1, 4, 7, 8, 10 }Y[] = { 2, 3, 9 } Output: X[] = { 1, 2, 3, 4, 7 }Y[] = { 8, 9, 10 }
+
+# Solution =============================================
+
+ # Initialize the arrays
+x = [1, 4, 7, 8, 10]
+y = [2, 3, 9]
+
+# Start from the end of the first array and the beginning of the second array
+i = x.length - 1
+j = 0
+
+# Loop until we reach the beginning of the first array and the end of the second array
+while i >= 0 && j < y.length
+  # If an element in the first array is bigger than an element in the second array
+  if x[i] > y[j]
+    # Swap the elements
+    x[i], y[j] = y[j], x[i]
+    # Since we've made a swap, we need to ensure the second array remains sorted
+    # So, we sort the second array
+    y.sort!
+  end
+  # Move to the next elements in the arrays
+  i -= 1 # can be written i = i - 1
+  j += 1 # can be written j = j + 1
+end
+
+# Now, we need to ensure the first array is sorted as well because the swapping might have disturbed its order
+x.sort!
+
+# Print the result
+puts "X[] = #{x.inspect}" # This will show the first m smallest elements
+puts "Y[] = #{y.inspect}" # This will show the remaining elements
+
+#Starting from the end of X[] and the start of Y[].
+#Swapping elements if an element in X[] is greater than an element in Y[].
+#Sorting Y[] after each swap to maintain its sorted order.
+#After completing the swaps, sorting X[] to ensure it is also in sorted order.
+#- no extra data structures use
+        
+
+# Problem -----------------------------------------------------------------
+
 9. Sort an array of 0’s, 1’s, and 2’s (Dutch National Flag Problem)
 Given an array containing only 0’s, 1’s, and 2’s, sort it in linear time and using constant space.
 
