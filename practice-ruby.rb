@@ -5,6 +5,75 @@
 
          
 
+
+# Problem -----------------------------------------------------------------
+
+11. Merge two arrays by satisfying given constraints
+Given two sorted arrays X[] and Y[] of size m and n each where m >= n and X[] has exactly n vacant cells, merge elements of Y[] in their correct position in array X[], i.e., merge (X, Y) by keeping the sorted order.
+
+For example,
+
+Input: X[] = { 0, 2, 0, 3, 0, 5, 6, 0, 0 }Y[] = { 1, 8, 9, 10, 15 } The vacant cells in X[] is represented by 0 Output: X[] = { 1, 2, 3, 5, 6, 8, 9, 10, 15 }
+
+# Solution =============================================
+
+# Initialize the arrays
+X = [0, 2, 0, 3, 0, 5, 6, 0, 0]
+Y = [1, 8, 9, 10, 15]
+
+# Function to move non-zero elements of X to the front
+def move_non_zero_to_front(X)
+  count = 0 # Count of non-zero elements
+  # Traverse the array. If element encountered is non-zero, then
+  # replace the element at 'count' index with this element
+  for i in 0...X.length
+    if X[i] != 0
+      X[count] = X[i]
+      count += 1
+    end
+  end
+  # Now all non-zero elements have been shifted to the front and
+  # 'count' is set as the index of first 0. Fill remaining positions with 0
+  while count < X.length
+    X[count] = 0
+    count += 1
+  end
+end
+
+# Function to merge Y into X
+def merge(X, Y)
+  move_non_zero_to_front(X) # First, move non-zero elements of X to the front
+  
+  m = X.count { |x| x != 0 } # Size of non-zero elements in X
+  n = Y.length # Size of Y
+  
+  i = m - 1 # Last index of non-zero elements in X
+  j = n - 1 # Last index of Y
+  k = m + n - 1 # Last index of merged array
+  
+  # Merge Y into X from the back
+  while j >= 0
+    # If X is exhausted or Y's current element is larger
+    if i < 0 or X[i] < Y[j]
+      X[k] = Y[j]
+      j -= 1
+      k -= 1
+    else
+      X[k] = X[i]
+      i -= 1
+      k -= 1
+    end
+  end
+end
+
+# Merge Y into X
+merge(X, Y)
+
+# Print the result
+puts "Merged array is: #{X}"
+
+         
+
 # Problem -----------------------------------------------------------------
 
 10. In-place merge two sorted arrays
