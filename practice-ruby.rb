@@ -1,9 +1,56 @@
+
 # Problem -----------------------------------------------------------------
 
 
 # Solution =============================================
 
          
+
+
+# Problem -----------------------------------------------------------------
+
+12. Find the index of 0 to be replaced to get the maximum length sequence of continuous ones
+Given a binary array, find the index of 0 to be replaced with 1 to get the maximum length sequence of continuous ones.
+
+For example, consider the array { 0, 0, 1, 0, 1, 1, 1, 0, 1, 1 }. We need to replace index 7 to get the continuous sequence of length 6 containing all 1’s.
+
+# Solution =============================================
+
+ # Initialize variables
+binary_array = [0, 0, 1, 0, 1, 1, 1, 0, 1, 1]
+max_count = 0 # To keep track of the maximum sequence of 1s
+max_index = 0 # To keep track of the index of 0 to be replaced
+current_count = 0 # To keep track of the current sequence of 1s
+last_zero_index = -1 # To keep track of the last 0's index
+i = 0 # Index for the while loop
+
+# Loop through the binary array
+while i < binary_array.length
+    if binary_array[i] == 1
+        # If the current element is 1, increase the current count
+        current_count += 1
+    else
+        # If the current element is 0, reset the current count to the number of 1s after the last 0
+        # Also, update the last_zero_index to the current index
+        current_count = i - last_zero_index
+        last_zero_index = i
+    end
+    
+    # Check if the current sequence of 1s (including the replaced 0) is the longest so far
+    if current_count > max_count
+        max_count = current_count
+        max_index = last_zero_index # The index of 0 to replace to get the longest sequence of 1s
+    end
+    
+    # Move to the next element in the array
+    i += 1
+end
+
+# Print the result
+puts "Replace the 0 at index #{max_index} to get the longest continuous sequence of 1s of length #{max_count}."
+
+This code snippet initializes several variables to keep track of the maximum sequence of 1s, the index of the last 0 encountered, and the current sequence length. As it iterates through the array, it updates these variables based on whether the current element is a 1 or a 0. When a 0 is encountered, it checks if replacing this 0 with a 1 would result in the longest sequence of 1s seen so far. After completing the iteration, it prints the index of the 0 that should be replaced to achieve the longest sequence of continuous 1s.
+
 
 
 # Problem -----------------------------------------------------------------
