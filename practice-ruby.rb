@@ -6,6 +6,61 @@
 
          
 
+# Problem -----------------------------------------------------------------
+
+13. Find the maximum product of two integers in an array
+Given an integer array, find the maximum product of two integers in it.
+
+For example, consider array {-10, -3, 5, 6, -2}. The maximum product is the (-10, -3) or (5, 6) pair.
+
+
+
+# Solution =============================================
+
+ # Initialize the array
+numbers = [-10, -3, 5, 6, -2]
+
+# Initialize variables
+max1 = max2 = -Float::INFINITY # Use negative infinity to ensure any number we compare with is larger
+min1 = min2 = Float::INFINITY # Use infinity to ensure any number we compare with is smaller
+
+i = 0
+
+# Find the two largest and two smallest numbers
+while i < numbers.length
+  num = numbers[i]
+  
+  # Update max values
+  if num > max1
+    max2 = max1 # Update second max to be the old max
+    max1 = num # Update max to be the current number
+  elsif num > max2
+    max2 = num
+  end
+  
+  # Update min values
+  if num < min1
+    min2 = min1 # Update second min to be the old min
+    min1 = num # Update min to be the current number
+  elsif num < min2
+    min2 = num
+  end
+  
+  i += 1
+end
+
+# Calculate the maximum product
+max_product = [max1 * max2, min1 * min2].max
+
+# Print the result
+puts "The maximum product is: #{max_product}"
+
+
+# Notes: It initializes variables to track the largest and smallest numbers found in the array.
+# It uses a while loop to iterate through the array, updating these variables as it goes.
+# It calculates the maximum product by considering both the product of the two largest numbers and the product of the two smallest numbers.
+# Finally, it prints out the maximum product found.
+
 
 # Problem -----------------------------------------------------------------
 
