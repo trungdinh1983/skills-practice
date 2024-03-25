@@ -8,6 +8,52 @@
 
 # Problem -----------------------------------------------------------------
 
+14. Shuffle an array using Fisher–Yates shuffle algorithm
+Given an integer array, in-place shuffle it. The algorithm should produce an unbiased permutation, i.e., every permutation is equally likely.
+
+Fisher–Yates shuffle is an algorithm to generate random permutations. It takes time proportional to the total number of items being shuffled and shuffles them in place. The algorithm swaps the element at each iteration at random among all remaining unvisited indices, including the element itself.
+
+Here’s the complete algorithm:
+
+— To shuffle an array ‘a’ of ‘n’ elements:for i from n-1 down to 1 do    j = random integer such that 0 <= j <= i    exchange a[j] and a[i]
+
+# Solution =============================================
+
+# Initialize the array to shuffle
+array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# Get the length of the array
+n = array.length
+
+# Start from the end of the array and move towards the beginning
+i = n - 1
+
+while i > 0
+  # Generate a random index from 0 to i
+  j = rand(0..i)
+
+  # Swap elements at indices i and j
+  array[i], array[j] = array[j], array[i] # This is how you swap in Ruby
+
+  # Move to the previous element
+  i -= 1 # Same as i = i - 1
+end
+
+# Print the shuffled array
+puts "Shuffled array: #{array}"
+
+
+# Initialize the array: We start with an array of numbers from 1 to 9.
+# Get the length: We need the length of the array to know how many elements we have.
+# Start from the end: We begin shuffling from the last element of the array and move towards the first.
+# Generate a random index: For each element i, we pick a random index j between 0 and i (inclusive).
+# Swap elements: We swap the elements at indices i and j. This is done in-place, meaning we don't need extra space to create a new array.
+# Move to the previous element: We decrement i by 1 and repeat the process until we've gone through the entire array.
+# Print the shuffled array: Finally, we print the shuffled array to see the result.
+         
+
+# Problem -----------------------------------------------------------------
+
 13. Find the maximum product of two integers in an array
 Given an integer array, find the maximum product of two integers in it.
 
