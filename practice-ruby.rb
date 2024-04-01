@@ -4,7 +4,69 @@
 
 # Solution =============================================
 
+
+
+# Comment -----------------------------------------------------------------
+
          
+
+# Problem -----------------------------------------------------------------
+
+
+
+# Solution =============================================
+
+
+
+# Comment -----------------------------------------------------------------
+
+         
+
+# Problem -----------------------------------------------------------------
+
+15. Rearrange an array with alternate high and low elements
+Given an integer array, rearrange it such that every second element becomes greater than its left and right elements. Assume no duplicate elements are present in the array.
+
+For example,
+
+Input:  {1, 2, 3, 4, 5, 6, 7}Output: {1, 3, 2, 5, 4, 7, 6} Input:  {9, 6, 8, 3, 7}Output: {6, 9, 3, 8, 7} Input:  {6, 9, 2, 5, 1, 4}Output: {6, 9, 2, 5, 1, 4}
+
+# Solution =============================================
+
+  # Initialize the input array
+input_array = [1, 2, 3, 4, 5, 6, 7]
+# Output should be something like: [1, 3, 2, 5, 4, 7, 6]
+
+# Start looping through the array from the first element
+i = 0
+
+while i < input_array.length - 1
+    # Check if we are at an even position (considering 0 as even)
+    # If so, we want to make sure the next element is larger
+    if i.even?
+        # If the current element is greater than the next,
+        # we swap them to make sure the next is greater
+        if input_array[i] > input_array[i + 1]
+            input_array[i], input_array[i + 1] = input_array[i + 1], input_array[i]
+        end
+    else
+        # Now, for odd positions, we want to make sure the current element
+        # is greater than the next, so if it's not, we swap them
+        if input_array[i] < input_array[i + 1]
+            input_array[i], input_array[i + 1] = input_array[i + 1], input_array[i]
+        end
+    end
+    
+    # Move to the next element in the array
+    i += 1
+end
+
+# Print the rearranged array
+puts "Rearranged array: #{input_array}"
+       
+# Comment -----------------------------------------------------------------
+
+# This code snippet starts with your initial array and iterates through it. Depending on the position (even or odd), it decides whether the next element should be greater or smaller. If the current arrangement doesn't meet the criteria, it swaps the elements. 
 
 # Problem -----------------------------------------------------------------
 
@@ -16,6 +78,8 @@ Fisher–Yates shuffle is an algorithm to generate random permutations. It takes
 Here’s the complete algorithm:
 
 — To shuffle an array ‘a’ of ‘n’ elements:for i from n-1 down to 1 do    j = random integer such that 0 <= j <= i    exchange a[j] and a[i]
+
+  
 
 # Solution =============================================
 
