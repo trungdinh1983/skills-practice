@@ -11,16 +11,60 @@
          
 
 # Problem -----------------------------------------------------------------
+16.Find equilibrium index of an array
 
+Given an integer array, find the equilibrium index in it.
+
+For an array A consisting n elements, index i is an equilibrium index if the sum of elements of subarray A[0…i-1] is equal to the sum of elements of subarray A[i+1…n-1]. i.e.
+
+(A[0] + A[1] + … + A[i-1]) = (A[i+1] + A[i+2] + … + A[n-1]), where 0 < i < n-1
+
+Similarly, 0 is an equilibrium index if A[1] + A[2] + … + A[n-1] sums to 0 and n-1 is an equilibrium index if A[0] + A[1] + … + A[n-2] sums to 0.
+
+ To illustrate, consider the array {0, -3, 5, -4, -2, 3, 1, 0}. The equilibrium index is found at index 0, 3, and 7.
 
 
 # Solution =============================================
 
+# Initialize the array
+arr = [0, -3, 5, -4, -2, 3, 1, 0]
+
+# Initialize variables
+total_sum = arr.sum # Sum of all elements in the array
+left_sum = 0 # Sum of elements on the left side of the current index
+i = 0 # Index to iterate through the array
+equilibrium_indices = [] # To store all equilibrium indices
+
+# Loop through the array
+while i < arr.length
+  # Calculate the right sum for the current index by subtracting the current element and left sum from total sum
+  right_sum = total_sum - arr[i] - left_sum
+  
+  # Check if left sum is equal to right sum
+  if left_sum == right_sum
+    # If they are equal, it means we found an equilibrium index
+    equilibrium_indices << i # Add the current index to the list of equilibrium indices
+  end
+  
+  # Update the left sum by adding the current element's value
+  left_sum += arr[i]
+  
+  # Move to the next element in the array
+  i += 1
+end
+
+# Print the equilibrium indices
+puts "Equilibrium indices are: #{equilibrium_indices}" # Expected output: [0, 3, 7]
 
 
 # Comment -----------------------------------------------------------------
 
-         
+# We start by calculating the total sum of the array elements.
+# We then iterate through the array using a while loop.
+# For each element, we calculate the right sum as the total sum minus the current element's value and the left sum so far.
+# If the left sum equals the right sum, we've found an equilibrium index and add it to our list.
+# We update the left sum by adding the current element's value before moving to the next element.
+# Finally, we print out all the equilibrium indices we've found.        
 
 # Problem -----------------------------------------------------------------
 
