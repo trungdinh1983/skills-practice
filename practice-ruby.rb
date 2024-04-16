@@ -8,6 +8,54 @@
 
 # Comment -----------------------------------------------------------------
 
+    
+# Problem -----------------------------------------------------------------
+
+17.Find majority element in an array (Boyer–Moore majority vote algorithm)
+
+Given an integer array containing duplicates, return the majority element if present. A majority element appears more than n/2 times, where n is the array size.
+
+For example, the majority element is 2 in array {2, 8, 7, 2, 2, 5, 2, 3, 1, 2, 2}.
+
+# Solution =============================================
+
+def find_majority_element(nums)
+  # Initialize candidate and count
+  candidate = nil
+  count = 0
+  
+  # First pass to find a candidate
+  nums.each do |num|
+    if count == 0
+      candidate = num
+    end
+    if num == candidate
+      count += 1
+    else
+      count -= 1
+    end
+  end
+  
+  # Second pass to confirm the candidate (optional, only if the problem statement asks for confirmation)
+  count = 0
+  nums.each do |num|
+    if num == candidate
+      count += 1
+    end
+  end
+  
+  # Check if the candidate is actually the majority element
+  count > nums.length / 2 ? candidate : nil
+end
+
+# Example usage
+array = [2, 8, 7, 2, 2, 5, 2, 3, 1, 2, 2]
+puts find_majority_element(array)
+
+
+
+# Comment -----------------------------------------------------------------
+
          
 
 # Problem -----------------------------------------------------------------
