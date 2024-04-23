@@ -11,6 +11,49 @@
     
 # Problem -----------------------------------------------------------------
 
+18. Move all zeros present in an array to the end
+Given an integer array, move all zeros present in it to the end. The solution should maintain the relative order of items in the array and should not use constant space.
+
+For example,
+
+Input:  { 6, 0, 8, 2, 3, 0, 4, 0, 1 } Output: { 6, 8, 2, 3, 4, 1, 0, 0, 0 }
+
+# Solution =============================================
+
+def move_zeros(arr)
+  place_index = 0 # This is where the next non-zero should go
+
+  # Find non-zero elements and move them to the beginning of the array
+  arr.each do |num|
+    if num != 0
+      arr[place_index] = num
+      place_index += 1
+    end
+  end
+
+  # Fill the rest of the array with zeros
+  while place_index < arr.length
+    arr[place_index] = 0
+    place_index += 1
+  end
+
+  arr
+end
+
+# Example usage:
+input_array = [6, 0, 8, 2, 3, 0, 4, 0, 1]
+output_array = move_zeros(input_array)
+puts output_array.inspect # => [6, 8, 2, 3, 4, 1, 0, 0, 0]
+
+
+# Comment -----------------------------------------------------------------
+
+We use .each to iterate through all elements.
+We only move place_index when we place a non-zero value.
+After placing all non-zero values, the remaining positions in the array are filled with zeros.
+    
+# Problem -----------------------------------------------------------------
+
 17.Find majority element in an array (Boyer–Moore majority vote algorithm)
 
 Given an integer array containing duplicates, return the majority element if present. A majority element appears more than n/2 times, where n is the array size.
