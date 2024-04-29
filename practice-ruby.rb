@@ -8,6 +8,66 @@
 
 # Comment -----------------------------------------------------------------
 
+  
+# Problem -----------------------------------------------------------------
+
+19.Replace each element of array with product of every other element without using / operator
+
+Given an integer array, replace each element with the product of every other element without using the division operator.
+
+For example,
+
+Input:  { 1, 2, 3, 4, 5 }Output: { 120, 60, 40, 30, 24 }  Input:  { 5, 3, 4, 2, 6, 8 }Output: { 1152, 1920, 1440, 2880, 960, 720 }
+
+# Solution =============================================
+
+# Function to replace each element in an array with the product of every other element
+def product_array(nums)
+  # Get the number of elements in the array
+  n = nums.size
+  # Initialize the output array with 1s
+  output = Array.new(n, 1)
+  
+  # Left product initialization
+  left_product = 1
+  # Loop through the array from left to right
+  (0...n).each do |i|
+    # Set the current index of output to the accumulated left_product
+    output[i] = left_product
+    # Update left_product to include the current element
+    left_product *= nums[i]
+  end
+  
+  # Right product initialization
+  right_product = 1
+  # Loop through the array from right to left
+  (n-1).downto(0).each do |i|
+    # Multiply the current index of output by the accumulated right_product
+    output[i] *= right_product
+    # Update right_product to include the current element
+    right_product *= nums[i]
+  end
+  
+  # Return the final transformed array
+  output
+end
+
+# Example usage of the function with two input arrays
+input1 = [1, 2, 3, 4, 5]
+input2 = [5, 3, 4, 2, 6, 8]
+# Output results for the first input array
+puts "Output for first input: #{product_array(input1).inspect}"
+# Output results for the second input array
+puts "Output for second input: #{product_array(input2).inspect}"
+
+
+# Comment -----------------------------------------------------------------
+
+# Function Definition: This line defines a function product_array that accepts an array nums.
+# Array Size: This line retrieves the size of the input array and stores it in n.
+# Output Initialization: This line initializes an output array filled with the value 1, because any number multiplied by 1 remains unchanged. This is preparatory for the subsequent product calculations.
+# Left Products Loop: The loop calculates the cumulative product of elements on the left of each index and stores it in the output array at the corresponding index.
+# Right Products Loop: After computing left products, this loop multiplies each element in the output array by the cumulative product of elements on the right, thus completing the requirement to multiply by every other element.
     
 # Problem -----------------------------------------------------------------
 
