@@ -8,6 +8,58 @@
 
 # Comment -----------------------------------------------------------------
 
+
+# Problem -----------------------------------------------------------------
+20.Find Longest Bitonic Subarray in an array
+The Longest Bitonic Subarray (LBS) problem is to find a subarray of a given sequence in which the subarray’s elements are first sorted in increasing order, then in decreasing order, and the subarray is as long as possible. Strictly ascending or descending subarrays are also accepted.
+
+For example,
+
+Longest bitonic subarray of the sequence { 3, 5, 8, 4, 5, 9, 10, 8, 5, 3, 4 } is { 4, 5, 9, 10, 8, 5, 3 } For sequences sorted in increasing or decreasing order, the output is the same as the input sequence, i.e., [1, 2, 3, 4, 5] ——> [1, 2, 3, 4, 5][5, 4, 3, 2, 1] ——> [5, 4, 3, 2, 1]
+# Solution =============================================
+
+def longest_bitonic_subarray(arr)
+  n = arr.length
+
+  # Arrays to store lengths of increasing and decreasing subarrays
+  inc_lengths = Array.new(n, 1)
+  dec_lengths = Array.new(n, 1)
+
+  # Find lengths of increasing subarrays ending at each index
+  (1...n).each do |i|
+    (0...i).each do |j|
+      if arr[i] > arr[j] && inc_lengths[i] < inc_lengths[j] + 1
+        inc_lengths[i] = inc_lengths[j] + 1
+      end
+    end
+  end
+
+  # Find lengths of decreasing subarrays starting at each index
+  (n - 2).downto(0).each do |i|
+    (n - 1).downto(i).each do |j|
+      if arr[i] > arr[j] && dec_lengths[i] < dec_lengths[j] + 1
+        dec_lengths[i] = dec_lengths[j] + 1
+      end
+    end
+  end
+
+  # Find the maximum length of bitonic subarray
+  max_length = 0
+  (0...n).each do |i|
+    bitonic_length = inc_lengths[i] + dec_lengths[i] - 1
+    max_length = [max_length, bitonic_length].max
+  end
+
+  max_length
+end
+
+# Example usage
+sequence = [3, 5, 8, 4, 5, 9, 10, 8, 5, 3, 4]
+puts "Length of the longest bitonic subarray: #{longest_bitonic_subarray(sequence)}"
+
+
+# Comment -----------------------------------------------------------------
+This implementation iterates through the array twice to find the lengths of increasing and decreasing subarrays. Then, it combines these lengths to find the maximum length of the bitonic subarray. Finally, it returns the maximum length.
   
 # Problem -----------------------------------------------------------------
 
