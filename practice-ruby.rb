@@ -10,6 +10,62 @@
 
 
 # Problem -----------------------------------------------------------------
+
+21.Find maximum difference between two elements in the array by satisfying given constraints
+
+Given an integer array, find the maximum difference between two elements in it such that the smaller element appears before the larger element.
+
+For example,
+
+Input:  { 2, 7, 9, 5, 1, 3, 5 } Output: The maximum difference is 7. The pair is (2, 9)
+
+
+
+# Solution =============================================
+
+def max_difference(arr)
+  # Return 0 if array has less than 2 elements
+  return 0 if arr.length < 2
+
+  # Initialize min_element to the first element of the array
+  min_element = arr[0]
+  # Initialize max_diff to a very small number (negative infinity)
+  max_diff = -Float::INFINITY
+
+  # Loop through the array starting from the second element
+  (1...arr.length).each do |i|
+    # Update max_diff if the current difference is greater than max_diff
+    max_diff = [max_diff, arr[i] - min_element].max
+    # Update min_element if the current element is smaller
+    min_element = [min_element, arr[i]].min
+  end
+
+  # Return the maximum difference found
+  max_diff
+end
+
+# Example usage:
+arr = [2, 7, 9, 5, 1, 3, 5]
+puts "The maximum difference is #{max_difference(arr)}."
+
+
+# Comment -----------------------------------------------------------------
+
+Initialization:
+
+min_element is set to the first element of the array.
+max_diff is set to negative infinity to ensure any valid difference will be larger.
+Loop through the array:
+
+For each element from the second to the last, compute the difference between the current element and min_element.
+Update max_diff if the computed difference is larger than the current max_diff.
+Update min_element to be the smaller value between the current min_element and the current element.
+Return the result:
+
+The max_diff variable now holds the maximum difference where the smaller element appears before the larger element in the array.
+This solution has a time complexity of O(n) where n is the number of elements in the array, making it efficient for large arrays.
+
+# Problem -----------------------------------------------------------------
 20.Find Longest Bitonic Subarray in an array
 The Longest Bitonic Subarray (LBS) problem is to find a subarray of a given sequence in which the subarray’s elements are first sorted in increasing order, then in decreasing order, and the subarray is as long as possible. Strictly ascending or descending subarrays are also accepted.
 
