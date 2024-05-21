@@ -11,6 +11,68 @@
 
 # Problem -----------------------------------------------------------------
 
+22.Maximum subarray problem (Kadane’s algorithm)
+
+Given an integer array, find a contiguous subarray within it that has the largest sum.
+
+For example,
+
+Input:  {-2, 1, -3, 4, -1, 2, 1, -5, 4} Output: Subarray with the largest sum is {4, -1, 2, 1} with sum 6.
+
+
+
+# Solution =============================================
+
+# Method to find the maximum sum of a contiguous subarray
+def max_subarray_sum(arr)
+  # Initialize variables to keep track of the current subarray sum and the maximum sum found so far
+  max_so_far = arr[0]  # Start with the first element
+  max_ending_here = arr[0]  # Start with the first element
+
+  # Iterate over the array starting from the second element
+  (1...arr.length).each do |i|
+    # Update max_ending_here to either the current element itself
+    # or the sum of max_ending_here and the current element
+    max_ending_here = [arr[i], max_ending_here + arr[i]].max
+
+    # Update max_so_far to the maximum value between max_so_far and max_ending_here
+    max_so_far = [max_so_far, max_ending_here].max
+  end
+
+  # Return the maximum subarray sum found
+  max_so_far
+end
+
+# Example usage
+input = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+puts "Subarray with the largest sum has sum #{max_subarray_sum(input)}"
+
+
+# Comment -----------------------------------------------------------------
+
+# Initialization:
+
+# max_so_far is initialized to the first element of the array. This keeps track of the maximum sum found so far.
+# max_ending_here is also initialized to the first element. This keeps track of the maximum sum of the subarray ending at the current position.
+# Iteration:
+
+# Loop through the array starting from the second element (index 1).
+# For each element, update max_ending_here to be the maximum of the current element itself or the sum of max_ending_here and the current element. This decides whether to start a new subarray at the current element or to continue with the existing subarray.
+# Update max_so_far to be the maximum of max_so_far and max_ending_here. This ensures that max_so_far always holds the maximum sum encountered so far.
+
+# Scope:
+
+# max_so_far: Global scope, considers all subarrays seen so far.
+# max_ending_here: Local scope, considers only the subarray that ends at the current element.
+
+# Function:
+
+# max_so_far: Tracks the highest sum of any subarray seen during the entire iteration process.
+# max_ending_here: Tracks the highest sum of the subarray that ends specifically at the current index.
+    
+
+# Problem -----------------------------------------------------------------
+
 21.Find maximum difference between two elements in the array by satisfying given constraints
 
 Given an integer array, find the maximum difference between two elements in it such that the smaller element appears before the larger element.
@@ -176,7 +238,8 @@ puts "Output for second input: #{product_array(input2).inspect}"
 # Output Initialization: This line initializes an output array filled with the value 1, because any number multiplied by 1 remains unchanged. This is preparatory for the subsequent product calculations.
 # Left Products Loop: The loop calculates the cumulative product of elements on the left of each index and stores it in the output array at the corresponding index.
 # Right Products Loop: After computing left products, this loop multiplies each element in the output array by the cumulative product of elements on the right, thus completing the requirement to multiply by every other element.
-    
+
+
 # Problem -----------------------------------------------------------------
 
 18. Move all zeros present in an array to the end
