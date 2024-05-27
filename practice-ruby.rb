@@ -11,6 +11,73 @@
 
 # Problem -----------------------------------------------------------------
 
+23.Print continuous subarray with maximum sum
+Print continuous subarray with maximum sum
+Given an integer array, find and print a contiguous subarray with the maximum sum in it.
+
+For example,
+
+Input:  {-2, 1, -3, 4, -1, 2, 1, -5, 4} Output: The contiguous subarray with the largest sum is {4, -1, 2, 1}  Input:  {8, -7, -3, 5, 6, -2, 3, -4, 2} Output: The contiguous subarray with the largest sum is {5, 6, -2, 3}
+
+# Solution =============================================
+
+def max_subarray_sum(arr)
+  n = arr.length
+  return [] if n == 0  # Return an empty array if the input array is empty
+
+  # Initialize variables
+  max_so_far = arr[0]  # This will store the maximum sum found so far
+  max_ending_here = arr[0]  # This will store the maximum sum of the subarray that ends at the current position
+  start = 0  # This will store the start index of the maximum subarray
+  end_index = 0  # This will store the end index of the maximum subarray
+  s = 0  # This is a temporary start index
+
+  for i in 1...n
+    # Update max_ending_here to be the maximum of the current element or the current element plus max_ending_here
+    if arr[i] > max_ending_here + arr[i]
+      max_ending_here = arr[i]
+      s = i  # Update the temporary start index to the current position
+    else
+      max_ending_here += arr[i]
+    end
+
+    # Update max_so_far if max_ending_here is greater
+    if max_so_far < max_ending_here
+      max_so_far = max_ending_here
+      start = s  # Update the start index to the temporary start index
+      end_index = i  # Update the end index to the current position
+    end
+  end
+
+  # Print the subarray with the largest sum
+  puts "The contiguous subarray with the largest sum is #{arr[start..end_index]}"
+end
+
+# Example usage:
+max_subarray_sum([-2, 1, -3, 4, -1, 2, 1, -5, 4])
+max_subarray_sum([8, -7, -3, 5, 6, -2, 3, -4, 2])
+
+
+# Comment -----------------------------------------------------------------
+
+# Initialization:
+
+# max_so_far: Keeps track of the maximum sum found so far.
+# max_ending_here: Keeps track of the maximum sum of the subarray ending at the current position.
+# start and end_index: Track the start and end indices of the maximum subarray found.
+# s: Temporary variable to track the potential start index of the current subarray.
+# Iteration through the array:
+
+# For each element, decide whether to start a new subarray at the current element or to continue the existing subarray.
+# Update the maximum sum of the subarray ending at the current position.
+# If a new maximum sum is found, update max_so_far and the start and end indices.
+# Output:
+
+# Print the contiguous subarray that has the maximum sum.
+# This code efficiently finds the subarray with the maximum sum using Kadane's Algorithm, which runs in linear time, O(n).
+
+ Problem -----------------------------------------------------------------
+
 22.Maximum subarray problem (Kadane’s algorithm)
 
 Given an integer array, find a contiguous subarray within it that has the largest sum.
