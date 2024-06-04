@@ -11,6 +11,105 @@
 
 # Problem -----------------------------------------------------------------
 
+24.Maximum Sum Circular Subarray
+Maximum Sum Circular Subarray
+Given a circular integer array, find a subarray with the largest sum in it.
+
+For example,
+
+Input:  {2, 1, -5, 4, -3, 1, -3, 4, -1} Output: Subarray with the largest sum is {4, -1, 2, 1} with sum 6.  Input:  {-3, 1, -3, 4, -1, 2, 1, -5, 4} Output: Subarray with the largest sum is {4, -1, 2, 1} with sum 6.
+
+# Solution =============================================
+
+# Function to find the maximum sum subarray using Kadane's algorithm
+def kadane(array)
+  # Initialize max_ending_here and max_so_far with the first element
+  max_ending_here = max_so_far = array[0]
+
+  # Iterate through the array starting from the second element
+  array[1..-1].each do |x|
+    # Update max_ending_here to be either the current element or
+    # the current element plus the previous max_ending_here
+    max_ending_here = [x, max_ending_here + x].max
+
+    # Update max_so_far to be the maximum of max_so_far and max_ending_here
+    max_so_far = [max_so_far, max_ending_here].max
+  end
+
+  # Return the maximum subarray sum found
+  max_so_far
+end
+
+# Function to find the minimum sum subarray using a modified Kadane's algorithm
+def kadane_min(array)
+  # Initialize min_ending_here and min_so_far with the first element
+  min_ending_here = min_so_far = array[0]
+
+  # Iterate through the array starting from the second element
+  array[1..-1].each do |x|
+    # Update min_ending_here to be either the current element or
+    # the current element plus the previous min_ending_here
+    min_ending_here = [x, min_ending_here + x].min
+
+    # Update min_so_far to be the maximum of min_so_far and min_ending_here
+    min_so_far = [min_so_far, min_ending_here].min
+  end
+
+  # Return the minimum subarray sum found
+  min_so_far
+end
+
+# Function to find the maximum sum circular subarray
+def max_sum_circular_subarray(array)
+  # Find the maximum sum subarray using Kadane's algorithm
+  max_kadane = kadane(array)
+
+  # Calculate the total sum of the array
+  total_sum = array.sum
+
+  # Find the minimum sum subarray using the modified Kadane's algorithm
+  min_kadane = kadane_min(array)
+
+  # Handling the case when all elements are negative
+  # In this case, total_sum == min_kadane, so return max_kadane
+  return max_kadane if total_sum == min_kadane
+  
+  # Calculate the maximum of the normal maximum subarray sum and
+  # the circular maximum subarray sum
+  [max_kadane, total_sum - min_kadane].max
+end
+
+# Test cases
+array1 = [2, 1, -5, 4, -3, 1, -3, 4, -1]
+array2 = [-3, 1, -3, 4, -1, 2, 1, -5, 4]
+
+# Output the results of the test cases
+puts "Max sum circular subarray of #{array1} is: #{max_sum_circular_subarray(array1)}"
+puts "Max sum circular subarray of #{array2} is: #{max_sum_circular_subarray(array2)}"
+
+
+# Comment -----------------------------------------------------------------
+
+Kadane's Algorithm:
+
+Initializes max_ending_here and max_so_far with the first element of the array.
+Iterates through the rest of the array, updating max_ending_here and max_so_far to track the maximum subarray sum.
+Modified Kadane for Minimum Sum:
+
+Similar to Kadane's algorithm but modified to track the minimum subarray sum.
+Main Function:
+
+Computes the maximum sum subarray (max_kadane).
+Computes the total sum of the array.
+Computes the minimum sum subarray (min_kadane).
+Handles the edge case where all elements are negative.
+Returns the maximum of max_kadane and the circular subarray sum (total_sum - min_kadane).
+Test Cases:
+
+Two example arrays are tested, and the results are printed.
+
+# Problem -----------------------------------------------------------------
+
 23.Print continuous subarray with maximum sum
 Print continuous subarray with maximum sum
 Given an integer array, find and print a contiguous subarray with the maximum sum in it.
