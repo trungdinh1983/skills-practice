@@ -11,6 +11,105 @@
 
 # Problem -----------------------------------------------------------------
 
+25.Find all distinct combinations of given length
+
+Given an integer array, find all distinct combinations of a given length k.
+
+For example,
+
+Input:  {2, 3, 4}, k = 2Output: {2, 3}, {2, 4}, {3, 4}  Input:  {1, 2, 1}, k = 2Output: {1, 2}, {1, 1}, {2, 1}
+The program should print all the distinct combinations, while preserving the relative order of elements as they appear in the array.
+
+# Solution =============================================
+
+# Main function to find and print all distinct combinations of length k
+def find_combinations(arr, k)
+  result = []  # Initialize an array to store the resulting combinations
+  
+  # Call the helper function with initial parameters
+  combination_helper(arr, k, 0, [], result)
+  
+  # Remove duplicates from the result and print each combination
+  result.uniq.each do |comb|
+    p comb
+  end
+end
+
+# Helper function to recursively build combinations
+def combination_helper(arr, k, start, current_comb, result)
+  # Check if the current combination length is equal to k
+  if current_comb.length == k
+    # Add a copy of the current combination to the result array
+    result << current_comb.dup
+    return  # Return to stop further processing in this recursive path
+  end
+
+  # Iterate over the array starting from the current start index to the end
+  (start...arr.length).each do |i|
+    # Add the current element to the current combination
+    current_comb.push(arr[i])
+    
+    # Recursively call the helper function to build the next combination
+    combination_helper(arr, k, i + 1, current_comb, result)
+    
+    # Remove the last element from the current combination to backtrack
+    current_comb.pop
+  end
+end
+
+# Example usage
+arr1 = [2, 3, 4]
+k1 = 2
+# Call the main function with the first example input
+find_combinations(arr1, k1)
+# Expected Output: [2, 3], [2, 4], [3, 4]
+
+arr2 = [1, 2, 1]
+k2 = 2
+# Call the main function with the second example input
+find_combinations(arr2, k2)
+# Expected Output: [1, 2], [1, 1], [2, 1]
+
+
+# Comment -----------------------------------------------------------------
+
+# Detailed Explanation:
+# Main Function (find_combinations):
+
+# Initialize result Array:
+# result is an empty array that will store all the combinations found.
+# Call Helper Function:
+# combination_helper is called with initial parameters:
+# arr: The input array.
+# k: The desired combination length.
+# 0: The starting index for the combination.
+# []: An empty array to build the current combination.
+# result: The array that will store all combinations.
+# Remove Duplicates and Print:
+# After the helper function populates result, uniq is used to remove duplicate combinations.
+# Each unique combination is printed using p.
+# Helper Function (combination_helper):
+
+# Base Case:
+# If current_comb.length equals k, a copy of current_comb is added to result.
+# dup is used to add a copy, ensuring current_comb can be modified in further recursive calls.
+# The function returns to stop further processing in this recursive path.
+# Iteration and Recursion:
+# A loop iterates over the array from start to the end.
+# For each element at index i:
+# The element is added to current_comb.
+# The helper function is called recursively to continue building the combination.
+# i + 1 ensures that the next element starts from the subsequent index, preserving order.
+# After the recursive call, the last element is removed (pop) to backtrack and explore other combinations.
+# Example Usage:
+
+# arr1 and k1 are provided as inputs to find_combinations.
+# The function call prints all unique combinations of length k from arr1.
+# Similarly, arr2 and k2 demonstrate another example.
+# This detailed form ensures clarity on how each part of the code works, making it easier to understand and modify if necessary.
+
+# Problem -----------------------------------------------------------------
+
 24.Maximum Sum Circular Subarray
 Maximum Sum Circular Subarray
 Given a circular integer array, find a subarray with the largest sum in it.
