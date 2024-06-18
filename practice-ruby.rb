@@ -1,4 +1,3 @@
-
 # Problem -----------------------------------------------------------------
 
 
@@ -7,6 +6,80 @@
 
 
 # Comment -----------------------------------------------------------------
+
+
+# Problem -----------------------------------------------------------------
+
+26.Find all distinct combinations of given length with repetition allowed
+
+Given an integer array, find all distinct combinations of a given length k, where the repetition of elements is allowed.
+
+For example,
+
+Input:  {1, 2, 3}, k = 2Output: {1, 1}, {1, 2}, {1, 3}, {2, 2}, {2, 3}, {3, 3}  Input:  {1, 2, 3, 4}, k = 2Output: {1, 1}, {1, 2}, {1, 3}, {1, 4}, {2, 2}, {2, 3}, {2, 4}, {3, 3}, {3, 4}, {4, 4}  Input:  {1, 2, 1}, k = 2Output: {1, 1}, {1, 2}, {2, 2}
+# Solution =============================================
+
+def find_combinations(arr, k)
+  arr = arr.uniq.sort  # Remove duplicates and sort the array
+  result = []
+  combination = []
+
+  # Helper function to generate combinations
+  def generate_combinations(arr, combination, start, k, result)
+    if combination.length == k
+      result << combination.dup
+      return
+    end
+
+    (start...arr.length).each do |i|
+      combination.push(arr[i])
+      generate_combinations(arr, combination, i, k, result)
+      combination.pop
+    end
+  end
+
+  generate_combinations(arr, combination, 0, k, result)
+  result
+end
+
+# Example usage:
+arr1 = [1, 2, 3]
+k1 = 2
+puts "Input: #{arr1}, k = #{k1}"
+puts "Output: #{find_combinations(arr1, k1).inspect}"
+
+arr2 = [1, 2, 3, 4]
+k2 = 2
+puts "Input: #{arr2}, k = #{k2}"
+puts "Output: #{find_combinations(arr2, k2).inspect}"
+
+arr3 = [1, 2, 1]
+k3 = 2
+puts "Input: #{arr3}, k = #{k3}"
+puts "Output: #{find_combinations(arr3, k3).inspect}"
+
+
+# Comment -----------------------------------------------------------------
+
+# Remove Duplicates and Sort the Array:
+
+# arr = arr.uniq.sort ensures that we only work with unique elements and in sorted order.
+# Helper Function generate_combinations:
+
+# This function uses recursion to generate combinations.
+# It starts from a given index and adds elements to the combination until its length is k.
+# Base Case:
+
+# When the length of combination equals k, it is added to the result.
+# Recursive Case:
+
+# Loop through the elements starting from the start index.
+# Add the current element to the combination and recurse with the updated combination.
+# Remove the last element added to backtrack and try the next element.
+# Generate and Print Combinations:
+
+# The main function initializes the result array and calls the helper function.
+# The combinations are printed for each example input.
 
 
 # Problem -----------------------------------------------------------------
