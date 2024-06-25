@@ -8,6 +8,96 @@
 # Comment -----------------------------------------------------------------
 
 
+
+# Problem -----------------------------------------------------------------
+
+27.Find maximum sequence of continuous 1’s formed by replacing at-most k zeroes by ones
+
+Given a binary array, find the maximum sequence of continuous 1’s that can be formed by replacing at most k zeros by ones.
+
+For example, consider the following binary array A:
+
+Input: A[] = { 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0 }  For k = 0,The length of the longest sequence is 4 (from index 6 to 9) For k = 1,The length of the longest sequence is 7 (from index 3 to 9) For k = 2,The length of the longest sequence is 10 (from index 0 to 9) For k = 3,The length of the longest sequence is 11 (from index 0 to 10)
+
+# Solution =============================================
+
+def find_max_sequence_of_ones(arr, k)
+  # Initialize the left pointer of the window
+  left = 0
+
+  # This will store the maximum length of the window that we find
+  max_len = 0
+
+  # This will keep track of the number of zeros in the current window
+  zero_count = 0
+
+  # Iterate through the array with the right pointer
+  arr.each_with_index do |val, right|
+    # If the current element is zero, increment the zero_count
+    if val == 0
+      zero_count += 1
+    end
+
+    # If the number of zeros in the current window exceeds k,
+    # move the left pointer to the right to reduce the zero count
+    while zero_count > k
+      # If the element at the left pointer is zero, decrement the zero_count
+      if arr[left] == 0
+        zero_count -= 1
+      end
+      # Move the left pointer to the right
+      left += 1
+    end
+
+    # Calculate the length of the current window and update max_len if it's larger
+    current_window_length = right - left + 1
+    if current_window_length > max_len
+      max_len = current_window_length
+    end
+  end
+
+  # Return the maximum length of the window found
+  max_len
+end
+
+# Example usage of the function
+arr = [1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0]
+
+# Different values of k to test
+k_values = [0, 1, 2, 3]
+
+# For each value of k, find and print the length of the longest sequence of 1's
+k_values.each do |k|
+  longest_sequence = find_max_sequence_of_ones(arr, k)
+  puts "For k = #{k}, the length of the longest sequence is #{longest_sequence}"
+end
+
+
+# Comment -----------------------------------------------------------------
+
+Initialization:
+
+left is initialized to 0, representing the starting index of the sliding window.
+max_len is initialized to 0, which will store the maximum length of the window that satisfies the condition.
+zero_count is initialized to 0, to count the number of zeros in the current window.
+Iterating through the Array:
+
+The each_with_index method is used to iterate through the array with right representing the current index.
+If the current element val is zero, zero_count is incremented.
+Adjusting the Window:
+
+If zero_count exceeds k, the while loop shifts the left pointer to the right until zero_count is less than or equal to k.
+If the element at the left pointer is zero, zero_count is decremented.
+The left pointer is then incremented.
+Updating Maximum Length:
+
+The length of the current window is calculated as right - left + 1.
+If this length is greater than max_len, update max_len.
+Output:
+
+For each value of k in k_values, the function find_max_sequence_of_ones is called, and the result is printed.
+This method ensures that the algorithm is efficient and runs in O(n) time complexity, where n is the length of the array.
+
 # Problem -----------------------------------------------------------------
 
 26.Find all distinct combinations of given length with repetition allowed
