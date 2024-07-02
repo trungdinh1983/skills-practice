@@ -11,6 +11,63 @@
 
 # Problem -----------------------------------------------------------------
 
+28.Find minimum sum subarray of given size k
+
+Given an integer array, find the minimum sum subarray of size k, where k is a positive integer.
+
+For example,
+
+Input:  {10, 4, 2, 5, 6, 3, 8, 1}, k = 3 Output: Minimum sum subarray of size 3 is (1, 3)
+
+# Solution =============================================
+
+def min_sum_subarray(arr, k)
+  n = arr.length
+
+  # Check if the array length is less than k
+  if n < k
+    puts "Invalid input: Array size is smaller than subarray size"
+    return
+  end
+
+  # Compute the sum of the first window of size k
+  min_sum = arr[0...k].sum
+  current_sum = min_sum
+  min_start_index = 0
+
+  # Slide the window over the array
+  (k...n).each do |i|
+    current_sum = current_sum - arr[i - k] + arr[i]
+
+    # Update minimum sum and starting index if a new minimum is found
+    if current_sum < min_sum
+      min_sum = current_sum
+      min_start_index = i - k + 1
+    end
+  end
+
+  # Print the result
+  puts "Minimum sum subarray of size #{k} is #{arr[min_start_index...min_start_index + k]}, with sum #{min_sum}"
+end
+
+# Example usage
+arr = [10, 4, 2, 5, 6, 3, 8, 1]
+k = 3
+min_sum_subarray(arr, k)
+
+
+# Comment -----------------------------------------------------------------
+
+Initial Check: Ensure the array size is not smaller than 𝑘
+
+First Window Sum: Calculate the sum of the first 𝑘 elements.
+Sliding the Window: For each element from 𝑘 to the end of the array, update the current sum by removing the element that's sliding out and adding the new element that's sliding in.
+Track Minimum: If the current sum is less than the minimum sum recorded, update the minimum sum and the starting index of the minimum sum subarray.
+Result: Print the subarray with the minimum sum and the sum.
+This approach ensures we find the minimum sum subarray of size 𝑘 efficiently.
+
+# Problem -----------------------------------------------------------------
+
 27.Find maximum sequence of continuous 1’s formed by replacing at-most k zeroes by ones
 
 Given a binary array, find the maximum sequence of continuous 1’s that can be formed by replacing at most k zeros by ones.
