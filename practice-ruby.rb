@@ -11,6 +11,145 @@
 
 # Problem -----------------------------------------------------------------
 
+29.Find subarray having given sum in given array of integers
+Given an integer array, find a subarray having a given sum in it.
+
+For example,
+
+Input:  nums[] = {2, 6, 0, 9, 7, 3, 1, 4, 1, 10}, target = 15Output: {6, 0, 9}  Input:  nums[] = {0, 5, -7, 1, -4, 7, 6, 1, 4, 1, 10}, target = 15Output: {1, -4, 7, 6, 1, 4} or {4, 1, 10}  Input:  nums[] = {0, 5, -7, 1, -4, 7, 6, 1, 4, 1, 10}, target = -3Output: {1, -4} or {-7, 1, -4, 7}
+
+
+# Solution =============================================
+
+# Method to find subarray with a given sum
+def find_subarray_with_sum(nums, target)
+  # Initialize a hash to store cumulative sums
+  sum_map = {}
+  # Initialize sum and start index
+  sum = 0
+  start_index = 0
+  
+  # Traverse the array
+  nums.each_with_index do |num, end_index|
+    sum += num
+    
+    # Check if current sum is equal to target
+    if sum == target
+      return nums[start_index..end_index]
+    end
+
+    # Check if (sum - target) exists in hash map
+    if sum_map.key?(sum - target)
+      start_index = sum_map[sum - target] + 1
+      return nums[start_index..end_index]
+    end
+    
+    # Store current sum in hash map
+    sum_map[sum] = end_index
+  end
+  
+  # If no subarray found, return an empty array
+  return []
+end
+
+# Test cases
+nums1 = [2, 6, 0, 9, 7, 3, 1, 4, 1, 10]
+target1 = 15
+puts "Input: nums = #{nums1}, target = #{target1}"
+puts "Output: #{find_subarray_with_sum(nums1, target1)}"
+
+nums2 = [0, 5, -7, 1, -4, 7, 6, 1, 4, 1, 10]
+target2 = 15
+puts "Input: nums = #{nums2}, target = #{target2}"
+puts "Output: #{find_subarray_with_sum(nums2, target2)}"
+
+target3 = -3
+puts "Input: nums = #{nums2}, target = #{target3}"
+puts "Output: #{find_subarray_with_sum(nums2, target3)}"
+
+
+# Comment -----------------------------------------------------------------
+
+1. sum_map: A hash map that stores the cumulative sum as keys and their corresponding index as values.
+2. sum: Variable to keep the cumulative sum of elements as you traverse the array.
+3. start_index: Keeps track of the starting index of the subarray.
+4. Traversal: As you traverse the array, add each element to the cumulative sum.
+5. Check: For each element, check if the cumulative sum equals the target. If yes, return the subarray from start to current index.
+6. Hash Map Check: If the difference between the cumulative sum and the target exists in the hash map, it means there is a subarray summing to the target. Calculate the starting index of this subarray and return it.
+7. Store Sum: Store the cumulative sum in the hash map with its index.
+This approach efficiently finds the subarray with a given sum in linear time, 𝑂(𝑛), where 
+𝑛 is the number of elements in the array.
+
+OTHER METHODS:
+
+1. Brute Force Approach
+Pros:
+
+Simple to Implement: This method is straightforward and easy to understand.
+Works for All Arrays: Handles both positive and negative numbers without additional logic.
+Cons:
+
+Inefficient for Large Arrays: Time complexity is 𝑂(𝑛^2), making it slow for large arrays.
+No Optimization: Does not leverage any optimizations or data structures to improve performance.
+2. Sliding Window Technique (For Non-Negative Numbers)
+Pros:
+Efficient for Non-Negative Numbers: Time complexity is 𝑂(𝑛), making it very efficient for arrays with only non-negative numbers.
+Simple Logic: The sliding window is an intuitive approach for continuous subarrays.
+Cons:
+Limited Use Case: Only works with non-negative numbers. Does not handle arrays with negative numbers correctly.
+Not General Purpose: Requires modifications to work with all types of integer arrays.
+3. Using Prefix Sum Array
+Pros:
+
+Handles All Arrays: Works with both positive and negative numbers.
+Better than Brute Force: Somewhat optimized compared to brute force, though still 𝑂(𝑛^2).
+Cons:
+Inefficient: Time complexity is still 𝑂(𝑛^2), which can be slow for large arrays.
+Additional Space: Requires additional space for the prefix sum array.
+4. Modified Kadane’s Algorithm
+Pros:
+
+Efficient: Time complexity is 𝑂(𝑛), making it very efficient for large arrays.
+Handles All Arrays: Works with both positive and negative numbers.
+Simple Hash Map: Uses a hash map for quick lookups of cumulative sums.
+Cons:
+
+Extra Space: Requires additional space for the hash map.
+Complexity: Slightly more complex to implement compared to brute force or sliding window.
+5. Divide and Conquer
+Pros:
+
+Divide and Conquer Paradigm: Can be more intuitive for those familiar with this algorithm design strategy.
+Handles All Arrays: Works with both positive and negative numbers.
+Cons:
+
+Complex Implementation: More complex to implement compared to other approaches.
+Inefficient: Time complexity is 𝑂(𝑛log𝑛), which is slower than the 𝑂(𝑛) approaches.
+Comparison to Hash Map Approach
+Hash Map Approach (Provided Initially):
+
+Pros:
+
+Efficient: Time complexity is 𝑂(𝑛), making it very efficient for large arrays.
+Handles All Arrays: Works with both positive and negative numbers.
+Simple Logic: Using a hash map for cumulative sums simplifies the logic and makes the implementation straightforward.
+Cons:
+
+Extra Space: Requires additional space for the hash map.
+Hash Map Overhead: The overhead of maintaining a hash map may be a slight disadvantage in terms of memory usage.
+Summary
+1. Brute Force: Simple but inefficient for large arrays.
+2. Sliding Window: Efficient for non-negative numbers but limited in scope.
+3. Prefix Sum Array: Works for all arrays but inefficient and requires extra space.
+4. Modified Kadane’s Algorithm: Efficient and works for all arrays, similar to the hash map approach but with a different implementation.
+5. Divide and Conquer: Conceptually interesting but more complex and less efficient than linear approaches.
+
+The hash map approach strikes a good balance between simplicity, efficiency, and general applicability, making it a robust choice for this problem.
+
+
+
+# Problem -----------------------------------------------------------------
+
 28.Find minimum sum subarray of given size k
 
 Given an integer array, find the minimum sum subarray of size k, where k is a positive integer.
