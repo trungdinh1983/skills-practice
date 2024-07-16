@@ -11,6 +11,74 @@
 
 # Problem -----------------------------------------------------------------
 
+30.Find the length of smallest subarray whose sum of elements is greater than the given number
+Given an array of positive integers, find the smallest subarray’s length whose sum of elements is greater than a given number k.
+
+For example,
+
+Input:  {1, 2, 3, 4, 5, 6, 7, 8}, k = 20Output: The smallest subarray length is 3Explanation: The smallest subarray with sum > 20 is {6, 7, 8}  Input:  {1, 2, 3, 4, 5, 6, 7, 8}, k = 7Output: The smallest subarray length is 1Explanation: The smallest subarray with sum > 7 is {8}  Input:  {1, 2, 3, 4, 5, 6, 7, 8}, k = 21Output: The smallest subarray length is 4Explanation: The smallest subarray with sum > 21 is {4, 5, 6, 7}  Input:  {1, 2, 3, 4, 5, 6, 7, 8}, k = 40Output: No subarray exists
+
+# Solution =============================================
+
+def smallest_subarray_length(arr, k)
+  # Initialize variables
+  n = arr.length
+  min_length = n + 1
+  current_sum = 0
+  start_index = 0
+
+  # Iterate over the array
+  for end_index in 0...n
+    # Add the current element to the current sum
+    current_sum += arr[end_index]
+
+    # Shrink the window as long as the current sum is greater than k
+    while current_sum > k
+      # Update the minimum length if the current subarray is smaller
+      min_length = [min_length, end_index - start_index + 1].min
+
+      # Subtract the element at start_index and move start_index forward
+      current_sum -= arr[start_index]
+      start_index += 1
+    end
+  end
+
+  # Check if we found a valid subarray
+  if min_length == n + 1
+    return "No subarray exists"
+  else
+    return "The smallest subarray length is #{min_length}"
+  end
+end
+
+# Test the function with given examples
+puts smallest_subarray_length([1, 2, 3, 4, 5, 6, 7, 8], 20)  # Output: The smallest subarray length is 3
+puts smallest_subarray_length([1, 2, 3, 4, 5, 6, 7, 8], 7)   # Output: The smallest subarray length is 1
+puts smallest_subarray_length([1, 2, 3, 4, 5, 6, 7, 8], 21)  # Output: The smallest subarray length is 4
+puts smallest_subarray_length([1, 2, 3, 4, 5, 6, 7, 8], 40)  # Output: No subarray exists
+
+
+
+# Comment -----------------------------------------------------------------
+
+Initialization:
+
+n is the length of the array.
+min_length is set to n + 1 as an initial value greater than any possible subarray length.
+current_sum keeps track of the sum of the current window.
+start_index marks the start of the current subarray.
+Sliding Window:
+
+The outer loop (for end_index in 0...n) expands the window by including the next element in current_sum.
+The inner while loop checks if current_sum is greater than k and tries to shrink the window from the left to find the smallest possible subarray with sum greater than k.
+Result:
+
+If min_length was updated, it prints the smallest subarray length.
+If no valid subarray was found, it returns "No subarray exists".
+This approach ensures that we traverse each element of the array at most twice, resulting in an efficient solution with a time complexity of 𝑂(𝑛).
+
+# Problem -----------------------------------------------------------------
+
 29.Find subarray having given sum in given array of integers
 Given an integer array, find a subarray having a given sum in it.
 
