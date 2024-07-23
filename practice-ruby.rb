@@ -9,6 +9,70 @@
 
 
 
+
+# Problem -----------------------------------------------------------------
+
+31.Find largest number possible from set of given numbers
+Find the largest number possible from a set of given numbers where the numbers append to each other in any order to form the largest number.
+
+For example,
+
+Input:  { 10, 68, 75, 7, 21, 12 } Output: 77568211210
+# Solution =============================================
+
+def largest_number(arr)
+  # Convert numbers to strings
+  arr = arr.map(&:to_s)
+
+  # Bubble sort with custom comparison
+  n = arr.length
+  loop do
+    swapped = false
+
+    (n-1).times do |i|
+      if (arr[i] + arr[i + 1]) < (arr[i + 1] + arr[i])
+        arr[i], arr[i + 1] = arr[i + 1], arr[i]
+        swapped = true
+      end
+    end
+
+    break unless swapped
+  end
+
+  # Concatenate the sorted strings
+  result = arr.join
+
+  # If the result is all zeros, return "0"
+  result.sub!(/^0+/, '0')
+
+  result
+end
+
+# Example usage
+input_numbers = [10, 68, 75, 7, 21, 12]
+result = largest_number(input_numbers)
+puts result  # Output: 77568211210
+
+
+
+# Comment -----------------------------------------------------------------
+
+1. Convert Numbers to Strings:
+
+In Ruby, numbers need to be converted to strings so that we can concatenate them and compare the concatenated results.
+arr.map(&:to_s) converts each number in the array to a string.
+&:to_s is a shorthand for arr.map { |num| num.to_s }.
+
+2. Sorting the Numbers with Custom Comparison:
+
+We need a way to sort the numbers such that when concatenated, they form the largest possible number.
+To achieve this, we compare concatenated results of two numbers in different orders.
+For example, to decide the order between 68 and 7, we compare 687 (68 followed by 7) and 768 (7 followed by 68). Since 768 is larger, 7 should come before 68.
+
+3.Bubble Sort with Custom Comparison:
+
+Bubble sort is a straightforward sorting algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. The process is repeated until the list is sorted.
+Here’s how bubble sort works with our custom comparison:
 # Problem -----------------------------------------------------------------
 
 30.Find the length of smallest subarray whose sum of elements is greater than the given number
