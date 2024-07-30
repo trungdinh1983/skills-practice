@@ -9,6 +9,73 @@
 
 
 
+# Problem -----------------------------------------------------------------
+
+32.Find the smallest window in array sorting which will make the entire array sorted
+Find the smallest window in an array sorting which will make the entire array sorted
+Given an integer array, find the smallest window sorting which will make the entire array sorted in increasing order.
+
+For example,
+
+Input:  { 1, 2, 3, 7, 5, 6, 4, 8 }Output: Sort the array from index 3 to 6  Input:  { 1, 3, 2, 7, 5, 6, 4, 8 }Output: Sort the array from index 1 to 6
+
+
+# Solution =============================================
+
+def find_smallest_window(arr)
+  n = arr.length
+
+  # Step 1: Find the start of the window
+  start = 0
+  while start < n - 1 && arr[start] <= arr[start + 1]
+    start += 1
+  end
+
+  # If the array is already sorted
+  if start == n - 1
+    return "The array is already sorted"
+  end
+
+  # Step 2: Find the end of the window
+  end_idx = n - 1
+  while end_idx > 0 && arr[end_idx] >= arr[end_idx - 1]
+    end_idx -= 1
+  end
+
+  # Find the min and max of the identified subarray
+  subarray_min = arr[start..end_idx].min
+  subarray_max = arr[start..end_idx].max
+
+  # Step 3: Extend the subarray to include any number which is out of order
+  while start > 0 && arr[start - 1] > subarray_min
+    start -= 1
+  end
+
+  while end_idx < n - 1 && arr[end_idx + 1] < subarray_max
+    end_idx += 1
+  end
+
+  # Output the result
+  "Sort the array from index #{start} to #{end_idx}"
+end
+
+# Test cases
+arr1 = [1, 2, 3, 7, 5, 6, 4, 8]
+arr2 = [1, 3, 2, 7, 5, 6, 4, 8]
+
+puts find_smallest_window(arr1) # Output: "Sort the array from index 3 to 6"
+puts find_smallest_window(arr2) # Output: "Sort the array from index 1 to 6"
+
+
+# Comment -----------------------------------------------------------------
+
+This code follows these steps:
+
+It identifies the part of the array that is not sorted.
+It finds the minimum and maximum values within this unsorted part.
+It expands the start and end indices to include any numbers outside this range that need to be sorted as well.
+Finally, it returns the indices that need to be sorted to make the entire array sorted.
+
 
 # Problem -----------------------------------------------------------------
 
