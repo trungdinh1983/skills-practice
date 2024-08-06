@@ -11,8 +11,92 @@
 
 # Problem -----------------------------------------------------------------
 
+33.Find maximum sum path involving elements of given arrays
+Given two sorted arrays of integers, find a maximum sum path involving elements of both arrays whose sum is maximum. We can start from either array, but we can switch between arrays only through its common elements.
+
+For example,
+
+Input: X = { 3, 6, 7, 8, 10, 12, 15, 18, 100 }Y = { 1, 2, 3, 5, 7, 9, 10, 11, 15, 16, 18, 25, 50 }  The maximum sum path is: 1 —> 2 —> 3 —> 6 —> 7 —> 9 —> 10 —> 12 —> 15 —> 16 —> 18 —> 100 The maximum sum is 199
+
+# Solution =============================================
+
+# Function to find the maximum sum path
+def max_sum_path(X, Y)
+  m = X.length
+  n = Y.length
+  
+  # Initialize sums for paths
+  sum1 = 0 # sum of elements in X
+  sum2 = 0 # sum of elements in Y
+  
+  # Initialize pointers for both arrays
+  i = 0
+  j = 0
+  
+  # Initialize result to store the maximum sum path
+  result = 0
+  
+  # Traverse both arrays
+  while i < m && j < n
+    if X[i] < Y[j]
+      sum1 += X[i]
+      i += 1
+    elsif X[i] > Y[j]
+      sum2 += Y[j]
+      j += 1
+    else # X[i] == Y[j]
+      # Common element found, add the maximum sum so far and reset sums
+      result += [sum1, sum2].max + X[i]
+      sum1 = 0
+      sum2 = 0
+      i += 1
+      j += 1
+  end
+  
+  # Add remaining elements of X
+  while i < m
+    sum1 += X[i]
+    i += 1
+  end
+  
+  # Add remaining elements of Y
+  while j < n
+    sum2 += Y[j]
+    j += 1
+  end
+  
+  # Add the maximum of remaining sums
+  result += [sum1, sum2].max
+  
+  return result
+end
+
+# Example usage
+X = [3, 6, 7, 8, 10, 12, 15, 18, 100]
+Y = [1, 2, 3, 5, 7, 9, 10, 11, 15, 16, 18, 25, 50]
+
+puts "The maximum sum path is: #{max_sum_path(X, Y)}"
+
+
+# Comment -----------------------------------------------------------------
+
+Initialize Sums and Pointers: We start with two pointers i and j for arrays X and Y, respectively. We also initialize two sums, sum1 for the elements in X and sum2 for the elements in Y.
+
+Traverse Both Arrays: We traverse both arrays simultaneously using the pointers. At each step, we compare the elements at X[i] and Y[j]:
+
+If X[i] is smaller, add X[i] to sum1 and increment i.
+If Y[j] is smaller, add Y[j] to sum2 and increment j.
+If X[i] is equal to Y[j], we have found a common element. We add the maximum of sum1 and sum2 to the result, reset sum1 and sum2, and then add the common element to the result. Increment both pointers.
+Add Remaining Elements: After the main loop, we may have remaining elements in one of the arrays. We add these remaining elements to their respective sums.
+
+Final Maximum Sum: Finally, we add the maximum of the remaining sums to the result and return it.
+
+This approach ensures that we take the maximum sum path involving elements from both arrays, switching between arrays only at common elements.
+
+# Problem -----------------------------------------------------------------
+
 32.Find the smallest window in array sorting which will make the entire array sorted
-Find the smallest window in an array sorting which will make the entire array sorted
+
 Given an integer array, find the smallest window sorting which will make the entire array sorted in increasing order.
 
 For example,
