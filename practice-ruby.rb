@@ -11,6 +11,117 @@
 
 # Problem -----------------------------------------------------------------
 
+# 34.Maximum profit earned by buying and selling shares any number of times
+# Given a list containing future prediction of share prices, find the maximum profit earned by buying and selling shares any number of times with the constraint, a new transaction can only start after the previous transaction is complete, i.e., we can only hold at most one share at a time.
+
+# For example,
+
+# Stock Prices: {1, 5, 2, 3, 7, 6, 4, 5} Total profit earned is 10 Buy on day 1 and sell on day 2Buy on day 3 and sell on day 5Buy on day 7 and sell on day 8  Stock Prices: {10, 8, 6, 5, 4, 2} Total profit earned is 0
+
+# Solution =============================================
+
+def max_profit(prices)
+  # Initialize a variable to keep track of the total profit.
+  total_profit = 0
+
+  # Loop through each price in the list, starting from the second day (index 1).
+  # We use the range (1...prices.length) to ensure we don't go out of bounds.
+  (1...prices.length).each do |i|
+    # On each iteration, we're looking at the current day's price (prices[i])
+    # and comparing it with the previous day's price (prices[i - 1]).
+
+    # Check if the price today is greater than the price yesterday.
+    if prices[i] > prices[i - 1]
+      # If today's price is higher, that means we could have bought the stock
+      # yesterday and sold it today for a profit.
+      
+      # Calculate the profit made by selling today after buying yesterday.
+      profit = prices[i] - prices[i - 1]
+      
+      # Add this profit to our total profit.
+      total_profit += profit
+    end
+
+    # If today's price is not higher than yesterday's, we do nothing.
+    # We don't buy the stock if we can't make a profit.
+  end
+
+  # After checking all days, return the total profit.
+  return total_profit
+end
+
+# Let's test this code with two examples:
+
+# Example 1: Stock prices go up and down
+prices1 = [1, 5, 2, 3, 7, 6, 4, 5]
+# Expected output: 10 (profit from buying and selling multiple times)
+
+# Example 2: Stock prices only go down
+prices2 = [10, 8, 6, 5, 4, 2]
+# Expected output: 0 (no profit to be made)
+
+# Print the results for both examples
+puts "Total profit for prices1: #{max_profit(prices1)}"  # Output: 10
+puts "Total profit for prices2: #{max_profit(prices2)}"  # Output: 0
+
+
+
+# Comment -----------------------------------------------------------------
+
+# 1.Initialization:
+
+#     total_profit = 0
+
+#   We start with a total_profit of 0 because we haven't made any transactions yet.
+
+# 2.Loop through the prices:
+
+#     (1...prices.length).each do |i|
+
+#   We use a loop to go through each day’s price, starting from the second day (index 1).
+#   We compare each day’s price with the previous day’s price.
+
+# 3.Check for profit opportunity:
+
+#     if prices[i] > prices[i - 1]
+
+#   We check if the price today (prices[i]) is higher than the price yesterday (prices[i - 1]).
+#   If it is, it means we could have bought the stock yesterday and sold it today for a profit.
+
+# 4.Calculate and add the profit:
+
+#     profit = prices[i] - prices[i - 1]
+#     total_profit += profit
+
+#   We calculate the profit by subtracting yesterday’s price from today’s price.
+#   Then, we add this profit to our total_profit.
+
+# 5.No action on loss or no gain:
+
+#   If today’s price isn’t higher than yesterday’s, the if condition fails, and we skip adding anything to total_profit.
+
+# 6. Return the total profit:
+
+#     return total_profit
+
+#   After going through all the days, the function returns the total_profit, which is the maximum profit we could have made.
+
+# Example Walkthrough
+
+#   Example 1: [1, 5, 2, 3, 7, 6, 4, 5]
+#   Day 1 to Day 2: Price goes from 1 to 5, profit = 4.
+#   Day 3 to Day 5: Price goes from 2 to 7, profit = 5.
+#   Day 7 to Day 8: Price goes from 4 to 5, profit = 1.
+#   Total profit = 4 + 5 + 1 = 10.
+  
+#   Example 2: [10, 8, 6, 5, 4, 2]
+
+#   Prices keep going down, so there’s no opportunity to make a profit.
+#   Total profit = 0.
+
+
+# Problem -----------------------------------------------------------------
+
 33.Find maximum sum path involving elements of given arrays
 Given two sorted arrays of integers, find a maximum sum path involving elements of both arrays whose sum is maximum. We can start from either array, but we can switch between arrays only through its common elements.
 
