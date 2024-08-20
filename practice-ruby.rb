@@ -9,6 +9,128 @@
 
 
 
+
+# Problem -----------------------------------------------------------------
+
+35.Trapping Rain Water within given set of bars
+Trapping rainwater problem: Find the maximum amount of water that can be trapped within a given set of bars where each bar’s width is 1 unit.
+
+For example,
+
+ Input: An array containing height of bars {7, 0, 4, 2, 5, 0, 6, 4, 0, 5}
+
+# Solution =============================================
+
+def trap_rainwater(heights)
+  # Step 1: Get the number of bars (the length of the array)
+  n = heights.size
+  
+  # Step 2: If there are no bars or only one bar, no water can be trapped
+  if n == 0
+    return 0
+  end
+  
+  # Step 3: Initialize pointers to start and end of the array
+  left = 0         # Start pointer at the first bar
+  right = n - 1    # End pointer at the last bar
+  
+  # Step 4: Initialize variables to store the maximum height seen so far from both ends
+  left_max = 0     # Maximum height encountered from the left side
+  right_max = 0    # Maximum height encountered from the right side
+  
+  # Step 5: Initialize a variable to accumulate the total trapped water
+  water_trapped = 0
+  
+  # Step 6: Use a loop to go through the array from both ends
+  # The loop continues until the left pointer meets or crosses the right pointer
+  while left <= right
+    # Step 7: Compare the heights at the left and right pointers
+    if heights[left] <= heights[right]
+      # Step 8: If the current bar on the left is shorter or equal to the one on the right
+      
+      # Check if the current left bar is the highest seen so far from the left
+      if heights[left] >= left_max
+        # Update left_max if this bar is the tallest so far from the left
+        left_max = heights[left]
+      else
+        # Calculate the water trapped above this bar
+        # Water trapped here is the difference between left_max and the height of the current bar
+        water_trapped += left_max - heights[left]
+      end
+      
+      # Move the left pointer to the right to process the next bar
+      left += 1
+    else
+      # Step 9: If the current bar on the right is shorter than the one on the left
+      
+      # Check if the current right bar is the highest seen so far from the right
+      if heights[right] >= right_max
+        # Update right_max if this bar is the tallest so far from the right
+        right_max = heights[right]
+      else
+        # Calculate the water trapped above this bar
+        # Water trapped here is the difference between right_max and the height of the current bar
+        water_trapped += right_max - heights[right]
+      end
+      
+      # Move the right pointer to the left to process the next bar
+      right -= 1
+    end
+  end
+  
+  # Step 10: Return the total amount of water trapped
+  return water_trapped
+end
+
+# Example usage:
+# Let's use the array {7, 0, 4, 2, 5, 0, 6, 4, 0, 5} as an example to find out the total water trapped.
+heights = [7, 0, 4, 2, 5, 0, 6, 4, 0, 5]
+
+# Call the function and print the result
+puts trap_rainwater(heights)  # Output should be the total water trapped
+
+
+# Comment -----------------------------------------------------------------
+
+# Detailed Explanation:
+
+# Step 1: Determine the Array Size
+
+# We first determine the number of bars by getting the length of the array.
+# Step 2: Handle Edge Cases
+
+# If there are no bars or just one bar, we know there can't be any trapped water, so we return 0.
+# Step 3: Initialize Pointers
+
+# We use two pointers: left starts at the beginning of the array, and right starts at the end of the array.
+# Step 4: Track Maximum Heights
+
+# left_max keeps track of the tallest bar we've seen from the left side as we move through the array.
+# right_max does the same for the right side.
+# Step 5: Initialize Water Storage
+
+# water_trapped will accumulate the total amount of water trapped.
+# Step 6: Loop Through the Array
+
+# The loop runs as long as the left pointer hasn't crossed the right pointer.
+# Steps 7-8: Process the Left Side
+
+# If the bar on the left is shorter or equal to the bar on the right:
+# We check if this bar is the tallest we've seen so far from the left.
+# If it is, update left_max.
+# If it isn't, calculate the water trapped above this bar as the difference between left_max and the current bar's height.
+# Move the left pointer to the right.
+# Steps 9: Process the Right Side
+
+# If the bar on the right is shorter:
+# We do the same checks and calculations as we did for the left, but from the right side.
+# Move the right pointer to the left.
+# Step 10: Return the Result
+
+# After the loop completes, we return the total amount of water trapped.
+# Output:
+# When you run the code with the example array {7, 0, 4, 2, 5, 0, 6, 4, 0, 5}, it will output the total amount of trapped water, which is the result of adding up all the trapped water calculated in the loop.
+
 # Problem -----------------------------------------------------------------
 
 # 34.Maximum profit earned by buying and selling shares any number of times
@@ -17,6 +139,91 @@
 # For example,
 
 # Stock Prices: {1, 5, 2, 3, 7, 6, 4, 5} Total profit earned is 10 Buy on day 1 and sell on day 2Buy on day 3 and sell on day 5Buy on day 7 and sell on day 8  Stock Prices: {10, 8, 6, 5, 4, 2} Total profit earned is 0
+
+# Calculations:
+
+# Step-by-Step Calculation:
+# Initial Setup:
+
+# left = 0, right = 9 (indices of the first and last bars)
+# left_max = 0, right_max = 0 (initial maximums)
+# water_trapped = 0 (initial water amount)
+# Iteration 1:
+
+# heights[left] = 7, heights[right] = 5
+# Since heights[left] > heights[right], process the right side:
+# right_max = max(0, 5) = 5
+# No water is trapped here because heights[right] = right_max
+# Move right pointer to 8.
+# Iteration 2:
+
+# heights[left] = 7, heights[right] = 0
+# Since heights[left] > heights[right], process the right side:
+# right_max = max(5, 0) = 5
+# Water trapped = right_max - heights[right] = 5 - 0 = 5
+# Add to water_trapped, now water_trapped = 5
+# Move right pointer to 7.
+# Iteration 3:
+
+# heights[left] = 7, heights[right] = 4
+# Since heights[left] > heights[right], process the right side:
+# right_max = max(5, 4) = 5
+# Water trapped = right_max - heights[right] = 5 - 4 = 1
+# Add to water_trapped, now water_trapped = 6
+# Move right pointer to 6.
+# Iteration 4:
+
+# heights[left] = 7, heights[right] = 6
+# Since heights[left] > heights[right], process the right side:
+# right_max = max(5, 6) = 6
+# No water is trapped because heights[right] = right_max
+# Move right pointer to 5.
+# Iteration 5:
+
+# heights[left] = 7, heights[right] = 0
+# Since heights[left] > heights[right], process the right side:
+# right_max = max(6, 0) = 6
+# Water trapped = right_max - heights[right] = 6 - 0 = 6
+# Add to water_trapped, now water_trapped = 12
+# Move right pointer to 4.
+# Iteration 6:
+
+# heights[left] = 7, heights[right] = 5
+# Since heights[left] > heights[right], process the right side:
+# right_max = max(6, 5) = 6
+# Water trapped = right_max - heights[right] = 6 - 5 = 1
+# Add to water_trapped, now water_trapped = 13
+# Move right pointer to 3.
+# Iteration 7:
+
+# heights[left] = 7, heights[right] = 2
+# Since heights[left] > heights[right], process the right side:
+# right_max = max(6, 2) = 6
+# Water trapped = right_max - heights[right] = 6 - 2 = 4
+# Add to water_trapped, now water_trapped = 17
+# Move right pointer to 2.
+# Iteration 8:
+
+# heights[left] = 7, heights[right] = 4
+# Since heights[left] > heights[right], process the right side:
+# right_max = max(6, 4) = 6
+# Water trapped = right_max - heights[right] = 6 - 4 = 2
+# Add to water_trapped, now water_trapped = 19
+# Move right pointer to 1.
+# Iteration 9:
+
+# heights[left] = 7, heights[right] = 0
+# Since heights[left] > heights[right], process the right side:
+# right_max = max(6, 0) = 6
+# Water trapped = right_max - heights[right] = 6 - 0 = 6
+# Add to water_trapped, now water_trapped = 25
+# Move right pointer to 0.
+# Final State:
+
+# Both pointers are now at the same position, and the loop ends.
+# Total water trapped = 25 units.
+
+# Calculation solution links: https://www.techiedelight.com/trapping-rain-water-within-given-set-bars/
 
 # Solution =============================================
 
