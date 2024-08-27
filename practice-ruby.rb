@@ -9,6 +9,88 @@
 
 
 
+# Problem -----------------------------------------------------------------
+
+36.Longest Increasing Subsequence
+The Longest Increasing Subsequence (LIS) problem is to find a subsequence of a given sequence in which the subsequence’s elements are in sorted order, lowest to highest, and in which the subsequence is as long as possible. This subsequence is not necessarily contiguous or unique.
+
+For example, consider the following subsequence:
+
+{0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15}
+
+ The longest increasing subsequence is {0, 2, 6, 9, 11, 15} having length 6; the input sequence has no 7–member increasing subsequences. The longest increasing subsequence in this example is not unique. For instance, {0, 4, 6, 9, 11, 15} and {0, 4, 6, 9, 13, 15} are other increasing subsequences of equal length in the same input sequence.
+
+# Solution =============================================
+
+def longest_increasing_subsequence(arr)
+  n = arr.length  # Length of the input array
+
+  # Step 1: Initialize DP array where each element starts as 1
+  dp = Array.new(n, 1)  # Creates an array of size n, all initialized to 1
+
+  # Step 2: Fill DP array by comparing each element with previous elements
+  for i in 1...n  # Start from the second element (index 1) to the last element
+    for j in 0...i  # Compare with all previous elements (from index 0 to i-1)
+      if arr[i] > arr[j]  # Check if the current element is greater than the previous element
+        dp[i] = [dp[i], dp[j] + 1].max  # Update dp[i] to the maximum value between current dp[i] and dp[j] + 1
+      end
+    end
+  end
+
+  # Step 3: Find and return the maximum value in the DP array
+  dp.max  # The length of the longest increasing subsequence
+end
+
+# Example usage
+arr = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]
+puts longest_increasing_subsequence(arr)  # Output will be 6
+
+
+# Comment -----------------------------------------------------------------
+
+# Initialization:
+
+# We start by creating a dp array with the same length as the input array. Each element of dp is set to 1 because the smallest subsequence that ends at any element is the element itself.
+
+dp = Array.new(n, 1)
+
+# Filling the DP Array:
+
+# We loop through each element in the array starting from the second one. For each element arr[i], we compare it with all previous elements arr[j] (where j goes from 0 to i-1).
+# If arr[i] > arr[j], it means arr[i] can be added to the subsequence ending at arr[j]. We then update dp[i] to be the maximum of its current value and dp[j] + 1.
+
+for i in 1...n
+  for j in 0...i
+    if arr[i] > arr[j]
+      dp[i] = [dp[i], dp[j] + 1].max
+    end
+  end
+end
+
+# Finding the Maximum Value:
+
+# The length of the longest increasing subsequence will be the maximum value found in the dp array.
+
+dp.max
+
+# Example Walkthrough
+# For the input array:
+
+
+arr = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]
+
+# 1. Initialization: dp starts as:
+
+
+dp = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+# 2. Filling the DP Array: As we compare each element with the previous ones and update dp, it gradually becomes:
+
+
+dp = [1, 2, 2, 3, 2, 3, 4, 5, 2, 4, 4, 5, 3, 6, 5, 6]
+
+# 3. Finding the Maximum: The maximum value in dp is 6, which means the length of the longest increasing subsequence is 6.
+
 
 # Problem -----------------------------------------------------------------
 
