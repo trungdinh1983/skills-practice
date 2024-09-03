@@ -11,6 +11,85 @@
 
 # Problem -----------------------------------------------------------------
 
+37.Longest Decreasing Subsequence Problem
+The longest decreasing subsequence problem is to find a subsequence of a given sequence in which the subsequence’s elements are in sorted order, highest to lowest, and in which the subsequence is as long as possible. This subsequence is not necessarily contiguous or unique.
+
+Please note that the problem specifically targets subsequences that need not be contiguous, i.e., subsequences are not required to occupy consecutive positions within the original sequences.
+
+For example, consider the following subsequence:
+
+[0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]
+
+ The longest decreasing subsequence is [12, 10, 9, 5, 3], which has length 5; the input sequence has no 6–member decreasing subsequences.
+
+ The longest decreasing subsequence in this example is not unique: for instance, [12, 10, 6, 5, 3] is another decreasing subsequence of equal length in the same input sequence.
+
+# Solution =============================================
+
+def longest_decreasing_subsequence(arr)
+  n = arr.length
+  dp = Array.new(n, 1)  # dp array initialized to 1, since each element is a subsequence of length 1
+
+  # Outer loop: Start from the second element and go till the end of the array
+  (1...n).each do |i|
+    # Inner loop: Compare current element arr[i] with each previous element arr[j]
+    (0...i).each do |j|
+      # If the current element arr[i] is less than arr[j], it can form a decreasing subsequence
+      # Also, we check if adding arr[i] makes a longer subsequence than the current dp[i] value
+      if arr[i] < arr[j] && dp[i] < dp[j] + 1
+        dp[i] = dp[j] + 1  # Update dp[i] with the new longer subsequence length
+      end
+    end
+  end
+
+  # The rest of the code finds the maximum length and reconstructs the subsequence
+  max_length = dp.max
+  lds = []
+  i = n - 1
+  while i >= 0
+    if dp[i] == max_length
+      lds.unshift(arr[i])
+      max_length -= 1
+    end
+    i -= 1
+  end
+
+  return lds
+end
+
+# Example usage:
+sequence = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]
+result = longest_decreasing_subsequence(sequence)
+puts "The longest decreasing subsequence is: #{result}"
+
+
+# Comment -----------------------------------------------------------------
+
+# Initialization:
+
+# We create a dp array where each element starts as 1, because every individual element can be considered a subsequence of length 1.
+# Building the dp Array:
+
+# We loop through each element i of the array.
+# For each i, we loop through all elements before it (j) to see if they can form a longer decreasing subsequence. If arr[i] < arr[j], it means i can extend the subsequence ending at j.
+# Finding the Maximum Length:
+
+# We find the maximum value in the dp array, which represents the length of the longest decreasing subsequence.
+# Reconstructing the Subsequence:
+
+# We then reconstruct the subsequence by backtracking through the array, starting from the end. We add elements to the result if they match the max_length and decrement the max_length as we go.
+
+# Outer Loop (1...n).each do |i|:
+
+#   This loop iterates over each element in the array starting from the second element (index 1) to the last element (index n-1).
+#   The reason we start from 1 is because the first element (index 0) doesn’t need to compare with any elements before it since it's the first element.
+#   Inner Loop (0...i).each do |j|:
+  
+#   For each element i, this inner loop iterates over all the previous elements (from index 0 to i-1).
+#   The purpose of this loop is to check each previous element j to see if it can form a longer decreasing subsequence when combined with the current element i.
+
+# Problem -----------------------------------------------------------------
+
 36.Longest Increasing Subsequence
 The Longest Increasing Subsequence (LIS) problem is to find a subsequence of a given sequence in which the subsequence’s elements are in sorted order, lowest to highest, and in which the subsequence is as long as possible. This subsequence is not necessarily contiguous or unique.
 
