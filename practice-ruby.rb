@@ -10,6 +10,89 @@
 
 
 # Problem -----------------------------------------------------------------
+38.Find maximum product subarray in a given array
+Given an integer array, find the subarray that has the maximum product of its elements. The solution should return the maximum product of elements among all possible subarrays.
+
+For example,
+
+Input:  { -6, 4, -5, 8, -10, 0, 8 }Output: 1600Explanation: The maximum product subarray is {4, -5, 8, -10} having product 1600  Input:  { 40, 0, -20, -10 }Output: 200Explanation: The maximum product subarray is {-20, -10} having product 200
+
+# Solution =============================================
+
+# Function to find the maximum product subarray
+def max_product_subarray(arr)
+  # Edge case: If the array is empty, return 0
+  return 0 if arr.empty?
+  
+  # Initialize the current maximum, current minimum, and global maximum with the first element
+  current_max = arr[0]
+  current_min = arr[0]
+  global_max = arr[0]
+  
+  # Iterate through the array, starting from the second element
+  (1...arr.length).each do |i|
+    # Store the current number for easier reference
+    num = arr[i]
+    
+    # Since a negative number can flip the product, calculate possible maximums and minimums
+    temp_max = [num, current_max * num, current_min * num].max
+    current_min = [num, current_max * num, current_min * num].min
+    
+    # Update the current maximum to the newly calculated max (using temp variable)
+    current_max = temp_max
+    
+    # Update the global maximum if the current maximum is greater than the global one
+    global_max = [global_max, current_max].max
+  end
+  
+  # Return the global maximum, which holds the maximum product of any subarray
+  global_max
+end
+
+# Test with the given examples
+arr1 = [-6, 4, -5, 8, -10, 0, 8]
+arr2 = [40, 0, -20, -10]
+
+puts "Max product of subarray in arr1: #{max_product_subarray(arr1)}"  # Output: 1600
+puts "Max product of subarray in arr2: #{max_product_subarray(arr2)}"  # Output: 200
+
+
+# Comment -----------------------------------------------------------------
+
+
+# 1. Initial Setup:
+
+# We first check if the array is empty. If it is, we return 0 since there are no elements.
+# We then initialize three important variables:
+# current_max: The maximum product at the current position.
+# current_min: The minimum product at the current position (used for handling negative numbers).
+# global_max: This keeps track of the maximum product found so far.
+
+# 2. Iteration:
+
+# We loop through each element of the array starting from the second element.
+# For each number, we calculate:
+# The possible new current_max (maximum product) by considering the current number, the product of the current number and the previous current_max, and the product of the current number and the previous current_min.
+# The new current_min is similarly calculated to handle the case where multiplying by a negative number might flip a minimum product into a maximum one.
+# We update the global_max to be the largest value between the current maximum and the previously known global_max.
+
+# 3. Final Result:
+
+# After iterating through the array, global_max will hold the maximum product of any subarray, which is then returned.
+
+# Example Walkthrough:
+
+# For the input [-6, 4, -5, 8, -10, 0, 8]:
+
+# At index 1, the current max becomes 4.
+# At index 2, multiplying -5 with the previous max and min gives a new max of 30.
+# Continuing this logic, the subarray [4, -5, 8, -10] will produce the maximum product, which is 1600.
+# For the input [40, 0, -20, -10]:
+
+# The subarray [-20, -10] gives the maximum product of 200.
+
+
+# Problem -----------------------------------------------------------------
 
 37.Longest Decreasing Subsequence Problem
 The longest decreasing subsequence problem is to find a subsequence of a given sequence in which the subsequence’s elements are in sorted order, highest to lowest, and in which the subsequence is as long as possible. This subsequence is not necessarily contiguous or unique.
