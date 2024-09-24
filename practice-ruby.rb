@@ -9,6 +9,78 @@
 
 
 
+
+# Problem -----------------------------------------------------------------
+
+# 39.Find maximum sum of subsequence with no adjacent elements
+# Find the maximum sum of a subsequence with no adjacent elements
+# Given an integer array, find the maximum sum of subsequence where the subsequence contains no element at adjacent positions.
+
+# Please note that the problem specifically targets subsequences that need not be contiguous, i.e., subsequences are not required to occupy consecutive positions within the original sequences.
+
+#  For example,
+
+# Input:  { 1, 2, 9, 4, 5, 0, 4, 11, 6 }Output: The maximum sum is 26 The maximum sum is formed by subsequence { 1, 9, 5, 11 }
+
+# Solution =============================================
+
+def max_sum_subsequence(arr)
+  # Edge cases
+  return 0 if arr.empty?         # If the array is empty, the sum is 0
+  return arr[0] if arr.length == 1  # If there is only one element, return that element
+  
+  n = arr.length
+  dp = Array.new(n, 0) # Create a dp array of size n initialized to 0
+
+  # Base cases
+  dp[0] = arr[0]  # The first element is the maximum sum for just one element
+  dp[1] = [arr[0], arr[1]].max  # The max sum for the first two elements is the greater of them
+  
+  # Fill the dp array using the recurrence relation
+  (2...n).each do |i|
+    dp[i] = [dp[i-1], dp[i-2] + arr[i]].max  # Max of excluding or including the current element
+  end
+  
+  # The last element of dp contains the result
+  return dp[n-1]
+end
+
+# Example usage
+arr = [1, 2, 9, 4, 5, 0, 4, 11, 6]
+puts "The maximum sum is #{max_sum_subsequence(arr)}"
+
+# Sample Example Calculated Solution:
+# For the input array:
+# arr = [1, 2, 9, 4, 5, 0, 4, 11, 6]
+# The maximum sum is 26, formed by the subsequence [1, 9, 5, 11].
+
+
+# Comment -----------------------------------------------------------------
+
+# step-by-step explanation of the approach:
+
+# Base Cases:
+
+# If the array has no elements, the maximum sum is 0.
+# If the array has one element, the maximum sum is that single element.
+# Recurrence Relation:
+
+# For each element at index i, we have two choices:
+# Include the current element: If we include the current element, we must exclude the previous one (i.e., sum up the value of the current element with the best solution up to i-2).
+# Exclude the current element: If we exclude the current element, the best solution is the same as the one at i-1.
+# Therefore, the recurrence relation becomes:
+
+# 𝑑𝑝[𝑖] = max(𝑑𝑝[𝑖−1],𝑑𝑝[𝑖−2]+𝑎𝑟𝑟[𝑖])
+# dp[i]=max(dp[i−1],dp[i−2]+arr[i])
+
+# Final Answer: The value at the last index (dp[n-1]) will give the maximum sum we can achieve without picking adjacent elements.
+
+# Explanation:
+# We handle edge cases: If the array is empty or has just one element.
+# We initialize a dp array where dp[i] holds the maximum sum up to index i.
+# We then iterate over the array, filling up the dp array using the recurrence relation.
+# Finally, the last value of dp contains the maximum sum of a subsequence with no adjacent elements.
+
 # Problem -----------------------------------------------------------------
 38.Find maximum product subarray in a given array
 Given an integer array, find the subarray that has the maximum product of its elements. The solution should return the maximum product of elements among all possible subarrays.
