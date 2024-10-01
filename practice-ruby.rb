@@ -11,6 +11,69 @@
 
 
 # Problem -----------------------------------------------------------------
+# 40.Find minimum platforms needed in the station so to avoid any delay in arrival of any train
+# Find minimum platforms needed to avoid delay in the train arrival
+# Given a schedule containing the arrival and departure time of trains in a station, find the minimum number of platforms needed to avoid delay in any train’s arrival.
+
+# For example,
+
+# Trains arrival   = { 2.00, 2.10, 3.00, 3.20, 3.50, 5.00 }Trains departure = { 2.30, 3.40, 3.20, 4.30, 4.00, 5.20 } The minimum platforms needed is 2  The train arrived at 2.00 on platform 1The train arrived at 2.10 on platform 2The train departed at 2.30 from platform 1The train arrived at 3.00 on platform 1The train departed at 3.20 from platform 1The train arrived at 3.20 on platform 1The train departed at 3.40 from platform 2The train arrived at 3.50 on platform 2The train departed at 4.00 from platform 2The train departed at 4.30 from platform 1The train arrived at 5.00 on platform 1The train departed at 5.20 from platform 1
+
+# Solution =============================================
+
+def find_minimum_platforms(arrivals, departures)
+  # Sort both arrivals and departures times
+  arrivals.sort!
+  departures.sort!
+
+  # Initialize pointers and counters
+  platform_needed = 1  # We need at least one platform for the first train
+  result = 1           # Store the maximum platforms needed
+  i = 1                # Pointer for arrivals
+  j = 0                # Pointer for departures
+  n = arrivals.length  # Total number of trains
+
+  # Loop through the arrival and departure times
+  while i < n && j < n
+    # If the next train arrives before the last one departs, we need a new platform
+    if arrivals[i] <= departures[j]
+      platform_needed += 1
+      i += 1
+    # Otherwise, we can free up a platform
+    else
+      platform_needed -= 1
+      j += 1
+    end
+
+    # Update the result to hold the maximum platforms needed
+    result = [result, platform_needed].max
+  end
+
+  # Return the result, which is the maximum number of platforms needed
+  result
+end
+
+# Example usage:
+arrivals = [2.00, 2.10, 3.00, 3.20, 3.50, 5.00]
+departures = [2.30, 3.40, 3.20, 4.30, 4.00, 5.20]
+
+puts "Minimum platforms needed: #{find_minimum_platforms(arrivals, departures)}"
+
+
+# Comment -----------------------------------------------------------------
+# Explanation:
+# Sorting: First, we sort the arrival and departure times.
+# Two-pointer technique: We use two pointers, one for arrivals and one for departures. This helps us keep track of when a platform becomes available.
+# Count platforms: Every time a train arrives and there's no platform free, we increase the count of platforms needed. When a train departs, we decrease the count of platforms.
+# Track the maximum: We keep track of the maximum platforms used at any point in time.
+# Example Walkthrough:
+# Given the arrivals [2.00, 2.10, 3.00, 3.20, 3.50, 5.00] and departures [2.30, 3.40, 3.20, 4.30, 4.00, 5.20], the minimum platforms needed is 2. The trains overlap at certain points, so 2 platforms are required to avoid delays.
+
+# This algorithm runs in 𝑂(𝑛log 𝑛) due to the sorting, where 𝑛 is the number of trains.
+
+
+
+# Problem -----------------------------------------------------------------
 
 # 39.Find maximum sum of subsequence with no adjacent elements
 # Find the maximum sum of a subsequence with no adjacent elements
