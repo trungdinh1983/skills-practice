@@ -11,6 +11,68 @@
 
 
 # Problem -----------------------------------------------------------------
+
+41. Decode an array constructed from another array
+Given an array constructed from another array A by taking the sum of every distinct pair in it, decode it to get the original array A back.
+
+If the original array is A[0], A[1], … , A[n-1], then the input array is
+
+{  (A[0] + A[1]), (A[0] + A[2]), … (A[0] + A[n-1]),  (A[1] + A[2]), (A[1] + A[3]), … (A[1] + A[n-1]),  …  …  (A[i] + A[i+1]), (A[i] + A[i+2]), … (A[i] + A[n-1]),  …  …  (A[n-2] + A[n-1])}
+
+# Solution =============================================
+
+def decode_array(sum_pairs)
+  # Sort the sum pairs to ensure we start with the smallest sums
+  sum_pairs.sort!
+
+  # Step 1: Extract the first three elements from sorted sum_pairs
+  sum_a0_a1 = sum_pairs[0]
+  sum_a0_a2 = sum_pairs[1]
+  sum_a1_a2 = sum_pairs[2]
+
+  # Step 2: Calculate A[0], A[1], and A[2]
+  sum_a0_a1_a2 = (sum_a0_a1 + sum_a0_a2 + sum_a1_a2) / 2
+
+  a0 = sum_a0_a1_a2 - sum_a1_a2  # A[0]
+  a1 = sum_a0_a1_a2 - sum_a0_a2  # A[1]
+  a2 = sum_a0_a1_a2 - sum_a0_a1  # A[2]
+
+  # Step 3: Now that we have A[0], A[1], and A[2], let's calculate the rest of A
+  # The length of the original array can be deduced from the number of sum pairs
+  n = (-1 + Math.sqrt(1 + 8 * sum_pairs.length)) / 2  # Solves for n in the quadratic formula n(n-1)/2 = len(sum_pairs)
+
+  original_array = [a0, a1, a2]
+
+  # Step 4: Use remaining sum pairs to calculate other elements
+  index = 3
+  while original_array.length < n
+    # Each new element is paired with previous elements, so we can use the sorted sums
+    next_sum = sum_pairs[index]
+    new_element = next_sum - a0  # Subtract A[0] (first element) to get the next element
+    original_array << new_element
+    index += 1
+  end
+
+  original_array
+end
+
+# Example usage:
+sum_pairs = [11, 12, 13, 14, 15, 16]
+original_array = decode_array(sum_pairs)
+puts "Decoded array: #{original_array}"
+
+
+# Comment -----------------------------------------------------------------
+
+# Explanation:
+# Sorting: We sort the sum_pairs to get the smallest pairs first.
+# Sum Calculation: The sum of the three smallest elements gives us the total sum of A[0] + A[1] + A[2]. Using this, we can extract the individual values of A[0], A[1], and A[2].
+# Array Length: The number of sum pairs is derived from the equation for combinations: n(n-1)/2, which helps calculate n.
+# Decoding the Rest: After calculating the first three elements, we proceed to decode the remaining elements based on the pair sums.
+
+
+
+# Problem -----------------------------------------------------------------
 # 40.Find minimum platforms needed in the station so to avoid any delay in arrival of any train
 # Find minimum platforms needed to avoid delay in the train arrival
 # Given a schedule containing the arrival and departure time of trains in a station, find the minimum number of platforms needed to avoid delay in any train’s arrival.
