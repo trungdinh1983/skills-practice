@@ -9,6 +9,67 @@
 
 
 
+# Problem -----------------------------------------------------------------
+42.Sort an array using one swap
+Given an array where all its elements are sorted in increasing order except two swapped elements, sort it in linear time. Assume there are no duplicates in the array.
+
+For example,
+
+Input:  A[] = [3, 8, 6, 7, 5, 9] or [3, 5, 6, 9, 8, 7] or [3, 5, 7, 6, 8, 9] Output: A[] = [3, 5, 6, 7, 8, 9]
+# Solution =============================================
+def fix_swapped_elements(arr)
+  n = arr.length
+  
+  # Initialize two variables to store the indexes of the swapped elements
+  x = -1
+  y = -1
+  
+  # Find the first and second swapped elements
+  (0...(n-1)).each do |i|
+    if arr[i] > arr[i + 1]
+      if x == -1
+        x = i   # First swapped element
+      else
+        y = i + 1   # Second swapped element
+      end
+    end
+  end
+  
+  # If second swapped element wasn't found in the loop, it's adjacent to the first
+  y = x + 1 if y == -1
+  
+  # Swap the two elements to correct the array
+  arr[x], arr[y] = arr[y], arr[x]
+  
+  # Return the sorted array
+  arr
+end
+
+# Example usage:
+arr1 = [3, 8, 6, 7, 5, 9]
+arr2 = [3, 5, 6, 9, 8, 7]
+arr3 = [3, 5, 7, 6, 8, 9]
+
+puts "Sorted array: #{fix_swapped_elements(arr1)}"
+puts "Sorted array: #{fix_swapped_elements(arr2)}"
+puts "Sorted array: #{fix_swapped_elements(arr3)}"
+
+
+
+# Comment -----------------------------------------------------------------
+
+# Explanation:
+# Step 1: We loop through the array and find the two places where the sorting order is violated (i.e., when arr[i] > arr[i + 1]). These are the indices of the two swapped elements.
+# Step 2: Once we identify the two swapped elements, we swap them back to their correct positions.
+# Step 3: Return the corrected (sorted) array.
+# Example Output:
+ 
+  Sorted array: [3, 5, 6, 7, 8, 9]
+  Sorted array: [3, 5, 6, 7, 8, 9]
+  Sorted array: [3, 5, 6, 7, 8, 9]
+  
+# This approach ensures linear time complexity 𝑂(𝑛), since we only loop through the array once to find the swapped elements and perform a single swap.
+
 
 # Problem -----------------------------------------------------------------
 
