@@ -10,12 +10,93 @@
 
 
 # Problem -----------------------------------------------------------------
+
+43.Find Triplet with given sum in an array
+Given an unsorted integer array, find a triplet with a given sum in it.
+
+For example,
+
+Input: nums = [ 2, 7, 4, 0, 9, 5, 1, 3 ]target = 6 Output: Triplet exists. The triplets with the given sum 6 are {0, 1, 5}, {0, 2, 4}, {1, 2, 3}
+
+
+# Solution =============================================
+
+# Function to find all triplets in an array that sum up to a given target
+def find_triplets(nums, target)
+  # Sort the array to simplify the process of finding triplets
+  nums.sort!
+
+  # Create an empty array to store the triplets
+  triplets = []
+
+  # Iterate through the array
+  (0..nums.length - 3).each do |i|
+    # Use two pointers to check for triplets
+    left = i + 1
+    right = nums.length - 1
+
+    while left < right
+      # Calculate the sum of the current triplet
+      current_sum = nums[i] + nums[left] + nums[right]
+
+      # Check if the sum matches the target
+      if current_sum == target
+        # Add the found triplet to the result array
+        triplets << [nums[i], nums[left], nums[right]]
+        left += 1
+        right -= 1
+      elsif current_sum < target
+        # If the current sum is less than the target, move the left pointer to the right
+        left += 1
+      else
+        # If the current sum is greater than the target, move the right pointer to the left
+        right -= 1
+      end
+    end
+  end
+
+  # Return the list of triplets
+  triplets
+end
+
+# Example usage
+nums = [2, 7, 4, 0, 9, 5, 1, 3]
+target = 6
+
+result = find_triplets(nums, target)
+
+# Check if any triplets were found
+if result.empty?
+  puts "No triplet exists."
+else
+  puts "Triplet exists. The triplets with the given sum #{target} are:"
+  result.each { |triplet| puts "#{triplet}" }
+end
+
+
+# Comment -----------------------------------------------------------------
+
+Explanation:
+
+1. Sorting: We first sort the array to use the two-pointer technique efficiently.
+
+2. Two pointers: For each number in the array, we use two pointers (one starting from the next element and one from the end of the array) to find pairs that together with the current number sum up to the target.
+
+3. If condition: If the sum of the current triplet equals the target, we add it to the result. If the sum is less than the target, we move the left pointer to the right to increase the sum; otherwise, we move the right pointer to the left to decrease the sum.
+
+4. Return: Finally, we return all found triplets.
+
+This approach has a time complexity of 𝑂(𝑛2) because we are using two pointers for each element. Let me know if you have any questions!
+
+# Problem -----------------------------------------------------------------
+
 42.Sort an array using one swap
 Given an array where all its elements are sorted in increasing order except two swapped elements, sort it in linear time. Assume there are no duplicates in the array.
 
 For example,
 
 Input:  A[] = [3, 8, 6, 7, 5, 9] or [3, 5, 6, 9, 8, 7] or [3, 5, 7, 6, 8, 9] Output: A[] = [3, 5, 6, 7, 8, 9]
+
 # Solution =============================================
 def fix_swapped_elements(arr)
   n = arr.length
