@@ -10,6 +10,82 @@
 
 
 # Problem -----------------------------------------------------------------
+44.Find the longest continuous sequence length with the same sum in given binary arrays
+Given two binary arrays, X and Y, find the length of the longest continuous sequence that starts and ends at the same index in both arrays and have the same sum. In other words, find max(j-i+1) for every j >= i, where the sum of subarray X[i, j] is equal to the sum of subarray Y[i, j].
+
+For example, consider the following binary arrays X and Y:
+
+X[]: {0, 0, 1, 1, 1, 1}Y[]: {0, 1, 1, 0, 1, 0}
+
+ The length of the longest continuous sequence with the same sum is 5 as
+
+X[0, 4]: {0, 0, 1, 1, 1} (sum = 3)Y[0, 4]: {0, 1, 1, 0, 1} (sum = 3)
+
+
+
+# Solution =============================================
+
+def longest_equal_sum_sequence(x, y)
+  # Initialize variables
+  max_length = 0  # To keep track of the longest length found
+  diff_map = {}   # To store first occurrences of cumulative differences
+  diff_map[0] = -1  # Edge case when the cumulative difference is 0
+  cumulative_diff = 0 # Tracks cumulative difference between sums of X and Y arrays
+
+  # Iterate through each index
+  (0...x.length).each do |i|
+    # Update the cumulative difference between X and Y
+    cumulative_diff += x[i] - y[i]
+    
+    # Check if this difference has been seen before
+    if diff_map.key?(cumulative_diff)
+      # Calculate the length of the subarray with equal sums
+      length = i - diff_map[cumulative_diff]
+      max_length = [max_length, length].max  # Update max_length if longer subarray found
+    else
+      # Store the first occurrence of this cumulative difference
+      diff_map[cumulative_diff] = i
+    end
+  end
+
+  max_length  # Return the longest length found
+end
+
+# Test the function with the example arrays
+x = [0, 0, 1, 1, 1, 1]
+y = [0, 1, 1, 0, 1, 0]
+puts longest_equal_sum_sequence(x, y)  # Expected output: 5
+
+
+# Comment -----------------------------------------------------------------
+# Solution Strategy:
+# 1. Calculate the difference in cumulative sums between X and Y as we iterate through each element.
+# 2. Use a hash map (diff_map) to store the first occurrence of each cumulative difference.
+# 3. For each index j, if the cumulative difference has been seen before (i.e., it exists in the diff_map), it means that the subarrays from the first occurrence up to j have equal sums.
+# 4. Calculate the length of this subarray and update the maximum length if it's the longest found so far.
+
+# Explanation of Code:
+
+# Line by Line:
+
+# max_length is initialized to keep track of the longest subarray found with equal sums in 
+# X and Y.
+
+# diff_map is a hash map that stores the first occurrence of each cumulative difference.
+# cumulative_diff is the running difference between the sums of X and Y up to each index.
+
+# Key Logic:
+
+# For each index i, we calculate the cumulative difference between X and Y.
+
+# If cumulative_diff has been seen before, it means there exists a subarray (from that first occurrence up to i) where the sums are equal in both arrays.
+
+# The length of this subarray is calculated and compared with max_length to find the longest.
+# Output:
+
+# This code will output 5 for the given example arrays, which is the length of the longest continuous sequence with the same sum.
+
+# Problem -----------------------------------------------------------------
 
 43.Find Triplet with given sum in an array
 Given an unsorted integer array, find a triplet with a given sum in it.
