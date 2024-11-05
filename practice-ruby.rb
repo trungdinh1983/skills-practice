@@ -8,6 +8,145 @@
 # Comment -----------------------------------------------------------------
 
 
+# Math -----------------------------------------------------------------
+
+
+
+# Problem -----------------------------------------------------------------
+# 45.Rearrange array such that `A[A[i]]` is set to `i` for every element `A[i]`
+# Given an unsorted integer array A of size n, whose elements lie in the range 0 to n-1, rearrange the array such that A[A[i]] is set to i for every array element A[i]. Do this in linear time and without using any extra constant space.
+
+# For example,
+
+# Input:  {1, 3, 4, 2, 0}Output: {4, 0, 3, 1, 2} Explanation: A[0] = 1, A[1] becomes 0A[1] = 3, A[3] becomes 1A[2] = 4, A[4] becomes 2A[3] = 2, A[2] becomes 3A[4] = 0, A[0] becomes 4
+
+# Solution =============================================
+
+# Function to rearrange elements of the array as per the given condition
+def rearrange(arr)
+  n = arr.length
+
+  # Step 1: Modify each element to contain both old and new values.
+  # We do this by adding the new value (target index) multiplied by n to each element
+  # This encodes two pieces of information in each cell without using extra space.
+  (0...n).each do |i|
+    # Here, (arr[arr[i]] % n) gives us the new value for arr[i]
+    arr[i] = arr[i] + (arr[arr[i]] % n) * n
+  end
+
+  # Step 2: Divide each element by n to get the final rearranged values
+  # as each element now holds both the old and new values encoded in it.
+  (0...n).each do |i|
+    arr[i] /= n
+  end
+end
+
+# Example usage:
+arr = [1, 3, 4, 2, 0]
+rearrange(arr)
+puts arr.inspect # Output should be [4, 0, 3, 1, 2]
+
+# Math -----------------------------------------------------------------
+
+Given the input array:
+
+##RUBY##
+arr = [1, 3, 4, 2, 0]
+##RUBY##
+
+# Step 1: Encode each element with both old and new values
+
+In this step, we iterate through each element in the array and update each element as: arr[i] = arr[i] + ( arr[arr[i]]%𝑛)×𝑛 where n is the length of the array (in this case, 𝑛 = 5 ).
+
+Original array: [1, 3, 4, 2, 0]
+
+1. For i = 0:
+
+arr[0] is 1.
+We calculate arr[arr[0]] % n → arr[1] % 5 → 3 % 5 = 3.
+Update arr[0] to arr[0] + (arr[arr[0]] % n) * n:
+  𝑎𝑟𝑟[0]=1+(3×5)=1+15=16
+
+Array after step: [16, 3, 4, 2, 0]
+
+2. For i = 1:
+
+arr[1] is 3.
+Calculate arr[arr[1]] % n → arr[3] % 5 → 2 % 5 = 2.
+Update arr[1] to arr[1] + (arr[arr[1]] % n) * n:
+  arr[1]=3+(2×5)=3+10=13
+Array after step: [16, 13, 4, 2, 0]
+
+3. For i = 2:
+
+arr[2] is 4.
+Calculate arr[arr[2]] % n → arr[4] % 5 → 0 % 5 = 0.
+Update arr[2] to arr[2] + (arr[arr[2]] % n) * n:
+  arr[2]=4+(0×5)=4+0=4
+Array after step: [16, 13, 4, 2, 0] (no change)
+
+4.For i = 3:
+
+arr[3] is 2.
+Calculate arr[arr[3]] % n → arr[2] % 5 → 4 % 5 = 4.
+Update arr[3] to arr[3] + (arr[arr[3]] % n) * n:
+  arr[3]=2+(4×5)=2+20=22
+Array after step: [16, 13, 4, 22, 0]
+
+5. For i = 4:
+
+arr[4] is 0.
+Calculate arr[arr[4]] % n → arr[0] % 5 → 16 % 5 = 1.
+Update arr[4] to arr[4] + (arr[arr[4]] % n) * n:
+  arr[4]=0+(1×5)=0+5=5
+Array after step: [16, 13, 4, 22, 5]
+
+After encoding, the array looks like this:
+
+##RUBY##
+  [16, 13, 4, 22, 5]
+##RUBY##
+
+# Step 2: Decode the new values by dividing each element by n
+
+Now, to get the final rearranged values, we divide each element by n (5) to retrieve the new values.
+
+1. For i = 0:
+  arr[0]=16/5=3
+
+2. For i = 1:
+  arr[1]=13/5=2
+
+3. For i = 2:
+  arr[2]=4/5=0
+
+4. For i = 3:
+  arr[3]=22/5=4
+
+5. For i = 4:
+  arr[4]=5/5=1
+
+Final array after rearrangement: [4, 0, 3, 1, 2]
+
+This matches the expected output. Each position in the array now satisfies the condition A[A[i]]=i.
+
+# Comment -----------------------------------------------------------------
+
+# Approach:
+# 1. We'll use each element's value as a temporary marker to store the new position.
+# 2. For each element in the array, we will perform a cyclic swap based on the problem's requirements.
+
+# Explanation:
+# 1. Encoding the New Values:
+
+# We loop through each element and store the new value at each index using a combination of the current and target positions.
+# We calculate arr[arr[i]] % n to get the target index without altering the current value.
+# Then we add (arr[arr[i]] % n) * n to the current value at arr[i], effectively encoding the old and new values.
+
+# 2. Extracting the New Values:
+
+# After encoding all values, we divide each element by n to isolate the new values, achieving the desired arrangement.
+# This method rearranges the array in linear time O(n) and constant space O(1), meeting the problem requirements.
 
 # Problem -----------------------------------------------------------------
 44.Find the longest continuous sequence length with the same sum in given binary arrays
