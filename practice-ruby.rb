@@ -8,9 +8,174 @@
 # Comment -----------------------------------------------------------------
 
 
+# Math/Calculations -------------------------------------------------------
+
+
+
+
+# Problem -----------------------------------------------------------------
+46.Reverse every consecutive m elements of the given subarray
+Given an array, reverse every group of consecutive m elements in a given subarray of it.
+
+For example,
+
+Consider the below array. A[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },m = 3 Then for subarray [i, j], where i and j is  Input:  i = 1, j = 7 or 8Output: [1, 4, 3, 2, 7, 6, 5, 8, 9, 10]  Input:  i = 1, j = 9Output: [1, 4, 3, 2, 7, 6, 5, 10, 9, 8]  Input:  i = 3, j = 5Output: [1, 2, 3, 6, 5, 4, 7, 8, 9, 10]  Input:  i = 3, j = 4Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Solution =============================================
+def reverse_in_groups(arr, m, i, j)
+  # Step 1: Extract the part of the array from index i to index j
+  subarray = arr[i..j]  # this creates a new array with elements from i to j
+
+  # Step 2: Reverse each group of m elements in the subarray
+  # each_slice(m) splits the subarray into groups of m elements
+  # map { |group| group.reverse } reverses each group
+  # flatten joins all the groups back into one array
+  subarray = subarray.each_slice(m).map { |group| group.reverse }.flatten
+
+  # Step 3: Replace the original part of the array with the modified subarray
+  arr[i..j] = subarray  # this updates the original array with our modified subarray
+
+  # Return the modified array so we can see the result
+  arr
+end
+
+# Test examples
+arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+puts reverse_in_groups(arr1.clone, 3, 1, 7).inspect  # Output: [1, 4, 3, 2, 7, 6, 5, 8, 9, 10]
+
+arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+puts reverse_in_groups(arr2.clone, 3, 1, 9).inspect  # Output: [1, 4, 3, 2, 7, 6, 5, 10, 9, 8]
+
+arr3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+puts reverse_in_groups(arr3.clone, 3, 3, 5).inspect  # Output: [1, 2, 3, 6, 5, 4, 7, 8, 9, 10]
+
+arr4 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+puts reverse_in_groups(arr4.clone, 3, 3, 4).inspect  # Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+
+
+# Comment -----------------------------------------------------------------
+To solve this problem, we’ll use Ruby and work in three main steps:
+
+Isolate the subarray defined by indices i and j.
+Divide this subarray into groups of m elements and reverse each group.
+Insert the modified subarray back into the original array.
+
+Explanation
+Extract the Subarray: We use arr[i..j] to get the part of the array we want to manipulate, based on the provided indices i and j.
+Reverse Groups of m: Using each_slice(m), we split the subarray into chunks of m elements. We then reverse each chunk with map { |group| group.reverse } and flatten it back into a single array.
+Replace the Range in Original Array: We update the specified range in the original array with our modified subarray.
+This approach efficiently handles the problem and can be tested with various values for i, j, and m.
+
 # Math -----------------------------------------------------------------
 
+Example 1
+Input:
 
+##Ruby##
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+m = 3
+i = 1
+j = 7
+##Ruby##
+Steps:
+
+Extract the Subarray from Index i to j:
+
+arr[1..7] gives us the elements from index 1 to 7: [2, 3, 4, 5, 6, 7, 8].
+Split the Subarray into Groups of m Elements and Reverse Each Group:
+
+Splitting [2, 3, 4, 5, 6, 7, 8] into groups of 3 gives:
+Group 1: [2, 3, 4]
+Group 2: [5, 6, 7]
+Group 3: [8]
+Reversing each group:
+Reversed Group 1: [4, 3, 2]
+Reversed Group 2: [7, 6, 5]
+Reversed Group 3 (remains the same as it has fewer than m elements): [8]
+Flattening these reversed groups gives the modified subarray: [4, 3, 2, 7, 6, 5, 8].
+Replace the Original Elements in the Range with the Modified Subarray:
+
+Replace arr[1..7] with [4, 3, 2, 7, 6, 5, 8] in the original array:
+The resulting array is: [1, 4, 3, 2, 7, 6, 5, 8, 9, 10].
+Output: [1, 4, 3, 2, 7, 6, 5, 8, 9, 10]
+
+Example 2
+Input:
+
+##Ruby##
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+m = 3
+i = 1
+j = 9
+##Ruby##
+Steps:
+
+Extract the Subarray from Index i to j:
+
+arr[1..9] gives us [2, 3, 4, 5, 6, 7, 8, 9, 10].
+Split the Subarray into Groups of m Elements and Reverse Each Group:
+
+Splitting [2, 3, 4, 5, 6, 7, 8, 9, 10] into groups of 3:
+Group 1: [2, 3, 4]
+Group 2: [5, 6, 7]
+Group 3: [8, 9, 10]
+Reversing each group:
+Reversed Group 1: [4, 3, 2]
+Reversed Group 2: [7, 6, 5]
+Reversed Group 3: [10, 9, 8]
+Flattening these reversed groups gives the modified subarray: [4, 3, 2, 7, 6, 5, 10, 9, 8].
+Replace the Original Elements in the Range with the Modified Subarray:
+
+Replace arr[1..9] with [4, 3, 2, 7, 6, 5, 10, 9, 8] in the original array:
+The resulting array is: [1, 4, 3, 2, 7, 6, 5, 10, 9, 8].
+Output: [1, 4, 3, 2, 7, 6, 5, 10, 9, 8]
+
+Example 3
+Input:
+
+##Ruby##
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+m = 3
+i = 3
+j = 5
+##Ruby##
+Steps:
+
+Extract the Subarray from Index i to j:
+
+arr[3..5] gives us [4, 5, 6].
+Split the Subarray into Groups of m Elements and Reverse Each Group:
+
+Since we have only one group [4, 5, 6] (size is exactly m):
+Reversing it gives [6, 5, 4].
+Replace the Original Elements in the Range with the Modified Subarray:
+
+Replace arr[3..5] with [6, 5, 4] in the original array:
+The resulting array is: [1, 2, 3, 6, 5, 4, 7, 8, 9, 10].
+Output: [1, 2, 3, 6, 5, 4, 7, 8, 9, 10]
+
+Example 4
+Input:
+
+##Ruby##
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+m = 3
+i = 3
+j = 4
+##Ruby##
+Steps:
+
+Extract the Subarray from Index i to j:
+
+arr[3..4] gives us [4, 5].
+Split the Subarray into Groups of m Elements and Reverse Each Group:
+
+Here, the subarray [4, 5] is shorter than m, so it remains unchanged.
+Replace the Original Elements in the Range with the Modified Subarray:
+
+The range remains the same, so the array stays [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].
+Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # Problem -----------------------------------------------------------------
 # 45.Rearrange array such that `A[A[i]]` is set to `i` for every element `A[i]`
