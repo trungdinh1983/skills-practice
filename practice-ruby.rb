@@ -12,6 +12,124 @@
 
 
 
+# Problem -----------------------------------------------------------------
+47.Maximum Product Subset Problem
+Given an integer array, find the maximum product of its elements among all its subsets.
+
+For example,
+
+Input:  nums[] = { -6, 4, -5, 8, -10, 0, 8 } Output: The maximum product of a subset is 15360 The subset with the maximum product of its elements is { -6, 4, 8, -10, 8 }   Input:  nums[] = { 4, -8, 0, 8 } Output: The maximum product of a subset is 32 The subset with the maximum product of its elements is { 4, 8 }
+# Solution =============================================
+
+# Function to find the maximum product of elements in subsets
+def max_subset_product(nums)
+  # Remove zeros as they don't contribute to the product
+  nums.reject! { |num| num == 0 }
+
+  # If the array becomes empty after removing zeros, return 0
+  return 0 if nums.empty?
+
+  # Separate negative and positive numbers
+  negative_nums = nums.select { |num| num < 0 }
+  positive_nums = nums.select { |num| num > 0 }
+
+  # If there's an odd number of negative numbers, remove the largest negative number
+  if negative_nums.size.odd?
+    negative_nums.delete(negative_nums.max)
+  end
+
+  # Combine the remaining negative and positive numbers
+  valid_subset = negative_nums + positive_nums
+
+  # Calculate the product of the valid subset
+  max_product = valid_subset.reduce(1) { |product, num| product * num }
+
+  max_product
+end
+
+# Example usage
+nums1 = [-6, 4, -5, 8, -10, 0, 8]
+nums2 = [4, -8, 0, 8]
+
+puts "Maximum product for nums1: #{max_subset_product(nums1)}"
+puts "Maximum product for nums2: #{max_subset_product(nums2)}"
+
+
+
+# Comment -----------------------------------------------------------------
+# To solve this problem, we can use the following approach:
+
+# Remove Zeros: Any subset that includes zero will have a product of zero. So, we exclude zeros.
+# Count Negative Numbers: Negative numbers are tricky because multiplying an odd number of them results in a negative product. To maximize the product:
+# If there's an odd number of negative numbers, exclude the largest (closest to zero) negative number.
+# If all negatives can be paired, include them all.
+# Include Positive Numbers: Positive numbers always contribute to maximizing the product.
+
+# Explanation of the Code
+
+# 1. Reject Zeros: Zeros are removed using reject!.
+# 2. Handle Negatives: Negative numbers are adjusted based on their count.
+# 3. Calculate Product: The product of the remaining subset is calculated using reduce.
+
+# Math/Calculations -------------------------------------------------------
+Maximum product for nums1: 15360
+Maximum product for nums2: 32
+
+---------------------------------------------------------------------------
+
+Example 1: nums = [-6, 4, -5, 8, -10, 0, 8]
+
+1. Remove zeros: The array becomes [-6, 4, -5, 8, -10, 8].
+
+2. Separate negatives and positives:
+
+Negatives: [-6, -5, -10]
+Positives: [4, 8, 8]
+
+3. Odd count of negatives:
+
+There are 3 negatives, which is odd. To maximize the product, exclude the largest (closest to zero) negative number: -5.
+Remaining negatives: [-6, -10]
+
+4. Final subset:
+
+Combine the remaining negatives and all positives: [-6, -10, 4, 8, 8]
+
+5. Calculate the product:
+
+
+−6×−10=60(negative × negative = positive)
+
+60×4=240
+
+240×8=1920
+
+1920×8=15360
+Maximum product: 15360
+
+Example 2: nums = [4, -8, 0, 8]
+1. Remove zeros: The array becomes [4, -8, 8].
+
+2. Separate negatives and positives:
+
+Negatives: [-8]
+Positives: [4, 8]
+3. Odd count of negatives:
+
+There is 1 negative number, which is odd. To maximize the product, exclude the negative number.
+Remaining negatives: []
+
+4. Final subset:
+
+Only positives remain: [4, 8]
+
+5. Calculate the product:
+
+4×8=32
+Maximum product: 32
+
+
+
 
 # Problem -----------------------------------------------------------------
 46.Reverse every consecutive m elements of the given subarray
