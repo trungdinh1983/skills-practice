@@ -13,6 +13,124 @@
 
 
 # Problem -----------------------------------------------------------------
+48.Find pairs with given difference k in the array
+Given an unsorted integer array, print all pairs with a given difference k in it.
+
+For example,
+
+Input: arr = [1, 5, 2, 2, 2, 5, 5, 4]k = 3 Output: (2, 5) and (1, 4)
+
+# Solution =============================================
+def find_pairs_with_difference(arr, k)
+  # Create a hash to store elements of the array
+  element_hash = {}
+  pairs = []
+
+  # Populate the hash with array elements as keys
+  arr.each do |num|
+    element_hash[num] = true
+  end
+
+  # Find pairs with the given difference
+  arr.each do |num|
+    # Check if the element num + k exists in the hash
+    if element_hash[num + k]
+      pairs << [num, num + k] # Store the pair
+    end
+  end
+
+  # Print the pairs in a readable format
+  pairs.each do |pair|
+    puts "(#{pair[0]}, #{pair[1]})"
+  end
+end
+
+# Input
+arr = [1, 5, 2, 2, 2, 5, 5, 4]
+k = 3
+
+# Call the function
+find_pairs_with_difference(arr, k)
+
+
+
+# Comment -----------------------------------------------------------------
+
+Code Explanation:
+Use a hash table (dictionary) to store elements of the array.
+Loop through the array and check if there exists an element in the hash table such that the difference is k.
+Print the pairs while ensuring no duplicates.
+
+# Math/Calculations -------------------------------------------------------
+To find all pairs in the array [1,5,2,2,2,5,5,4] with a difference 
+k=3, let’s go step-by-step mathematically.
+
+Input:
+Array: [1,5,2,2,2,5,5,4]
+Difference (k): 3
+
+Step 1: Check Each Element
+For each element n in the array, calculate n+k and check if it exists in the array.
+
+Iteration 1:
+Current element: n=1
+Calculate: 1+3=4
+Check: Is 4 in the array? Yes.
+Pair: (1,4)
+
+Iteration 2:
+Current element: n=5
+Calculate: 5+3=8
+Check: Is 8 in the array? No.
+No pair.
+
+Iteration 3:
+Current element: n=2
+Calculate: 2+3=5
+Check: Is 5 in the array? Yes.
+Pair: (2,5)
+
+Iteration 4:
+Current element: n=2 (duplicate)
+Calculate: 2+3=5
+Check: Is 5 in the array? Yes.
+Pair: (2,5) (duplicate, ignored later).
+
+Iteration 5:
+Current element: n=2 (duplicate)
+Calculate: 2+3=5
+Check: Is 5 in the array? Yes.
+Pair: (2,5) (duplicate, ignored later).
+
+Iteration 6:
+Current element: n=5
+Calculate: 5+3=8
+Check: Is 8 in the array? No.
+No pair.
+
+Iteration 7:
+Current element: n=5 (duplicate)
+Calculate: 5+3=8
+Check: Is 8 in the array? No.
+No pair.
+
+Iteration 8:
+Current element: n=4
+Calculate: 4+3=7
+Check: Is 7 in the array? No.
+No pair.
+
+Step 2: Remove Duplicates
+From the valid pairs (1,4), (2,5), (2,5), and (2,5), remove duplicates.
+
+Unique pairs:
+
+(1,4)
+(2,5)
+
+
+
+# Problem -----------------------------------------------------------------
 47.Maximum Product Subset Problem
 Given an integer array, find the maximum product of its elements among all its subsets.
 
