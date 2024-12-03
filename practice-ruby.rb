@@ -1,3 +1,5 @@
+
+
 # Problem -----------------------------------------------------------------
 
 
@@ -10,6 +12,162 @@
 
 # Math/Calculations -------------------------------------------------------
 
+
+
+# Problem -----------------------------------------------------------------
+49.Find pairs with given difference k in the array | Constant space solution
+Given an unsorted integer array, find all pairs with a given difference k in it without using any extra space.
+
+For example,
+
+Input: arr = [1, 5, 2, 2, 2, 5, 5, 4]k = 3 Output: (2, 5) and (1, 4)
+
+# Solution =============================================
+def find_pairs_with_difference(arr, k)
+  # Sort the array to enable two-pointer technique
+  arr.sort!
+  
+  i = 0
+  j = 1
+  n = arr.length
+  
+  result = []
+
+  while i < n && j < n
+    # Calculate the difference
+    diff = arr[j] - arr[i]
+
+    if diff == k
+      # Add the pair to the result if the difference is equal to k
+      result << [arr[i], arr[j]]
+      # Move both pointers to avoid duplicates
+      i += 1
+      j += 1
+      # Skip duplicates
+      i += 1 while i < n && arr[i] == arr[i - 1]
+      j += 1 while j < n && arr[j] == arr[j - 1]
+    elsif diff < k
+      # Increase j to make the difference larger
+      j += 1
+    else
+      # Increase i to make the difference smaller
+      i += 1
+      # Ensure i does not overtake j
+      j = [j, i + 1].max
+    end
+  end
+  
+  result
+end
+
+# Example usage
+arr = [1, 5, 2, 2, 2, 5, 5, 4]
+k = 3
+pairs = find_pairs_with_difference(arr, k)
+pairs.each { |pair| puts "(#{pair[0]}, #{pair[1]})" }
+
+
+
+# Comment -----------------------------------------------------------------
+# Explanation:
+# 1. Sort the array to make it easier to find pairs with the given difference.
+# 2. Use two pointers, i and j. Start i at the beginning and j slightly ahead.
+# 3. Compare the difference between arr[j] and arr[i]:
+#    If the difference is equal to k, add the pair to the result and move both pointers.
+#    If the difference is less than k, move j to increase the difference.
+#    If the difference is more than k, move i to decrease the difference.
+# 4. Avoid duplicate pairs by skipping repeated elements.
+Notes:
+The array is modified in-place due to sorting.
+Time complexity: O(nlogn) for sorting + O(n) for the two-pointer traversal = O(nlogn).
+Space complexity: O(1) (no extra space apart from variables).
+
+# Math/Calculations -------------------------------------------------------
+
+Let’s calculate the solutions step by step for the given problem with arr = [1, 5, 2, 2, 2, 5, 5, 4] and k = 3.
+
+Step 1: Sort the array
+We sort the array in ascending order for easier traversal: Sorted array: [1, 2, 2, 2, 4, 5, 5, 5]
+
+--------------------------
+
+Step 2: Initialize two pointers
+Pointer i starts at the beginning (i = 0).
+Pointer j starts at the next position (j = 1).
+We will calculate the difference between arr[j] and arr[i] and check if it equals k = 3.
+
+--------------------------
+
+Step 3: Traverse and calculate differences
+
+Pair (i=0, j=1):
+arr[i] = 1, arr[j] = 2
+Difference = arr[j] - arr[i] = 2 - 1 = 1
+Difference is less than k. Increment j to make the difference larger (j = 2).
+
+Pair (i=0, j=2):
+arr[i] = 1, arr[j] = 2
+Difference = arr[j] - arr[i] = 2 - 1 = 1
+Same result, increment j (j = 3).
+
+Pair (i=0, j=3):
+arr[i] = 1, arr[j] = 2
+Difference = arr[j] - arr[i] = 2 - 1 = 1
+Still less than k. Increment j (j = 4).
+
+Pair (i=0, j=4):
+arr[i] = 1, arr[j] = 4
+Difference = arr[j] - arr[i] = 4 - 1 = 3
+
+Difference equals k! Add the pair (1, 4) to the result.
+Increment both pointers:
+i = 1, j = 5.
+
+--------------------------
+
+Pair (i=1, j=5):
+arr[i] = 2, arr[j] = 5
+Difference = arr[j] - arr[i] = 5 - 2 = 3
+
+Difference equals k! Add the pair (2, 5) to the result.
+Increment both pointers:
+
+i = 2, j = 6.
+
+--------------
+
+Pair (i=2, j=6):
+arr[i] = 2, arr[j] = 5
+Difference = arr[j] - arr[i] = 5 - 2 = 3
+
+This pair is the same as the previous one. Skip duplicates:
+Increment i to 3.
+Increment j to 7.
+
+--------------------------
+
+Pair (i=3, j=7):
+arr[i] = 2, arr[j] = 5
+Difference = arr[j] - arr[i] = 5 - 2 = 3
+This is another duplicate. Increment pointers:
+i = 4, j = 8.
+
+--------------------------
+
+Step 4: End of traversal
+j has now gone beyond the length of the array. The traversal stops.
+Final Result:
+The pairs with a difference of k = 3 are:
+
+(1, 4)
+(2, 5)
+Math Summary:
+Differences calculated step by step:
+2 - 1 = 1 (skip)
+4 - 1 = 3 → Pair (1, 4)
+5 - 2 = 3 → Pair (2, 5)
+Skipped duplicates for (2, 5).
+These calculations align with the output of the program.
 
 
 # Problem -----------------------------------------------------------------
