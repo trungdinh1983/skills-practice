@@ -15,6 +15,84 @@
 
 
 # Problem -----------------------------------------------------------------
+50.4 sum problem | Quadruplets with given sum
+4-sum problem: Given an unsorted integer array, check if it contains four elements tuple (quadruplets) having a given sum.
+
+For example,
+
+Input: nums = [ 2, 7, 4, 0, 9, 5, 1, 3 ]target = 20 Output: Quadruplet exists. Below are quadruplets with the given sum 20 (0, 4, 7, 9)(1, 3, 7, 9)(2, 4, 5, 9)
+# Solution =============================================
+def four_sum(nums, target)
+  nums.sort!
+  result = []
+
+  (0...nums.length - 3).each do |i|
+    (i + 1...nums.length - 2).each do |j|
+      left = j + 1
+      right = nums.length - 1
+
+      while left < right
+        current_sum = nums[i] + nums[j] + nums[left] + nums[right]
+
+        if current_sum == target
+          result << [nums[i], nums[j], nums[left], nums[right]]
+          left += 1 while left < right && nums[left] == nums[left + 1]
+          right -= 1 while left < right && nums[right] == nums[right - 1]
+          left += 1
+          right -= 1
+        elsif current_sum < target
+          left += 1
+        else
+          right -= 1
+        end
+      end
+    end
+  end
+
+  result
+end
+
+nums = [2, 7, 4, 0, 9, 5, 1, 3]
+target = 20
+result = four_sum(nums, target)
+
+if result.empty?
+  puts "No quadruplets found."
+else
+  puts "Quadruplets with the given sum #{target}:"
+  result.each { |quadruplet| puts quadruplet.inspect }
+end
+
+
+# Comment -----------------------------------------------------------------
+Explanation:
+
+Sorting: The nums array is sorted to efficiently find quadruplets.
+
+Iteration: The code iterates through the array using four pointers (i, j, left, and right).
+
+Two Pointers: The left and right pointers help find pairs that sum up to the remaining value needed for the target sum.
+
+Checking Sum: The sum of the elements at the four pointers is calculated (current_sum).
+
+Target Match: If current_sum equals the target, the quadruplet is added to the result.
+
+Duplicate Handling: The code handles duplicate quadruplets by skipping over identical elements.
+
+Adjusting Pointers: If current_sum is less than target, left is incremented to increase the sum. If current_sum is greater than target, right is decremented to decrease the sum.
+
+Output:
+
+Quadruplets with the given sum 20:
+[0, 4, 7, 9]
+[1, 3, 7, 9]
+[2, 4, 5, 9]
+
+# Math/Calculations -------------------------------------------------------
+
+
+
+# Problem -----------------------------------------------------------------
 49.Find pairs with given difference k in the array | Constant space solution
 Given an unsorted integer array, find all pairs with a given difference k in it without using any extra space.
 
