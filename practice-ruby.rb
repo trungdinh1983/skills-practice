@@ -15,12 +15,118 @@
 
 
 # Problem -----------------------------------------------------------------
-50.4 sum problem | Quadruplets with given sum
-4-sum problem: Given an unsorted integer array, check if it contains four elements tuple (quadruplets) having a given sum.
+51.Print all quadruplets with given sum | 4-sum problem extended
+Given an unsorted integer array, print all distinct four elements tuple (quadruplets) in it, having a given sum.
 
 For example,
 
-Input: nums = [ 2, 7, 4, 0, 9, 5, 1, 3 ]target = 20 Output: Quadruplet exists. Below are quadruplets with the given sum 20 (0, 4, 7, 9)(1, 3, 7, 9)(2, 4, 5, 9)
+Input: A[] = [2, 7, 4, 0, 9, 5, 1, 3]target = 20 Output: Below are the quadruplets with sum 20 (0, 4, 7, 9)(1, 3, 7, 9)(2, 4, 5, 9)
+# Solution =============================================
+require 'set'
+
+def find_quadruplets(arr, target)
+  n = arr.length            # Total numbers in the array
+  result_set = Set.new       # Store unique groups of 4 numbers
+
+  # Pick 4 different numbers from the array
+  for i in 0...n
+    for j in i+1...n
+      for k in j+1...n
+        for l in k+1...n
+          # If their sum matches the target, save the group
+          if arr[i] + arr[j] + arr[k] + arr[l] == target
+            quadruplet = [arr[i], arr[j], arr[k], arr[l]].sort  # Sort to avoid duplicate groups
+            result_set.add(quadruplet)  # Add unique group
+          end
+        end
+      end
+    end
+  end
+
+  # Print each group
+  result_set.each do |quad|
+    puts "(#{quad.join(', ')})"
+  end
+end
+
+# Example input
+arr = [2, 7, 4, 0, 9, 5, 1, 3]
+target = 20
+
+puts "Quadruplets with sum #{target}:"
+find_quadruplets(arr, target)
+
+
+
+# Comment -----------------------------------------------------------------
+# Here is a approach step-by-step with comments in the code:
+
+# Use nested loops to generate all possible combinations of 4 numbers.
+# Use a set to ensure the quadruplets are distinct.
+# Check if the sum of the four numbers equals the target sum.
+# Print the result.
+# Here's the complete code:
+
+# Find Quadruplets Sum
+# How the Code Works:
+# Nested Loops: The code uses four nested loops to pick all combinations of four elements.
+# Sum Check: It checks if the sum of the selected quadruplet equals the target.
+# Set for Uniqueness: To avoid duplicates, the quadruplet is sorted and added to a set (result_set).
+# Print Results: The distinct quadruplets are printed one by one.
+
+# Math/Calculations -------------------------------------------------------
+# Example Input:
+# Array: [2, 7, 4, 0, 9, 5, 1, 3]
+# Target Sum: 20
+# Steps and Calculations:
+# The code checks all combinations of 4 numbers from the array and sums them to see if they match the target. Here's the process:
+
+# Start with the first 4 numbers and move through all combinations of 4 indices (i, j, k, l).
+
+# Iterate through combinations:
+
+# Loop i goes from the 1st index to the 2nd-to-last index.
+# Loop j starts after i.
+# Loop k starts after j.
+# Loop l starts after k.
+# Add numbers together: For each combination, add the 4 numbers at indices i, j, k, l. For example:
+
+# Indices (i, j, k, l)	Numbers	Sum	Check
+# (0, 2, 4, 5)	2, 4, 9, 5	2+4+9+5 = 20	✅ Match
+# (1, 2, 4, 6)	7, 4, 9, 0	7+4+9+0 = 20	❌ No Match
+# (1, 3, 4, 6)	7, 0, 9, 1	7+0+9+1 = 17	❌ No Match
+# (2, 4, 5, 6)	4, 9, 5, 1	4+9+5+1 = 19	❌ No Match
+# (0, 4, 5, 6)	0, 4, 7, 9	0+4+7+9 = 20	✅ Match
+# Sorting and storing:
+# Each valid group of numbers is sorted (to ensure they appear in ascending order).
+# Unique combinations are stored using a Set.
+# Valid Quadruplets Found:
+# The final valid combinations for the example input [2, 7, 4, 0, 9, 5, 1, 3] with target sum 20 are:
+
+# (0, 4, 7, 9) → 0 + 4 + 7 + 9 = 20
+# (1, 3, 7, 9) → 1 + 3 + 7 + 9 = 20
+# (2, 4, 5, 9) → 2 + 4 + 5 + 9 = 20
+# Output:
+Python code:
+Quadruplets with sum 20:
+(0, 4, 7, 9)
+(1, 3, 7, 9)
+(2, 4, 5, 9)
+# 
+# # Summary:
+# # The code tries all possible combinations of 4 numbers.
+# # For each combination, it checks if their sum equals the target.
+# # Only valid combinations are printed as the output.
+
+
+# Problem -----------------------------------------------------------------
+# 50.4 sum problem | Quadruplets with given sum
+# 4-sum problem: Given an unsorted integer array, check if it contains four elements tuple (quadruplets) having a given sum.
+
+# For example,
+
+# Input: nums = [ 2, 7, 4, 0, 9, 5, 1, 3 ]target = 20 Output: Quadruplet exists. Below are quadruplets with the given sum 20 (0, 4, 7, 9)(1, 3, 7, 9)(2, 4, 5, 9)
+
 # Solution =============================================
 def four_sum(nums, target)
   nums.sort!
