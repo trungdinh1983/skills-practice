@@ -15,6 +15,80 @@
 
 
 # Problem -----------------------------------------------------------------
+52.Find odd occurring element in an array in single traversal
+Given an integer array, duplicates are present in it in a way that all duplicates appear an even number of times except one which appears an odd number of times. Find that odd appearing element in linear time and without using any extra memory.
+
+For example,
+
+Input:  arr[] = [4, 3, 6, 2, 6, 4, 2, 3, 4, 3, 3] Output: The odd occurring element is 4
+# Solution =============================================
+# Function to find the odd-occurring element
+def find_odd_occurring_element(arr)
+  result = 0 # Initialize result to 0
+  arr.each do |num| # Iterate over each number in the array
+    result ^= num # Perform XOR operation with the current number
+  end
+  result # The result will hold the odd-occurring number
+end
+
+# Input array
+arr = [4, 3, 6, 2, 6, 4, 2, 3, 4, 3, 3]
+
+# Call the function and print the result
+puts "The odd occurring element is #{find_odd_occurring_element(arr)}"
+
+
+
+# Comment -----------------------------------------------------------------
+Explanation:
+XOR operation (^):
+XOR of a number with itself is 0 (e.g., 4 ^ 4 = 0).
+XOR of a number with 0 is the number itself (e.g., 0 ^ 4 = 4).
+The XOR operation cancels out all numbers appearing an even number of times, leaving only the number that appears an odd number of times.
+This approach works in linear time (O(n)) and uses no extra memory.
+
+# Math/Calculations -------------------------------------------------------
+Here’s the step-by-step explanation of how the XOR (^) operation works with your input array:
+
+Input Array:
+arr = [4, 3, 6, 2, 6, 4, 2, 3, 4, 3, 3]
+
+Initialize result to 0:
+We will XOR all elements in the array step by step. The property of XOR ensures that pairs of the same number cancel each other out, and only the odd-occurring number remains.
+
+Step-by-Step XOR Process:
+1. Initial result = 0
+2. XOR 0 with 4:
+result = 0 ^ 4 = 4
+3. XOR 4 with 3:
+result = 4 ^ 3 = 7
+4. XOR 7 with 6:
+result = 7 ^ 6 = 1
+5. XOR 1 with 2:
+result = 1 ^ 2 = 3
+6. XOR 3 with 6:
+result = 3 ^ 6 = 5
+7. XOR 5 with 4:
+result = 5 ^ 4 = 1
+8. XOR 1 with 2:
+result = 1 ^ 2 = 3
+9. XOR 3 with 3:
+result = 3 ^ 3 = 0
+10. XOR 0 with 4:
+result = 0 ^ 4 = 4
+11. XOR 4 with 3:
+result = 4 ^ 3 = 7
+12. XOR 7 with 3:
+result = 7 ^ 3 = 4
+Final result:
+After XORing all the elements, the result is 4. This is the number that appears an odd number of times in the array.
+
+Why does this work?
+Pairs cancel out: For example, 4 ^ 4 = 0 and 3 ^ 3 = 0.
+Odd element remains: The odd-occurring number (4) is left in the result because it doesn’t get completely canceled out.
+
+
+# Problem -----------------------------------------------------------------
 51.Print all quadruplets with given sum | 4-sum problem extended
 Given an unsorted integer array, print all distinct four elements tuple (quadruplets) in it, having a given sum.
 
