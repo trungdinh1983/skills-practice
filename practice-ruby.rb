@@ -15,6 +15,63 @@
 
 
 # Problem -----------------------------------------------------------------
+53.Find two odd occurring element in an array without using any extra space
+Given an integer array, all elements occur an even number of times except for two elements that occur an odd number of times. Find these two odd-occurring elements in linear time and without using any extra memory.
+For example,
+
+Input:  arr[] = [4, 3, 6, 2, 4, 2, 3, 4, 3, 3] Output: The odd occurring elements are 4 and 6 6 appears once.2 appears twice.4 appears thrice.3 appears 4 times.
+# Solution =============================================
+
+
+
+# Comment -----------------------------------------------------------------
+Explanation for Beginners
+What is XOR?
+
+1. XOR is a simple math operation that compares two bits. If they are different, the result is 1; if they are the same, the result is 0.
+Example:
+vbnet:
+1 XOR 1 = 0
+1 XOR 0 = 1
+0 XOR 0 = 0
+2.Why XOR is useful here?
+
+If a number appears an even number of times, XOR will cancel it out. For example:
+vbnet:
+4 XOR 4 = 0
+If a number appears an odd number of times, XOR will keep it. For example:
+vbnet:
+4 XOR 0 = 4
+
+3.Steps in the Code:
+
+Step 1: XOR all numbers together. This cancels out the numbers that occur an even number of times and leaves the XOR of the two odd-occurring numbers.
+Step 2: Find a bit that is different between the two odd numbers (rightmost set bit). This is used to separate the two numbers into groups.
+Step 3: XOR the numbers in each group to find the two odd-occurring numbers.
+
+4. Breaking It Down:
+
+Let’s take the example array [4, 3, 6, 2, 4, 2, 3, 4, 3, 3]:
+After XORing all numbers: combined_xor = 4 XOR 6 = 2
+Rightmost set bit: 2 & -2 = 2 (binary: 10).
+Group 1 (bit not set): Numbers like 6 and 2.
+Group 2 (bit set): Numbers like 4 and 3.
+
+
+
+
+# Math/Calculations -------------------------------------------------------
+Output
+When you run this program with the example input:
+ruby code
+arr = [4, 3, 6, 2, 4, 2, 3, 4, 3, 3]
+
+The program prints:
+sql code
+The odd occurring elements are 4 and 6
+
+
+# Problem -----------------------------------------------------------------
 52.Find odd occurring element in an array in single traversal
 Given an integer array, duplicates are present in it in a way that all duplicates appear an even number of times except one which appears an odd number of times. Find that odd appearing element in linear time and without using any extra memory.
 
