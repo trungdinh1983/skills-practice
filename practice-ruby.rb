@@ -15,6 +15,208 @@
 
 
 # Problem -----------------------------------------------------------------
+# 54.Quickselect Algorithm
+# Quickselect is a selection algorithm to find the k'th smallest element in an unordered list. It is closely related to the Quicksort sorting algorithm. Like Quicksort, it is efficient traditionally and offers good average-case performance, but has a poor worst-case performance.
+
+#  For example,
+
+# Input: [7, 4, 6, 3, 9, 1]k = 2 Output: k’th smallest array element is 3  Input: [7, 4, 6, 3, 9, 1]k = 1 Output: k’th smallest array element is 1 
+
+# Solution =============================================
+# Quickselect Algorithm to find the k-th smallest element
+def quickselect(array, k)
+  # Helper function to partition the array
+  def partition(arr, left, right)
+    pivot = arr[right] # Choose the last element as the pivot
+    pivot_index = left # The initial pivot index
+
+    # Move elements smaller than the pivot to the left
+    for i in left...right
+      if arr[i] <= pivot
+        arr[i], arr[pivot_index] = arr[pivot_index], arr[i] # Swap elements
+        pivot_index += 1
+      end
+    end
+
+    # Swap the pivot element to its correct position
+    arr[pivot_index], arr[right] = arr[right], arr[pivot_index]
+    return pivot_index # Return the pivot index
+  end
+
+  left = 0
+  right = array.length - 1
+
+  while left <= right
+    pivot_index = partition(array, left, right)
+
+    # Check if the pivot index matches the k-th position
+    if pivot_index == k - 1
+      return array[pivot_index] # Found the k-th smallest element
+    elsif pivot_index < k - 1
+      left = pivot_index + 1 # Search on the right side
+    else
+      right = pivot_index - 1 # Search on the left side
+    end
+  end
+end
+
+# Example Usage
+array = [7, 4, 6, 3, 9, 1]
+k = 2
+puts "The #{k}-th smallest element is #{quickselect(array, k)}"
+
+k = 1
+puts "The #{k}-th smallest element is #{quickselect(array, k)}"
+
+
+
+# Comment -----------------------------------------------------------------
+# Explanation
+# Partition Function:
+
+# Selects a pivot element (last element in the array).
+# Rearranges the array so elements smaller than the pivot are on the left and larger ones on the right.
+# Returns the index of the pivot after reordering.
+# Quickselect Logic:
+
+# Checks if the pivot index equals k-1 (since arrays are zero-indexed).
+# If the pivot index is smaller than k-1, search the right side.
+# If it's larger, search the left side.
+# This reduces the search space and avoids fully sorting the array.
+# Example:
+
+# For array = [7, 4, 6, 3, 9, 1] and k = 2:
+# The algorithm partitions the array and narrows down to find the 2nd smallest element (3).
+
+# Math/Calculations -------------------------------------------------------
+Step-by-Step Process
+Goal: Find the 2nd smallest element.
+
+Step 1: Initial Input
+Array: [7, 4, 6, 3, 9, 1]
+
+k=2 → We are looking for the element at index 
+𝑘
+
+k−1=1 (since arrays are zero-indexed).
+
+Step 2: Partition the Array
+Select the pivot: The last element (1 in this case).
+Rearrange the array so elements smaller than the pivot go to the left, and larger ones go to the right.
+Start with:
+
+Array: [7, 4, 6, 3, 9, 1]
+Pivot: 1
+Compare each element with the pivot (1):
+
+7 > 1 → No swap.
+4 > 1 → No swap.
+6 > 1 → No swap.
+3 > 1 → No swap.
+9 > 1 → No swap.
+Swap the pivot (1) with the first element (7):
+
+Result: [1, 4, 6, 3, 9, 7]
+Pivot index: 0
+
+Step 3: Check Pivot Index
+Pivot index = 0
+
+k−1=1
+Pivot index is less than 
+
+k−1, so search the right side of the array:
+Subarray: [4, 6, 3, 9, 7]
+
+Step 4: Partition the Right Subarray
+Select the pivot: The last element (7 in this case).
+Rearrange the array.
+Start with:
+
+Subarray: [4, 6, 3, 9, 7]
+Pivot: 7
+Compare each element with the pivot (7):
+
+4 < 7 → No swap, move to the next.
+6 < 7 → No swap, move to the next.
+3 < 7 → No swap, move to the next.
+9 > 7 → No swap.
+Swap the pivot (7) with the first element larger than it (9):
+
+Result: [4, 6, 3, 7, 9]
+Pivot index: 3
+
+Step 5: Check Pivot Index
+Pivot index = 3
+
+
+k−1=1
+Pivot index is greater than 
+
+
+k−1, so search the left side of the array:
+Subarray: [4, 6, 3]
+
+Step 6: Partition the Left Subarray
+Select the pivot: The last element (3 in this case).
+Rearrange the array.
+Start with:
+
+Subarray: [4, 6, 3]
+Pivot: 3
+Compare each element with the pivot (3):
+
+4 > 3 → No swap.
+6 > 3 → No swap.
+Swap the pivot (3) with the first element (4):
+
+Result: [3, 6, 4]
+Pivot index: 0
+
+Step 7: Check Pivot Index
+Pivot index = 0
+
+k−1=1
+Pivot index is less than 
+
+k−1, so search the right side of the array:
+Subarray: [6, 4]
+Step 8: Partition the Right Subarray
+Select the pivot: The last element (4 in this case).
+Rearrange the array.
+Start with:
+
+Subarray: [6, 4]
+Pivot: 4
+Compare each element with the pivot (4):
+
+6 > 4 → No swap.
+Swap the pivot (4) with the first element (6):
+
+Result: [4, 6]
+Pivot index: 0
+Step 9: Check Pivot Index
+Pivot index = 0
+
+k−1=1
+Pivot index is less than 
+
+k−1, so search the right side of the array:
+Subarray: [6]
+Step 10: Base Case
+Subarray: [6] → Only one element left, which is the 2nd smallest element.
+Return: 3
+Summary of Steps
+Original Array: [7, 4, 6, 3, 9, 1]
+Partition Results:
+After Step 2: [1, 4, 6, 3, 9, 7] (Pivot: 1)
+After Step 4: [4, 6, 3, 7, 9] (Pivot: 7)
+After Step 6: [3, 6, 4] (Pivot: 3)
+After Step 8: [4, 6] (Pivot: 4)
+Base Case: [3] → 2nd smallest element is 3.
+
+
+# Problem -----------------------------------------------------------------
 53.Find two odd occurring element in an array without using any extra space
 Given an integer array, all elements occur an even number of times except for two elements that occur an odd number of times. Find these two odd-occurring elements in linear time and without using any extra memory.
 For example,
