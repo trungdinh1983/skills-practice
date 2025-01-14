@@ -14,6 +14,138 @@
 
 
 
+
+# Problem -----------------------------------------------------------------
+55.Print all Triplets that forms Arithmetic Progression
+Given a sorted array of distinct positive integers, print all triplets that forms an arithmetic progression with an integral common difference.
+
+An arithmetic progression is a sequence of numbers such that the difference between the consecutive terms is constant. For instance, sequence 5, 7, 9, 11, 13, 15, … is an arithmetic progression with a common difference of 2.
+
+ For example,
+
+Input:  A[] = { 5, 8, 9, 11, 12, 15 } Output:5 8 119 12 15  Input:  A[] = { 1, 3, 5, 6, 8, 9, 15 } Output:1 3 51 5 93 6 91 8 153 9 15
+
+
+# Solution =============================================
+# Define a method to find and print all triplets in an array
+# that form an arithmetic progression with an integer common difference.
+def find_arithmetic_triplets(arr)
+  n = arr.length # Get the size of the array
+  
+  # Loop through the array to fix the middle element of the triplet
+  (1...n - 1).each do |j|
+    i = j - 1 # Pointer for the first element of the triplet
+    k = j + 1 # Pointer for the last element of the triplet
+    
+    # Check triplets using two-pointer technique
+    while i >= 0 && k < n
+      # If a triplet is found (arr[j] - arr[i] == arr[k] - arr[j])
+      if arr[j] - arr[i] == arr[k] - arr[j]
+        # Print the triplet
+        puts "#{arr[i]} #{arr[j]} #{arr[k]}"
+        i -= 1 # Move the left pointer left
+        k += 1 # Move the right pointer right
+      elsif arr[j] - arr[i] < arr[k] - arr[j]
+        i -= 1 # Move the left pointer left if difference is smaller
+      else
+        k += 1 # Move the right pointer right if difference is larger
+      end
+    end
+  end
+end
+
+# Example usage
+arr1 = [5, 8, 9, 11, 12, 15]
+puts "Triplets in array #{arr1}:"
+find_arithmetic_triplets(arr1)
+
+arr2 = [1, 3, 5, 6, 8, 9, 15]
+puts "\nTriplets in array #{arr2}:"
+find_arithmetic_triplets(arr2)
+
+
+
+# Comment -----------------------------------------------------------------
+Explanation:
+Input: The method takes a sorted array of distinct positive integers.
+Logic:
+The middle element of the triplet (arr[j]) is fixed, and two pointers (i for the first element, k for the last element) are used to find other elements.
+If the difference between consecutive elements (arr[j] - arr[i] and arr[k] - arr[j]) is equal, a triplet is printed.
+Adjust the pointers (i and k) based on the comparison of differences to find more triplets.
+Output: The triplets are printed in the format "a b c".
+
+
+# Math/Calculations -------------------------------------------------------
+Logic of the Algorithm
+Fix the Middle Element 
+𝑏
+b:
+
+Start by looping through the array, considering each element as 
+b, except the first and last elements.
+This ensures there is a potential 
+a (before 
+b) and 
+c (after 
+b).
+Use Two Pointers for 
+a and 
+c:
+
+Initialize pointers 
+𝑖
+i (to the left of 
+𝑏
+b) and 
+𝑘
+k (to the right of 
+𝑏
+b).
+Calculate:
+Difference Left: 
+𝑏
+−
+𝑎
+=
+arr[j] - arr[i]
+Difference Left: b−a=arr[j] - arr[i]
+Difference Right: 
+𝑐
+−
+𝑏
+=
+arr[k] - arr[j]
+Difference Right: c−b=arr[k] - arr[j]
+Check the Differences:
+
+If the differences are equal (
+
+b−a=c−b):
+The triplet 
+
+(a,b,c) forms an AP, so print it.
+Move both pointers inward: 
+𝑖
+i←i−1, 
+
+k←k+1.
+If 
+
+b−a<c−b:
+Move 
+
+i left to increase the left difference (
+
+b−a).
+If 
+
+b−a>c−b:
+Move 
+k right to increase the right difference (
+
+c−b).
+
+
 # Problem -----------------------------------------------------------------
 # 54.Quickselect Algorithm
 # Quickselect is a selection algorithm to find the k'th smallest element in an unordered list. It is closely related to the Quicksort sorting algorithm. Like Quicksort, it is efficient traditionally and offers good average-case performance, but has a poor worst-case performance.
