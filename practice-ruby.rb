@@ -16,14 +16,241 @@
 
 
 # Problem -----------------------------------------------------------------
-55.Print all Triplets that forms Arithmetic Progression
-Given a sorted array of distinct positive integers, print all triplets that forms an arithmetic progression with an integral common difference.
+56.Print all triplets that forms Geometric Progression
+Given a sorted array of distinct positive integers, print all triplets that forms a geometric progression with an integral common ratio.
 
-An arithmetic progression is a sequence of numbers such that the difference between the consecutive terms is constant. For instance, sequence 5, 7, 9, 11, 13, 15, … is an arithmetic progression with a common difference of 2.
+A geometric progression is a sequence of numbers where each term after the first is found by multiplying the previous one by a fixed, non-zero number called the common ratio. For example, sequence 2, 6, 18, 54,… is a geometric progression with a common ratio of 3.
 
  For example,
 
-Input:  A[] = { 5, 8, 9, 11, 12, 15 } Output:5 8 119 12 15  Input:  A[] = { 1, 3, 5, 6, 8, 9, 15 } Output:1 3 51 5 93 6 91 8 153 9 15
+Input:  A[] = { 1, 2, 6, 10, 18, 54 } Output:2 6 186 18 54  
+Input:  A[] = { 2, 8, 10, 15, 16, 30, 32, 64 } Output:2 8 328 16 3216 32 64  Input:  A[] = { 1, 2, 6, 18, 36, 54 } Output:2 6 181 6 366 18 54  
+Input:  A[] = { 1, 2, 4, 16 } Output:1 2 41 4 16  
+Input:  A[] = {1, 2, 3, 6, 18, 22}; Output:2 6 18
+# Solution =============================================
+
+# Function to find all triplets that form a geometric progression
+def find_gp_triplets(arr)
+  n = arr.length
+
+  # Iterate through each pair in the array
+  (0...n - 1).each do |j|
+    i = j - 1
+    k = j + 1
+
+    # Use the two-pointer technique to find triplets
+    while i >= 0 && k < n
+      # Check if the triplet forms a geometric progression
+      if arr[j] ** 2 == arr[i] * arr[k]
+        # Print the triplet
+        puts "#{arr[i]} #{arr[j]} #{arr[k]}"
+        i -= 1
+        k += 1
+      elsif arr[j] ** 2 < arr[i] * arr[k]
+        i -= 1
+      else
+        k += 1
+      end
+    end
+  end
+end
+
+# Example test cases
+arrays = [
+  [1, 2, 6, 10, 18, 54],
+  [2, 8, 10, 15, 16, 30, 32, 64],
+  [1, 2, 6, 18, 36, 54],
+  [1, 2, 4, 16],
+  [1, 2, 3, 6, 18, 22]
+]
+
+# Run the function on each test case
+arrays.each do |arr|
+  puts "Input: #{arr}"
+  find_gp_triplets(arr)
+  puts "----------------"
+end
+
+
+
+# Comment -----------------------------------------------------------------
+
+# Explanation:
+# The function iterates through each middle element in the array (index j).
+# It uses two pointers:
+# i (moves backward from j)
+# k (moves forward from j)
+# The condition arr[j] ** 2 == arr[i] * arr[k] checks if the triplet forms a geometric progression.
+# If a valid triplet is found, it's printed, and both pointers are moved accordingly.
+# If the middle element squared is too small, increment k, otherwise decrement i.
+
+# Math/Calculations -------------------------------------------------------
+
+Geometric Progression (GP) Definition
+A sequence of numbers forms a geometric progression if each term (except the first) is obtained by multiplying the previous term by a constant common ratio (r).
+
+Mathematically, a triplet 
+
+(a,b,c) forms a geometric progression if:
+
+b^2=a×c
+Step-by-Step Explanation with Example
+Example 1:
+Input:
+
+A=[1,2,6,10,18,54]
+
+We will iterate through the array and check for triplets that satisfy the GP condition.
+
+Step 1: Choose the middle element
+Let’s take 
+
+j=1, meaning 
+
+A[j]=2, and set two pointers:
+
+i (moves left, starts from 
+
+j−1)
+
+k (moves right, starts from 
+
+j+1)
+Step 2: Check the GP condition
+Checking triplet (1, 2, 6):
+
+2^2 =1×6
+4 ≠ 6
+(Not a GP triplet, move k forward)
+
+Checking triplet (1, 2, 10):
+
+2^2 =1×10
+
+4 ≠ 10
+(Not a GP triplet, move k forward)
+
+Checking triplet (2, 6, 18):
+
+
+6^2 =2×18
+36 = 36 (Valid GP triplet)
+
+Step 3: Move pointers and continue
+After finding a valid triplet, move 
+
+i left and k right and repeat the process.
+
+Checking triplet (6, 18, 54):
+18^2=6×54
+324 = 324 (Valid GP triplet)
+
+So the valid triplets for this input are:
+
+
+(2,6,18),(6,18,54)
+
+Example 2:
+Input:
+
+A=[2,8,10,15,16,30,32,64]
+
+1. Checking triplet (2, 8, 32):
+
+8^2 =2×32
+64 = 64 (Valid GP triplet)
+
+2. Checking triplet (8, 16, 32):
+
+16^2  =8×32
+256 = 256 (Valid GP triplet)
+
+3. Checking triplet (16, 32, 64):
+
+1024 = 1024 (Valid GP triplet)
+
+So the valid triplets for this input are:
+
+(2,8,32),(8,16,32),(16,32,64)
+
+Algorithm Breakdown
+
+1. Loop through each middle element:
+Assume each element 
+𝐴
+[
+𝑗
+]
+A[j] is the middle of a potential triplet.
+Use two pointers to check pairs:
+One pointer moves left 
+𝑖
+i and one right 
+𝑘
+k.
+Check if triplet satisfies the GP formula:
+If 
+𝐴
+[
+𝑗
+]
+2
+=
+𝐴
+[
+𝑖
+]
+×
+𝐴
+[
+𝑘
+]
+A[j] 
+2
+ =A[i]×A[k], it's a valid triplet.
+If not, adjust pointers.
+Time Complexity Analysis
+The outer loop runs 
+
+O(n).
+The inner two-pointer search runs 
+
+O(n).
+Overall complexity: 
+𝑂
+(
+𝑛
+2
+)
+O(n 
+2
+ ).
+Final Thoughts
+The approach efficiently finds geometric triplets in sorted arrays.
+The formula 
+𝑏
+2
+=
+𝑎
+×
+𝑐
+b 
+2
+ =a×c is crucial for identifying valid sequences.
+The two-pointer technique helps avoid unnecessary comparisons and optimizes the search.
+
+
+
+# Problem -----------------------------------------------------------------
+
+# 55.Print all Triplets that forms Arithmetic Progression
+# Given a sorted array of distinct positive integers, print all triplets that forms an arithmetic progression with an integral common difference.
+
+# An arithmetic progression is a sequence of numbers such that the difference between the consecutive terms is constant. For instance, sequence 5, 7, 9, 11, 13, 15, … is an arithmetic progression with a common difference of 2.
+
+#  For example,
+
+# Input:  A[] = { 5, 8, 9, 11, 12, 15 } Output:5 8 119 12 15  Input:  A[] = { 1, 3, 5, 6, 8, 9, 15 } Output:1 3 51 5 93 6 91 8 153 9 15
 
 
 # Solution =============================================
