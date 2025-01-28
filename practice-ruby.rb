@@ -14,6 +14,48 @@
 
 
 
+# Problem -----------------------------------------------------------------
+57.Print all combination of numbers from 1 to n having sum n
+Given a positive integer n, print all combinations of numbers between 1 and n having sum n.
+
+For example,
+
+For n = 5, the following combinations are possible: { 5 }{ 1, 4 }{ 2, 3 }{ 1, 1, 3 }{ 1, 2, 2 }{ 1, 1, 1, 2 }{ 1, 1, 1, 1, 1 }  For n = 4, the following combinations are possible: { 4 }{ 1, 3 }{ 2, 2 }{ 1, 1, 2 }{ 1, 1, 1, 1 }
+# Solution =============================================
+# Method to find and print all combinations of numbers summing to `n`
+def find_combinations(n, current_combination = [], start = 1)
+  # If the remaining sum becomes 0, we have found a valid combination
+  if n == 0
+    puts "{ #{current_combination.join(', ')} }" # Print the combination
+    return
+  end
+
+  # Start looping from the current number to n
+  (start..n).each do |i|
+    # Add the current number to the combination
+    current_combination << i
+
+    # Recursively find combinations for the remaining sum (n - i)
+    find_combinations(n - i, current_combination, i)
+
+    # Backtrack: Remove the last number to explore other combinations
+    current_combination.pop
+  end
+end
+
+# Input example: Find combinations for n = 5
+n = 5
+find_combinations(n)
+
+
+
+# Comment -----------------------------------------------------------------
+
+
+# Math/Calculations -------------------------------------------------------
+
+
+
 
 # Problem -----------------------------------------------------------------
 56.Print all triplets that forms Geometric Progression
