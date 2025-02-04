@@ -1,5 +1,4 @@
 
-
 # Problem -----------------------------------------------------------------
 
 
@@ -12,6 +11,78 @@
 
 # Math/Calculations -------------------------------------------------------
 
+
+
+# Problem -----------------------------------------------------------------
+58.Replace each element of the array by its corresponding rank in the array
+Given an array of distinct integers, replace each array element by its corresponding rank in the array.
+
+The minimum array element has the rank 1; the second minimum element has a rank of 2, and so on… For example,
+
+Input:  { 10, 8, 15, 12, 6, 20, 1 } Output: { 4, 3, 6, 5, 2, 7, 1 }
+
+# Solution =============================================
+# Define a method to replace each element with its rank
+def replace_with_rank(arr)
+  # Create a sorted copy of the array
+  sorted_arr = arr.sort
+  
+  # Create a hash to store the rank for each element
+  # The minimum element gets rank 1, next minimum gets rank 2, etc.
+  rank_map = {}
+  sorted_arr.each_with_index do |num, index|
+    rank_map[num] = index + 1  # Adding 1 because rank starts at 1
+  end
+  
+  # Replace each element in the original array with its rank
+  ranked_arr = arr.map { |num| rank_map[num] }
+  
+  # Return the new array with ranks
+  ranked_arr
+end
+
+# Example usage
+input_array = [10, 8, 15, 12, 6, 20, 1]
+output_array = replace_with_rank(input_array)
+
+# Print the output array
+puts output_array.inspect  # Expected output: [4, 3, 6, 5, 2, 7, 1]
+
+
+
+# Comment -----------------------------------------------------------------
+Explanation:
+Sorting the Array:
+We first sort the array so we can determine the rank (position) of each element.
+
+Creating the Rank Map:
+A hash (rank_map) is used to map each element to its rank. The smallest element gets rank 1, the next smallest gets rank 2, and so on.
+
+Mapping Original Array to Ranks:
+The original array is transformed by replacing each element with its corresponding rank from the rank_map.
+
+Output:
+Finally, the resulting array is printed, which in this case will output [4, 3, 6, 5, 2, 7, 1].
+
+# Math/Calculations -------------------------------------------------------
+Recap of the Math:
+Sort: [10, 8, 15, 12, 6, 20, 1] → [1, 6, 8, 10, 12, 15, 20]
+Assign Ranks:
+1 → Rank 1
+6 → Rank 2
+8 → Rank 3
+10 → Rank 4
+12 → Rank 5
+15 → Rank 6
+20 → Rank 7
+Map Original Array:
+10 → 4
+8 → 3
+15 → 6
+12 → 5
+6 → 2
+20 → 7
+1 → 1
 
 
 # Problem -----------------------------------------------------------------
