@@ -14,6 +14,157 @@
 
 
 # Problem -----------------------------------------------------------------
+59. Print all triplets in an array with a sum less than or equal to a given number
+Given an unsorted integer array, print all triplets in it with sum less than or equal to a given number.
+
+For example,
+
+Input: nums = [ 2, 7, 4, 9, 5, 1, 3 ]sum = 10 Output: Triplets are (1, 2, 3)(1, 2, 4)(1, 2, 5)(1, 2, 7)(1, 3, 4)(1, 3, 5)(1, 4, 5)(2, 3, 4)(2, 3, 5)
+
+# Solution =============================================
+# Function to find and print all triplets with a sum less than or equal to a given number
+def find_triplets(nums, target_sum)
+  # Sort the array to use the two-pointer technique
+  nums.sort!
+  n = nums.length
+
+  # Iterate through the array to pick the first element
+  (0...n-2).each do |i|
+    left = i + 1  # Second element
+    right = n - 1 # Third element
+
+    # Check for valid triplets
+    while left < right
+      current_sum = nums[i] + nums[left] + nums[right]
+
+      # If the sum is less than or equal to the target sum
+      if current_sum <= target_sum
+        # Print all triplets that include nums[i] and nums[left]
+        (left..right).each do |j|
+          puts "(#{nums[i]}, #{nums[left]}, #{nums[j]})"
+        end
+        left += 1  # Move the left pointer forward
+      else
+        right -= 1 # Decrease right pointer if sum is too large
+      end
+    end
+  end
+end
+
+# Example usage
+nums = [2, 7, 4, 9, 5, 1, 3]
+target_sum = 10
+find_triplets(nums, target_sum)
+
+
+
+# Comment -----------------------------------------------------------------
+Explanation:
+Sort the array to ensure elements are in ascending order.
+Iterate through each element as the first element of the triplet.
+Use two pointers (left and right) to find pairs that, along with nums[i], have a sum ≤ target_sum.
+If nums[i] + nums[left] + nums[right] is within the limit, all elements between left and right form valid triplets.
+Move the left pointer forward if the sum is valid (to explore more possibilities), otherwise move the right pointer backward to reduce the sum.
+
+
+# Math/Calculations -------------------------------------------------------
+# Math Logic Behind Finding Triplets with a Sum ≤ Given Number
+
+We are given an **unsorted array** of integers and a **target sum**. The goal is to find **all triplets (i, j, k)** where:
+
+nums[i] + nums[j] + nums[k] ≤ target_sum
+
+makefile
+Copy
+Edit
+
+## Step 1: Sorting the Array
+Sorting helps in efficiently finding pairs that satisfy the condition using the **two-pointer technique**.
+
+### Given Input:
+```ruby
+nums = [2, 7, 4, 9, 5, 1, 3]
+target_sum = 10
+After Sorting:
+
+nums = [1, 2, 3, 4, 5, 7, 9]
+Step 2: Iterating Over Each Number as the First Element
+We iterate through the sorted array, fixing one element at a time.
+
+Use two pointers:
+left = i + 1 (second element)
+right = last index (third element)
+If the sum is valid, all elements between left and right also form valid triplets.
+Step-by-Step Calculations
+Iteration 1: i = 0, nums[i] = 1
+Checking pairs (nums[left], nums[right]) where left = 1 and right = 6.
+
+left	right	Triplet (nums[i], nums[left], nums[right])	Sum	Valid?
+2	9	(1, 2, 9)	12	❌ No
+2	7	(1, 2, 7)	10	✅ Yes
+2	5	(1, 2, 5)	8	✅ Yes
+2	4	(1, 2, 4)	7	✅ Yes
+2	3	(1, 2, 3)	6	✅ Yes
+Valid triplets from this step:
+
+ruby:
+
+(1,2,3), (1,2,4), (1,2,5), (1,2,7)
+Iteration 2: i = 1, nums[i] = 2
+left	right	Triplet (nums[i], nums[left], nums[right])	Sum	Valid?
+3	9	(2, 3, 9)	14	❌ No
+3	7	(2, 3, 7)	12	❌ No
+3	5	(2, 3, 5)	10	✅ Yes
+3	4	(2, 3, 4)	9	✅ Yes
+Valid triplets from this step:
+
+ruby:
+(2,3,4), (2,3,5)
+Iteration 3: i = 2, nums[i] = 3
+left	right	Triplet (nums[i], nums[left], nums[right])	Sum	Valid?
+4	9	(3, 4, 9)	16	❌ No
+4	7	(3, 4, 7)	14	❌ No
+4	5	(3, 4, 5)	12	❌ No
+No valid triplets for this iteration.
+
+Final Output
+The valid triplets are:
+
+ruby:
+(1, 2, 3)
+(1, 2, 4)
+(1, 2, 5)
+(1, 2, 7)
+(1, 3, 4)
+(1, 3, 5)
+(1, 4, 5)
+(2, 3, 4)
+(2, 3, 5)
+
+Time Complexity Analysis
+Sorting takes O(n log n).
+Finding triplets runs in O(n²), as for each element, we use two pointers to find pairs.
+
+Overall Complexity:
+mathematica
+
+
+O(n log n) + O(n²) = O(n²)
+
+This is much more efficient than a brute-force approach (O(n³)) that checks every possible triplet.
+
+Summary
+Sort the array → Helps efficiently check valid triplets.
+Fix one number and use two pointers → Finds all valid triplets efficiently.
+If a triplet is valid, all numbers between left and right are also valid → Avoids unnecessary calculations.
+This method ensures we get all triplets while keeping performance optimized. 🚀
+
+
+---
+
+
+
+# Problem -----------------------------------------------------------------
 58.Replace each element of the array by its corresponding rank in the array
 Given an array of distinct integers, replace each array element by its corresponding rank in the array.
 
