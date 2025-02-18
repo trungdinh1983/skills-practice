@@ -12,6 +12,102 @@
 # Math/Calculations -------------------------------------------------------
 
 
+# Problem -----------------------------------------------------------------
+60.Group elements of an array based on their first occurrence
+Given an unsorted integer array containing many duplicate elements, rearrange it such that the same element appears together and the relative order of the first occurrence of each element remains unchanged.
+
+# Example:
+# Input:  [1, 2, 3, 1, 2, 1]   
+# Output: [1, 1, 1, 2, 2, 3]
+
+# Input:  [5, 4, 5, 5, 3, 1, 2, 2, 4]   
+# Output: [5, 5, 5, 4, 4, 3, 1, 2, 2]
+
+
+# Solution =============================================
+
+def rearrange_elements(arr)
+  # Step 1: Count occurrences of each element
+  count_map = {}  # Hash to store how many times each number appears
+
+  arr.each do |num|
+    if count_map.has_key?(num)
+      count_map[num] += 1  # Increase count if number exists
+    else
+      count_map[num] = 1   # Initialize count if it's the first time
+    end
+  end
+
+  # Step 2: Keep track of first appearances in order
+  ordered_keys = []  # Array to store first-time appearances
+
+  arr.each do |num|
+    ordered_keys << num unless ordered_keys.include?(num)
+  end
+
+  # Step 3: Build the final rearranged array
+  result = []  # This will store the output
+
+  ordered_keys.each do |num|
+    count = count_map[num]  # Get count from count_map
+    result += [num] * count # Add 'num' count times to the result
+  end
+
+  return result
+end
+
+
+# Edge Cases & Constraints ----------------------------------------------
+# - What if the input array is empty? [] → Output: []
+# - What if all elements are the same? [7, 7, 7, 7] → Output: [7, 7, 7, 7]
+# - What if there is only one element? [10] → Output: [10]
+# - What if numbers are negative or zero? [-1, -1, 0, 0, 2, 2] → Output: [-1, -1, 0, 0, 2, 2]
+# - What if the input is very large? (Performance consideration)
+
+
+# Alternative Approaches ----------------------------------------------
+# Approach 1: Sorting & Grouping (NOT maintaining relative order)
+# - We could sort the array and group elements, but this loses the order of first occurrences.
+#
+# Approach 2: Using a Hash with Arrays
+# - Instead of tracking counts, we store occurrences in a hash of arrays.
+#   Example: {5 => [5, 5, 5], 4 => [4, 4], 3 => [3], 1 => [1], 2 => [2, 2]}
+# - Then flatten the hash values to get the final array.
+#
+# Approach 3: Use Ruby’s `group_by`
+# - Ruby has a built-in `group_by` method that can help:
+#   arr.group_by(&:itself).values.flatten
+# - But this does NOT maintain the order of first occurrences.
+
+
+# Complexity Analysis ----------------------------------------------
+# - Step 1 (Counting occurrences) → O(n)
+# - Step 2 (Tracking first occurrences) → O(n)
+# - Step 3 (Building the final result) → O(n)
+# - Overall Time Complexity: O(n)
+#
+# - Space Complexity: O(n) (Because we use extra arrays & hash)
+
+
+# Real-World Applications ----------------------------------------------
+# - Grouping similar items while keeping a processing order (e.g., warehouse inventory)
+# - Maintaining log order while removing duplicates in event processing
+# - Grouping users based on preference but keeping sign-up order
+# - Processing task queues where duplicate tasks should be batched together
+
+
+# Math/Calculations -------------------------------------------------------
+# Example Input: [5, 4, 5, 5, 3, 1, 2, 2, 4]
+# Step 1: Count Map -> {5=>3, 4=>2, 3=>1, 1=>1, 2=>2}
+# Step 2: Ordered First Occurrences -> [5, 4, 3, 1, 2]
+# Step 3: Rearrange Output -> [5, 5, 5, 4, 4, 3, 1, 2, 2]
+
+
+# Test Cases --------------------------------------------------------------
+puts rearrange_elements([1, 2, 3, 1, 2, 1]).inspect  # Output: [1, 1, 1, 2, 2, 3]
+puts rearrange_elements([5, 4, 5, 5, 3, 1, 2, 2, 4]).inspect  # Output: [5, 5, 5, 4, 4, 3, 1, 2, 2]
+
+
 
 # Problem -----------------------------------------------------------------
 59. Print all triplets in an array with a sum less than or equal to a given number
