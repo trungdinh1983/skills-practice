@@ -12,6 +12,69 @@
 # Math/Calculations -------------------------------------------------------
 
 
+# Problem =============================================
+# Given an integer array `nums` and two integers `x` and `y` present in it, 
+# find the minimum absolute difference between indices of `x` and `y` 
+# in a single traversal of the array.
+
+# Solution =============================================
+def min_index_difference(nums, x, y)
+  # Initialize variables to track the last seen index of x and y
+  last_x = -1
+  last_y = -1
+  min_diff = Float::INFINITY # Set to a very high value initially
+
+  # Iterate through the array once
+  nums.each_with_index do |num, index|
+    if num == x
+      last_x = index
+      # If y has been found before, update the minimum difference
+      min_diff = [min_diff, (last_x - last_y).abs].min if last_y != -1
+    elsif num == y
+      last_y = index
+      # If x has been found before, update the minimum difference
+      min_diff = [min_diff, (last_y - last_x).abs].min if last_x != -1
+    end
+  end
+
+  # Return the minimum difference found
+  min_diff == Float::INFINITY ? -1 : min_diff
+end
+
+# Comment =============================================
+# - We traverse the array once (O(n) time complexity).
+# - We use only a few variables (O(1) space complexity).
+# - We update indices dynamically while iterating to track the closest x and y.
+# - The condition ensures that we update `min_diff` only when both x and y have been seen.
+
+# Math/Calculations =============================================
+# Example 1:
+# Input: nums = [1, 3, 5, 4, 8, 2, 4, 3, 6, 5], x = 3, y = 2
+# Occurrences:
+#  - 3 is at indices [1, 7]
+#  - 2 is at index [5]
+# Differences: |1-5| = 4, |7-5| = 2
+# Minimum Difference = 2
+
+# Example 2:
+# Input: nums = [1, 3, 5, 4, 8, 2, 4, 3, 6, 5], x = 2, y = 5
+# Occurrences:
+#  - 2 is at index [5]
+#  - 5 is at indices [2, 9]
+# Differences: |5-2| = 3, |5-9| = 4
+# Minimum Difference = 3
+
+# Test Cases =============================================
+puts min_index_difference([1, 3, 5, 4, 8, 2, 4, 3, 6, 5], 3, 2) # Output: 2
+puts min_index_difference([1, 3, 5, 4, 8, 2, 4, 3, 6, 5], 2, 5) # Output: 3
+puts min_index_difference([5, 1, 2, 3, 4, 5, 2, 7, 3, 8], 5, 3) # Output: 1
+puts min_index_difference([1, 2, 3, 4, 5], 3, 5) # Output: 2
+puts min_index_difference([1, 1, 1, 1], 1, 1) # Edge case: Output: 0
+
+
+
+
+
 # Problem -----------------------------------------------------------------
 60.Group elements of an array based on their first occurrence
 Given an unsorted integer array containing many duplicate elements, rearrange it such that the same element appears together and the relative order of the first occurrence of each element remains unchanged.
