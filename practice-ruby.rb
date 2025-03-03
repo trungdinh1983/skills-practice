@@ -1,19 +1,93 @@
 
-# Problem -----------------------------------------------------------------
+# Problem =============================================
 
 
 # Solution =============================================
 
 
 
-# Comment -----------------------------------------------------------------
+# Comment =============================================
 
 
-# Math/Calculations -------------------------------------------------------
+# Math/Calculations =============================================
+
+# Problem =============================================
+# 62. Given an array, find the maximum absolute difference between the sum of 
+# elements of two non-overlapping subarrays in linear time.
+For example,
+
+Input:  A[] = { -3, -2, 6, -3, 5, -9, 3, 4, -1, -8, 2 } Output: The maximum absolute difference is 19. The two subarrays are { 6, -3, 5 }, { -9, 3, 4, -1, -8 } whose sum of elements are 8 and -11, respectively. So, abs(8-(-11)) or abs(-11-8) = 19.
+
+# Solution =============================================
+def max_absolute_difference(arr)
+  n = arr.length  # Get the length of the array
+  
+  # Step 1: Compute maximum and minimum subarray sums from the left
+  max_left = Array.new(n, 0)  # Stores max sum ending at index i
+  min_left = Array.new(n, 0)  # Stores min sum ending at index i
+  
+  max_sum = min_sum = arr[0]  # Initialize first element
+  max_left[0] = min_left[0] = arr[0]
+  
+  (1...n).each do |i|
+      # Either start new subarray at arr[i] or extend previous one
+      max_sum = [arr[i], max_sum + arr[i]].max
+      max_left[i] = [max_left[i - 1], max_sum].max
+      
+      min_sum = [arr[i], min_sum + arr[i]].min
+      min_left[i] = [min_left[i - 1], min_sum].min
+  end
+  
+  # Step 2: Compute maximum and minimum subarray sums from the right
+  max_right = Array.new(n, 0)  # Stores max sum starting at index i
+  min_right = Array.new(n, 0)  # Stores min sum starting at index i
+  
+  max_sum = min_sum = arr[-1]  # Initialize last element
+  max_right[-1] = min_right[-1] = arr[-1]
+  
+  (n-2).downto(0) do |i|
+      # Either start new subarray at arr[i] or extend previous one
+      max_sum = [arr[i], max_sum + arr[i]].max
+      max_right[i] = [max_right[i + 1], max_sum].max
+      
+      min_sum = [arr[i], min_sum + arr[i]].min
+      min_right[i] = [min_right[i + 1], min_sum].min
+  end
+  
+  # Step 3: Find the maximum absolute difference
+  max_diff = 0
+  (0...n-1).each do |i|
+      # Check absolute difference between max-left and min-right
+      max_diff = [max_diff, (max_left[i] - min_right[i + 1]).abs].max
+      
+      # Check absolute difference between min-left and max-right
+      max_diff = [max_diff, (min_left[i] - max_right[i + 1]).abs].max
+  end
+  
+  max_diff  # Return the maximum absolute difference found
+end
+
+# Comment =============================================
+# This approach efficiently calculates the max absolute difference by:
+# 1. Computing max and min subarray sums from the left.
+# 2. Computing max and min subarray sums from the right.
+# 3. Iterating through possible partition points to find the maximum absolute difference.
+# The algorithm runs in O(n) time.
+
+# Math/Calculations =============================================
+# max_left[i]  -> Maximum sum of any subarray ending at index i.
+# min_left[i]  -> Minimum sum of any subarray ending at index i.
+# max_right[i] -> Maximum sum of any subarray starting at index i.
+# min_right[i] -> Minimum sum of any subarray starting at index i.
+# The absolute difference is calculated between these values.
+
+# Example Usage
+arr = [-3, -2, 6, -3, 5, -9, 3, 4, -1, -8, 2]
+puts "The maximum absolute difference is: #{max_absolute_difference(arr)}"
 
 
 # Problem =============================================
-# Given an integer array `nums` and two integers `x` and `y` present in it, 
+# 61. Given an integer array `nums` and two integers `x` and `y` present in it, 
 # find the minimum absolute difference between indices of `x` and `y` 
 # in a single traversal of the array.
 
