@@ -2,14 +2,65 @@
 # Problem =============================================
 
 
-# Solution =============================================
+# Solution ============================================
 
 
 
 # Comment =============================================
 
 
+# Math/Calculations ===================================
+
+# Output ==============================================
+
+
+# Problem =============================================
+# 63. Find all Symmetric Pairs in an Array of Pairs
+# Given an array of pairs of integers, find all symmetric pairs,
+# i.e., pairs that mirror each other. For instance, pairs (x, y)
+# and (y, x) are mirrors of each other.
+#
+# Example:
+# Input:  [[3, 4], [1, 2], [5, 2], [7, 10], [4, 3], [2, 5]]
+# Output: {4, 3} | {3, 4} {2, 5} | {5, 2}
+
+# Solution =============================================
+def find_symmetric_pairs(pairs)
+  seen = {} # Hash to store pairs as { key => value }
+  result = [] # Array to store symmetric pairs
+
+  pairs.each do |x, y|
+    if seen[y] == x # Check if the reverse pair exists in the hash
+      result << [x, y] << [y, x] # Store both pairs in the result
+    else
+      seen[x] = y # Store the current pair in the hash
+    end
+  end
+
+  result
+end
+
+# Example usage
+input_pairs = [[3, 4], [1, 2], [5, 2], [7, 10], [4, 3], [2, 5]]
+output = find_symmetric_pairs(input_pairs)
+
+# Formatting output
+formatted_output = output.map { |pair| "{#{pair[0]}, #{pair[1]}}" }.join(" | ")
+puts formatted_output
+
+# Comment =============================================
+# We use a hash to keep track of pairs we've seen. When we encounter
+# a pair (x, y), we check if (y, x) is already in the hash. If it is,
+# we add both (x, y) and (y, x) to the result. Otherwise, we store (x, y)
+# in the hash for future reference.
+
 # Math/Calculations =============================================
+# - We iterate through the list once: O(n) complexity.
+# - Checking and inserting in a hash is O(1), making this approach efficient.
+# - The space complexity is O(n) due to the hash storage.
+
+# Output =============================================
+{4, 3} | {3, 4} | {2, 5} | {5, 2}
 
 # Problem =============================================
 # 62. Given an array, find the maximum absolute difference between the sum of 
