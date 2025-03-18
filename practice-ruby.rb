@@ -13,6 +13,74 @@
 
 # Output ==============================================
 
+# Problem =============================================
+# 64. Partition an array into two sub-arrays with the same sum
+# Given an integer array, partition it into two subarrays having the same sum of elements.
+# 
+# For example,
+# Input:  {6, -4, -3, 2, 3} 
+# Output: The two subarrays are {6, -4} and {-3, 2, 3} having equal sum of 2  
+# Input:  {6, -5, 2, -4, 1} 
+# Output: The two subarrays are {} and {6, -5, 2, -4, 1} having equal sum of 0
+
+# Solution ============================================
+def partition_equal_sum(arr)
+  # Calculate the total sum of the array
+  total_sum = arr.sum
+  
+  # If the total sum is odd, it's impossible to partition into equal sums
+  return [] if total_sum.odd?
+
+  # Initialize variables for left sum and target sum
+  left_sum = 0
+  target_sum = total_sum / 2
+  partition_index = -1
+
+  # Iterate through the array to find a point where left sum equals target sum
+  arr.each_with_index do |num, index|
+    left_sum += num  # Accumulate sum of left part
+    if left_sum == target_sum
+      partition_index = index  # Mark the index where partition can happen
+      break
+    end
+  end
+
+  # If no valid partition point found, return an empty array
+  return [] if partition_index == -1
+  
+  # Split the array into two subarrays
+  [arr[0..partition_index], arr[(partition_index + 1)..-1]]
+end
+
+# Comment =============================================
+# - We first calculate the total sum of the array.
+# - If the sum is odd, we return an empty array since an equal partition is impossible.
+# - We iterate through the array while keeping a running sum.
+# - If we find an index where the left sum equals half of the total sum, we split the array.
+# - The function returns an array of two subarrays that have the same sum.
+
+# Math/Calculations ===================================
+# Example: arr = [1, 2, 3, 3]
+# total_sum = 1 + 2 + 3 + 3 = 9 (Odd, so no partition possible)
+
+# Example: arr = [1, 5, 11, 5]
+# total_sum = 1 + 5 + 11 + 5 = 22 (Even)
+# target_sum = 22 / 2 = 11
+# Running sum: 1 → 6 → 17 (No match at 11) → 22
+# No valid partition.
+
+# Example: arr = [1, 2, 3, 4, 5, 5]
+# total_sum = 20 (Even)
+# target_sum = 10
+# Running sum: 1 → 3 → 6 → 10 (Found partition at index 3)
+# Split: [1, 2, 3, 4] and [5, 5]
+
+# Output ==============================================
+# Test cases to verify the function
+puts partition_equal_sum([1, 2, 3, 4, 5, 5]).inspect  # [[1, 2, 3, 4], [5, 5]]
+puts partition_equal_sum([1, 5, 11, 5]).inspect      # []
+puts partition_equal_sum([1, 2, 3, 3]).inspect       # []
+
 
 # Problem =============================================
 # 63. Find all Symmetric Pairs in an Array of Pairs
