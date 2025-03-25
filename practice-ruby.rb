@@ -14,6 +14,65 @@
 # Output ==============================================
 
 # Problem =============================================
+# 65. Find the count of distinct elements in every subarray of size `k`
+# Given an array and an integer k, find the count of distinct elements in every subarray of size k.
+# 
+# Example:
+# Input: arr[] = { 2, 1, 2, 3, 2, 1, 4, 5 }, k = 5
+# Output:
+# The count of distinct elements in subarray { 2, 1, 2, 3, 2 } is 3
+# The count of distinct elements in subarray { 1, 2, 3, 2, 1 } is 3
+# The count of distinct elements in subarray { 2, 3, 2, 1, 4 } is 4
+# The count of distinct elements in subarray { 3, 2, 1, 4, 5 } is 5
+
+# Solution ============================================
+def count_distinct_in_subarrays(arr, k)
+  # hash to store frequency of elements in current window
+  freq_map = {}
+  
+  # fill the initial window of size k
+  (0...k).each do |i|
+    freq_map[arr[i]] ||= 0       # set to 0 if not exist
+    freq_map[arr[i]] += 1        # increase frequency
+  end
+  
+  # print distinct count for the first window
+  puts "The count of distinct elements in subarray #{arr[0...k]} is #{freq_map.keys.length}"
+  
+  # move the window one element at a time
+  (k...arr.length).each do |i|
+    # remove the element going out of the window
+    old_elem = arr[i - k]
+    freq_map[old_elem] -= 1      # decrease frequency
+    freq_map.delete(old_elem) if freq_map[old_elem] == 0  # delete if frequency becomes 0
+    
+    # add the new element coming into the window
+    new_elem = arr[i]
+    freq_map[new_elem] ||= 0
+    freq_map[new_elem] += 1
+    
+    # print distinct count for the current window
+    puts "The count of distinct elements in subarray #{arr[(i - k + 1)..i]} is #{freq_map.keys.length}"
+  end
+end
+
+# Comment =============================================
+# This uses a sliding window technique with a hash map (dictionary)
+# to keep track of the frequency of each element in the current window.
+# That helps us get the count of distinct elements efficiently.
+
+# Math/Calculations ===================================
+# Time Complexity: O(n), where n is the size of the array
+# Each element is added and removed from the hash map at most once.
+# Space Complexity: O(k), for storing at most k elements in the hash map.
+
+# Output ==============================================
+arr = [2, 1, 2, 3, 2, 1, 4, 5]
+k = 5
+count_distinct_in_subarrays(arr, k)
+
+
+# Problem =============================================
 # 64. Partition an array into two sub-arrays with the same sum
 # Given an integer array, partition it into two subarrays having the same sum of elements.
 # 
