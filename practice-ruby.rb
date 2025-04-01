@@ -14,6 +14,63 @@
 # Output ==============================================
 
 # Problem =============================================
+# 66. Find two numbers with maximum sum formed by array digits
+# Given an array of digits (0-9), form two numbers using all digits
+# such that:
+# - The total sum of the two numbers is the maximum possible
+# - The two numbers must have digit count difference of 0 or 1
+
+# Solution ============================================
+def max_sum_numbers(digits)
+  # Step 1: Sort the array in descending order so we can use bigger digits first
+  digits.sort!.reverse!
+
+  # Step 2: Create two empty strings to build the two numbers
+  num1 = ""
+  num2 = ""
+
+  # Step 3: Distribute digits one by one to both numbers
+  digits.each_with_index do |digit, index|
+    # Add digit to num1 if index is even, num2 if index is odd
+    if index.even?
+      num1 += digit.to_s
+    else
+      num2 += digit.to_s
+    end
+  end
+
+  # Step 4: Convert the strings to integers
+  number1 = num1.to_i
+  number2 = num2.to_i
+
+  # Step 5: Return both numbers
+  return number1, number2
+end
+
+# Comment =============================================
+# - We use greedy approach by always assigning bigger digits first
+# - By alternating digits between num1 and num2, we keep the digit count close (difference is 0 or 1)
+# - Sorting in descending ensures max sum
+
+# Math/Calculations ===================================
+# Example: [4, 6, 2, 7, 9, 8]
+# Sorted descending: [9, 8, 7, 6, 4, 2]
+# num1 gets: 9, 7, 4 -> 974
+# num2 gets: 8, 6, 2 -> 862
+# Sum = 974 + 862 = 1836
+
+# Output ==============================================
+# Test case 1
+a, b = max_sum_numbers([4, 6, 2, 7, 9, 8])
+puts "The two numbers with maximum sum are #{a} and #{b}"  # Expected: 974 and 862
+
+# Test case 2
+a, b = max_sum_numbers([9, 2, 5, 6, 0, 4])
+puts "The two numbers with maximum sum are #{a} and #{b}"  # Expected: 952 and 640
+
+
+
+# Problem =============================================
 # 65. Find the count of distinct elements in every subarray of size `k`
 # Given an array and an integer k, find the count of distinct elements in every subarray of size k.
 # 
