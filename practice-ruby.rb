@@ -14,6 +14,60 @@
 # Output ==============================================
 
 # Problem =============================================
+# 67. Print all sub-arrays of an array having distinct elements
+# Given an integer array, print all maximum size subarrays having all distinct elements in them.
+# For example:
+# Input:  A[] = { 5, 2, 3, 5, 4, 3 }
+# Output: The largest subarrays with all distinct elements are:
+#         { 5, 2, 3 } { 2, 3, 5, 4 } { 5, 4, 3 }
+
+# Solution ============================================
+def print_max_distinct_subarrays(arr)
+  # store result subarrays
+  result = []
+
+  # use a hash to store the last index of each element
+  last_seen = {}
+  start = 0
+
+  arr.each_with_index do |num, end_idx|
+    # if the number is already seen and inside the current window
+    if last_seen.key?(num) && last_seen[num] >= start
+      # store current subarray
+      result << arr[start..end_idx - 1]
+      # move start index to the right of the last occurrence
+      start = last_seen[num] + 1
+    end
+
+    # update last seen index of the current number
+    last_seen[num] = end_idx
+  end
+
+  # add the last subarray
+  result << arr[start..arr.length - 1]
+
+  # print all stored subarrays
+  result.each do |subarr|
+    puts "{ #{subarr.join(', ')} }"
+  end
+end
+
+# Comment =============================================
+# This uses a sliding window technique to find all subarrays
+# with distinct elements. It moves the start index forward when
+# a duplicate is found and saves the valid subarray found so far.
+
+# Math/Calculations ===================================
+# Time Complexity: O(n) - each element is visited once
+# Space Complexity: O(n) - for storing last seen indices and subarrays
+
+# Output ==============================================
+input = [5, 2, 3, 5, 4, 3]
+print_max_distinct_subarrays(input)
+
+
+
+# Problem =============================================
 # 66. Find two numbers with maximum sum formed by array digits
 # Given an array of digits (0-9), form two numbers using all digits
 # such that:
