@@ -14,6 +14,59 @@
 # Output ==============================================
 
 # Problem =============================================
+# 68. Find a Triplet having Maximum Product in an Array
+# Given an integer array, find a triplet having the maximum product.
+#
+# Example:
+# Input:  { -4, 1, -8, 9, 6 }
+# Output: The triplet having the maximum product is (-4, -8, 9)
+#
+# Input:  { 1, 7, 2, -2, 5 }
+# Output: The triplet having the maximum product is (7, 2, 5)
+
+# Solution ============================================
+
+def max_product_triplet(arr)
+  # Step 1: Sort the array from smallest to biggest
+  arr.sort!
+  
+  # Step 2: Get the last 3 numbers (biggest values)
+  a = arr[-1]
+  b = arr[-2]
+  c = arr[-3]
+
+  # Step 3: Get the first 2 numbers (smallest values), and the biggest one
+  x = arr[0]
+  y = arr[1]
+  z = arr[-1]  # biggest number
+
+  # Step 4: Calculate both possible products
+  product1 = a * b * c      # product of 3 biggest
+  product2 = x * y * z      # product of 2 smallest and biggest
+
+  # Step 5: Return the triplet with the larger product
+  if product1 > product2
+    return [c, b, a]         # returning in sorted order (small to big)
+  else
+    return [x, y, z]
+  end
+end
+
+# Comment =============================================
+# No inject used here!
+# Just use * operator for multiplying 3 numbers directly.
+# We sort first, then compare 2 possible max product triplets.
+
+# Math/Calculations ===================================
+# Sorting = O(n log n)
+# Comparison and multiplication = O(1)
+
+# Output ==============================================
+puts "Triplet: #{max_product_triplet([-4, 1, -8, 9, 6])}"  # Output: [-8, -4, 9]
+puts "Triplet: #{max_product_triplet([1, 7, 2, -2, 5])}"   # Output: [2, 5, 7]
+
+
+# Problem =============================================
 # 67. Print all sub-arrays of an array having distinct elements
 # Given an integer array, print all maximum size subarrays having all distinct elements in them.
 # For example:
