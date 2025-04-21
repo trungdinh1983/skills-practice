@@ -14,6 +14,60 @@
 # Output ==============================================
 
 # Problem =============================================
+# 69. Find ways to calculate a target from elements of specified array
+# Given an integer array, return the total number of ways to calculate 
+# the specified target using only + and - operators on each element.
+# Each element must be used exactly once in the given order.
+
+# Example:
+# Input: arr = [5, 3, -6, 2], target = 6
+# Output: 4
+
+# Solution ============================================
+def count_target_ways(arr, target)
+  # We use a helper function to recursively check all combinations
+  return helper(arr, 0, 0, target)
+end
+
+def helper(arr, index, current_sum, target)
+  # Base case: when we reach the end of the array
+  if index == arr.length
+    # If the sum equals the target, we count it as 1 valid way
+    return current_sum == target ? 1 : 0
+  end
+
+  # Recursive case:
+  # Option 1: add the current number
+  plus = helper(arr, index + 1, current_sum + arr[index], target)
+  
+  # Option 2: subtract the current number
+  minus = helper(arr, index + 1, current_sum - arr[index], target)
+
+  # Total ways is the sum of both options
+  return plus + minus
+end
+
+# Comment =============================================
+# This code checks every possible combination of + and - for each number.
+# It uses recursion to try both adding and subtracting each element, 
+# and counts how many ways reach the target sum.
+
+# Math/Calculations ===================================
+# For input: [5, 3, -6, 2], target = 6
+# Ways:
+#   +5 +3 -(-6) -2 = 6 → +5 +3 +6 -2
+#   -5 +3 +6 +2 = 6
+#   +5 -3 -(-6) -2 = 6 → +5 -3 +6 -2
+#   -5 -3 +6 +2 = 6
+# So total = 4
+
+# Output ==============================================
+arr = [5, 3, -6, 2]
+target = 6
+puts "Number of ways: #{count_target_ways(arr, target)}"  # Output: 4
+
+
+# Problem =============================================
 # 68. Find a Triplet having Maximum Product in an Array
 # Given an integer array, find a triplet having the maximum product.
 #
