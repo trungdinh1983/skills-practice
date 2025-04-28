@@ -13,6 +13,79 @@
 
 # Output ==============================================
 
+#Problem =============================================
+70. Find Minimum Index of Repeating Element in an Array
+Given an integer array, find the minimum index of a repeating element in linear time and doing just a single traversal of the array.
+
+For example,
+Input: { 5, 6, 3, 4, 3, 6, 4 }
+Output: The minimum index of the repeating element is 1
+
+Input: { 1, 2, 3, 4, 5, 6 }
+Output: Invalid Input
+
+#Solution ============================================
+
+# Ruby program to find minimum index of repeating element
+
+def find_minimum_index(arr)
+  seen = {}      # create a hash map to store first seen index
+  min_index = arr.length   # set min_index to maximum initially
+
+  # loop through array one time
+  arr.each_with_index do |num, index|
+    if seen.has_key?(num)
+      # if number already seen, update min_index with smaller index
+      min_index = [min_index, seen[num]].min
+    else
+      # if number not seen yet, store index
+      seen[num] = index
+    end
+  end
+
+  # check if min_index was updated or not
+  if min_index == arr.length
+    puts "Invalid Input"
+  else
+    puts "The minimum index of the repeating element is #{min_index}"
+  end
+end
+
+# Example usage
+find_minimum_index([5, 6, 3, 4, 3, 6, 4])
+find_minimum_index([1, 2, 3, 4, 5, 6])
+
+#Comment =============================================
+We use a hash map (seen) to store the first occurrence index of each element.
+
+While traversing, if we find an element already in seen, it means it's repeating.
+
+We update min_index only when we find a repetition.
+
+Only one pass through the array is needed (O(n) time).
+
+Space complexity is also O(n) because of the hash map.
+
+#Math/Calculations ===================================
+
+Initial min_index = array length
+
+For each number:
+
+If number seen before, min_index = minimum(min_index, first occurrence index)
+
+After traversal:
+
+If min_index unchanged → No repeating elements → Output "Invalid Input"
+
+Else → Output min_index
+
+#Output ==============================================
+
+The minimum index of the repeating element is 1
+Invalid Input
+
+
 # Problem =============================================
 # 69. Find ways to calculate a target from elements of specified array
 # Given an integer array, return the total number of ways to calculate 
