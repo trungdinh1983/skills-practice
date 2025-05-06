@@ -12,6 +12,68 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+# 
+# Problem =============================================
+# 71. Generate Random Input from an Array According to Given Probabilities
+# We are given two arrays:  
+# - nums[]: a list of numbers  
+# - probability[]: each number's chance (in %) to be picked  
+# We need to write a function that returns one number based on its given probability.
+
+# Solution ============================================
+# Function to pick a random element from nums[] based on probability[]
+def pick_random_by_probability(nums, probability)
+  # Step 1: Create a prefix sum (cumulative probabilities)
+  # Example: if probabilities = [30, 10, 20], prefix = [30, 40, 60]
+  prefix_sum = []
+  total = 0
+
+  probability.each do |p|
+    total += p
+    prefix_sum << total
+  end
+
+  # Step 2: Generate a random number from 1 to 100
+  rand_val = rand(1..100)
+
+  # Step 3: Find the index where rand_val would fall in prefix_sum
+  # This decides which number to return
+  index = prefix_sum.find_index { |val| rand_val <= val }
+
+  # Step 4: Return the number at that index
+  return nums[index]
+end
+
+# Example usage
+nums = [1, 2, 3, 4, 5]
+probability = [30, 10, 20, 15, 25] # Should total to 100
+
+# Call the function a few times to test it
+10.times do
+  puts pick_random_by_probability(nums, probability)
+end
+
+# Comment =============================================
+# - We use a prefix sum array to map the probability range.  
+# - rand(1..100) gives a number that simulates "percentage" chance.  
+# - We use find_index to find the first value in the prefix that the random number is less than or equal to — that’s our winner.  
+# - This solution is simple, fast, and doesn't use advanced math.
+
+# Math/Calculations ===================================
+# Given:
+# probability = [30, 10, 20, 15, 25]
+# Prefix sum:
+# [30, 40, 60, 75, 100]
+# If rand_val = 43, it falls into the 3rd group (index 2), so we return nums[2] = 3.
+
+# Output ==============================================
+# Output will vary each time due to randomness, but approximately:
+# - 1: ~30% of time  
+# - 2: ~10%  
+# - 3: ~20%  
+# - 4: ~15%  
+# - 5: ~25%
+
 
 #Problem =============================================
 70. Find Minimum Index of Repeating Element in an Array
