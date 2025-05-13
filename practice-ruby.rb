@@ -14,6 +14,69 @@
 # Output ==============================================
 # 
 # Problem =============================================
+# 72. Find pair in an array having minimum absolute sum
+# Given a sorted integer array, find a pair in it having an absolute minimum sum.
+# 
+# Example:
+# Input:  A = [-6, -5, -3, 0, 2, 4, 9]
+# Output: Pair is (-5, 4)
+# Because abs(-5 + 4) = abs(-1) = 1, which is the smallest among all possible pairs.
+
+# Solution ============================================
+
+def find_min_abs_sum_pair(arr)
+  # Initialize left and right pointer
+  left = 0                     # start of array
+  right = arr.length - 1       # end of array
+
+  # Initialize variables to store the best (closest to 0) pair
+  min_sum = Float::INFINITY    # set to a very large number
+  pair = [arr[left], arr[right]]
+
+  # Loop while left index is less than right index
+  while left < right
+    sum = arr[left] + arr[right]               # add the two numbers
+    abs_sum = sum.abs                          # get absolute value of the sum
+
+    # Check if current absolute sum is smaller than the minimum so far
+    if abs_sum < min_sum
+      min_sum = abs_sum                        # update minimum
+      pair = [arr[left], arr[right]]           # update pair
+    end
+
+    # Move pointers based on sum value
+    if sum < 0
+      left += 1    # move left forward to get a bigger number
+    else
+      right -= 1   # move right backward to get a smaller number
+    end
+  end
+
+  return pair
+end
+
+# Comment =============================================
+# This method works because the array is sorted.
+# We use two pointers: one from the start, one from the end.
+# By moving the pointers toward each other, we explore all useful pairs.
+# The goal is to find a pair whose sum is closest to zero.
+
+# Math/Calculations ===================================
+# For array: [-6, -5, -3, 0, 2, 4, 9]
+# (-6 + 9) = 3 → abs = 3
+# (-5 + 4) = -1 → abs = 1 ← this is the minimum
+# (-3 + 2) = -1 → abs = 1 → same as above, could be valid too
+# ...
+
+# Output ==============================================
+# Let's test the function
+
+A = [-6, -5, -3, 0, 2, 4, 9]
+result = find_min_abs_sum_pair(A)
+puts "Pair is #{result[0]}, #{result[1]}"   # Output: Pair is -5, 4
+
+
+# Problem =============================================
 # 71. Generate Random Input from an Array According to Given Probabilities
 # We are given two arrays:  
 # - nums[]: a list of numbers  
