@@ -1,7 +1,6 @@
 
 # Problem =============================================
 
-
 # Solution ============================================
 
 
@@ -12,7 +11,59 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
-# 
+#
+## Problem =============================================
+# 73. Find Index of Maximum Occurring Element with Equal Probability
+# Given a non-empty integer array, find the index of the maximum occurring element with an equal probability.
+
+# Solution ============================================
+
+def random_index_of_max_occurring(arr)
+  # Step 1: Create a hash (dictionary) to count the frequency of each element
+  freq_map = Hash.new(0)
+  arr.each do |num|
+    freq_map[num] += 1
+  end
+
+  # Step 2: Find the maximum frequency from the hash
+  max_freq = freq_map.values.max
+
+  # Step 3: Find the element(s) that occur with max frequency
+  max_elements = freq_map.select { |k, v| v == max_freq }
+
+  # Step 4: From those elements, pick the first one that appears in the array
+  target_element = arr.find { |num| max_elements.key?(num) }
+
+  # Step 5: Collect all indices of the target element
+  indices = []
+  arr.each_with_index do |num, i|
+    indices << i if num == target_element
+  end
+
+  # Step 6: Return a random index from the collected indices
+  return indices.sample
+end
+
+# Example input
+input = [4, 3, 6, 8, 4, 6, 2, 4, 5, 9, 7, 4]
+
+# Call the function and print the result
+puts random_index_of_max_occurring(input)
+
+# Comment =============================================
+# This function finds the most frequent number in the array.
+# If there are multiple numbers with the same max frequency, it picks the one that comes first.
+# Then it finds all indices where that number appears and picks one index randomly.
+
+# Math/Calculations ===================================
+# Frequencies of elements: {4=>4, 3=>1, 6=>2, 8=>1, 2=>1, 5=>1, 9=>1, 7=>1}
+# Max frequency is 4 → element is 4 → occurs at indices [0, 4, 7, 11]
+# Return one of these randomly
+
+# Output ==============================================
+# Example output: 4 (can also be 0, 7, or 11 depending on randomness)
+
+#
 # Problem =============================================
 # 72. Find pair in an array having minimum absolute sum
 # Given a sorted integer array, find a pair in it having an absolute minimum sum.
