@@ -1,6 +1,7 @@
 
 # Problem =============================================
 
+
 # Solution ============================================
 
 
@@ -12,6 +13,62 @@
 
 # Output ==============================================
 #
+## Problem =============================================
+# 74. Check if an Array is Formed by Consecutive Integers
+# Given an integer array, check if only consecutive integers form the array.
+# Example:
+# Input:  { -1, 5, 4, 2, 0, 3, 1 } 
+# Output: The array contains consecutive integers from -1 to 5.
+# 
+# Input:  { 4, 2, 4, 3, 1 } 
+# Output: The array does not contain consecutive integers as element 4 is repeated.
+
+# Solution ============================================
+def is_consecutive?(arr)
+  # Remove duplicates and sort the array
+  unique_sorted = arr.uniq.sort
+
+  # Check if each number is exactly 1 more than the previous
+  (1...unique_sorted.length).each do |i|
+    return false if unique_sorted[i] != unique_sorted[i - 1] + 1
+  end
+
+  true
+end
+
+# Comment =============================================
+# Step 1: Remove duplicate elements using `uniq`
+# Step 2: Sort the array
+# Step 3: Loop through the sorted array and check if the difference between 
+#         consecutive elements is exactly 1.
+# If any gap is found or duplicates exist, return false.
+
+# Math/Calculations ===================================
+# For array: [-1, 5, 4, 2, 0, 3, 1]
+# After `uniq` and `sort` => [-1, 0, 1, 2, 3, 4, 5]
+# Check each pair:
+# 0 - (-1) = 1, 1 - 0 = 1, ... ✅ => consecutive
+#
+# For array: [4, 2, 4, 3, 1]
+# After `uniq` and `sort` => [1, 2, 3, 4]
+# Missing 5 => not all elements covered
+
+# Output ==============================================
+input1 = [-1, 5, 4, 2, 0, 3, 1]
+input2 = [4, 2, 4, 3, 1]
+
+if is_consecutive?(input1)
+  puts "The array contains consecutive integers from #{input1.min} to #{input1.max}."
+else
+  puts "The array does not contain consecutive integers."
+end
+
+if is_consecutive?(input2)
+  puts "The array contains consecutive integers from #{input2.min} to #{input2.max}."
+else
+  puts "The array does not contain consecutive integers."
+end
+
 ## Problem =============================================
 # 73. Find Index of Maximum Occurring Element with Equal Probability
 # Given a non-empty integer array, find the index of the maximum occurring element with an equal probability.
