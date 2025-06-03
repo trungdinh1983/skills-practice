@@ -1,8 +1,8 @@
 
+#Write the answer in a format I copy to Ruby file, putting all non‑code inside comments under five headings—Problem, Solution, Comment, Math/Calculations, and Output—in that exact order. Explain everything in full words (no abbreviations) so a beginner can follow, this include codes. MAke sure code is beginner-friendly, no advanced Ruby features, and no abbreviations in comments. Use simple words and short sentences. Do not use any special characters like emojis or markdown formatting.
 # Problem =============================================
 
-
-# Solution ============================================
+# Solution============================================
 
 
 
@@ -14,6 +14,90 @@
 # Output ==============================================
 #
 ## Problem =============================================
+# 75. Find two non‑overlapping pairs having the same sum in an array
+# Given an unsorted integer array, find two non‑overlapping pairs whose sums are equal.
+#
+# Example 1
+#   Input : [3, 4, 7, 3, 4]
+#   Output: (4, 3) and (3, 4)
+#
+# Example 2
+#   Input : [3, 4, 7, 4]
+#   Output: No non‑overlapping pairs present
+#
+# The pairs (3, 4) and (3, 4) in example 2 share the same first 3 (overlap),
+# so they do **not** count.
+#
+# Solution =============================================
+# Beginner‑friendly idea:
+# • Check every possible pair of elements (i, j) where i < j. (O(n²) pairs)
+# • Keep a hash that remembers the *first* time we saw each sum.
+# • When we spot a second pair with the same sum, verify the two pairs do **not**
+#   reuse any index.  If they’re disjoint, we’ve found our answer.
+
+def find_non_overlapping_pairs(arr)                          # define a method that accepts the array
+  sum_map = {}                                               # hash: sum ➜ first pair’s indices [i, j]
+
+  (0...arr.length).each do |i|                               # loop for the first index of the pair
+    ((i + 1)...arr.length).each do |j|                       # loop for the second index (> i)
+      pair_sum = arr[i] + arr[j]                             # current pair’s sum
+
+      if sum_map.key?(pair_sum)                              # have we seen this sum before?
+        p_i, p_j = sum_map[pair_sum]                         # retrieve the stored indices
+
+        # Ensure the stored pair and current pair share **no** element positions
+        if p_i != i && p_i != j && p_j != i && p_j != j
+          return [[arr[p_i], arr[p_j]], [arr[i], arr[j]]]    # return the two value‑pairs
+        end
+      else
+        sum_map[pair_sum] = [i, j]                           # remember where we first saw this sum
+      end
+    end
+  end
+
+  nil                                                        # no valid pairs found – return nil
+end
+
+# Comment ==============================================
+# • Time complexity:  O(n²) – we examine each of the n × (n‑1)/2 pairs once.
+# • Space complexity: O(n)  – at most one stored pair per distinct sum.
+# • The method stops at the **first** success.  To gather *all* matches,
+#   store every pair per sum in an array and keep scanning.
+
+# Math/Calculations ===================================
+# Quick walk‑through for [3, 4, 7, 3, 4]:
+#   (0,1) ⇒  3+4 = 7   → store [0,1]
+#   (0,2) ⇒  3+7 = 10  → store [0,2]
+#   (0,3) ⇒  3+3 = 6   → store [0,3]
+#   (0,4) ⇒  3+4 = 7   → overlaps (index 0) → skip
+#   (1,2) ⇒  4+7 = 11  → store [1,2]
+#   (1,3) ⇒  4+3 = 7   → overlaps (index 1) → skip
+#   (1,4) ⇒  4+4 = 8   → store [1,4]
+#   (2,3) ⇒  7+3 = 10  → overlaps (index 2) → skip
+#   (2,4) ⇒  7+4 = 11  → overlaps (index 2) → skip
+#   (3,4) ⇒  3+4 = 7   → **no** shared indices with [0,1] → success!
+
+# Output ==============================================
+if __FILE__ == $PROGRAM_NAME                                 # demo runs only when executed directly
+  samples = [
+    [3, 4, 7, 3, 4],
+    [3, 4, 7, 4]
+  ]
+
+  samples.each do |arr|
+    result = find_non_overlapping_pairs(arr)                 # call the solver
+    if result
+      puts "Input : #{arr.inspect}"
+      puts "Output: #{result[0].inspect} and #{result[1].inspect}"
+    else
+      puts "Input : #{arr.inspect}"
+      puts "Output: No non‑overlapping pairs present"
+    end
+    puts "-" * 40
+  end
+end
+
+# Problem =============================================
 # 74. Check if an Array is Formed by Consecutive Integers
 # Given an integer array, check if only consecutive integers form the array.
 # Example:
