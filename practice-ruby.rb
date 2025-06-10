@@ -14,6 +14,148 @@
 # Output ==============================================
 #
 ## Problem =============================================
+# 76.Find Minimum Product among all Combinations of Triplets in an Array. 
+# The task is to find the minimum product that can be made by multiplying
+
+# any three different numbers in the same array.
+
+# We must also report the three numbers that create this minimum product.
+
+# The array contains integers that can be positive, negative, or zero.
+
+# At least three numbers are required. If fewer than three numbers are
+
+# provided, we will not perform the calculation.
+
+# Solution============================================
+
+# Define a method that accepts an array and returns both
+
+# the minimum product and the three numbers that create it.
+
+def minimum\_triplet\_product(input\_array)
+
+# Check that the array has at least three numbers.
+
+if input\_array.length < 3
+puts 'The array needs at least three numbers.'
+return
+end
+
+# Sort the array in ascending order so the smallest numbers
+
+# are at the beginning and largest at the end.
+
+sorted\_array = input\_array.sort
+
+# Candidate triplet one:
+
+# The first three numbers in the sorted list.
+
+triplet\_one = \[sorted\_array\[0], sorted\_array\[1], sorted\_array\[2]]
+product\_one = triplet\_one\[0] \* triplet\_one\[1] \* triplet\_one\[2]
+
+# Candidate triplet two:
+
+# The smallest number and the two largest numbers.
+
+triplet\_two = \[sorted\_array\[0], sorted\_array\[-2], sorted\_array\[-1]]
+product\_two = triplet\_two\[0] \* triplet\_two\[1] \* triplet\_two\[2]
+
+# Select the triplet that gives the smaller (more negative or smaller positive) product.
+
+if product\_one < product\_two
+return product\_one, triplet\_one
+else
+return product\_two, triplet\_two
+end
+end
+
+# Driver code to show how the method works with the given examples.
+
+example\_arrays = \[
+\[4, -1, 3, 5, 9],
+\[1, 4, 10, -2, 4],
+\[3, 4, 1, 2, 5]
+]
+
+example\_arrays.each do |current\_array|
+minimum\_product, numbers\_used = minimum\_triplet\_product(current\_array)
+puts 'Input array: ' + current\_array.to\_s
+puts 'Minimum product: ' + minimum\_product.to\_s + ' from numbers ' + numbers\_used.to\_s
+puts '---'
+end
+
+# Comment =============================================
+
+# The method works in three clear steps.
+
+# Step one checks that the array is large enough.
+
+# Step two sorts the array. Sorting makes it easy to pick the smallest
+
+# and largest numbers without advanced loops.
+
+# Step three builds two possible triplets:
+
+# 1. The three smallest numbers.
+
+# 2. The smallest number and the two largest numbers.
+
+# These two triplets cover all cases that might create the minimum product.
+
+# The method multiplies each triplet to get its product and returns the smaller one.
+
+# The driver code runs the method on each example array and prints the result
+
+# so the beginner can see actual values.
+
+# Math/Calculations ===================================
+
+# When numbers include both positive and negative values, two patterns can give
+
+# very small (or very negative) products:
+
+# • Three very negative numbers multiply to a negative or positive value
+
+# depending on the count of negative signs. However, three negatives
+
+# produce a negative product, which might be small.
+
+# • One negative and two large positive numbers create a negative product.
+
+# Because only one negative sign makes the product negative, this can be the
+
+# most negative result if the positive numbers are large.
+
+# The two triplets we test are enough because:
+
+# • Any other mix of numbers will have a product greater than or equal to
+
+# one of these two triplets after sorting.
+
+# Output ==============================================
+
+# Input array: \[4, -1, 3, 5, 9]
+
+# Minimum product: -45 from numbers \[-1, 5, 9]
+
+# ---
+
+# Input array: \[1, 4, 10, -2, 4]
+
+# Minimum product: -80 from numbers \[-2, 4, 10]
+
+# ---
+
+# Input array: \[3, 4, 1, 2, 5]
+
+# Minimum product: 6 from numbers \[1, 2, 3]
+
+#
+
+#
+## Problem =============================================
 # 75. Find two non‑overlapping pairs having the same sum in an array
 # Given an unsorted integer array, find two non‑overlapping pairs whose sums are equal.
 #
