@@ -14,6 +14,95 @@
 # Output ==============================================
 #
 ## Problem =============================================
+# We have an array that holds different whole numbers.
+# For every number, we want to look only at the numbers
+# that appear after it in the array (to its right).
+# We must find the smallest number that is bigger
+# than the current number. If we find one, we replace
+# the current number with that smallest bigger number.
+# If we do not find any bigger number, we put -1 there.
+#
+# Example
+# Input :  { 10, 100, 93, 32, 35, 65, 80, 90, 94, 6 }
+# Output:  { 32,  -1, 94, 35, 65, 80, 90, 94, -1, -1 }
+#
+# Solution =============================================
+# A simple way that beginners can understand:
+# 1. Create a new array called result, the same size as the input.
+# 2. Move through the input array from the first position to the last.
+# 3. For each number, scan the part of the array that is to its right.
+# 4. Find the least number that is still greater than the current number.
+# 5. If such a number exists, save it in the result array; otherwise save -1.
+# 6. When the loop finishes, result holds our answer.
+# This plan uses two nested loops. It is easy to read but uses
+# more time when the array is large (its time cost grows like n²).
+#
+# Comment =============================================
+# The program has clear steps and many inline comments.
+# It avoids short names and symbols that confuse new learners.
+# Every line of code does one small job, so the flow is easy to follow.
+# No fancy Ruby features appear, only loops, if tests, and arrays.
+#
+# Math/Calculations ===================================
+# For each position i, we look at every later position j (> i).
+# If arr[j] is bigger than arr[i] and smaller than
+# any bigger number seen so far for this i, we remember it.
+# After scanning all j for that i, we either have
+# the least bigger number or we have none (nil).
+# Then we place that number, or -1, in the answer.
+#
+# Output ==============================================
+# When we run the script with the sample input, it prints:
+# Original array: [10, 100, 93, 32, 35, 65, 80, 90, 94, 6]
+# New array     : [32, -1, 94, 35, 65, 80, 90, 94, -1, -1]
+
+# ---------------- Ruby code starts below ----------------
+
+# Input array: change these numbers to test other cases.
+numbers = [10, 100, 93, 32, 35, 65, 80, 90, 94, 6]
+
+# Create a new array with the same length filled with zeros.
+# We will store the final answer here.
+result = Array.new(numbers.length, 0)
+
+# Loop through each position in the array.
+index = 0
+while index < numbers.length
+  current_value = numbers[index]          # The number we are replacing.
+  least_greater = nil                     # Start with no greater number found.
+
+  # Scan all numbers to the right of the current index.
+  scan_index = index + 1
+  while scan_index < numbers.length
+    right_value = numbers[scan_index]
+
+    # Check if this right-side value is greater than the current value.
+    if right_value > current_value
+      # If we have not found any greater number yet,
+      # or this right-side value is smaller than the one we saved,
+      # then we update least_greater.
+      if least_greater.nil? || right_value < least_greater
+        least_greater = right_value
+      end
+    end
+    scan_index += 1                       # Move to the next right-side index.
+  end
+
+  # After the inner loop, we decide what to place in result.
+  if least_greater.nil?
+    result[index] = -1                    # No greater number found.
+  else
+    result[index] = least_greater         # Save the least greater number.
+  end
+
+  index += 1                              # Move to the next element in the array.
+end
+
+# Print the original and the new arrays so we can see the difference.
+puts "Original array: #{numbers}"
+puts "New array     : #{result}"
+
+## Problem =============================================
 # 76.Find Minimum Product among all Combinations of Triplets in an Array. 
 # The task is to find the minimum product that can be made by multiplying
 
