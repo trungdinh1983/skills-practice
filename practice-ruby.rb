@@ -1,7 +1,7 @@
 
-#Write the answer in a format I copy to Ruby file, putting all non‑code inside comments under five headings—Problem, Solution, Comment, Math/Calculations, and Output—in that exact order. Explain everything in full words (no abbreviations) so a beginner can follow, this include codes. MAke sure code is beginner-friendly, no advanced Ruby features, and no abbreviations in comments. Use simple words and short sentences. Do not use any special characters like emojis or markdown formatting.
+#Write the answer in a format I copy to Ruby file, putting all non‑code inside comments under five headings—Problem, Solution, Comment, Math/Calculations, and Output—in that exact order. Explain everything in full words (no abbreviations) so a beginner can follow, this include codes. MAke sure code is beginner-friendly, no advanced Ruby features, and no abbreviations in comments. Use simple words and short sentences. Do not use any special characters like emojis or markdown formatting. 
 # Problem =============================================
-
+#Keep text and do not change wording
 # Solution============================================
 
 
@@ -13,6 +13,85 @@
 
 # Output ==============================================
 #
+## Problem =============================================
+# 77. Replace every element of an array with the least greater element on its right.
+# You are given an array with different integers.
+# For each number in the array, find the smallest number that is greater and comes after it.
+# If no greater number comes after it, replace the number with -1.
+#
+# Example:
+# Input:  [10, 100, 93, 32, 35, 65, 80, 90, 94, 6]
+# Output: [32, -1, 94, 35, 65, 80, 90, 94, -1, -1]
+
+# Solution============================================
+def replace_with_least_greater(array)
+  # Create a new array to store the final answer
+  result = []
+
+  # Go through each number in the array
+  for i in 0...array.length
+    current_number = array[i]
+    least_greater = nil
+
+    # Look at all numbers that come after the current number
+    for j in (i + 1)...array.length
+      next_number = array[j]
+
+      # Check if the next number is greater than the current number
+      if next_number > current_number
+        # If least_greater is not set yet, or the next number is smaller than current least_greater
+        if least_greater == nil or next_number < least_greater
+          least_greater = next_number
+        end
+      end
+    end
+
+    # If we found a greater number, add it to result
+    if least_greater != nil
+      result << least_greater
+    else
+      # If no greater number was found, add -1
+      result << -1
+    end
+  end
+
+  # Return the final result array
+  return result
+end
+
+# Create the input array
+input_array = [10, 100, 93, 32, 35, 65, 80, 90, 94, 6]
+
+# Call the method and get the output array
+output_array = replace_with_least_greater(input_array)
+
+# Show the result
+puts "Input: #{input_array}"
+puts "Output: #{output_array}"
+
+# Comment =============================================
+# This program uses two loops.
+# The outer loop picks each number one by one.
+# The inner loop checks all the numbers that come after it.
+# It looks for the smallest number that is still greater than the current number.
+# If such a number is found, it adds it to the answer.
+# If not, it adds -1 instead.
+
+# Math/Calculations ===================================
+# Example for number 10:
+# Numbers after it are [100, 93, 32, 35, 65, 80, 90, 94, 6]
+# From those, 32 is the smallest number greater than 10.
+#
+# Example for number 100:
+# Numbers after it are [93, 32, 35, 65, 80, 90, 94, 6]
+# None of them is greater than 100, so result is -1.
+#
+# This process repeats for each number in the list.
+
+# Output ==============================================
+# Input: [10, 100, 93, 32, 35, 65, 80, 90, 94, 6]
+# Output: [32, -1, 94, 35, 65, 80, 90, 94, -1, -1]
+
 ## Problem =============================================
 # We have an array that holds different whole numbers.
 # For every number, we want to look only at the numbers
