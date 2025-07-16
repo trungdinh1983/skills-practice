@@ -1,7 +1,8 @@
 
 #Write the answer in a format I copy to Ruby file, putting all non‑code inside comments under five headings—Problem, Solution, Comment, Math/Calculations, and Output—in that exact order. Explain everything in full words (no abbreviations) so a beginner can follow, this include codes. MAke sure code is beginner-friendly, no advanced Ruby features, and no abbreviations in comments. Use simple words and short sentences. Do not use any special characters like emojis or markdown formatting. 
 # Problem =============================================
-#Keep text and do not change wording
+#Keep exact problem text and do not change wording: 
+#
 # Solution============================================
 
 
@@ -12,7 +13,68 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+# 
+## Problem =============================================
+# Keep exact problem text and do not change wording:
+# 78.Find all odd occurring elements in an array having limited range of elements: 
+# Given an array having elements between 0 and 31, find elements that occur an odd number of times without using the extra space.
 #
+# For example,
+# Input: nums[] = [5, 8, 2, 5, 8, 2, 8, 5, 1, 8, 2] 
+# Output: The odd occurring elements are 5, 2, and 1 
+# Explanation: 1 occurs once. 2 and 5 occurs thrice. 8 occurs four times.
+
+# Solution============================================
+def find_odd_occurrences(nums)
+  # Create a variable to store a 32-bit number using integer
+  # Each bit will represent whether the count of that number is odd or even
+  # Start with zero. This means all counts are even.
+  bit_mask = 0
+
+  # Loop through each number in the array
+  nums.each do |num|
+    # Toggle the bit at position 'num' using XOR
+    bit_mask = bit_mask ^ (1 << num)
+  end
+
+  # Now check which bits are set in the bit_mask
+  # These positions represent numbers that occurred an odd number of times
+  puts "The odd occurring elements are:"
+  for i in 0..31
+    # Use bitwise AND to check if the bit at position i is set
+    if (bit_mask & (1 << i)) != 0
+      puts i
+    end
+  end
+end
+
+# Example input
+nums = [5, 8, 2, 5, 8, 2, 8, 5, 1, 8, 2]
+
+# Call the method
+find_odd_occurrences(nums)
+
+# Comment =============================================
+# We use a single integer variable called bit_mask to track counts.
+# Each bit from position 0 to 31 represents the count for numbers 0 to 31.
+# When a number appears, we toggle its bit using XOR.
+# After all numbers are processed, the bits that are 1 show odd occurrences.
+# We then loop through the bits and print the positions that are set.
+
+# This avoids using any extra memory like arrays or hash tables.
+
+# Math/Calculations ===================================
+# Example: If number 5 appears 3 times, then:
+# Step 1: 0 XOR (1 << 5) => 0 XOR 32 => 32 (bit 5 set)
+# Step 2: 32 XOR (1 << 5) => 32 XOR 32 => 0 (bit 5 cleared)
+# Step 3: 0 XOR (1 << 5) => 0 XOR 32 => 32 (bit 5 set again)
+# So bit 5 is set, which means 5 appeared odd number of times
+
+# Output ==============================================
+# The odd occurring elements are:
+# 1
+# 2
+# 5
 ## Problem =============================================
 # 77. Replace every element of an array with the least greater element on its right.
 # You are given an array with different integers.
