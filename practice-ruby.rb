@@ -16,6 +16,79 @@
 # 
 ## Problem =============================================
 # Keep exact problem text and do not change wording:
+# 79. Add elements of two arrays into a new array  
+# Given two arrays of positive integers, add their elements into a new array. 
+# The solution should add both arrays, one by one starting from the 0th index, 
+# and split the sum into individual digits if it is a 2–digit number.
+#
+# For example,
+# Input: a = { 23, 5, 2, 7, 87 } b = { 4, 67, 2, 8 } 
+# Output: { 2, 7, 7, 2, 4, 1, 5, 8, 7 }  
+#
+# Input: a = {} b = { 4, 67, 2, 8 } 
+# Output: { 4, 6, 7, 2, 8 }
+
+# Solution =============================================
+def add_and_split_digits(array1, array2)
+  # create empty array to store final result
+  result = []
+
+  # find the maximum length of both arrays
+  length = [array1.length, array2.length].max
+
+  # use a loop to go through each index up to the max length
+  for i in 0...length
+    # get value from first array or 0 if index is out of range
+    num1 = i < array1.length ? array1[i] : 0
+
+    # get value from second array or 0 if index is out of range
+    num2 = i < array2.length ? array2[i] : 0
+
+    # add the two numbers
+    sum = num1 + num2
+
+    # if the sum is greater than 9 (2 digits), split it into digits
+    if sum > 9
+      # convert to string and split each character, then change to integer
+      sum.to_s.each_char do |digit|
+        result << digit.to_i
+      end
+    else
+      # if single digit, just add to result
+      result << sum
+    end
+  end
+
+  # return the final array
+  return result
+end
+
+# Comment =============================================
+# This code adds two arrays index by index.
+# If the sum of two numbers is 2 digits, it breaks the digits apart.
+# It works even if the arrays are different lengths.
+# It fills in missing values with 0 for shorter array.
+
+# Math/Calculations ===================================
+# Example 1: 
+# array1 = [23, 5, 2, 7, 87]
+# array2 = [4, 67, 2, 8]
+# index 0: 23 + 4 = 27 => [2, 7]
+# index 1: 5 + 67 = 72 => [7, 2]
+# index 2: 2 + 2 = 4 => [4]
+# index 3: 7 + 8 = 15 => [1, 5]
+# index 4: 87 + 0 = 87 => [8, 7]
+# final result: [2, 7, 7, 2, 4, 1, 5, 8, 7]
+
+# Output ==============================================
+# You can test with:
+# puts add_and_split_digits([23, 5, 2, 7, 87], [4, 67, 2, 8]).inspect
+# Output should be: [2, 7, 7, 2, 4, 1, 5, 8, 7]
+
+# puts add_and_split_digits([], [4, 67, 2, 8]).inspect
+# Output should be: [4, 6, 7, 2, 8]
+## Problem =============================================
+# Keep exact problem text and do not change wording:
 # 78.Find all odd occurring elements in an array having limited range of elements: 
 # Given an array having elements between 0 and 31, find elements that occur an odd number of times without using the extra space.
 #
