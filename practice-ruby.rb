@@ -14,6 +14,182 @@
 
 # Output ==============================================
 # 
+#Problem =============================================
+Keep exact problem text and do not change wording:
+81.Print all combinations of positive integers in increasing order that sum to a given number Write code to print all combinations of positive integers in increasing order that sum to a given positive number.
+For example,
+Input: N = 3 1 1 11 23 Input: N = 4 1 1 1 11 1 21 32 24 Input: N = 5 1 1 1 1 11 1 1 21 1 31 2 21 42 35
+#Solution============================================
+#We will use a simple backtracking method.
+#Backtracking means we build one choice at a time.
+#If a choice does not work, we step back and try the next choice.
+#Here, a choice is picking the next positive integer to add to the current list.
+#We must keep the list in increasing order.
+#To keep the list in increasing order, we will only pick numbers that are at least as large as the last picked number.
+#We will pass a minimum allowed value to the helper function to enforce this rule.
+#We will reduce the remaining sum each time we pick a number.
+#When the remaining sum becomes zero, we print the current list.
+#The steps:
+1) Read the input number N.
+2) Start backtracking with remaining = N, minimum allowed value = 1, and an empty current list.
+3) At each step, try all values from minimum allowed value up to the remaining sum.
+4) Add the value to the list, recurse with the reduced remaining sum, then remove the value.
+5) When remaining is zero, print the list as one valid combination.
+The code is beginner friendly. It uses basic loops, arrays, and simple recursion.
+read a number from the user
+puts "Enter a positive integer N:" # explain what we expect the user to type
+input = gets.to_i # read one line from the keyboard and convert it to an integer
+
+define a function to print all increasing combinations that sum to n
+def print_combinations(n) # define a function with one parameter n
+if n <= 0 # check that n is a positive number
+puts "Please enter a positive integer." # tell the user if the input is not valid
+return # stop the function early
+end # end of the positive check
+
+current = [] # this array holds the current combination we are building
+min_value = 1 # the next picked number must be at least this value to keep order increasing
+remaining = n # this is how much we still need to sum to reach n
+
+helper_print(remaining, min_value, current) # start the backtracking process
+end # end of print_combinations function
+
+define a helper function for backtracking
+def helper_print(remaining, min_value, current) # remaining is the sum left, min_value is the smallest allowed next value, current is the list we have
+if remaining == 0 # if there is nothing left to add, we found a full valid combination
+puts current.join(" ") # print the combination as numbers separated by single spaces
+return # stop going deeper because we already printed this result
+end # end of base case check
+
+value = min_value # start trying numbers from the smallest allowed one
+while value <= remaining # we cannot pick a number larger than the remaining sum
+current.push(value) # choose this value by adding it to the current list
+helper_print(remaining - value, value, current) # recurse with reduced remaining and same minimum to keep increasing order
+current.pop # remove the last value to try the next choice
+value += 1 # move to the next value to try another path
+end # end of the while loop
+end # end of helper_print function
+
+call the main function to print combinations for the user input
+print_combinations(input) # run the algorithm with the number the user entered
+
+Comment =============================================
+Why this works:
+We make sure the sequence is increasing by only allowing the next number to be at least the last number we picked.
+This rule removes duplicates in a natural way, because sequences like 2 1 2 are not allowed while 1 2 2 is allowed.
+We explore all options that fit and print when the remaining sum equals zero.
+We use simple tools: arrays, loops, and recursion.
+This is easy to read and it matches the problem needs.
+Math/Calculations ===================================
+Let N be the input number.
+At each step, we pick a value v where min_value <= v <= remaining.
+After picking v, the new remaining is remaining - v.
+The process stops on a path when remaining becomes zero or negative.
+The condition while value <= remaining prevents negative remaining values.
+Time growth:
+The number of outputs equals the number of integer partitions of N when order is nondecreasing.
+Our method visits each valid partition once and prints it once.
+Output ==============================================
+Example outputs for common inputs:
+If the user enters:
+3
+Then one possible output is:
+1 1 1
+1 2
+3
+If the user enters:
+4
+Then one possible output is:
+1 1 1 1
+1 1 2
+1 3
+2 2
+4
+If the user enters:
+5
+Then one possible output is:
+1 1 1 1 1
+1 1 1 2
+1 1 3
+1 2 2
+1 4
+2 3
+5
+## Problem =============================================
+# 80.Count the distinct absolute values in the sorted array: 
+# Given an array of sorted integers that may contain several duplicate elements, 
+# count the total number of distinct absolute values in it.
+#
+# For example,
+#
+# Input:  { -1, -1, 0, 1, 1, 1 }
+# Output: The total number of distinct absolute values is 2 (0 and 1)
+#
+# Input:  { -2, -1, 0, 1, 2, 3 }
+# Output: The total number of distinct absolute values is 4 (0, 1, 2 and 3)
+#
+# Input:  { -1, -1, -1, -1 }
+# Output: The total number of distinct absolute values is 1 (only 1)
+
+# Solution============================================
+# This program will count the number of distinct absolute values in a sorted array.
+# We will create an empty array to store the absolute values.
+# Then, we will go through each number in the input array.
+# For every number, we will take its absolute value and add it to the new array.
+# After that, we will remove any duplicate numbers from the new array.
+# Finally, we will count how many numbers are left in the array and print it.
+
+def count_distinct_absolute_values(arr)
+  absolute_values = []  # create an empty array to store absolute values
+
+  arr.each do |num|  # go through each number in the input array
+    absolute_values.push(num.abs)  # take absolute value and add to the new array
+  end
+
+  unique_values = []  # create another empty array to store unique values
+
+  absolute_values.each do |value|  # go through each absolute value
+    if !unique_values.include?(value)  # if the value is not already in unique_values array
+      unique_values.push(value)  # add it to the unique_values array
+    end
+  end
+
+  puts "The total number of distinct absolute values is #{unique_values.length}"  # print the count
+end
+
+# Example inputs to test the program
+count_distinct_absolute_values([-1, -1, 0, 1, 1, 1])
+count_distinct_absolute_values([-2, -1, 0, 1, 2, 3])
+count_distinct_absolute_values([-1, -1, -1, -1])
+
+# Comment =============================================
+# We first made an empty array called absolute_values.
+# We looped through the input array and added absolute values of each number to absolute_values.
+# Then we made another empty array called unique_values to store numbers without duplicates.
+# We looped through absolute_values and added numbers to unique_values only if they were not already in it.
+# Finally, we printed how many numbers are in unique_values. That is our answer.
+
+# Math/Calculations ===================================
+# Example 1: Input = [-1, -1, 0, 1, 1, 1]
+# Absolute values = [1, 1, 0, 1, 1, 1]
+# Unique values = [1, 0]
+# Count = 2
+
+# Example 2: Input = [-2, -1, 0, 1, 2, 3]
+# Absolute values = [2, 1, 0, 1, 2, 3]
+# Unique values = [2, 1, 0, 3]
+# Count = 4
+
+# Example 3: Input = [-1, -1, -1, -1]
+# Absolute values = [1, 1, 1, 1]
+# Unique values = [1]
+# Count = 1
+
+# Output ==============================================
+# The total number of distinct absolute values is 2
+# The total number of distinct absolute values is 4
+# The total number of distinct absolute values is 1
+
 ## Problem =============================================
 # Keep exact problem text and do not change wording:
 # 79. Add elements of two arrays into a new array  
