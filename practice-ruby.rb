@@ -14,6 +14,96 @@
 
 # Output ==============================================
 # 
+# Problem =============================================
+# 82.Find all distinct combinations of given length — Part 2
+# Given an integer array, find all distinct combinations of a given length k.
+# For example,
+# Input:  {2, 3, 4}, k = 2
+# Output: {2, 3}, {2, 4}, {3, 4}
+# Input:  {1, 2, 1}, k = 2
+# Output: {1, 2}, {1, 1}, {2, 1}
+# The program should print all the distinct combinations, while preserving the relative order of elements as they appear in the array.
+
+# Solution============================================
+def find_combinations(array, k)
+ # Create empty array to store all combinations
+ result = []
+ 
+ # Get all possible combinations of length k
+ combinations = array.combination(k).to_a
+ 
+ # Remove duplicate combinations while keeping order
+ combinations.each do |combo|
+   # Only add combination if it is not already in result
+   unless result.include?(combo)
+     result.push(combo)
+   end
+ end
+ 
+ # Return the final result
+ return result
+end
+
+# Test the function with first example
+array1 = [2, 3, 4]
+k1 = 2
+combinations1 = find_combinations(array1, k1)
+
+# Print first example results
+puts "Input: #{array1}, k = #{k1}"
+puts "Output:"
+combinations1.each do |combo|
+ puts "{#{combo.join(', ')}}"
+end
+puts ""
+
+# Test the function with second example
+array2 = [1, 2, 1]
+k2 = 2
+combinations2 = find_combinations(array2, k2)
+
+# Print second example results
+puts "Input: #{array2}, k = #{k2}"
+puts "Output:"
+combinations2.each do |combo|
+ puts "{#{combo.join(', ')}}"
+end
+
+# Comment =============================================
+# This solution uses Ruby built in combination method to generate all possible combinations.
+# The combination method automatically preserves the relative order of elements from the original array.
+# We iterate through each generated combination and check if it already exists in our result array.
+# If the combination is new, we add it to the result array.
+# This approach ensures we get all distinct combinations without duplicates.
+# The time complexity depends on the number of combinations generated and the duplicate checking process.
+# The space complexity is determined by storing all the unique combinations in the result array.
+
+# Math/Calculations ===================================
+# For array [2, 3, 4] with k = 2:
+# Total possible combinations = C(3,2) = 3! / (2! * 1!) = 3
+# Combinations generated: [2,3], [2,4], [3,4]
+# All combinations are distinct, so final count = 3
+#
+# For array [1, 2, 1] with k = 2:
+# Total possible combinations = C(3,2) = 3! / (2! * 1!) = 3  
+# Combinations generated: [1,2], [1,1], [2,1]
+# All combinations are distinct due to different positions, so final count = 3
+#
+# The combination method treats elements at different positions as different even if values are same.
+# This is why [1,2] from positions 0,1 and [1,1] from positions 0,2 are both included.
+
+# Output ==============================================
+# Input: [2, 3, 4], k = 2
+# Output:
+# {2, 3}
+# {2, 4}
+# {3, 4}
+# 
+# Input: [1, 2, 1], k = 2
+# Output:
+# {1, 2}
+# {1, 1}
+# {2, 1}
 #Problem =============================================
 Keep exact problem text and do not change wording:
 81.Print all combinations of positive integers in increasing order that sum to a given number Write code to print all combinations of positive integers in increasing order that sum to a given positive number.
