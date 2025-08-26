@@ -14,6 +14,212 @@
 
 # Output ==============================================
 # 
+## Problem =============================================
+
+# Keep exact problem text and do not change wording:
+
+# 83.Find subarrays with given sum in an array.  Find subarrays with a given sum in an array
+
+# Given an integer array, find subarrays with a given sum in it.
+
+#
+
+# For example,
+
+#
+
+# Input: nums\[] = { 3, 4, -7, 1, 3, 3, 1, -4 }target = 7 Output: Subarrays with the given sum are { 3, 4 }{ 3, 4, -7, 1, 3, 3 }{ 1, 3, 3 }{ 3, 3, 1 }
+
+# Solution============================================
+
+# We will use a simple and clear method that checks every possible subarray.
+
+# A subarray is a group of elements that are next to each other in the array.
+
+# We will start at each position in the array.
+
+# From that start position, we will move to the right and add numbers one by one.
+
+# We will keep a running total for the current subarray.
+
+# If the running total equals the target sum, we will record that subarray.
+
+# This method is easy to understand and works even when there are negative numbers.
+
+# The cost in time is higher than more advanced methods, but it is very beginner friendly.
+
+# Comment =============================================
+
+# Why this method works:
+
+# 1. A subarray is defined by a start index and an end index.
+
+# 2. By trying every start index and growing the subarray to every possible end index,
+
+# we will see every possible subarray exactly one time.
+
+# 3. For each subarray, we maintain a running total. We do not repeat work for that subarray.
+
+# 4. When the running total matches the target, we save that subarray.
+
+# 5. This method does not skip any subarray, so it will find all correct answers.
+
+#
+
+# Notes for beginners:
+
+# 1. We use simple loops and simple data types.
+
+# 2. We use clear variable names so the steps are easy to follow.
+
+# 3. We print each found subarray in a clean and readable way.
+
+# Math/Calculations ===================================
+
+# Let n be the number of elements in the array.
+
+# Outer loop picks a start index. This happens n times in the worst case.
+
+# Inner loop grows the subarray from the start index to the end of the array.
+
+# The inner loop runs about n times on average across all starts.
+
+# So the number of checks is about n times n, which is n squared.
+
+# That is the time complexity: O(n squared).
+
+# The space used to store found subarrays depends on how many matches exist.
+
+# Printing a subarray is simple: we print a left brace, the numbers with commas, and a right brace.
+
+# Output ==============================================
+
+# Expected output with the sample input below:
+
+# Subarrays with the given sum:
+
+# { 3, 4 }
+
+# { 3, 4, -7, 1, 3, 3 }
+
+# { 1, 3, 3 }
+
+# { 3, 3, 1 }
+
+# Ruby code starts here
+
+# Define a method to find all subarrays that sum to the target
+
+def find\_subarrays\_with\_sum(numbers, target\_sum)
+
+# Create an empty list to store the result subarrays
+
+results = \[]
+
+# Loop over every possible start index
+
+start\_index = 0
+while start\_index < numbers.length
+\# For each start, reset the running total to zero
+running\_total = 0
+
+```
+# Now grow the subarray from start_index to the right
+end_index = start_index
+while end_index < numbers.length
+  # Add the current number to the running total
+  running_total = running_total + numbers[end_index]
+
+  # If the running total equals the target, save this subarray
+  if running_total == target_sum
+    # Slice the subarray from start_index to end_index
+    subarray = numbers[start_index..end_index]
+    # Add the subarray to the list of results
+    results << subarray
+  end
+
+  # Move the end index one step to the right
+  end_index = end_index + 1
+end
+
+# Move the start index one step to the right and repeat
+start_index = start_index + 1
+```
+
+end
+
+# Return all found subarrays
+
+return results
+end
+
+# Helper method to print subarrays in a readable way
+
+def print\_subarrays(subarrays)
+
+# If no subarrays were found, print a clear message
+
+if subarrays.length == 0
+puts "No subarrays found."
+return
+end
+
+# Print a header line
+
+puts "Subarrays with the given sum:"
+
+# Print each subarray in the requested format
+
+index = 0
+while index < subarrays.length
+subarray = subarrays\[index]
+
+```
+# Build a string like "{ 3, 4 }"
+# Start with a left brace and a space
+line = "{ "
+
+# Add the numbers separated by comma and space
+i = 0
+while i < subarray.length
+  # Convert number to string and add to the line
+  line = line + subarray[i].to_s
+
+  # Add a comma and a space if this is not the last number
+  if i < subarray.length - 1
+    line = line + ", "
+  end
+
+  # Move to the next number
+  i = i + 1
+end
+
+# Close with a space and a right brace
+line = line + " }"
+
+# Print the finished subarray line
+puts line
+
+# Move to the next subarray
+index = index + 1
+```
+
+end
+end
+
+# Sample input for testing
+
+numbers = \[3, 4, -7, 1, 3, 3, 1, -4]  # This is the given array from the example
+target\_sum = 7                         # This is the target sum from the example
+
+# Find all matching subarrays
+
+matching\_subarrays = find\_subarrays\_with\_sum(numbers, target\_sum)
+
+# Print the results
+
+print\_subarrays(matching\_subarrays)
+
 # Problem =============================================
 # 82.Find all distinct combinations of given length — Part 2
 # Given an integer array, find all distinct combinations of a given length k.
