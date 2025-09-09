@@ -14,6 +14,65 @@
 
 # Output ==============================================
 # 
+#Problem =============================================
+
+#Keep exact problem text and do not change wording:
+#84.Find the surpasser count for each element of an array. Given an integer array having distinct elements, find the surpasser count for each element in it. In other words, for each array element, find the total number of elements to its right, which are greater than it.
+
+#For example,
+
+#Input: { 4, 6, 3, 9, 7, 10 } Output: { 4, 3, 3, 1, 1, 0 }
+
+Solution============================================
+
+def find_surpasser_counts(numbers) # define a method that takes an array named numbers
+counts = Array.new(numbers.length, 0) # create an array named counts with the same length and fill it with zero
+# each position in counts will hold the surpasser count for the same position in numbers
+
+for left_index in 0...numbers.length # loop over each position from the start to the end of the array
+current_value = numbers[left_index] # read the value at the current left position
+greater_on_right_count = 0 # start a counter at zero for values that are greater and to the right
+
+for right_index in (left_index + 1)...numbers.length            # loop over positions that are to the right of the current left position
+  compare_value = numbers[right_index]                          # read the value at the current right position
+
+  if compare_value > current_value                              # check if the right value is greater than the left value
+    greater_on_right_count = greater_on_right_count + 1         # if it is greater, add one to the counter
+  end                                                           # end of the if check
+end                                                             # end of the inner loop over right positions
+
+counts[left_index] = greater_on_right_count                     # store the final count for this left position into the counts array
+
+
+end # end of the outer loop over left positions
+
+return counts # return the array of surpasser counts
+end # end of the method
+
+example run to show the result for the sample input # this part builds the input and prints the output
+
+input_numbers = [4, 6, 3, 9, 7, 10] # create the input array from the example
+result_counts = find_surpasser_counts(input_numbers) # call the method to compute surpasser counts
+formatted_output = "{ " + result_counts.join(", ") + " }" # format the output to match the example style with curly braces
+puts formatted_output # print the formatted output on the screen
+
+#Comment =============================================
+The idea is simple and clear.
+For each number, look to the right side only.
+Count how many numbers on the right side are greater than the current number.
+Save that count in the same position in the result array.
+This method uses two loops and is easy to read.
+The time cost is higher for very large arrays, but it is simple for learning.
+#Math/Calculations ===================================
+For the sample input, the steps are as follows.
+Position 0 has value 4. Right side values are 6, 3, 9, 7, 10. Greater ones are 6, 9, 7, 10. Count is 4.
+Position 1 has value 6. Right side values are 3, 9, 7, 10. Greater ones are 9, 7, 10. Count is 3.
+Position 2 has value 3. Right side values are 9, 7, 10. Greater ones are 9, 7, 10. Count is 3.
+Position 3 has value 9. Right side values are 7, 10. Greater one is 10. Count is 1.
+Position 4 has value 7. Right side value is 10. Greater one is 10. Count is 1.
+Position 5 has value 10. Right side has no values. Count is 0.
+#Output ==============================================
+For the input { 4, 6, 3, 9, 7, 10 } the output is { 4, 3, 3, 1, 1, 0 }
 ## Problem =============================================
 
 # Keep exact problem text and do not change wording:
