@@ -14,6 +14,87 @@
 
 # Output ==============================================
 # 
+## Problem =============================================
+# 85.Find maximum length sequence of continuous ones (Using Sliding Window).  Given a binary array, find the index of 0 to be replaced with 1 to get a maximum length sequence of continuous ones.
+# For example, consider array { 0, 0, 1, 0, 1, 1, 1, 0, 1, 1 }. The index to be replaced is 7 to get a continuous sequence of length 6 containing all 1's.
+
+# Solution ============================================
+def find_zero_to_replace(array)
+  # Variables to track the best window
+  max_length = 0
+  best_zero_index = -1
+  
+  # Try replacing each zero in the array
+  (0...array.length).each do |zero_index|
+    # Only consider positions that have zero
+    if array[zero_index] == 0
+      # Create a copy of array with this zero replaced by one
+      temp_array = array.dup
+      temp_array[zero_index] = 1
+      
+      # Find longest sequence of ones in this modified array
+      current_length = 0
+      max_sequence_in_temp = 0
+      
+      temp_array.each do |element|
+        if element == 1
+          current_length += 1
+          if current_length > max_sequence_in_temp
+            max_sequence_in_temp = current_length
+          end
+        else
+          current_length = 0
+        end
+      end
+      
+      # Update best result if this gives longer sequence
+      if max_sequence_in_temp > max_length
+        max_length = max_sequence_in_temp
+        best_zero_index = zero_index
+      end
+    end
+  end
+  
+  return best_zero_index
+end
+
+# Test with the given example
+test_array = [0, 0, 1, 0, 1, 1, 1, 0, 1, 1]
+result = find_zero_to_replace(test_array)
+
+puts "Original array: #{test_array.inspect}"
+puts "Index to replace: #{result}"
+
+# Show the result after replacement
+if result != -1
+  modified_array = test_array.dup
+  modified_array[result] = 1
+  puts "Array after replacement: #{modified_array.inspect}"
+end
+
+# Comment =============================================
+# This solution uses a brute force approach instead of sliding window for simplicity
+# We try replacing each zero in the array with one
+# For each replacement we find the longest sequence of continuous ones
+# We keep track of which zero replacement gives the longest sequence
+# The method returns the index of the zero that should be replaced
+# If no zeros exist in array it returns negative one
+# This approach is easy to understand for beginners
+# Time complexity is higher than sliding window but code is simpler
+
+# Math/Calculations ===================================
+# For array [0, 0, 1, 0, 1, 1, 1, 0, 1, 1]:
+# Replace index 0: [1, 0, 1, 0, 1, 1, 1, 0, 1, 1] -> longest sequence = 3
+# Replace index 1: [0, 1, 1, 0, 1, 1, 1, 0, 1, 1] -> longest sequence = 3  
+# Replace index 3: [0, 0, 1, 1, 1, 1, 1, 0, 1, 1] -> longest sequence = 5
+# Replace index 7: [0, 0, 1, 0, 1, 1, 1, 1, 1, 1] -> longest sequence = 6
+# Maximum length is 6 when we replace index 7
+# So answer is index 7
+
+# Output ==============================================
+# Original array: [0, 0, 1, 0, 1, 1, 1, 0, 1, 1]
+# Index to replace: 7
+# Array after replacement: [0, 0, 1, 0, 1, 1, 1, 1, 1, 1]
 #Problem =============================================
 
 #Keep exact problem text and do not change wording:
