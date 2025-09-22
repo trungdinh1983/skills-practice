@@ -14,6 +14,81 @@
 
 # Output ==============================================
 # 
+# Problem =============================================
+# 86 Given a binary array, find the index of 0 to be replaced with 1 to get a maximum length sequence of continuous ones.
+# For example, consider the array [0, 0, 1, 0, 1, 1, 1, 0, 1, 1]. We need to replace index 7 to get the continuous sequence of length 6 containing all 1's.
+
+# Solution ============================================
+def find_best_zero_to_replace(array)
+  best_index = -1
+  max_length = 0
+  
+  # Try replacing each zero with one and check the resulting sequence length
+  (0...array.length).each do |i|
+    if array[i] == 0
+      # Create a copy of the array with zero at index i replaced by one
+      temp_array = array.dup
+      temp_array[i] = 1
+      
+      # Find the longest sequence of continuous ones that includes position i
+      length = find_continuous_ones_at_position(temp_array, i)
+      
+      # Update best result if this gives a longer sequence
+      if length > max_length
+        max_length = length
+        best_index = i
+      end
+    end
+  end
+  
+  return best_index, max_length
+end
+
+def find_continuous_ones_at_position(array, position)
+  # Find the start of the continuous sequence containing the position
+  start = position
+  while start > 0 && array[start - 1] == 1
+    start -= 1
+  end
+  
+  # Find the end of the continuous sequence containing the position
+  end_pos = position
+  while end_pos < array.length - 1 && array[end_pos + 1] == 1
+    end_pos += 1
+  end
+  
+  # Return the length of the sequence
+  return end_pos - start + 1
+end
+
+# Comment =============================================
+# This solution works by trying to replace each zero in the array with one.
+# For each replacement, we calculate the length of the continuous ones sequence that would result.
+# We keep track of which zero replacement gives us the longest sequence.
+# The find_continuous_ones_at_position method helps us find the length of ones sequence at any position.
+# It expands left and right from the given position to count all continuous ones.
+# We use array.dup to create a copy so we do not modify the original array.
+# The method returns both the index of the best zero to replace and the resulting sequence length.
+
+# Math/Calculations ===================================
+# For the example array [0, 0, 1, 0, 1, 1, 1, 0, 1, 1]:
+# Index 0: Replace 0 with 1 gives [1, 0, 1, 0, 1, 1, 1, 0, 1, 1] - sequence length at position 0 is 1
+# Index 1: Replace 0 with 1 gives [0, 1, 1, 0, 1, 1, 1, 0, 1, 1] - sequence length at position 1 is 2
+# Index 3: Replace 0 with 1 gives [0, 0, 1, 1, 1, 1, 1, 0, 1, 1] - sequence length at position 3 is 5
+# Index 7: Replace 0 with 1 gives [0, 0, 1, 0, 1, 1, 1, 1, 1, 1] - sequence length at position 7 is 6
+# Maximum length is 6 when we replace index 7
+
+# Output ==============================================
+array = [0, 0, 1, 0, 1, 1, 1, 0, 1, 1]
+index, length = find_best_zero_to_replace(array)
+puts "Original array: #{array}"
+puts "Best zero to replace is at index: #{index}"
+puts "Maximum continuous ones length: #{length}"
+
+# Test with the replacement
+test_array = array.dup
+test_array[index] = 1
+puts "Array after replacement: #{test_array}"
 ## Problem =============================================
 # 85.Find maximum length sequence of continuous ones (Using Sliding Window).  Given a binary array, find the index of 0 to be replaced with 1 to get a maximum length sequence of continuous ones.
 # For example, consider array { 0, 0, 1, 0, 1, 1, 1, 0, 1, 1 }. The index to be replaced is 7 to get a continuous sequence of length 6 containing all 1's.
