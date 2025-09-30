@@ -14,6 +14,129 @@
 
 # Output ==============================================
 # 
+## Problem =============================================
+# 87. Merging Overlapping Intervals. Given a set of intervals, print all non-overlapping intervals after merging the overlapping intervals.
+# For example,
+# Input: {1, 5}, {2, 3}, {4, 6}, {7, 8}, {8, 10}, {12, 15}
+# Output: Intervals after merging overlapping intervals are {1, 6}, {7, 10}, {12, 15}.
+
+# Solution ============================================
+
+def merge_intervals(intervals)
+  # First step: Check if the array is empty
+  # If empty, return an empty array
+  return [] if intervals.empty?
+  
+  # Second step: Sort all intervals by their starting point
+  # This means we arrange them in order from smallest start to largest start
+  sorted_intervals = intervals.sort_by { |interval| interval[0] }
+  
+  # Third step: Create an array to store our merged results
+  # We start by adding the first interval to our result
+  merged = [sorted_intervals[0]]
+  
+  # Fourth step: Go through each remaining interval one by one
+  # We start from the second interval (index 1) and check each one
+  sorted_intervals[1..-1].each do |current_interval|
+    # Get the last interval we added to our merged array
+    last_merged = merged[-1]
+    
+    # Fifth step: Check if current interval overlaps with last merged interval
+    # Two intervals overlap if the start of current is less than or equal to end of last
+    if current_interval[0] <= last_merged[1]
+      # Sixth step: If they overlap, we merge them
+      # We keep the smaller start point (already have it)
+      # We take the larger end point between the two intervals
+      last_merged[1] = [last_merged[1], current_interval[1]].max
+    else
+      # Seventh step: If they do not overlap, add current interval as new separate interval
+      merged << current_interval
+    end
+  end
+  
+  # Eighth step: Return the array of merged intervals
+  return merged
+end
+
+# Test with the example from the problem
+intervals = [[1, 5], [2, 3], [4, 6], [7, 8], [8, 10], [12, 15]]
+result = merge_intervals(intervals)
+
+# Print the result
+puts "Input intervals:"
+intervals.each do |interval|
+  print "{#{interval[0]}, #{interval[1]}}, "
+end
+puts "\n\nOutput intervals after merging:"
+result.each do |interval|
+  print "{#{interval[0]}, #{interval[1]}}, "
+end
+puts ""
+
+# Comment =============================================
+# This problem is about combining intervals that overlap with each other.
+# An interval is a range of numbers with a start and an end.
+# Two intervals overlap when one starts before the other one ends.
+# For example, interval {1, 5} and interval {2, 3} overlap because 2 is between 1 and 5.
+# When intervals overlap, we merge them into one bigger interval.
+# The merged interval starts at the earliest start point and ends at the latest end point.
+#
+# The key insight is to sort intervals first by their starting points.
+# After sorting, we only need to compare each interval with the last merged interval.
+# If the current interval starts before or when the last merged interval ends, they overlap.
+# We then update the end point of the last merged interval to be the maximum of both end points.
+# If the current interval starts after the last merged interval ends, they do not overlap.
+# In that case, we add the current interval as a new separate interval to our result.
+#
+# We use an array to represent each interval with two elements: start and end.
+# The first element is the start point and the second element is the end point.
+# We use the sort by method to arrange intervals in ascending order of start points.
+# We iterate through sorted intervals and compare each one with the last merged interval.
+# The time complexity is O(n log n) because of sorting where n is number of intervals.
+# The space complexity is O(n) for storing the merged result.
+
+# Math/Calculations ===================================
+# Example walkthrough with input: {1, 5}, {2, 3}, {4, 6}, {7, 8}, {8, 10}, {12, 15}
+#
+# Step 1: Sort intervals by start point
+# Already sorted: {1, 5}, {2, 3}, {4, 6}, {7, 8}, {8, 10}, {12, 15}
+#
+# Step 2: Initialize merged array with first interval
+# merged = [{1, 5}]
+#
+# Step 3: Process {2, 3}
+# Compare: Does 2 <= 5? Yes, they overlap
+# Merge: Keep start 1, take max of ends: max(5, 3) = 5
+# merged = [{1, 5}]
+#
+# Step 4: Process {4, 6}
+# Compare: Does 4 <= 5? Yes, they overlap
+# Merge: Keep start 1, take max of ends: max(5, 6) = 6
+# merged = [{1, 6}]
+#
+# Step 5: Process {7, 8}
+# Compare: Does 7 <= 6? No, they do not overlap
+# Add as new interval
+# merged = [{1, 6}, {7, 8}]
+#
+# Step 6: Process {8, 10}
+# Compare: Does 8 <= 8? Yes, they overlap
+# Merge: Keep start 7, take max of ends: max(8, 10) = 10
+# merged = [{1, 6}, {7, 10}]
+#
+# Step 7: Process {12, 15}
+# Compare: Does 12 <= 10? No, they do not overlap
+# Add as new interval
+# merged = [{1, 6}, {7, 10}, {12, 15}]
+#
+# Final result: {1, 6}, {7, 10}, {12, 15}
+
+# Output ==============================================
+# Input intervals:
+# {1, 5}, {2, 3}, {4, 6}, {7, 8}, {8, 10}, {12, 15},
+#
+# Output intervals after merging:
+# {1, 6}, {7, 10}, {12, 15},
 # Problem =============================================
 # 86 Given a binary array, find the index of 0 to be replaced with 1 to get a maximum length sequence of continuous ones.
 # For example, consider the array [0, 0, 1, 0, 1, 1, 1, 0, 1, 1]. We need to replace index 7 to get the continuous sequence of length 6 containing all 1's.
