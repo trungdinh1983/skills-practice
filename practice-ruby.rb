@@ -15,6 +15,102 @@
 # Output ==============================================
 # 
 ## Problem =============================================
+# 88. Activity Selection Problem: Given a set of activities, along with the starting and finishing time of each activity, find the maximum number of activities performed by a single person assuming that a person can only work on a single activity at a time.
+# For example,
+# Input: Following set of activities (1, 4), (3, 5), (0, 6), (5, 7), (3, 8), (5, 9), (6, 10), (8, 11), (8, 12), (2, 13), (12, 14)
+# Output: (1, 4), (5, 7), (8, 11), (12, 14)
+
+# Solution ============================================
+# Define the list of activities with start and finish times
+activities = [
+  [1, 4],
+  [3, 5],
+  [0, 6],
+  [5, 7],
+  [3, 8],
+  [5, 9],
+  [6, 10],
+  [8, 11],
+  [8, 12],
+  [2, 13],
+  [12, 14]
+]
+
+# Sort activities by finish time in ascending order
+# This means activities that end earlier come first
+sorted_activities = activities.sort_by { |activity| activity[1] }
+
+# Create an empty array to store selected activities
+selected = []
+
+# Add the first activity from sorted list
+# The first activity always gets selected because it finishes earliest
+selected.push(sorted_activities[0])
+
+# Keep track of the finish time of last selected activity
+last_finish_time = sorted_activities[0][1]
+
+# Loop through remaining activities starting from index 1
+index = 1
+while index < sorted_activities.length
+  current_activity = sorted_activities[index]
+  current_start_time = current_activity[0]
+  current_finish_time = current_activity[1]
+  
+  # Check if current activity starts after or when last activity finishes
+  # If yes, we can select this activity without conflict
+  if current_start_time >= last_finish_time
+    selected.push(current_activity)
+    last_finish_time = current_finish_time
+  end
+  
+  # Move to next activity
+  index = index + 1
+end
+
+# Print the result
+puts "Maximum number of activities: #{selected.length}"
+puts "Selected activities:"
+selected.each do |activity|
+  puts "(#{activity[0]}, #{activity[1]})"
+end
+
+# Comment =============================================
+# The greedy approach works here because we always pick the activity that finishes earliest.
+# This strategy gives us the most remaining time for other activities.
+# By sorting activities by finish time, we ensure we consider the best options first.
+# We only select an activity if it starts after the previously selected activity ends.
+# This guarantees no two selected activities overlap in time.
+# The first activity in the sorted list is always selected as a starting point.
+# Then we iterate through the rest and pick compatible activities.
+# An activity is compatible if its start time is greater than or equal to the finish time of the last selected activity.
+# This solution is optimal and gives the maximum number of non overlapping activities.
+
+# Math/Calculations ===================================
+# Step 1: Original activities list has 11 activities total
+# Step 2: After sorting by finish time we get:
+#   (1, 4), (3, 5), (0, 6), (5, 7), (3, 8), (5, 9), (6, 10), (8, 11), (8, 12), (2, 13), (12, 14)
+# Step 3: Select first activity (1, 4) with finish time 4
+# Step 4: Check (3, 5) with start time 3, since 3 is less than 4, skip it
+# Step 5: Check (0, 6) with start time 0, since 0 is less than 4, skip it
+# Step 6: Check (5, 7) with start time 5, since 5 is greater than or equal to 4, select it, update finish time to 7
+# Step 7: Check (3, 8) with start time 3, since 3 is less than 7, skip it
+# Step 8: Check (5, 9) with start time 5, since 5 is less than 7, skip it
+# Step 9: Check (6, 10) with start time 6, since 6 is less than 7, skip it
+# Step 10: Check (8, 11) with start time 8, since 8 is greater than or equal to 7, select it, update finish time to 11
+# Step 11: Check (8, 12) with start time 8, since 8 is less than 11, skip it
+# Step 12: Check (2, 13) with start time 2, since 2 is less than 11, skip it
+# Step 13: Check (12, 14) with start time 12, since 12 is greater than or equal to 11, select it, update finish time to 14
+# Final result: 4 activities selected
+
+# Output ==============================================
+# Maximum number of activities: 4
+# Selected activities:
+# (1, 4)
+# (5, 7)
+# (8, 11)
+# (12, 14)
+## Problem =============================================
 # 87. Merging Overlapping Intervals. Given a set of intervals, print all non-overlapping intervals after merging the overlapping intervals.
 # For example,
 # Input: {1, 5}, {2, 3}, {4, 6}, {7, 8}, {8, 10}, {12, 15}
