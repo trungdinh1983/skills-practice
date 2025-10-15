@@ -15,6 +15,111 @@
 # Output ==============================================
 # 
 ## Problem =============================================
+# 89. Job Sequencing Problem with Deadlines. Given a list of tasks with deadlines and total profit earned on completing a task, find the maximum profit earned by executing the tasks within the specified deadlines. Assume that each task takes one unit of time to complete, and a task can't execute beyond its deadline. Also, only a single task will be executed at a time.
+
+# Solution ============================================
+
+# Create a structure to hold task information
+tasks = [
+  {id: 1, deadline: 9, profit: 15},
+  {id: 2, deadline: 2, profit: 2},
+  {id: 3, deadline: 5, profit: 18},
+  {id: 4, deadline: 7, profit: 1},
+  {id: 5, deadline: 4, profit: 25},
+  {id: 6, deadline: 2, profit: 20},
+  {id: 7, deadline: 5, profit: 8},
+  {id: 8, deadline: 7, profit: 10},
+  {id: 9, deadline: 4, profit: 12},
+  {id: 10, deadline: 3, profit: 5}
+]
+
+# Sort tasks by profit in descending order (highest profit first)
+# This is a greedy approach where we prefer high profit tasks
+sorted_tasks = tasks.sort_by { |task| -task[:profit] }
+
+# Find the maximum deadline to know how many time slots we have
+maximum_deadline = 0
+tasks.each do |task|
+  if task[:deadline] > maximum_deadline
+    maximum_deadline = task[:deadline]
+  end
+end
+
+# Create an array to track which time slots are filled
+# Each index represents a time slot (0 to maximum_deadline minus 1)
+# We use minus 1 to indicate an empty slot
+time_slots = Array.new(maximum_deadline, -1)
+
+# Variables to store results
+total_profit = 0
+selected_tasks = []
+
+# Try to schedule each task starting from highest profit
+sorted_tasks.each do |task|
+  # Try to find a time slot for this task
+  # We start from the deadline and go backwards
+  # We look for the latest available slot before the deadline
+  slot_index = task[:deadline] - 1
+  
+  # Find an empty slot starting from the deadline and going backwards
+  while slot_index >= 0
+    if time_slots[slot_index] == -1
+      # Found an empty slot, schedule this task here
+      time_slots[slot_index] = task[:id]
+      total_profit = total_profit + task[:profit]
+      selected_tasks.push(task[:id])
+      break
+    end
+    slot_index = slot_index - 1
+  end
+end
+
+# Sort the selected tasks by id for display
+selected_tasks.sort!
+
+# Comment =============================================
+# This problem uses a greedy algorithm approach.
+# Step 1: We sort all tasks by profit in descending order. This means we look at the most profitable tasks first.
+# Step 2: We create an array to represent time slots. Each position in the array is one unit of time.
+# Step 3: For each task starting from the highest profit, we try to schedule it.
+# Step 4: We try to place each task as late as possible but before its deadline. This gives us flexibility for future tasks.
+# Step 5: We start from the deadline position and move backwards to find an empty slot.
+# Step 6: If we find an empty slot, we schedule the task there and add its profit to our total.
+# Step 7: If no slot is available before the deadline, we skip that task.
+# The greedy approach works here because scheduling high profit tasks first and as late as possible maximizes our total profit.
+
+# Math/Calculations ===================================
+# Sorting tasks by profit (descending order):
+# Task 5: profit 25, deadline 4
+# Task 6: profit 20, deadline 2
+# Task 3: profit 18, deadline 5
+# Task 1: profit 15, deadline 9
+# Task 9: profit 12, deadline 4
+# Task 8: profit 10, deadline 7
+# Task 7: profit 8, deadline 5
+# Task 10: profit 5, deadline 3
+# Task 4: profit 1, deadline 7
+# Task 2: profit 2, deadline 2
+#
+# Scheduling process:
+# Task 5 (profit 25, deadline 4): Schedule at slot 3 (time 4). Profit = 25
+# Task 6 (profit 20, deadline 2): Schedule at slot 1 (time 2). Profit = 25 + 20 = 45
+# Task 3 (profit 18, deadline 5): Schedule at slot 4 (time 5). Profit = 45 + 18 = 63
+# Task 1 (profit 15, deadline 9): Schedule at slot 8 (time 9). Profit = 63 + 15 = 78
+# Task 9 (profit 12, deadline 4): Schedule at slot 2 (time 3). Profit = 78 + 12 = 90
+# Task 8 (profit 10, deadline 7): Schedule at slot 6 (time 7). Profit = 90 + 10 = 100
+# Task 7 (profit 8, deadline 5): Schedule at slot 0 (time 1). Profit = 100 + 8 = 108
+# Task 10 (profit 5, deadline 3): All slots before deadline are filled. Cannot schedule. Skipped.
+# Task 4 (profit 1, deadline 7): Schedule at slot 5 (time 6). Profit = 108 + 1 = 109
+# Task 2 (profit 2, deadline 2): All slots before deadline are filled. Cannot schedule. Skipped.
+#
+# Selected tasks: 1, 3, 4, 5, 6, 7, 8, 9
+# Maximum profit: 109
+
+# Output ==============================================
+puts "Selected Tasks: #{selected_tasks.join(', ')}"
+puts "Maximum Profit: #{total_profit}"
+## Problem =============================================
 # 88. Activity Selection Problem: Given a set of activities, along with the starting and finishing time of each activity, find the maximum number of activities performed by a single person assuming that a person can only work on a single activity at a time.
 # For example,
 # Input: Following set of activities (1, 4), (3, 5), (0, 6), (5, 7), (3, 8), (5, 9), (6, 10), (8, 11), (8, 12), (2, 13), (12, 14)
