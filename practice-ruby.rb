@@ -15,6 +15,203 @@
 # Output ==============================================
 # 
 ## Problem =============================================
+# Keep exact problem text and do not change wording: 
+# 90.Introduction to Priority Queues using Binary Heaps : Introduction to Priority Queues using Binary Heaps
+# This article will introduce a significant data structure, priority queue, and discuss how we can implement them using (Binary) Heaps.
+# 
+# Priority Queue
+# A priority queue is an ADT (Abstract Data Type) for maintaining a set S of elements, with each element having a "priority" associated with it. In a priority queue, an element with high priority is served before an element with low priority and vice versa. If two elements have the same priority, they are served according to their order in the queue. It basically supports the following operations:
+# 
+# push(x): inserts an element x in set S – usually an O(log(n)) operation.
+# top() or peek(): returns the element of S with highest (or lowest) priority (but does not modify the queue) – O(1) operation.
+# pop(): returns and removes the element of S with highest (or lowest) priority – usually an O(log(n)) operation.
+# Heap Data Structure
+# Heap data structure can be used to implement a priority queue. A heap data structure should not be confused with the heap, a pool of memory used for dynamic memory allocation. A common implementation of a heap is the binary heap, which is defined as a binary tree with two additional properties:
+# 
+# Structural property: A binary heap is a complete binary tree, i.e., all levels of the tree, except possibly the last one (deepest) are fully filled, and, if the last level of the tree is not complete, the nodes of that level are filled from left to right.
+# Heap Property: The key stored in each node is either "greater than or equal to" or "less than or equal to" the keys in the node's children.
+
+# Solution ============================================
+
+class MinHeap
+  def initialize
+    # Create an empty array to store heap elements
+    @heap = []
+  end
+  
+  def push(value)
+    # Add new element at the end of array
+    @heap.push(value)
+    # Move the element up to maintain heap property
+    bubble_up(@heap.length - 1)
+  end
+  
+  def peek
+    # Return the first element without removing it
+    # This is the minimum element in a min heap
+    return @heap[0]
+  end
+  
+  def pop
+    # Return nil if heap is empty
+    return nil if @heap.empty?
+    
+    # Store the minimum value to return later
+    minimum_value = @heap[0]
+    
+    # Move last element to root position
+    @heap[0] = @heap[@heap.length - 1]
+    # Remove the last element
+    @heap.pop
+    
+    # Move the root element down to maintain heap property
+    bubble_down(0) if !@heap.empty?
+    
+    return minimum_value
+  end
+  
+  def size
+    return @heap.length
+  end
+  
+  def empty?
+    return @heap.empty?
+  end
+  
+  private
+  
+  def bubble_up(index)
+    # Stop if we reach the root
+    return if index == 0
+    
+    # Calculate parent index
+    parent_index = (index - 1) / 2
+    
+    # If current element is smaller than parent, swap them
+    if @heap[index] < @heap[parent_index]
+      # Swap elements
+      temp = @heap[index]
+      @heap[index] = @heap[parent_index]
+      @heap[parent_index] = temp
+      
+      # Continue bubbling up from parent position
+      bubble_up(parent_index)
+    end
+  end
+  
+  def bubble_down(index)
+    # Calculate children indices
+    left_child_index = 2 * index + 1
+    right_child_index = 2 * index + 2
+    
+    # Find the smallest element among parent and children
+    smallest_index = index
+    
+    # Check if left child exists and is smaller
+    if left_child_index < @heap.length && @heap[left_child_index] < @heap[smallest_index]
+      smallest_index = left_child_index
+    end
+    
+    # Check if right child exists and is smaller
+    if right_child_index < @heap.length && @heap[right_child_index] < @heap[smallest_index]
+      smallest_index = right_child_index
+    end
+    
+    # If smallest is not the parent, swap and continue
+    if smallest_index != index
+      # Swap elements
+      temp = @heap[index]
+      @heap[index] = @heap[smallest_index]
+      @heap[smallest_index] = temp
+      
+      # Continue bubbling down from new position
+      bubble_down(smallest_index)
+    end
+  end
+end
+
+# Demonstration of priority queue operations
+priority_queue = MinHeap.new
+
+# Push elements into the priority queue
+puts "Adding elements to priority queue..."
+priority_queue.push(10)
+puts "Added 10"
+priority_queue.push(5)
+puts "Added 5"
+priority_queue.push(20)
+puts "Added 20"
+priority_queue.push(3)
+puts "Added 3"
+priority_queue.push(15)
+puts "Added 15"
+
+puts ""
+puts "Current minimum element (peek): #{priority_queue.peek}"
+
+puts ""
+puts "Removing elements from priority queue..."
+while !priority_queue.empty?
+  removed = priority_queue.pop
+  puts "Removed: #{removed}"
+end
+
+# Comment =============================================
+# This code implements a minimum heap which works as a priority queue.
+# In a minimum heap, smaller numbers have higher priority.
+# The heap is stored as an array where each element follows these rules:
+# For any element at position index:
+# - Its left child is at position (2 * index + 1)
+# - Its right child is at position (2 * index + 2)  
+# - Its parent is at position ((index - 1) / 2)
+# 
+# The push method adds a new element and maintains heap property by
+# moving it up if needed. This is called bubble up or heapify up.
+# 
+# The pop method removes the minimum element (root) and maintains 
+# heap property by moving the last element to root and then moving
+# it down if needed. This is called bubble down or heapify down.
+# 
+# The peek method just returns the root element without removing it.
+# Since the root is always the minimum, this is very fast.
+
+# Math/Calculations ===================================
+# Time complexity for operations:
+# - Push operation: O(log n) where n is number of elements
+#   Worst case: element needs to move from bottom to top
+#   Number of comparisons equals height of tree = log base 2 of n
+# 
+# - Pop operation: O(log n) where n is number of elements  
+#   Worst case: element needs to move from top to bottom
+#   Number of comparisons equals height of tree = log base 2 of n
+# 
+# - Peek operation: O(1) constant time
+#   Just returns the first element of array
+# 
+# Space complexity: O(n) where n is number of elements
+# We store all elements in an array
+# 
+# Example with 5 elements:
+# Height of heap = floor(log base 2 of 5) = floor(2.32) = 2
+# Maximum comparisons for push or pop = 2
+
+# Output ==============================================
+# Adding elements to priority queue...
+# Added 10
+# Added 5
+# Added 20
+# Added 3
+# Added 15
+# 
+# Current minimum element (peek): 3
+# 
+# Removing elements from priority queue...
+# Removed: 3
+# Removed: 5
+# Removed: 10
+# Removed: 15
+# Removed: 20
+## Problem =============================================
 # 89. Job Sequencing Problem with Deadlines. Given a list of tasks with deadlines and total profit earned on completing a task, find the maximum profit earned by executing the tasks within the specified deadlines. Assume that each task takes one unit of time to complete, and a task can't execute beyond its deadline. Also, only a single task will be executed at a time.
 
 # Solution ============================================
