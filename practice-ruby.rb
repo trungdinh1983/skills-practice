@@ -16,6 +16,53 @@
 # 
 ## Problem =============================================
 # Keep exact problem text and do not change wording: 
+# Select: Less than 100 ; Given an array of numbers, write a function that returns a new array that contains all numbers from the original array that are less than 100.
+# Input: [99, 101, 88, 4, 2000, 50]
+# Output: [99, 88, 4, 50]
+
+# Solution ============================================
+def select_less_than_100(array_of_numbers)
+  result_array = []
+  
+  array_of_numbers.each do |number|
+    if number < 100
+      result_array.push(number)
+    end
+  end
+  
+  return result_array
+end
+
+# Test the function with the given input
+input_array = [99, 101, 88, 4, 2000, 50]
+output_array = select_less_than_100(input_array)
+puts output_array.inspect
+
+# Comment =============================================
+# This function works by creating an empty array to store our results.
+# We then go through each number in the original array one by one.
+# For each number, we check if it is less than one hundred.
+# If the number is less than one hundred, we add it to our result array.
+# If the number is not less than one hundred, we skip it.
+# After checking all numbers, we return the result array.
+# The method is called select_less_than_100 to describe what it does.
+# We use the each method to loop through every element in the array.
+# The push method adds an element to the end of an array.
+# The if statement checks our condition which is number less than one hundred.
+
+# Math/Calculations ===================================
+# We compare each number with one hundred:
+# First number is ninety nine: ninety nine is less than one hundred so we keep it
+# Second number is one hundred and one: one hundred and one is not less than one hundred so we skip it  
+# Third number is eighty eight: eighty eight is less than one hundred so we keep it
+# Fourth number is four: four is less than one hundred so we keep it
+# Fifth number is two thousand: two thousand is not less than one hundred so we skip it
+# Sixth number is fifty: fifty is less than one hundred so we keep it
+
+# Output ==============================================
+# [99, 88, 4, 50]
+## Problem =============================================
+# Keep exact problem text and do not change wording: 
 # 90.Introduction to Priority Queues using Binary Heaps : Introduction to Priority Queues using Binary Heaps
 # This article will introduce a significant data structure, priority queue, and discuss how we can implement them using (Binary) Heaps.
 # 
