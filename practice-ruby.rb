@@ -5,7 +5,10 @@
 #
 # Solution============================================
 
+# Problem =============================================
 
+
+# Solution============================================
 
 # Comment =============================================
 
@@ -14,9 +17,162 @@
 
 # Output ==============================================
 # 
+# Problem =============================================
+# 91. Emergency Room Patient Management System:
+# You're building a patient management system for an emergency room. Patients arrive with different priority levels (1-5, where 1 is most critical), and you need to ensure the most critical patients are seen first.
+
+# Solution============================================
+# Create a simple patient class to store patient information
+class Patient
+  # Create attributes that can be read and written
+  attr_accessor :name, :priority, :arrival_time
+  
+  # Initialize method runs when we create a new patient
+  def initialize(name, priority, arrival_time)
+    @name = name
+    @priority = priority
+    @arrival_time = arrival_time
+  end
+end
+
+# Create an emergency room class to manage all patients
+class EmergencyRoom
+  # Initialize method sets up an empty array to store patients
+  def initialize
+    @patients = []
+  end
+  
+  # Method to add a new patient to the emergency room
+  def add_patient(name, priority, arrival_time)
+    # Create a new patient object
+    new_patient = Patient.new(name, priority, arrival_time)
+    # Add the patient to our array
+    @patients.push(new_patient)
+    puts "Patient #{name} added with priority #{priority}"
+  end
+  
+  # Method to get the next patient who should be seen
+  def get_next_patient
+    # Check if there are any patients waiting
+    if @patients.empty?
+      puts "No patients waiting"
+      return nil
+    end
+    
+    # Sort patients by priority first then by arrival time
+    # Lower priority number means more critical
+    @patients.sort! do |patient_a, patient_b|
+      if patient_a.priority == patient_b.priority
+        # If priority is same then check who arrived first
+        patient_a.arrival_time <=> patient_b.arrival_time
+      else
+        # Otherwise sort by priority number
+        patient_a.priority <=> patient_b.priority
+      end
+    end
+    
+    # Remove and return the first patient from sorted list
+    next_patient = @patients.shift
+    return next_patient
+  end
+  
+  # Method to show all patients currently waiting
+  def show_waiting_patients
+    if @patients.empty?
+      puts "No patients currently waiting"
+      return
+    end
+    
+    puts "Patients currently waiting:"
+    # Sort patients for display without changing original array
+    sorted_patients = @patients.sort do |patient_a, patient_b|
+      if patient_a.priority == patient_b.priority
+        patient_a.arrival_time <=> patient_b.arrival_time
+      else
+        patient_a.priority <=> patient_b.priority
+      end
+    end
+    
+    # Display each patient with their information
+    sorted_patients.each_with_index do |patient, index|
+      puts "#{index + 1}. #{patient.name} - Priority: #{patient.priority} - Arrival: #{patient.arrival_time}"
+    end
+  end
+end
+
+# Create a new emergency room
+emergency_room = EmergencyRoom.new
+
+# Add some patients with different priorities and arrival times
+emergency_room.add_patient("John Smith", 3, "09:00")
+emergency_room.add_patient("Mary Johnson", 1, "09:15")
+emergency_room.add_patient("Bob Wilson", 2, "09:10")
+emergency_room.add_patient("Alice Brown", 1, "09:20")
+emergency_room.add_patient("Tom Davis", 4, "09:05")
+
+puts "\n"
+# Show all waiting patients
+emergency_room.show_waiting_patients
+
+puts "\n"
+# Process patients in order of priority
+puts "Processing patients in priority order:"
+5.times do
+  patient = emergency_room.get_next_patient
+  if patient
+    puts "Now seeing: #{patient.name} (Priority #{patient.priority})"
+  end
+end
+
+# Comment =============================================
+# This program creates a patient management system for an emergency room.
+# It uses two classes to organize the code clearly.
+# The Patient class stores information about each patient including their name,
+# priority level from one to five, and the time they arrived.
+# The EmergencyRoom class manages all the patients using an array.
+# When we need to find the next patient to see, we sort them first by priority
+# where lower numbers mean more critical cases.
+# If two patients have the same priority, we look at who arrived first.
+# The program uses simple Ruby methods like sort and shift to manage the patient queue.
+# The sort method arranges patients in the correct order.
+# The shift method removes and returns the first patient from the array.
+# This ensures the most critical patients are always seen first.
+
+# Math/Calculations ===================================
+# Priority levels range from one to five where one is most critical.
+# When sorting, we compare priority numbers directly.
+# Lower priority number comes before higher priority number.
+# For example, priority one comes before priority two.
+# If two patients have priority one, we compare arrival times.
+# Earlier arrival time comes before later arrival time.
+# The spaceship operator (<=>) returns negative one, zero, or positive one.
+# It returns negative one if first item should come before second item.
+# It returns zero if both items are equal.
+# It returns positive one if first item should come after second item.
+
+# Output ==============================================
+# Patient John Smith added with priority 3
+# Patient Mary Johnson added with priority 1
+# Patient Bob Wilson added with priority 2
+# Patient Alice Brown added with priority 1
+# Patient Tom Davis added with priority 4
+# 
+# Patients currently waiting:
+# 1. Mary Johnson - Priority: 1 - Arrival: 09:15
+# 2. Alice Brown - Priority: 1 - Arrival: 09:20
+# 3. Bob Wilson - Priority: 2 - Arrival: 09:10
+# 4. John Smith - Priority: 3 - Arrival: 09:00
+# 5. Tom Davis - Priority: 4 - Arrival: 09:05
+# 
+# Processing patients in priority order:
+# Now seeing: Mary Johnson (Priority 1)
+# Now seeing: Alice Brown (Priority 1)
+# Now seeing: Bob Wilson (Priority 2)
+# Now seeing: John Smith (Priority 3)
+# Now seeing: Tom Davis (Priority 4)
 ## Problem =============================================
 # Keep exact problem text and do not change wording: 
-# Select: Less than 100 ; Given an array of numbers, write a function that returns a new array that contains all numbers from the original array that are less than 100.
+# 90. Select: Less than 100 ; Given an array of numbers, write a function that returns a new array that contains all numbers from the original array that are less than 100.
 # Input: [99, 101, 88, 4, 2000, 50]
 # Output: [99, 88, 4, 50]
 
