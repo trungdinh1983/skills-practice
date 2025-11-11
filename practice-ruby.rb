@@ -6,7 +6,7 @@
 # Solution============================================
 
 # Problem =============================================
-
+#Keep exact or generate simplify problem text and do not change wording: 
 
 # Solution============================================
 
@@ -17,6 +17,136 @@
 
 # Output ==============================================
 # 
+#
+# Problem =============================================
+# 92. Min Heap and Max Heap Implementation in Java
+# Create a Min Heap and Max Heap data structure with basic operations
+
+# Solution============================================
+# Min Heap class with basic operations
+class MinHeap
+  def initialize
+    @heap = []
+  end
+
+  def insert(value)
+    @heap.push(value)
+    child_index = @heap.length - 1
+    
+    # Move value up until it finds correct position
+    while child_index > 0
+      parent_index = (child_index - 1) / 2
+      if @heap[child_index] < @heap[parent_index]
+        @heap[child_index], @heap[parent_index] = @heap[parent_index], @heap[child_index]
+        child_index = parent_index
+      else
+        break
+      end
+    end
+  end
+
+  def extract_min
+    return nil if @heap.empty?
+    min = @heap[0]
+    @heap[0] = @heap.pop
+    
+    # Move root down to correct position
+    index = 0
+    while index < @heap.length
+      left = 2 * index + 1
+      right = 2 * index + 2
+      smallest = index
+      
+      smallest = left if left < @heap.length && @heap[left] < @heap[smallest]
+      smallest = right if right < @heap.length && @heap[right] < @heap[smallest]
+      
+      if smallest != index
+        @heap[index], @heap[smallest] = @heap[smallest], @heap[index]
+        index = smallest
+      else
+        break
+      end
+    end
+    min
+  end
+end
+
+# Max Heap class with basic operations
+class MaxHeap
+  def initialize
+    @heap = []
+  end
+
+  def insert(value)
+    @heap.push(value)
+    child_index = @heap.length - 1
+    
+    # Move value up until it finds correct position
+    while child_index > 0
+      parent_index = (child_index - 1) / 2
+      if @heap[child_index] > @heap[parent_index]
+        @heap[child_index], @heap[parent_index] = @heap[parent_index], @heap[child_index]
+        child_index = parent_index
+      else
+        break
+      end
+    end
+  end
+
+  def extract_max
+    return nil if @heap.empty?
+    max = @heap[0]
+    @heap[0] = @heap.pop
+    
+    # Move root down to correct position
+    index = 0
+    while index < @heap.length
+      left = 2 * index + 1
+      right = 2 * index + 2
+      largest = index
+      
+      largest = left if left < @heap.length && @heap[left] > @heap[largest]
+      largest = right if right < @heap.length && @heap[right] > @heap[largest]
+      
+      if largest != index
+        @heap[index], @heap[largest] = @heap[largest], @heap[index]
+        index = largest
+      else
+        break
+      end
+    end
+    max
+  end
+end
+
+# Test both heaps
+min_heap = MinHeap.new
+[5, 3, 8, 1, 6].each { |num| min_heap.insert(num) }
+puts "Min Heap extracts: #{[1, 2, 3, 4, 5].map { min_heap.extract_min }.compact.join(', ')}"
+
+max_heap = MaxHeap.new
+[5, 3, 8, 1, 6].each { |num| max_heap.insert(num) }
+puts "Max Heap extracts: #{[1, 2, 3, 4, 5].map { max_heap.extract_max }.compact.join(', ')}"
+
+# Comment =============================================
+# A heap is a tree structure stored as an array
+# Min Heap keeps smallest value at root (index 0)
+# Max Heap keeps largest value at root (index 0)
+# Insert adds new value at end then moves it up to correct spot
+# Extract removes root value and reorganizes heap
+# Parent of node at index i is at (i-1)/2
+# Children of node at index i are at 2*i+1 and 2*i+2
+
+# Math/Calculations ===================================
+# Parent index: (child_index - 1) / 2
+# Left child index: 2 * parent_index + 1
+# Right child index: 2 * parent_index + 2
+# Time for insert and extract: O(log n)
+
+# Output ==============================================
+# Min Heap extracts: 1, 3, 5, 6, 8
+# Max Heap extracts: 8, 6, 5, 3, 1
+
 # Problem =============================================
 # 91. Emergency Room Patient Management System:
 # You're building a patient management system for an emergency room. Patients arrive with different priority levels (1-5, where 1 is most critical), and you need to ensure the most critical patients are seen first.
