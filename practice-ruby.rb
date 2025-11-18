@@ -1,5 +1,5 @@
 
-#Write the answer in a format I copy to Ruby file, putting all non‑code inside comments under five headings—Problem, Solution, Comment, Math/Calculations, and Output—in that exact order. Explain everything in full words (no abbreviations) so a beginner can follow, this include codes. MAke sure code is beginner-friendly, no advanced Ruby features, and no abbreviations in comments. Use simple words and short sentences. Do not use any special characters like emojis or markdown formatting. 
+#Write the answer in a format I copy to Ruby file, putting all non‑code inside comments under five headings—Problem, Solution, Comment, Math/Calculations, and Output—in that exact order. Explain everything in full words (no abbreviations) so a beginner can follow, this include codes. MAke sure code is beginner-friendly, no advanced Ruby features, and no abbreviations in comments. Use simple words and short sentences. Do not use any special characters like emojis or markdown formatting. Keep solution as condense as possible with shortest amount of line possible
 # Problem =============================================
 #Keep exact problem text and do not change wording: 
 #
@@ -17,9 +17,131 @@
 
 # Output ==============================================
 # 
-#
 # Problem =============================================
-# 92. Min Heap and Max Heap Implementation in Java
+# 93.Heap Sort (Out-of-place and In-place implementation in C++ and C)
+
+# Solution============================================
+# Out-of-place Heap Sort
+def heap_sort_out_of_place(array)
+  heap = []
+  result = []
+  
+  # Build max heap
+  array.each do |element|
+    heap.push(element)
+    index = heap.length - 1
+    while index > 0
+      parent_index = (index - 1) / 2
+      if heap[index] > heap[parent_index]
+        heap[index], heap[parent_index] = heap[parent_index], heap[index]
+        index = parent_index
+      else
+        break
+      end
+    end
+  end
+  
+  # Extract elements from heap
+  while heap.length > 0
+    result.unshift(heap[0])
+    heap[0] = heap[-1]
+    heap.pop
+    index = 0
+    while true
+      left_child = 2 * index + 1
+      right_child = 2 * index + 2
+      largest = index
+      
+      if left_child < heap.length && heap[left_child] > heap[largest]
+        largest = left_child
+      end
+      if right_child < heap.length && heap[right_child] > heap[largest]
+        largest = right_child
+      end
+      
+      if largest != index
+        heap[index], heap[largest] = heap[largest], heap[index]
+        index = largest
+      else
+        break
+      end
+    end
+  end
+  
+  return result
+end
+
+# In-place Heap Sort
+def heap_sort_in_place(array)
+  # Build max heap
+  size = array.length
+  start_index = (size / 2) - 1
+  
+  start_index.downto(0) do |index|
+    heapify(array, size, index)
+  end
+  
+  # Extract elements one by one
+  (size - 1).downto(1) do |index|
+    array[0], array[index] = array[index], array[0]
+    heapify(array, index, 0)
+  end
+  
+  return array
+end
+
+def heapify(array, heap_size, root_index)
+  largest = root_index
+  left_child = 2 * root_index + 1
+  right_child = 2 * root_index + 2
+  
+  if left_child < heap_size && array[left_child] > array[largest]
+    largest = left_child
+  end
+  
+  if right_child < heap_size && array[right_child] > array[largest]
+    largest = right_child
+  end
+  
+  if largest != root_index
+    array[root_index], array[largest] = array[largest], array[root_index]
+    heapify(array, heap_size, largest)
+  end
+end
+
+# Test the functions
+test_array_1 = [64, 34, 25, 12, 22, 11, 90]
+test_array_2 = [64, 34, 25, 12, 22, 11, 90]
+
+puts "Original array: #{test_array_1}"
+puts "Out-of-place sorted: #{heap_sort_out_of_place(test_array_1)}"
+puts "In-place sorted: #{heap_sort_in_place(test_array_2)}"
+
+# Comment =============================================
+# Heap Sort uses a binary heap data structure to sort elements.
+# A max heap is a complete binary tree where parent is greater than children.
+# Out-of-place version creates new heap array and result array.
+# In-place version modifies the original array directly.
+# Both versions have same time complexity but different space usage.
+# The algorithm first builds a max heap then repeatedly extracts maximum.
+# Heapify means to maintain the heap property after changes.
+
+# Math/Calculations ===================================
+# Time Complexity is O of n times log of n for both versions.
+# Building heap takes O of n time.
+# Each extraction takes O of log of n and we do n extractions.
+# Space Complexity for out-of-place is O of n for extra arrays.
+# Space Complexity for in-place is O of 1 as no extra array needed.
+# Parent index equals floor of index minus one divided by two.
+# Left child index equals two times index plus one.
+# Right child index equals two times index plus two.
+
+# Output ==============================================
+# Original array: [64, 34, 25, 12, 22, 11, 90]
+# Out-of-place sorted: [11, 12, 22, 25, 34, 64, 90]
+# In-place sorted: [11, 12, 22, 25, 34, 64, 90]
+# Problem =============================================
+# 92. Min Heap and Max Heap Implementation in Javawsdxc    
 # Create a Min Heap and Max Heap data structure with basic operations
 
 # Solution============================================
