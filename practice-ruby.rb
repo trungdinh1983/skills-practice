@@ -17,6 +17,50 @@
 
 # Output ==============================================
 # 
+## Problem =============================================
+# Keep exact problem text and do not change wording:
+# 94. Check if given array represents min heap or not
+
+# Solution ============================================
+def is_min_heap(array)
+  length = array.length
+  (0...(length / 2)).each do |index|
+    left = 2 * index + 1
+    right = 2 * index + 2
+    return false if left < length && array[index] > array[left]
+    return false if right < length && array[index] > array[right]
+  end
+  true
+end
+
+puts is_min_heap([5, 10, 15, 20, 25])
+puts is_min_heap([10, 5, 15, 20, 25])
+
+# Comment =============================================
+# A min heap is a binary tree stored in an array.
+# In a min heap every parent must be smaller than its children.
+# For a node at position index the left child is at 2 times index plus 1.
+# The right child is at 2 times index plus 2.
+# We only check non leaf nodes which go from index 0 to half the length.
+# If any parent is bigger than a child we return false.
+# If all parents are smaller than their children we return true.
+
+# Math/Calculations ===================================
+# Array one: [5, 10, 15, 20, 25] has length 5.
+# Check indices 0 and 1 because 5 divided by 2 is 2.
+# Index 0 has value 5. Left child at index 1 is 10. Right child at index 2 is 15.
+# 5 is less than 10 and 15 so this is good.
+# Index 1 has value 10. Left child at index 3 is 20. Right child at index 4 is 25.
+# 10 is less than 20 and 25 so this is good.
+# Result is true because this is a valid min heap.
+# Array two: [10, 5, 15, 20, 25].
+# Index 0 has value 10. Left child at index 1 is 5.
+# 10 is greater than 5 so return false.
+# Result is false because parent 10 is bigger than child 5.
+
+# Output ==============================================
+# true
+# false
 # Problem =============================================
 # 93.Heap Sort (Out-of-place and In-place implementation in C++ and C)
 
