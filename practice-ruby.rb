@@ -6,10 +6,10 @@
 # Solution============================================
 
 # Problem =============================================
-#Keep exact or generate simplify problem text and do not change wording: 
+#Keep exact problem text, if not in problem form, please generate simplify coding  problem and do not change wording: 
 
 # Solution============================================
-
+#provide simplified code solution for the problem above
 # Comment =============================================
 
 
@@ -17,6 +17,54 @@
 
 # Output ==============================================
 # 
+## Problem =============================================
+# 95.Convert Max Heap to Min Heap in linear time
+#
+# Solution ============================================
+
+def min_heapify(array, index, size)
+  smallest = index
+  left = 2 * index + 1
+  right = 2 * index + 2
+  smallest = left if left < size && array[left] < array[smallest]
+  smallest = right if right < size && array[right] < array[smallest]
+  if smallest != index
+    array[index], array[smallest] = array[smallest], array[index]
+    min_heapify(array, smallest, size)
+  end
+end
+
+def convert_max_to_min_heap(array)
+  size = array.length
+  last_non_leaf = (size / 2) - 1
+  last_non_leaf.downto(0) { |i| min_heapify(array, i, size) }
+  array
+end
+
+max_heap = [9, 4, 7, 1, -2, 6, 5]
+puts "Max Heap: #{max_heap.inspect}"
+puts "Min Heap: #{convert_max_to_min_heap(max_heap).inspect}"
+
+# Comment =============================================
+# A max heap has the largest value at the top.
+# A min heap has the smallest value at the top.
+# We start from the last non leaf node.
+# We apply min heapify to each node going up to root.
+# Min heapify pushes larger values down the tree.
+# This makes smaller values rise to the top.
+# Starting from bottom up takes linear time.
+#
+# Math/Calculations ===================================
+# For array index i the left child is at 2 times i plus 1.
+# For array index i the right child is at 2 times i plus 2.
+# The last non leaf node is at size divided by 2 minus 1.
+# Array size is 7 so last non leaf is 7 divided by 2 minus 1 equals 2.
+# We heapify from index 2 down to index 0.
+# Build heap from bottom up runs in big O of n time.
+#
+# Output ==============================================
+# Max Heap: [9, 4, 7, 1, -2, 6, 5]
+# Min Heap: [-2, 1, 5, 4, 9, 6, 7]
 ## Problem =============================================
 # Keep exact problem text and do not change wording:
 # 94. Check if given array represents min heap or not
