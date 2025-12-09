@@ -9,7 +9,7 @@
 #Keep exact problem text, if not in problem form, please generate simplify coding  problem and do not change wording: 
 
 # Solution============================================
-#provide simplified code solution for the problem above
+#provide simplified and easily understand code solution for the problem above
 # Comment =============================================
 
 
@@ -17,6 +17,44 @@
 
 # Output ==============================================
 # 
+## Problem =============================================
+# 96.Find K'th largest element in an array
+#
+# Solution ============================================
+
+def find_kth_largest(array, k)
+  sorted_array = array.sort.reverse
+  sorted_array[k - 1]
+end
+
+numbers = [3, 2, 1, 5, 6, 4]
+k = 2
+puts find_kth_largest(numbers, k)
+
+# Comment =============================================
+# This program finds the k'th largest element in an array.
+# First we define a method called find_kth_largest.
+# It takes two inputs: an array and a number k.
+# We sort the array from smallest to largest using sort.
+# Then we reverse it to get largest to smallest order.
+# We return the element at position k minus one.
+# We subtract one because array positions start at zero.
+# For example if k is two we want position one in the array.
+# In the test case we have array [3, 2, 1, 5, 6, 4].
+# After sorting and reversing we get [6, 5, 4, 3, 2, 1].
+# The second largest element is at position one which is five.
+#
+# Math/Calculations ===================================
+# Original array: [3, 2, 1, 5, 6, 4]
+# After sort: [1, 2, 3, 4, 5, 6]
+# After reverse: [6, 5, 4, 3, 2, 1]
+# k = 2
+# Index to access = k - 1 = 2 - 1 = 1
+# Element at index 1 = 5
+# The second largest element is 5
+#
+# Output ==============================================
+# 5
 ## Problem =============================================
 # 95.Convert Max Heap to Min Heap in linear time
 #
