@@ -9,7 +9,7 @@
 #Keep exact problem text, if not in problem form, please generate simplify coding  problem and do not change wording: 
 
 # Solution============================================
-#provide simplified and easily understand code solution for the problem above
+#provide simplified and easily understand code solution for the problem above. Write code in long form to understand with short comments in code
 # Comment =============================================
 
 
@@ -17,6 +17,56 @@
 
 # Output ==============================================
 # 
+## Problem =============================================
+# 97.Sort a K-Sorted Array
+# Given an array where each element is at most k positions away
+# from its correct sorted position. Sort this array efficiently.
+#
+# Solution ============================================
+def sort_k_sorted_array(array, k)
+  n = array.length
+  for i in 0...n
+    min_index = i
+    right_bound = [i + k, n - 1].min
+    for j in (i + 1)..right_bound
+      min_index = j if array[j] < array[min_index]
+    end
+    array[i], array[min_index] = array[min_index], array[i]
+  end
+  array
+end
+
+array = [6, 5, 3, 2, 8, 10, 9]
+k = 3
+puts sort_k_sorted_array(array, k).inspect
+#
+# Comment =============================================
+# A k sorted array means each element is at most k spots away from
+# where it should be in the final sorted array.
+# We use a modified selection sort approach here.
+# For each position i we only need to look at the next k elements.
+# This is because the correct element must be within k distance.
+# We find the minimum in that small window and swap it to position i.
+# We repeat this for every position in the array.
+# The right bound makes sure we do not go past the array end.
+# The swap puts the smallest found element into the correct spot.
+#
+# Math/Calculations ===================================
+# Array is [6, 5, 3, 2, 8, 10, 9] and k is 3.
+# Position 0: Check index 0 to 3. Values are 6 5 3 2. Min is 2. Swap.
+# Array becomes [2, 5, 3, 6, 8, 10, 9].
+# Position 1: Check index 1 to 4. Values are 5 3 6 8. Min is 3. Swap.
+# Array becomes [2, 3, 5, 6, 8, 10, 9].
+# Position 2: Check index 2 to 5. Values are 5 6 8 10. Min is 5. No swap.
+# Position 3: Check index 3 to 6. Values are 6 8 10 9. Min is 6. No swap.
+# Position 4: Check index 4 to 6. Values are 8 10 9. Min is 8. No swap.
+# Position 5: Check index 5 to 6. Values are 10 9. Min is 9. Swap.
+# Array becomes [2, 3, 5, 6, 8, 9, 10].
+# Position 6: Only one element left. Done.
+# Time complexity is order of n times k operations.
+#
+# Output ==============================================
+# [2, 3, 5, 6, 8, 9, 10]
 ## Problem =============================================
 # 96.Find K'th largest element in an array
 #
