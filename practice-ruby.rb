@@ -9,7 +9,7 @@
 #Keep exact problem text, if not in problem form, please generate simplify coding  problem and do not change wording: 
 
 # Solution============================================
-#provide simplified and easily understand code solution for the problem above. Write code in long form to understand with short comments in code
+#provide simplified and easily understand code solution for the problem above. Write code in long form to understand within short comments in code
 # Comment =============================================
 
 
@@ -17,6 +17,44 @@
 
 # Output ==============================================
 # 
+# Problem =============================================
+# 98.Merge M sorted lists of variable length
+
+# Solution ============================================
+def merge_sorted_lists(lists)
+  result = []
+  lists.each do |list|
+    list.each do |item|
+      result.push(item)
+    end
+  end
+  return result.sort
+end
+
+lists = [[1, 4, 7], [2, 5, 8, 10], [3, 6, 9]]
+merged = merge_sorted_lists(lists)
+puts merged.inspect
+
+# Comment =============================================
+# This function merges multiple sorted lists into one sorted list.
+# We create an empty array called result to hold all elements.
+# We loop through each list in the input.
+# For each list we loop through each item inside it.
+# We push each item into the result array.
+# After collecting all items we sort the result array.
+# The sort method arranges numbers from smallest to largest.
+# We return the sorted result as the final merged list.
+
+# Math/Calculations ===================================
+# List one has three elements: 1, 4, 7
+# List two has four elements: 2, 5, 8, 10
+# List three has three elements: 3, 6, 9
+# Total elements: 3 plus 4 plus 3 equals 10 elements
+# We visit each element once to collect them.
+# Then we sort all 10 elements together.
+
+# Output ==============================================
+# [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ## Problem =============================================
 # 97.Sort a K-Sorted Array
 # Given an array where each element is at most k positions away
