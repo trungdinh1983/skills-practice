@@ -9,7 +9,7 @@
 #Keep exact problem text, if not in problem form, please generate simplify coding  problem and do not change wording: 
 
 # Solution============================================
-#provide simplified and easily understand code solution for the problem above. Write code in long form to understand within short comments in code
+#provide simplified and easily understand code solution for the problem above. Write code in long form so it is easy to understand from perspective beginner coder to understand with short comments explaining each step. Avoid advanced Ruby features and keep code beginner-friendly.
 # Comment =============================================
 
 
@@ -17,6 +17,53 @@
 
 # Output ==============================================
 # 
+# Problem =============================================
+# 99. Find K'th smallest element in an array
+#
+# Solution ============================================
+
+def find_kth_smallest(array, k)
+  # Sort the array from smallest to largest
+  sorted_array = array.sort
+  # Return element at position k minus one because arrays start at zero
+  return sorted_array[k - 1]
+end
+
+# Test the function
+numbers = [7, 10, 4, 3, 20, 15]
+k = 3
+result = find_kth_smallest(numbers, k)
+puts "The #{k}rd smallest element is: #{result}"
+
+# Comment =============================================
+# This problem asks us to find the element that would be
+# in position k if we arranged all numbers from small to big.
+#
+# We use the sort method to arrange numbers in order.
+# Then we pick the element at index k minus one.
+# We subtract one because array positions start at zero.
+#
+# For example if k equals three we want the third smallest.
+# But in a sorted array the third smallest is at index two.
+# So we use k minus one to get the correct position.
+#
+# Math/Calculations ===================================
+# Given array: [7, 10, 4, 3, 20, 15]
+# After sorting: [3, 4, 7, 10, 15, 20]
+#
+# Position one (index zero): 3
+# Position two (index one): 4
+# Position three (index two): 7
+# Position four (index three): 10
+# Position five (index four): 15
+# Position six (index five): 20
+#
+# If k equals three:
+# Index equals k minus one equals three minus one equals two
+# Element at index two equals 7
+#
+# Output ==============================================
+# The 3rd smallest element is: 7
 # Problem =============================================
 # 98.Merge M sorted lists of variable length
 
