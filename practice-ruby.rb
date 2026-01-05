@@ -9,14 +9,63 @@
 #Keep exact problem text, if not in problem form, please generate simplify coding  problem and do not change wording: 
 
 # Solution============================================
-#provide simplified and easily understand code solution for the problem above. Write code in long form so it is easy to understand from perspective beginner coder to understand with short comments explaining each step. Avoid advanced Ruby features and keep code beginner-friendly.
+#provide simplified                                                                                                                                                                                                 and easily understand code solution for the problem above. Write code in long form so it is easy to understand from perspective beginner coder to understand with short comments explaining each step. Avoid advanced Ruby features and keep code beginner-friendly.
 # Comment =============================================
 
 
 # Math/Calculations ===================================
 
 # Output ==============================================
-# 
+# # Problem =============================================
+# 100.Find smallest range with at-least one element from each of the given lists: Input:  4 sorted lists of variable length [ 3, 6, 8, 10, 15 ][ 1, 5, 12 ][ 4, 8, 15, 16 ][ 2, 6 ]
+
+# Solution============================================
+lists = [[3, 6, 8, 10, 15], [1, 5, 12], [4, 8, 15, 16], [2, 6]]
+pointers = [0, 0, 0, 0]                                         # track position in each list
+best_start = 0                                                  # store start of best range
+best_end = Float::INFINITY                                      # store end of best range
+while true
+  values = []                                                   # hold current values from each list
+  for i in 0...4 do values.push(lists[i][pointers[i]]) end      # get value at each pointer
+  current_min = values.min                                      # find smallest current value
+  current_max = values.max                                      # find largest current value
+  if current_max - current_min < best_end - best_start          # check if this range is smaller
+    best_start = current_min                                    # update best range start
+    best_end = current_max                                      # update best range end
+  end
+  min_index = values.index(current_min)                         # find which list has minimum
+  pointers[min_index] = pointers[min_index] + 1                 # move that pointer forward
+  break if pointers[min_index] >= lists[min_index].length       # stop if any list runs out
+end
+puts "Smallest range is [#{best_start}, #{best_end}]"
+
+# Comment =============================================
+# We use pointers to track our current position in each list.
+# At each step we look at the current element from each list.
+# The range must go from the smallest to the largest current value.
+# This is because we need at least one element from every list.
+# We record the range if it is smaller than our best range so far.
+# Then we move forward the pointer of the list with the smallest value.
+# Moving the smallest value forward might shrink the range.
+# Moving any other pointer would only make the range bigger.
+# We stop when any list runs out of elements.
+# At that point we cannot form a valid range anymore.
+
+# Math/Calculations ===================================
+# Step one pointers at zero zero zero zero give values three one four two.
+# Minimum is one and maximum is four so range is three.
+# Step two move list one pointer to get values three five four two.
+# Minimum is two and maximum is five so range is three.
+# Step three move list three pointer to get values three five four six.
+# Minimum is three and maximum is six so range is three.
+# Step four move list zero pointer to get values six five four six.
+# Minimum is four and maximum is six so range is two.
+# This is the new best range of four to six.
+# Continue until list three runs out at index two.
+# Final answer is range four to six with size two.
+
+# Output ==============================================
+# Smallest range is [4, 6]
 # Problem =============================================
 # 99. Find K'th smallest element in an array
 #
