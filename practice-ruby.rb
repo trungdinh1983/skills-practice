@@ -9,13 +9,65 @@
 #Keep exact problem text, if not in problem form, please generate simplify coding  problem and do not change wording: 
 
 # Solution============================================
-#provide simplified                                                                                                                                                                                                 and easily understand code solution for the problem above. Write code in long form so it is easy to understand from perspective beginner coder to understand with short comments explaining each step. Avoid advanced Ruby features and keep code beginner-friendly.
+#provide simplified and easily understand code solution for the problem above. Write code in long form so it is easy to understand from perspective beginner coder to understand with short comments explaining each step. Avoid advanced Ruby features and keep code beginner-friendly.
 # Comment =============================================
 
 
 # Math/Calculations ===================================
 
 # Output ==============================================
+
+# Problem =============================================
+# Merge M sorted lists each containing N elements
+# For example,
+# Input: 5 sorted lists of fixed size 4
+# [10, 20, 30, 40]
+# [15, 25, 35, 45]
+# [27, 29, 37, 48]
+# [32, 33, 39, 50]
+# [16, 18, 22, 28]
+
+# Solution ============================================
+def merge_sorted_lists(lists)
+  result = []                # Create empty array to hold all elements
+  lists.each do |list|       # Go through each list one by one
+    list.each do |element|   # Go through each element in current list
+      result.push(element)   # Add element to result array
+    end
+  end
+  result.sort                # Sort all elements and return
+end
+
+lists = [
+  [10, 20, 30, 40],
+  [15, 25, 35, 45],
+  [27, 29, 37, 48],
+  [32, 33, 39, 50],
+  [16, 18, 22, 28]
+]
+puts merge_sorted_lists(lists).inspect
+
+# Comment =============================================
+# This solution uses a simple approach.
+# First we collect all elements from all lists into one array.
+# Then we sort that array to get the final merged result.
+# The each method loops through items one at a time.
+# The push method adds an item to the end of an array.
+# The sort method arranges numbers from smallest to largest.
+# This approach is easy to understand but not the fastest.
+# A faster method would use a min heap but that is advanced.
+
+# Math/Calculations ===================================
+# We have M equals 5 lists.
+# Each list has N equals 4 elements.
+# Total elements equals M times N equals 5 times 4 equals 20.
+# Time complexity is O of M times N times log of M times N.
+# This is because sorting takes O of n log n time.
+# Space complexity is O of M times N for the result array.
+
+# Output ==============================================
+# [10, 15, 16, 18, 20, 22, 25, 27, 28, 29, 30, 32, 33, 35, 37, 39, 40, 45, 48, 50]
+
 # # Problem =============================================
 # 100.Find smallest range with at-least one element from each of the given lists: Input:  4 sorted lists of variable length [ 3, 6, 8, 10, 15 ][ 1, 5, 12 ][ 4, 8, 15, 16 ][ 2, 6 ]
 
