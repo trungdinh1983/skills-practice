@@ -16,9 +16,78 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
-
 # Problem =============================================
-# Merge M sorted lists each containing N elements
+# 102.Insertion sort | Iterative & Recursive
+
+# Solution ============================================
+
+# Iterative Insertion Sort
+def insertion_sort_iterative(array)
+  # Start from second element at index 1
+  i = 1
+  while i < array.length
+    # Store current element to insert
+    key = array[i]
+    # Start comparing with element before current
+    j = i - 1
+    # Shift larger elements to the right
+    while j >= 0 && array[j] > key
+      array[j + 1] = array[j]
+      j = j - 1
+    end
+    # Insert key at correct position
+    array[j + 1] = key
+    i = i + 1
+  end
+  return array
+end
+
+# Recursive Insertion Sort
+def insertion_sort_recursive(array, n = array.length)
+  # Base case: array of size 1 is sorted
+  return array if n <= 1
+  # Sort first n-1 elements
+  insertion_sort_recursive(array, n - 1)
+  # Insert last element at correct position
+  key = array[n - 1]
+  j = n - 2
+  while j >= 0 && array[j] > key
+    array[j + 1] = array[j]
+    j = j - 1
+  end
+  array[j + 1] = key
+  return array
+end
+
+# Test both methods
+arr1 = [5, 2, 4, 6, 1, 3]
+arr2 = [5, 2, 4, 6, 1, 3]
+puts insertion_sort_iterative(arr1).inspect
+puts insertion_sort_recursive(arr2).inspect
+
+# Comment =============================================
+# Insertion sort builds sorted array one element at a time.
+# It picks each element and inserts it into correct position.
+# Iterative version uses two nested while loops.
+# Recursive version sorts n-1 elements first then inserts nth.
+# Both methods modify the original array in place.
+
+# Math/Calculations ===================================
+# Array: [5, 2, 4, 6, 1, 3]
+# Pass 1: key=2, shift 5 right, insert 2 -> [2, 5, 4, 6, 1, 3]
+# Pass 2: key=4, shift 5 right, insert 4 -> [2, 4, 5, 6, 1, 3]
+# Pass 3: key=6, no shift needed -> [2, 4, 5, 6, 1, 3]
+# Pass 4: key=1, shift all right, insert 1 -> [1, 2, 4, 5, 6, 3]
+# Pass 5: key=3, shift 4,5,6 right, insert 3 -> [1, 2, 3, 4, 5, 6]
+# Time complexity: O(n^2) for worst and average case.
+# Space complexity: O(1) iterative, O(n) recursive due to call stack.
+
+# Output ==============================================
+# [1, 2, 3, 4, 5, 6]
+# [1, 2, 3, 4, 5, 6]
+# 
+# Problem =============================================
+# 101.Merge M sorted lists each containing N elements
 # For example,
 # Input: 5 sorted lists of fixed size 4
 # [10, 20, 30, 40]
