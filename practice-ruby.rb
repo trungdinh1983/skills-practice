@@ -16,6 +16,53 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+
+# Problem =============================================
+# 103.Selection sort | Iterative & Recursive
+
+# Solution ============================================
+# Iterative selection sort
+def selection_sort_iterative(array)
+  for i in 0...array.length - 1
+    min_index = i
+    for j in (i + 1)...array.length
+      min_index = j if array[j] < array[min_index]
+    end
+    array[i], array[min_index] = array[min_index], array[i] if min_index != i
+  end
+  array
+end
+
+# Recursive selection sort
+def selection_sort_recursive(array, i = 0)
+  return array if i >= array.length - 1
+  min_index = i
+  for j in (i + 1)...array.length
+    min_index = j if array[j] < array[min_index]
+  end
+  array[i], array[min_index] = array[min_index], array[i] if min_index != i
+  selection_sort_recursive(array, i + 1)
+end
+
+puts selection_sort_iterative([64, 25, 12, 22, 11]).inspect
+puts selection_sort_recursive([64, 25, 12, 22, 11]).inspect
+
+# Comment =============================================
+# Selection sort finds the smallest element in unsorted part.
+# It swaps that element with the first unsorted position.
+# Iterative uses loops. Recursive calls itself for next position.
+
+# Math/Calculations ===================================
+# Array: [64, 25, 12, 22, 11]
+# Pass 1: Find 11, swap with 64. Result: [11, 25, 12, 22, 64]
+# Pass 2: Find 12, swap with 25. Result: [11, 12, 25, 22, 64]
+# Pass 3: Find 22, swap with 25. Result: [11, 12, 22, 25, 64]
+# Pass 4: 25 already in place. Result: [11, 12, 22, 25, 64]
+
+# Output ==============================================
+# [11, 12, 22, 25, 64]
+# [11, 12, 22, 25, 64]
+
 # Problem =============================================
 # 102.Insertion sort | Iterative & Recursive
 
