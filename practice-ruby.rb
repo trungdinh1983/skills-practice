@@ -16,7 +16,78 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+# Problem =============================================
+# 104. Bubble sort | Iterative & Recursive
+# Write two versions of the bubble sort algorithm.
+# One version uses a loop (iterative).
+# One version uses a method that calls itself (recursive).
+# Bubble sort compares two items next to each other.
+# If they are in the wrong order, it swaps them.
+# It repeats this until the list is sorted.
 
+# Solution ============================================
+
+# Iterative version using a loop
+def bubble_sort_iterative(array)
+  length = array.length
+  loop do
+    swapped = false
+    (length - 1).times do |index|
+      if array[index] > array[index + 1]
+        array[index], array[index + 1] = array[index + 1], array[index]
+        swapped = true
+      end
+    end
+    break if swapped == false
+  end
+  return array
+end
+
+# Recursive version that calls itself
+def bubble_sort_recursive(array, length = array.length)
+  return array if length == 1
+  (length - 1).times do |index|
+    if array[index] > array[index + 1]
+      array[index], array[index + 1] = array[index + 1], array[index]
+    end
+  end
+  bubble_sort_recursive(array, length - 1)
+end
+
+# Test both versions
+numbers = [64, 34, 25, 12, 22, 11, 90]
+puts "Original array: #{numbers}"
+puts "Iterative sort: #{bubble_sort_iterative(numbers.clone)}"
+puts "Recursive sort: #{bubble_sort_recursive(numbers.clone)}"
+
+# Comment =============================================
+# Bubble sort gets its name because small values bubble up to the top.
+# Large values sink to the bottom like heavy objects in water.
+# The iterative version uses a loop that runs until no swaps happen.
+# The swapped variable tracks if any swap occurred in one pass.
+# If no swap happened, the array is already sorted so we stop.
+# The recursive version does one pass then calls itself.
+# Each call reduces the length by one.
+# This is because the largest item is now at the end.
+# We do not need to check the last item again.
+# The base case is when length equals one.
+# An array with one item is already sorted.
+# We use clone when testing so both methods get fresh copies.
+
+# Math/Calculations ===================================
+# Time complexity is O(n squared) for both versions.
+# This means if we have n items, we do up to n times n comparisons.
+# For an array of 7 items: 7 times 7 equals 49 comparisons maximum.
+# Space complexity for iterative is O(1) which means constant space.
+# Space complexity for recursive is O(n) due to the call stack.
+# Each recursive call adds one frame to the stack.
+# Best case is O(n) when the array is already sorted.
+# This happens because we only do one pass with no swaps.
+
+# Output ==============================================
+# Original array: [64, 34, 25, 12, 22, 11, 90]
+# Iterative sort: [11, 12, 22, 25, 34, 64, 90]
+# Recursive sort: [11, 12, 22, 25, 34, 64, 90]
 # Problem =============================================
 # 103.Selection sort | Iterative & Recursive
 
