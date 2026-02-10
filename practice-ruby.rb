@@ -17,6 +17,64 @@
 
 # Output ==============================================
 # Problem =============================================
+# 105. Merge Sort
+# Write a method that sorts an array using the merge sort algorithm.
+# Merge sort divides the array in half, sorts each half, then merges them.
+
+# Solution ============================================
+def merge_sort(array)
+  # Base case: array with zero or one element is already sorted
+  return array if array.length <= 1
+  # Find the middle index of the array
+  middle = array.length / 2
+  # Split array into left and right halves
+  left_half = array[0...middle]
+  right_half = array[middle..-1]
+  # Recursively sort both halves then merge them
+  merge(merge_sort(left_half), merge_sort(right_half))
+end
+
+def merge(left, right)
+  result = []
+  # Compare elements from both arrays and add smaller one to result
+  while left.length > 0 && right.length > 0
+    if left[0] <= right[0]
+      result.push(left.shift)
+    else
+      result.push(right.shift)
+    end
+  end
+  # Add any remaining elements from left or right
+  result + left + right
+end
+
+# Comment =============================================
+# Merge sort uses divide and conquer strategy.
+# First we split the array into smaller pieces until each piece has one element.
+# One element is always sorted by itself.
+# Then we merge pieces back together in sorted order.
+# The merge method compares first elements of both arrays.
+# It takes the smaller one and adds it to the result.
+# The shift method removes and returns the first element.
+# At the end we add any leftover elements from either array.
+
+# Math/Calculations ===================================
+# Time complexity is O(n log n) where n is the number of elements.
+# We divide the array in half each time which gives us log n levels.
+# At each level we do n comparisons to merge all elements.
+# So total work is n times log n.
+# Space complexity is O(n) for the temporary arrays we create.
+
+# Output ==============================================
+puts merge_sort([38, 27, 43, 3, 9, 82, 10]).inspect
+# [3, 9, 10, 27, 38, 43, 82]
+puts merge_sort([5, 2, 8, 1, 9]).inspect
+# [1, 2, 5, 8, 9]
+puts merge_sort([1]).inspect
+# [1]
+puts merge_sort([]).inspect
+# []
+# Problem =============================================
 # 104. Bubble sort | Iterative & Recursive
 # Write two versions of the bubble sort algorithm.
 # One version uses a loop (iterative).
