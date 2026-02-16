@@ -16,6 +16,62 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+# # Problem =============================================
+# 106.Quicksort
+# Implement the quicksort algorithm to sort an array of numbers
+# in ascending order using the divide and conquer approach.
+
+# Solution ============================================
+def quicksort(array)
+  # Base case: array with zero or one element is already sorted
+  return array if array.length <= 1
+  # Pick the first element as the pivot
+  pivot = array[0]
+  # Create array for elements less than pivot
+  left = []
+  # Create array for elements greater than pivot
+  right = []
+  # Loop through remaining elements starting from index one
+  i = 1
+  while i < array.length
+    if array[i] < pivot
+      left.push(array[i])
+    else
+      right.push(array[i])
+    end
+    i = i + 1
+  end
+  # Recursively sort left and right then combine with pivot
+  return quicksort(left) + [pivot] + quicksort(right)
+end
+
+numbers = [64, 34, 25, 12, 22, 11, 90]
+puts "Original: #{numbers.join(', ')}"
+puts "Sorted: #{quicksort(numbers).join(', ')}"
+
+# Comment =============================================
+# Quicksort works by picking a pivot element from the array.
+# It then divides the array into two smaller arrays.
+# The left array holds elements smaller than the pivot.
+# The right array holds elements greater than or equal to pivot.
+# We recursively apply quicksort to both smaller arrays.
+# Finally we combine left array plus pivot plus right array.
+# The base case stops recursion when array has one or zero elements.
+
+# Math/Calculations ===================================
+# Example with array [64, 34, 25, 12, 22, 11, 90]:
+# First call: pivot is 64
+# Left becomes [34, 25, 12, 22, 11] and right becomes [90]
+# Recursively sort left [34, 25, 12, 22, 11]:
+#   Pivot is 34, left is [25, 12, 22, 11], right is []
+#   Continue until all subarrays have one element
+# Average time complexity is O(n log n)
+# Worst case time complexity is O(n squared)
+# Space complexity is O(n) for the temporary arrays
+
+# Output ==============================================
+# Original: 64, 34, 25, 12, 22, 11, 90
+# Sorted: 11, 12, 22, 25, 34, 64, 90
 # Problem =============================================
 # 105. Merge Sort
 # Write a method that sorts an array using the merge sort algorithm.
