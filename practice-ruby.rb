@@ -17,6 +17,128 @@
 
 # Output ==============================================
 # # Problem =============================================
+# 107. Iterative Implementation of Quicksort
+# Given an array of numbers, sort it using the Quicksort
+# algorithm but use a stack instead of recursion.
+# Solution============================================
+
+# This method arranges elements around a pivot value
+def partition(array, low, high)
+  # Pick the last element as the pivot value
+  pivot = array[high]
+  # Set i to one position before the low index
+  i = low - 1
+
+  # Start j at the low position
+  j = low
+  # Loop from low position up to but not including high
+  while j < high
+    # Check if current element is smaller than or equal to pivot
+    if array[j] <= pivot
+      # Move i one step forward to track smaller elements
+      i = i + 1
+      # Save the value at position i before swapping
+      temp = array[i]
+      # Put the smaller element at position i
+      array[i] = array[j]
+      # Put the element that was at i into position j
+      array[j] = temp
+    end
+    # Move j one step forward to check next element
+    j = j + 1
+  end
+
+  # Save the value at position i plus one before swapping
+  temp = array[i + 1]
+  # Put the pivot into its correct sorted position
+  array[i + 1] = array[high]
+  # Put the element that was at i plus one into the last position
+  array[high] = temp
+
+  # Return the final index position of the pivot
+  return i + 1
+end
+
+# This method sorts the full array using a stack instead of recursion
+def iterative_quicksort(array)
+  # Set low to the first index of the array
+  low = 0
+  # Set high to the last index of the array
+  high = array.length - 1
+
+  # Create an empty stack array to store index pairs
+  stack = []
+
+  # Push the starting low index onto the stack
+  stack.push(low)
+  # Push the starting high index onto the stack
+  stack.push(high)
+
+  # Keep looping as long as the stack has values
+  while stack.length > 0
+    # Pop the high index off the top of the stack
+    high = stack.pop
+    # Pop the low index off the top of the stack
+    low = stack.pop
+
+    # Call partition to place one pivot in its correct position
+    pivot_index = partition(array, low, high)
+
+    # Check if there are elements to the left of the pivot
+    if pivot_index - 1 > low
+      # Push the low index of the left section onto the stack
+      stack.push(low)
+      # Push the high index of the left section onto the stack
+      stack.push(pivot_index - 1)
+    end
+
+    # Check if there are elements to the right of the pivot
+    if pivot_index + 1 < high
+      # Push the low index of the right section onto the stack
+      stack.push(pivot_index + 1)
+      # Push the high index of the right section onto the stack
+      stack.push(high)
+    end
+  end
+
+  # Return the fully sorted array
+  return array
+end
+
+# Create a sample array of unsorted numbers
+numbers = [10, 7, 8, 9, 1, 5]
+# Call the sort method and save the result
+result = iterative_quicksort(numbers)
+# Print the sorted array to the screen
+puts result.inspect
+
+# Comment =============================================
+# Quicksort picks one element called the pivot.
+# It moves smaller elements to the left of the pivot.
+# It moves larger elements to the right of the pivot.
+# Normally quicksort calls itself over and over (recursion).
+# This version uses a stack array to avoid recursion.
+# A stack stores pairs of low and high index positions.
+# We keep processing pairs until the stack is empty.
+# The partition method does the actual swapping work.
+# It returns the final position of the pivot element.
+# We then push the left and right sub-sections onto the stack.
+
+# Math/Calculations ===================================
+# Start array: [10, 7, 8, 9, 1, 5]
+# First pivot is array[5] which equals 5
+# Elements less than or equal to 5: 1 and 5
+# Elements greater than 5: 10, 7, 8, 9
+# After first partition: [1, 5, 8, 9, 7, 10] with pivot at index 1
+# This process repeats for each sub-section
+# Left sub-section covers index 0 to pivot minus 1
+# Right sub-section covers index pivot plus 1 to high
+# Stack stores [low, high] pairs to process later
+# Each pair shrinks until all sections have one element
+
+# Output ==============================================
+# [1, 5, 7, 8, 9, 10]
+# # Problem =============================================
 # 106.Quicksort
 # Implement the quicksort algorithm to sort an array of numbers
 # in ascending order using the divide and conquer approach.
