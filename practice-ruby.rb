@@ -16,6 +16,109 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+# 
+# # Problem =============================================
+# 108. Hybrid QuickSort
+# Implement a Hybrid QuickSort that uses Insertion Sort
+# for small subarrays and QuickSort for larger ones.
+# Sort an array of numbers using this hybrid approach.
+
+# Solution ============================================
+
+# This method sorts a small section of the array using insertion sort
+def insertion_sort(array, left, right)
+  # Start from the second element in the section
+  index = left + 1
+  while index <= right
+    current = array[index]
+    position = index - 1
+    # Move elements that are greater than current to the right
+    while position >= left && array[position] > current
+      array[position + 1] = array[position]
+      position = position - 1
+    end
+    # Place current in its correct position
+    array[position + 1] = current
+    index = index + 1
+  end
+end
+
+# This method picks a pivot and splits the array into two sides
+def partition(array, low, high)
+  pivot = array[high]
+  i = low - 1
+  j = low
+  while j < high
+    # If current element is less than or equal to pivot, swap it to the left side
+    if array[j] <= pivot
+      i = i + 1
+      array[i], array[j] = array[j], array[i]
+    end
+    j = j + 1
+  end
+  # Place pivot in its correct position
+  array[i + 1], array[high] = array[high], array[i + 1]
+  return i + 1
+end
+
+# This is the main hybrid quicksort method
+# It uses insertion sort when the section is small
+def hybrid_quicksort(array, low, high, threshold)
+  if low < high
+    size = high - low + 1
+    # Use insertion sort if the section is small enough
+    if size <= threshold
+      insertion_sort(array, low, high)
+    else
+      # Use quicksort for larger sections
+      pivot_index = partition(array, low, high)
+      hybrid_quicksort(array, low, pivot_index - 1, threshold)
+      hybrid_quicksort(array, pivot_index + 1, high, threshold)
+    end
+  end
+end
+
+# Create a sample array to sort
+array = [64, 25, 12, 22, 11, 90, 3, 47, 8, 55]
+puts "Original array: " + array.inspect
+
+# Call hybrid quicksort with a threshold of 10
+# Arrays of 10 or fewer elements will use insertion sort
+threshold = 10
+hybrid_quicksort(array, 0, array.length - 1, threshold)
+
+puts "Sorted array:   " + array.inspect
+
+# Comment =============================================
+# Hybrid QuickSort combines two sorting methods.
+# QuickSort is fast for large arrays.
+# Insertion Sort is fast for small arrays.
+# The threshold decides when to switch from QuickSort to Insertion Sort.
+# A common threshold value is between 10 and 20.
+# Using Insertion Sort for small sections reduces the overhead of recursion.
+# The partition method picks the last element as the pivot.
+# All elements smaller than the pivot go to the left side.
+# All elements larger than the pivot go to the right side.
+# The pivot is then placed in its correct final position.
+# The algorithm then repeats on the left and right sides.
+
+# Math/Calculations ===================================
+# QuickSort average time complexity is O(n log n).
+# QuickSort worst case time complexity is O(n squared).
+# Insertion Sort time complexity is O(n squared) for large arrays.
+# Insertion Sort time complexity is close to O(n) for small sorted arrays.
+# Hybrid QuickSort average time complexity is O(n log n).
+# Example with array size 10 and threshold 10:
+#   size = 10 - 0 + 1 = 10
+#   10 <= 10 is true, so insertion sort is used for the whole array.
+# Example with array size 20 and threshold 10:
+#   size = 20 - 0 + 1 = 21
+#   21 <= 10 is false, so quicksort is used first.
+#   After partition, two halves of about 10 each are sorted with insertion sort.
+
+# Output ==============================================
+# Original array: [64, 25, 12, 22, 11, 90, 3, 47, 8, 55]
+# Sorted array:   [3, 8, 11, 12, 22, 25, 47, 55, 64, 90]
 # # Problem =============================================
 # 107. Iterative Implementation of Quicksort
 # Given an array of numbers, sort it using the Quicksort
