@@ -16,7 +16,93 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
-# 
+# # Problem =============================================
+# 109. Quicksort using Dutch National Flag Algorithm
+# Solution ============================================
+
+def dutch_partition(array, low, high)
+  pivot = array[low + (high - low) / 2]  # pick middle element as pivot
+
+  left = low      # left pointer starts at beginning
+  middle = low    # middle pointer starts at beginning
+  right = high    # right pointer starts at end
+
+  # keep going until middle pointer crosses right pointer
+  while middle <= right
+    if array[middle] < pivot
+      # swap element at left with element at middle, move both forward
+      array[left], array[middle] = array[middle], array[left]
+      left = left + 1
+      middle = middle + 1
+    elsif array[middle] > pivot
+      # swap element at middle with element at right, move right back
+      array[middle], array[right] = array[right], array[middle]
+      right = right - 1
+    else
+      # element equals pivot, just move middle forward
+      middle = middle + 1
+    end
+  end
+
+  # return the left and right boundaries of the equal section
+  return left, right
+end
+
+def quicksort(array, low, high)
+  # base case: if low is greater than or equal to high, stop
+  if low >= high
+    return
+  end
+
+  # partition the array and get the equal section boundaries
+  equal_start, equal_end = dutch_partition(array, low, high)
+
+  # sort the section to the left of equal elements
+  quicksort(array, low, equal_start - 1)
+
+  # sort the section to the right of equal elements
+  quicksort(array, equal_end + 1, high)
+end
+
+numbers = [3, 6, 8, 10, 1, 2, 1, 3, 3, 7]
+puts "Before sorting: " + numbers.inspect
+
+quicksort(numbers, 0, numbers.length - 1)
+puts "After sorting:  " + numbers.inspect
+
+# Comment =============================================
+# The Dutch National Flag Algorithm was invented by Edsger Dijkstra.
+# It is named after the Dutch flag which has three color sections.
+# It splits the array into three sections in one single pass.
+# Section one holds elements less than the pivot value.
+# Section two holds elements equal to the pivot value.
+# Section three holds elements greater than the pivot value.
+# This is better than regular quicksort when there are many duplicate values.
+# Regular quicksort treats each duplicate as a separate element to sort.
+# This version groups all duplicates together and skips them in future steps.
+# This reduces the number of comparisons needed when duplicates exist.
+
+# Math/Calculations ===================================
+# Array has 10 elements: [3, 6, 8, 10, 1, 2, 1, 3, 3, 7]
+# First call: low = 0, high = 9
+# Middle index = 0 + (9 - 0) / 2 = 4, so pivot = array[4] = 1
+#
+# After first partition pass:
+# Elements less than 1:    none
+# Elements equal to 1:     [1, 1]
+# Elements greater than 1: [3, 6, 8, 10, 2, 3, 3, 7]
+# equal_start = 0, equal_end = 1
+#
+# Recursion skips index 0 to 1 (the equal section)
+# Only sorts index 2 to 9 in the next call
+# Each level of recursion reduces the problem size
+# Total time for average case: O(n log n)
+# Total time for worst case with many duplicates: better than O(n squared)
+# Space used by call stack: O(log n) for average case
+
+# Output ==============================================
+# Before sorting: [3, 6, 8, 10, 1, 2, 1, 3, 3, 7]
+# After sorting:  [1, 1, 2, 3, 3, 3, 6, 7, 8, 10]
 # # Problem =============================================
 # 108. Hybrid QuickSort
 # Implement a Hybrid QuickSort that uses Insertion Sort
