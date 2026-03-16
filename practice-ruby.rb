@@ -16,6 +16,99 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+# Problem =============================================
+# 110. Quick Sort using Hoare's Partitioning scheme
+# Solution ============================================
+
+def hoare_partition(arr, low, high)
+  pivot = arr[low]         # pick the first element as the pivot
+  i = low - 1             # start i one step before the left edge
+  j = high + 1            # start j one step after the right edge
+
+  loop do
+    i = i + 1             # move i to the right
+    while arr[i] < pivot  # keep moving i right while element is less than pivot
+      i = i + 1
+    end
+
+    j = j - 1             # move j to the left
+    while arr[j] > pivot  # keep moving j left while element is greater than pivot
+      j = j - 1
+    end
+
+    if i >= j             # if the two pointers have met or crossed, stop
+      return j            # return j as the partition boundary
+    end
+
+    temp = arr[i]         # swap the two out of place elements
+    arr[i] = arr[j]
+    arr[j] = temp
+  end
+end
+
+def quick_sort(arr, low, high)
+  if low < high                                     # only sort if there are at least two elements
+    p = hoare_partition(arr, low, high)             # find where to split the array
+    quick_sort(arr, low, p)                         # sort the left side
+    quick_sort(arr, p + 1, high)                    # sort the right side
+  end
+end
+
+arr = [8, 3, 1, 5, 9, 2, 7]
+quick_sort(arr, 0, arr.length - 1)
+puts arr.inspect
+
+# Comment =============================================
+# Hoare partitioning works by using two pointers that start at opposite ends.
+# The left pointer i moves right until it finds a value that is too large.
+# The right pointer j moves left until it finds a value that is too small.
+# Those two values are out of place so they get swapped.
+# This continues until i and j cross each other.
+# The crossing point j is returned as the boundary between the two halves.
+# The left half has values that are smaller or equal to the pivot.
+# The right half has values that are larger or equal to the pivot.
+# quick_sort then calls itself on each half until all halves are one element.
+# One element cannot be unsorted so the recursion stops naturally there.
+# Hoare's scheme does fewer swaps on average than Lomuto's scheme.
+# The pivot does not have to end up at the boundary index after partitioning.
+
+# Math/Calculations ===================================
+# Starting array: [8, 3, 1, 5, 9, 2, 7]
+# Call quick_sort with low = 0 and high = 6
+#
+# hoare_partition, low = 0, high = 6
+# pivot = arr[0] = 8
+# i starts at -1, j starts at 7
+#
+# Round 1:
+#   i moves to 0, arr[0] = 8, 8 is not less than 8, i stops at 0
+#   j moves to 6, arr[6] = 7, 7 is not greater than 8, j stops at 6
+#   i(0) is less than j(6), so swap arr[0] and arr[6]
+#   array becomes [7, 3, 1, 5, 9, 2, 8]
+#
+# Round 2:
+#   i moves right: 1 -> 2 -> 3 -> 4, arr[4] = 9, 9 is not less than 8, i stops at 4
+#   j moves left:  j = 5, arr[5] = 2, 2 is not greater than 8, j stops at 5
+#   i(4) is less than j(5), so swap arr[4] and arr[5]
+#   array becomes [7, 3, 1, 5, 2, 9, 8]
+#
+# Round 3:
+#   i moves to 5, arr[5] = 9, 9 is not less than 8, i stops at 5
+#   j moves to 4, arr[4] = 2, 2 is not greater than 8, j stops at 4
+#   i(5) is greater than or equal to j(4), return j = 4
+#
+# Left call:  quick_sort(arr, 0, 4) sorts [7, 3, 1, 5, 2]
+# Right call: quick_sort(arr, 5, 6) sorts [9, 8]
+# Each call repeats the same partition and recurse process
+# until every sub-array has only one element left
+#
+# Time complexity:
+#   Best and average case: O(n log n)
+#   Worst case: O(n squared) when array is already sorted and pivot is always min or max
+# Space complexity: O(log n) because of recursion call stack depth
+
+# Output ==============================================
+# [1, 2, 3, 5, 7, 8, 9]
 # # Problem =============================================
 # 109. Quicksort using Dutch National Flag Algorithm
 # Solution ============================================
