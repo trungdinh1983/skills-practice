@@ -16,6 +16,131 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+# # Problem =============================================
+# 111. External merge sort
+# Solution ============================================
+
+# We simulate external merge sort using temp files.
+# Step 1: Split the input array into small chunks, sort each chunk, and write each to a temp file.
+# Step 2: Merge all the sorted temp files into one final sorted output.
+
+def write_chunk(data, file_name)
+  # Sort the chunk and write each number to a temp file, one per line
+  sorted = data.sort
+  File.open(file_name, "w") do |file|
+    sorted.each do |number|
+      file.puts(number)
+    end
+  end
+end
+
+def merge_files(file_names, output_file)
+  # Open all temp files for reading
+  handles = file_names.map { |name| File.open(name, "r") }
+
+  # Read the first line from each file to start
+  current_values = handles.map do |handle|
+    line = handle.gets
+    line ? line.chomp.to_i : nil
+  end
+
+  File.open(output_file, "w") do |out|
+    loop do
+      # Find which file has the smallest current value
+      min_index = nil
+      min_value = nil
+
+      current_values.each_with_index do |value, index|
+        # Skip files that are finished (value is nil)
+        next if value.nil?
+
+        # Track the smallest value and which file it came from
+        if min_value.nil? || value < min_value
+          min_value = value
+          min_index = index
+        end
+      end
+
+      # If all files are finished, stop the loop
+      break if min_index.nil?
+
+      # Write the smallest value to the output file
+      out.puts(min_value)
+
+      # Read the next line from the file we just used
+      next_line = handles[min_index].gets
+      current_values[min_index] = next_line ? next_line.chomp.to_i : nil
+    end
+  end
+
+  # Close all temp file handles
+  handles.each(&:close)
+end
+
+def external_merge_sort(input_array, chunk_size)
+  temp_files = []
+
+  # Step 1: Split input into chunks, sort each chunk, write to a temp file
+  chunk_number = 0
+  index = 0
+
+  while index < input_array.length
+    # Take a slice of the array of size chunk_size
+    chunk = input_array[index, chunk_size]
+    file_name = "temp_chunk_#{chunk_number}.txt"
+    write_chunk(chunk, file_name)
+    temp_files << file_name
+    chunk_number += 1
+    index += chunk_size
+  end
+
+  # Step 2: Merge all sorted temp files into one output file
+  output_file = "sorted_output.txt"
+  merge_files(temp_files, output_file)
+
+  # Read the final sorted output from the file
+  result = File.readlines(output_file).map { |line| line.chomp.to_i }
+
+  # Clean up all temp files and the output file
+  temp_files.each { |file| File.delete(file) }
+  File.delete(output_file)
+
+  result
+end
+
+# Run the sort with a chunk size of 3 (simulates small memory limit)
+input = [38, 27, 43, 3, 9, 82, 10, 1, 55, 17]
+sorted = external_merge_sort(input, 3)
+puts "Sorted: #{sorted.inspect}"
+
+# Comment =============================================
+# External merge sort is used when data is too big to sort all at once in memory.
+# We pretend each chunk is the most data that fits in memory at one time.
+# We break the input into small chunks and sort each one separately.
+# Each sorted chunk gets saved to a temp file on disk.
+# Then we open all the temp files at the same time.
+# We look at the first unread number from each file.
+# We pick the smallest number and write it to the output file.
+# We then read the next number from that same file.
+# We keep doing this until all files are fully read.
+# This is called a k-way merge because we merge k files at the same time.
+# The result is one fully sorted list without ever loading everything into memory at once.
+
+# Math/Calculations ===================================
+# Input size is 10 numbers.
+# Chunk size is 3, so we get 4 chunks: [38,27,43], [3,9,82], [10,1,55], [17]
+# After sorting each chunk:
+#   Chunk 0: [27, 38, 43]
+#   Chunk 1: [3, 9, 82]
+#   Chunk 2: [1, 10, 55]
+#   Chunk 3: [17]
+# During merge, we compare the front of each file each step.
+# Total comparisons per merge step = number of active files minus 1.
+# Time complexity = O(n log n) overall where n is total number of elements.
+# Space in memory at any time = chunk size plus one value per file during merge.
+
+# Output ==============================================
+# Sorted: [1, 3, 9, 10, 17, 27, 38, 43, 55, 82]
 # Problem =============================================
 # 110. Quick Sort using Hoare's Partitioning scheme
 # Solution ============================================
