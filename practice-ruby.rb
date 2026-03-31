@@ -16,6 +16,89 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+
+# Problem =============================================
+# 112. Custom Sort | Sort elements by their frequency and Index
+# Given an array of numbers, sort the elements so that
+# elements appearing more often come first.
+# If two elements appear the same number of times,
+# the one that appears first in the original array comes first.
+
+# Solution ============================================
+
+array = [4, 5, 6, 5, 4, 3]
+
+# Step 1: Count how many times each number appears
+frequency = {}
+array.each do |number|
+  frequency[number] = 0 if frequency[number] == nil
+  frequency[number] = frequency[number] + 1
+end
+
+# Step 2: Record the first position of each number
+first_index = {}
+array.each_with_index do |number, index|
+  first_index[number] = index if first_index[number] == nil
+end
+
+# Step 3: Collect unique numbers only
+unique_numbers = []
+array.each do |number|
+  unique_numbers.push(number) if !unique_numbers.include?(number)
+end
+
+# Step 4: Sort unique numbers by frequency high to low, then by first position low to high
+sorted_unique = unique_numbers.sort_by do |number|
+  [frequency[number] * -1, first_index[number]]
+end
+
+# Step 5: Build the final result by repeating each number by its frequency
+result = []
+sorted_unique.each do |number|
+  frequency[number].times do
+    result.push(number)
+  end
+end
+
+puts result.inspect
+
+# Comment =============================================
+# We use a hash called frequency to store how many times each number shows up.
+# We use a hash called first_index to remember where each number first appeared.
+# We collect unique numbers so we only process each number one time.
+# We sort those unique numbers using two rules at once.
+# Rule one is frequency multiplied by negative one so higher counts sort first.
+# Rule two is first_index so ties go to whichever number appeared earlier.
+# Finally we rebuild the array by pushing each number into result
+# the same number of times as its frequency count.
+
+# Math/Calculations ===================================
+# Input array: [4, 5, 6, 5, 4, 3]
+#
+# Frequency count:
+#   4 appears 2 times
+#   5 appears 2 times
+#   6 appears 1 time
+#   3 appears 1 time
+#
+# First index:
+#   4 first appears at index 0
+#   5 first appears at index 1
+#   6 first appears at index 2
+#   3 first appears at index 5
+#
+# Sort key for each number:
+#   4 -> [-2, 0]
+#   5 -> [-2, 1]
+#   6 -> [-1, 2]
+#   3 -> [-1, 5]
+#
+# After sorting: 4, 5, 6, 3
+# After expanding by frequency: 4, 4, 5, 5, 6, 3
+
+# Output ==============================================
+# [4, 4, 5, 5, 6, 3]
+
 # # Problem =============================================
 # 111. External merge sort
 # Solution ============================================
