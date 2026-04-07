@@ -18,6 +18,64 @@
 # Output ==============================================
 
 # Problem =============================================
+# 113. Custom Sort | Sort elements of the array by order of elements
+# defined by the second array
+
+# Solution ============================================
+
+# The order array tells us the priority of each number.
+# We give each number in the order array a rank based on its position.
+# Numbers not in the order array go to the end.
+
+array1 = [3, 1, 2, 5, 4]
+order  = [2, 1, 4]
+
+# Build a rank lookup from the order array.
+# rank["2"] = 0, rank["1"] = 1, rank["4"] = 2
+rank = {}
+position = 0
+order.each do |number|
+  rank[number] = position
+  position = position + 1
+end
+
+# Sort array1 using the rank.
+# If a number has no rank, give it a very large number so it sorts last.
+result = array1.sort_by do |number|
+  if rank[number] != nil
+    rank[number]
+  else
+    999999
+  end
+end
+
+puts result.inspect
+
+# Comment =============================================
+# We use a hash to store the rank of each number from the order array.
+# The sort_by block returns a number that Ruby uses to compare elements.
+# Elements with a lower rank number come first in the result.
+# Elements missing from the order array get rank 999999 and go to the end.
+# This works for any two arrays as long as values are comparable.
+
+# Math/Calculations ===================================
+# order = [2, 1, 4]
+# rank[2] = 0, rank[1] = 1, rank[4] = 2
+#
+# array1 = [3, 1, 2, 5, 4]
+# 3 -> not in rank -> 999999
+# 1 -> rank 1
+# 2 -> rank 0
+# 5 -> not in rank -> 999999
+# 4 -> rank 2
+#
+# Sorted by rank: 0, 1, 2, 999999, 999999
+# Which maps to:  2, 1, 4, 3, 5
+
+# Output ==============================================
+# [2, 1, 4, 3, 5]
+
+# Problem =============================================
 # 112. Custom Sort | Sort elements by their frequency and Index
 # Given an array of numbers, sort the elements so that
 # elements appearing more often come first.
