@@ -16,7 +16,61 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+# 
+# Problem =============================================
+# 114. Inversion Count of an array
+# Given an array of numbers, count how many inversions exist.
+# An inversion is when a number that comes earlier in the array
+# is greater than a number that comes after it.
+# Example: in [3, 1, 2], the pair (3, 1) and (3, 2) are inversions.
 
+# Solution ============================================
+
+def count_inversions(array)
+  count = 0                              # start inversion count at zero
+
+  i = 0
+  while i < array.length                # loop through each number
+    j = i + 1
+    while j < array.length              # compare with every number after it
+      if array[i] > array[j]            # if earlier number is bigger
+        count = count + 1               # that is one inversion
+      end
+      j = j + 1
+    end
+    i = i + 1
+  end
+
+  return count
+end
+
+numbers = [3, 1, 2]
+result = count_inversions(numbers)
+puts "Inversion count: " + result.to_s
+
+# Comment =============================================
+# We use two loops to check every pair of numbers.
+# The outer loop picks a number at position i.
+# The inner loop picks every number after position i.
+# If the number at i is greater than the number at j,
+# that means the bigger number came before the smaller one.
+# That is called an inversion.
+# We add one to count each time we find an inversion.
+# At the end we return the total count.
+# This approach is simple and easy to follow.
+# It runs in O(n squared) time, meaning for n numbers
+# we do roughly n times n comparisons.
+
+# Math/Calculations ===================================
+# Array: [3, 1, 2]
+# Pairs we check:
+#   i=0, j=1 -> array[0]=3, array[1]=1 -> 3 > 1 -> inversion, count = 1
+#   i=0, j=2 -> array[0]=3, array[2]=2 -> 3 > 2 -> inversion, count = 2
+#   i=1, j=2 -> array[1]=1, array[2]=2 -> 1 > 2 -> false, no inversion
+# Total inversions = 2
+
+# Output ==============================================
+# Inversion count: 2
 # Problem =============================================
 # 113. Custom Sort | Sort elements of the array by order of elements
 # defined by the second array
