@@ -16,7 +16,51 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
-# 
+
+# Problem =============================================
+# 115. Segregate positive and negative integers in linear time
+
+# Solution ============================================
+
+numbers = [-3, 1, -7, 4, -2, 6, 8, -5]
+
+negatives = []
+positives = []
+
+# Go through each number one time
+numbers.each do |number|
+  if number < 0
+    # Number is negative, add to negatives list
+    negatives.push(number)
+  else
+    # Number is positive, add to positives list
+    positives.push(number)
+  end
+end
+
+# Join negatives first, then positives
+result = negatives + positives
+
+puts result.inspect
+
+# Comment =============================================
+# We loop through the array one single time.
+# Each number goes into one of two buckets: negatives or positives.
+# Then we combine the two buckets into one final array.
+# Negatives come first, positives come second.
+# This runs in linear time because we only visit each number once.
+
+# Math/Calculations ===================================
+# Input size is n, which equals the total number of elements.
+# Input: [-3, 1, -7, 4, -2, 6, 8, -5], n = 8
+# We loop through all 8 numbers exactly one time.
+# Total steps = n = 8
+# Time complexity is O(n), which means linear time.
+# O(n) means the number of steps grows with the size of the input.
+# Bigger input means more steps, but always in a straight line ratio.
+
+# Output ==============================================
+# [-3, -7, -2, -5, 1, 4, 6, 8]
 # Problem =============================================
 # 114. Inversion Count of an array
 # Given an array of numbers, count how many inversions exist.
@@ -2705,7 +2749,7 @@ while start\_index < numbers.length
 \# For each start, reset the running total to zero
 running\_total = 0
 
-```
+
 # Now grow the subarray from start_index to the right
 end_index = start_index
 while end_index < numbers.length
@@ -2726,7 +2770,7 @@ end
 
 # Move the start index one step to the right and repeat
 start_index = start_index + 1
-```
+
 
 end
 
@@ -2756,7 +2800,7 @@ index = 0
 while index < subarrays.length
 subarray = subarrays\[index]
 
-```
+
 # Build a string like "{ 3, 4 }"
 # Start with a left brace and a space
 line = "{ "
@@ -2784,7 +2828,7 @@ puts line
 
 # Move to the next subarray
 index = index + 1
-```
+
 
 end
 end
@@ -4600,7 +4644,7 @@ Edit
 Sorting helps in efficiently finding pairs that satisfy the condition using the **two-pointer technique**.
 
 ### Given Input:
-```ruby
+
 nums = [2, 7, 4, 9, 5, 1, 3]
 target_sum = 10
 After Sorting:
