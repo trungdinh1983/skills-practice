@@ -16,7 +16,91 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+# 
+# Problem =============================================
+# 116. Binary Search
+# Given a sorted array of integers and a target integer,
+# write a function to search for the target in the array.
+# If the target exists, return its index. Otherwise, return -1.
+# You must write an algorithm with O(log n) runtime complexity.
+# Example:
+# Input: numbers = [-1, 0, 3, 5, 9, 12], target = 9
+# Output: 4
+# Input: numbers = [-1, 0, 3, 5, 9, 12], target = 2
+# Output: -1
 
+# Solution ============================================
+
+def binary_search(numbers, target)
+  # Set the left pointer to the start of the array
+  left = 0
+
+  # Set the right pointer to the end of the array
+  right = numbers.length - 1
+
+  # Keep searching while the left pointer has not passed the right pointer
+  while left <= right
+    # Find the middle index between left and right
+    middle = (left + right) / 2
+
+    # Check if the middle element is the target
+    if numbers[middle] == target
+      return middle
+    end
+
+    # If the middle element is less than the target,
+    # move the left pointer to the right of middle
+    if numbers[middle] < target
+      left = middle + 1
+    else
+      # If the middle element is greater than the target,
+      # move the right pointer to the left of middle
+      right = middle - 1
+    end
+  end
+
+  # Target was not found, return -1
+  return -1
+end
+
+numbers = [-1, 0, 3, 5, 9, 12]
+target = 9
+result = binary_search(numbers, target)
+puts result
+
+numbers2 = [-1, 0, 3, 5, 9, 12]
+target2 = 2
+result2 = binary_search(numbers2, target2)
+puts result2
+
+# Comment =============================================
+# Binary search only works on a sorted array.
+# Instead of checking every element one by one,
+# we cut the search area in half each time.
+# We use two pointers called left and right.
+# These pointers mark the current search window.
+# Each loop we find the middle of that window.
+# If the middle element matches the target, we return its index.
+# If the target is larger, we move left up past middle.
+# If the target is smaller, we move right down past middle.
+# We stop when left passes right, meaning the target is not there.
+# This is much faster than checking every element.
+
+# Math/Calculations ===================================
+# Array: [-1, 0, 3, 5, 9, 12], target = 9
+# Step 1: left = 0, right = 5, middle = (0 + 5) / 2 = 2
+#         numbers[2] = 3, which is less than 9
+#         Move left to middle + 1 = 3
+# Step 2: left = 3, right = 5, middle = (3 + 5) / 2 = 4
+#         numbers[4] = 9, which equals target
+#         Return index 4
+#
+# Time complexity: O(log n) because we cut the search space in half each step
+# Space complexity: O(1) because we only use a few variables
+
+# Output ==============================================
+# 4
+# -1
 # Problem =============================================
 # 115. Segregate positive and negative integers in linear time
 
