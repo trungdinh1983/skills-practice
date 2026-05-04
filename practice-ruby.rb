@@ -9,7 +9,7 @@
 #Keep exact problem text, if not in problem form, please generate simplify coding  problem and do not change wording: 
 
 # Solution============================================
-#provide simplified and easily understand code solution for the problem above. Write code in long form so it is easy to understand from perspective beginner coder to understand with short comments explaining each step. Avoid advanced Ruby features and keep code beginner-friendly.
+#provide simplified and easily understand code solution for the problem above. Keep code as short as possible. Write code in long form so it is easy to understand from perspective beginner coder to understand with short comments explaining each step. Avoid advanced Ruby features and keep code beginner-friendly.
 # Comment =============================================
 
 
@@ -17,6 +17,99 @@
 
 # Output ==============================================
 # 
+
+# Problem =============================================
+# 117. Ternary Search vs Binary Search
+# Solution ============================================
+
+def binary_search(array, target)
+  low = 0
+  high = array.length - 1
+
+  while low <= high
+    mid = (low + high) / 2        # find the middle index
+
+    if array[mid] == target
+      return mid                  # found the target
+    elsif array[mid] < target
+      low = mid + 1               # search the right half
+    else
+      high = mid - 1              # search the left half
+    end
+  end
+
+  return -1                       # target not found
+end
+
+def ternary_search(array, target)
+  low = 0
+  high = array.length - 1
+
+  while low <= high
+    one_third = (high - low) / 3
+    mid1 = low + one_third        # first dividing point
+    mid2 = high - one_third       # second dividing point
+
+    if array[mid1] == target
+      return mid1
+    elsif array[mid2] == target
+      return mid2
+    elsif target < array[mid1]
+      high = mid1 - 1             # search the left third
+    elsif target > array[mid2]
+      low = mid2 + 1              # search the right third
+    else
+      low = mid1 + 1              # search the middle third
+      high = mid2 - 1
+    end
+  end
+
+  return -1
+end
+
+numbers = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+target = 13
+
+puts "Binary Search result index: #{binary_search(numbers, target)}"
+puts "Ternary Search result index: #{ternary_search(numbers, target)}"
+
+# Comment =============================================
+# Binary Search splits the array into 2 halves each step.
+# Ternary Search splits the array into 3 parts each step.
+# Both methods require the array to be sorted before searching.
+# Binary Search uses one comparison per loop to cut the array in half.
+# Ternary Search uses two comparisons per loop to cut the array into thirds.
+# Even though Ternary Search splits into smaller pieces, it uses more comparisons.
+# Because of the extra comparisons, Binary Search is usually faster in practice.
+# Binary Search is the preferred choice for most real world problems.
+
+# Math/Calculations ===================================
+# Array size is 10 elements, target is 13 at index 6.
+#
+# Binary Search steps:
+# Step 1: low = 0, high = 9, mid = 4, array[4] = 9,  9 < 13 so search right
+# Step 2: low = 5, high = 9, mid = 7, array[7] = 15, 15 > 13 so search left
+# Step 3: low = 5, high = 6, mid = 5, array[5] = 11, 11 < 13 so search right
+# Step 4: low = 6, high = 6, mid = 6, array[6] = 13, found at index 6
+# Total steps: 4
+#
+# Ternary Search steps:
+# Step 1: low = 0, high = 9, one_third = 3
+#         mid1 = 3, array[3] = 7
+#         mid2 = 6, array[6] = 13, found at index 6
+# Total steps: 1 (lucky match at mid2 right away)
+#
+# Worst case comparisons per step:
+# Binary Search:  1 comparison per step, log base 2 of n total steps
+# Ternary Search: 2 comparisons per step, log base 3 of n total steps
+# log base 2 of 10 is about 3.32 comparisons total
+# log base 3 of 10 is about 2.10 steps but 4.20 comparisons total
+# Binary Search wins on total comparisons in worst case.
+
+# Output ==============================================
+# Binary Search result index: 6
+# Ternary Search result index: 6
+
 # Problem =============================================
 # 116. Binary Search
 # Given a sorted array of integers and a target integer,
