@@ -19,6 +19,82 @@
 # 
 
 # Problem =============================================
+# 118. Interpolation Search
+# Given a sorted array of numbers and a target value,
+# find the index of the target using interpolation search.
+# Interpolation search estimates where the target might be
+# based on the value range, instead of always checking the middle.
+
+# Solution ============================================
+
+def interpolation_search(array, target)
+  low = 0
+  high = array.length - 1
+
+  while low <= high && target >= array[low] && target <= array[high]
+    # estimate the position using the interpolation formula
+    range_of_values = array[high] - array[low]
+    range_of_index  = high - low
+    position_ratio  = (target - array[low]).to_f / range_of_values
+    position        = low + (position_ratio * range_of_index).to_i
+
+    if array[position] == target
+      return position
+    elsif array[position] < target
+      low = position + 1
+    else
+      high = position - 1
+    end
+  end
+
+  return -1
+end
+
+numbers = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+target  = 70
+
+result = interpolation_search(numbers, target)
+
+if result == -1
+  puts "Target #{target} was not found in the array."
+else
+  puts "Target #{target} found at index #{result}."
+end
+
+# Comment =============================================
+# Interpolation search works only on sorted arrays.
+# It guesses where the target is based on its value.
+# If the target is close to the high end, it searches near the end.
+# If the target is close to the low end, it searches near the start.
+# This is smarter than binary search when values are evenly spread out.
+# Binary search always picks the middle index.
+# Interpolation search picks a smarter estimated index.
+# The formula uses the ratio of how far the target is between low and high values.
+# That ratio is applied to the index range to get an estimated position.
+# If the estimated position holds the target, the search is done.
+# If the value at the position is too small, move the low pointer up.
+# If the value at the position is too large, move the high pointer down.
+# If the target is not in the array, return negative one.
+
+# Math/Calculations ===================================
+# Array:  [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+# Index:    0   1   2   3   4   5   6   7   8    9
+# Target: 70
+#
+# First pass:
+#   low   = 0,  array[low]  = 10
+#   high  = 9,  array[high] = 100
+#   range of values = 100 - 10 = 90
+#   range of index  = 9 - 0   = 9
+#   position ratio  = (70 - 10) / 90 = 60 / 90 = 0.6667
+#   position        = 0 + (0.6667 * 9) = 0 + 6 = 6
+#   array[6] = 70, which equals target
+#   return 6
+
+# Output ==============================================
+# Target 70 found at index 6.
+
+# Problem =============================================
 # 117. Ternary Search vs Binary Search
 # Solution ============================================
 
