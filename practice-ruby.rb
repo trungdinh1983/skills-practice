@@ -19,6 +19,85 @@
 # 
 
 # Problem =============================================
+# 119. Exponential Search
+# Given a sorted array of numbers and a target number,
+# find the index of the target using exponential search.
+# Return the index if found, or -1 if not found.
+# Solution ============================================
+
+def binary_search(array, target, left, right)
+  while left <= right
+    middle = (left + right) / 2
+    if array[middle] == target
+      return middle
+    elsif array[middle] < target
+      left = middle + 1
+    else
+      right = middle - 1
+    end
+  end
+  return -1
+end
+
+def exponential_search(array, target)
+  return -1 if array.empty?
+  return 0 if array[0] == target
+
+  # Start at index 1 and double the index each step
+  index = 1
+  while index < array.length && array[index] <= target
+    index = index * 2
+  end
+
+  # Search the range from half of index to end of array
+  left = index / 2
+  right = [index, array.length - 1].min
+  return binary_search(array, target, left, right)
+end
+
+numbers = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+target = 13
+result = exponential_search(numbers, target)
+puts "Array: #{numbers}"
+puts "Target: #{target}"
+puts "Found at index: #{result}"
+
+# Comment =============================================
+# Exponential search works in two phases.
+# Phase one finds a range where the target might be.
+# It does this by starting at index 1 and doubling
+# the index each time until the value at that index
+# is greater than the target.
+# Phase two runs a binary search inside that range.
+# This is useful when the array is very large and
+# the target is near the beginning of the array.
+# It is faster than binary search in those cases.
+# The array must be sorted for this to work.
+
+# Math/Calculations ===================================
+# Array has 10 elements, target is 13.
+#
+# Phase one - finding the range:
+# index = 1, array[1] = 3,  3 <= 13, so index = 1 * 2 = 2
+# index = 2, array[2] = 5,  5 <= 13, so index = 2 * 2 = 4
+# index = 4, array[4] = 9,  9 <= 13, so index = 4 * 2 = 8
+# index = 8, array[8] = 17, 17 > 13, so we stop
+#
+# Phase two - binary search from index 4 to index 8:
+# left = 8 / 2 = 4
+# right = min(8, 9) = 8
+# middle = (4 + 8) / 2 = 6, array[6] = 13
+# 13 == 13, found at index 6
+#
+# Time complexity is O(log i) where i is the index of the target.
+# This is better than O(log n) binary search when target is near start.
+
+# Output ==============================================
+# Array: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+# Target: 13
+# Found at index: 6
+
+# Problem =============================================
 # 118. Interpolation Search
 # Given a sorted array of numbers and a target value,
 # find the index of the target using interpolation search.
