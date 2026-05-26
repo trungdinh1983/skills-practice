@@ -17,7 +17,66 @@
 
 # Output ==============================================
 # 
+# Problem =============================================
+# 120. Find number of rotations in a circularly sorted array
 
+# Solution ============================================
+
+def count_rotations(array)
+  left = 0
+  right = array.length - 1
+
+  while left < right
+    mid = (left + right) / 2
+
+    # If middle value is greater than right value, minimum is in right half
+    if array[mid] > array[right]
+      left = mid + 1
+    else
+      # Minimum is in left half or is mid itself
+      right = mid
+    end
+  end
+
+  # The index of the minimum element equals the number of rotations
+  return left
+end
+
+array = [4, 5, 6, 7, 1, 2, 3]
+puts count_rotations(array)
+
+# Comment =============================================
+# A circularly sorted array is a sorted array that was rotated left some number of times.
+# Example: [1, 2, 3, 4, 5, 6, 7] rotated left 4 times becomes [4, 5, 6, 7, 1, 2, 3].
+# The number of rotations equals the index of the smallest element.
+# We use binary search to find that index without checking every element.
+# At each step we cut the search range in half until left and right meet.
+
+# Math/Calculations ===================================
+# Array: [4, 5, 6, 7, 1, 2, 3]  indexes: 0 1 2 3 4 5 6
+#
+# Step 1: left = 0, right = 6, mid = (0 + 6) / 2 = 3
+#         array[3] = 7, array[6] = 3
+#         7 > 3, so minimum is in right half
+#         left = mid + 1 = 4
+#
+# Step 2: left = 4, right = 6, mid = (4 + 6) / 2 = 5
+#         array[5] = 2, array[6] = 3
+#         2 is not greater than 3, so minimum is in left half
+#         right = mid = 5
+#
+# Step 3: left = 4, right = 5, mid = (4 + 5) / 2 = 4
+#         array[4] = 1, array[5] = 2
+#         1 is not greater than 2, so minimum is in left half
+#         right = mid = 4
+#
+# Step 4: left = 4, right = 4, loop ends
+#         return left = 4
+#
+# The minimum element is at index 4, so the array was rotated 4 times.
+
+# Output ==============================================
+# 4
 # Problem =============================================
 # 119. Exponential Search
 # Given a sorted array of numbers and a target number,
