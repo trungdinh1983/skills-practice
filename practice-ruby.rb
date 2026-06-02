@@ -16,7 +16,70 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
-# 
+# # Problem =============================================
+# 121.Search an element in a circular sorted array
+
+# Solution ============================================
+
+# A circular sorted array is a sorted array that has been rotated.
+# Example: [4, 5, 6, 7, 0, 1, 2] was once [0, 1, 2, 4, 5, 6, 7].
+# We use binary search to find the target value efficiently.
+
+array  = [4, 5, 6, 7, 0, 1, 2]
+target = 0
+
+left   = 0
+right  = array.length - 1
+result = -1
+
+while left <= right
+  mid = (left + right) / 2      # find the middle index
+
+  if array[mid] == target       # found the target
+    result = mid
+    break
+  end
+
+  if array[left] <= array[mid]  # left half is sorted
+    if array[left] <= target && target < array[mid]
+      right = mid - 1           # target is in the left half
+    else
+      left = mid + 1            # target is in the right half
+    end
+  else                          # right half is sorted
+    if array[mid] < target && target <= array[right]
+      left = mid + 1            # target is in the right half
+    else
+      right = mid - 1           # target is in the left half
+    end
+  end
+end
+
+puts result
+
+# Comment =============================================
+# We use binary search instead of checking every element one by one.
+# Binary search cuts the search area in half on each step.
+# In a circular array, one half is always sorted.
+# We check which half is sorted, then decide which half to search next.
+# If the target is not found, the result stays at negative one.
+
+# Math/Calculations ===================================
+# Array has 7 elements. Indices run from 0 to 6.
+# Step 1: left equals 0, right equals 6, mid equals 3.
+#         array[3] equals 7. Target is 0. Not equal.
+#         array[0] equals 4 and array[3] equals 7. Left half is sorted.
+#         Target 0 is not between 4 and 7. So left moves to mid plus 1 equals 4.
+# Step 2: left equals 4, right equals 6, mid equals 5.
+#         array[5] equals 1. Target is 0. Not equal.
+#         array[4] equals 0 and array[5] equals 1. Left half is sorted.
+#         Target 0 is between 0 and 1. So right moves to mid minus 1 equals 4.
+# Step 3: left equals 4, right equals 4, mid equals 4.
+#         array[4] equals 0. Target is 0. Found. Result equals 4.
+
+# Output ==============================================
+# 4
+
 # Problem =============================================
 # 120. Find number of rotations in a circularly sorted array
 
