@@ -16,6 +16,70 @@
 
 # Output ==============================================
 # Problem =============================================
+# 123. Count occurrences of a number in a sorted array with duplicates
+# Solution ============================================
+
+def find_first(array, target):
+    left = 0
+    right = len(array) - 1
+    result = -1
+    while left <= right:
+        mid = (left + right) // 2        # find the middle index
+        if array[mid] == target:
+            result = mid                  # save this position
+            right = mid - 1              # keep searching left
+        elif array[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return result
+
+def find_last(array, target):
+    left = 0
+    right = len(array) - 1
+    result = -1
+    while left <= right:
+        mid = (left + right) // 2        # find the middle index
+        if array[mid] == target:
+            result = mid                  # save this position
+            left = mid + 1               # keep searching right
+        elif array[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return result
+
+def count_occurrences(array, target):
+    first = find_first(array, target)    # find where target starts
+    if first == -1:
+        return 0                         # target not found at all
+    last = find_last(array, target)      # find where target ends
+    return last - first + 1             # count = last position minus first position plus one
+
+array = [1, 2, 2, 2, 3, 4, 5]
+target = 2
+count = count_occurrences(array, target)
+print(count)
+
+# Comment =============================================
+# We use binary search two times on a sorted array.
+# The first search finds the leftmost position of the target.
+# The second search finds the rightmost position of the target.
+# Binary search cuts the search area in half each step.
+# This is faster than checking every element one by one.
+
+# Math/Calculations ===================================
+# Array is [1, 2, 2, 2, 3, 4, 5] and target is 2.
+# find_first returns index 1 because that is the first 2.
+# find_last returns index 3 because that is the last 2.
+# Count equals last minus first plus one.
+# Count equals 3 minus 1 plus 1 which equals 3.
+# Time complexity is O(log n) because we use binary search.
+# Space complexity is O(1) because we use no extra storage.
+
+# Output ==============================================
+# 3
+# Problem =============================================
 # 122. Find first or last occurrence of a given number in a sorted array
 
 # Solution ============================================
