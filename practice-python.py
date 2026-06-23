@@ -16,6 +16,49 @@
 
 # Output ==============================================
 # Problem =============================================
+
+# Problem =============================================
+# 124. Find smallest missing element from a sorted array
+# Solution ============================================
+
+def find_smallest_missing(arr):
+    # Start by assuming the missing number is 0
+    missing = 0
+
+    # Go through each number in the array
+    for num in arr:
+        # If the current number matches what we expect, move expected up by one
+        if num == missing:
+            missing = missing + 1
+
+    # Return the first number that was never found
+    return missing
+
+arr = [0, 1, 2, 3, 5, 6]
+result = find_smallest_missing(arr)
+print(result)
+
+# Comment =============================================
+# We use a variable called missing to track the next expected number.
+# We start at 0 because the smallest possible missing number is 0.
+# We loop through the sorted array one number at a time.
+# If the current number matches our expected number, we increase expected by one.
+# If the current number does not match, we stop increasing and return missing.
+# The loop ends when we find a gap or finish checking all numbers.
+# This works because the array is sorted so gaps appear in order.
+
+# Math/Calculations ===================================
+# Array: [0, 1, 2, 3, 5, 6]
+# Step 1: missing = 0, num = 0, 0 == 0 so missing becomes 1
+# Step 2: missing = 1, num = 1, 1 == 1 so missing becomes 2
+# Step 3: missing = 2, num = 2, 2 == 2 so missing becomes 3
+# Step 4: missing = 3, num = 3, 3 == 3 so missing becomes 4
+# Step 5: missing = 4, num = 5, 5 != 4 so missing stays 4
+# Step 6: missing = 4, num = 6, 6 != 4 so missing stays 4
+# Loop ends, return 4
+
+# Output ==============================================
+# 4
 # 123. Count occurrences of a number in a sorted array with duplicates
 # Solution ============================================
 
