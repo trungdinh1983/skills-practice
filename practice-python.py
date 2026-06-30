@@ -15,8 +15,79 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
-# Problem =============================================
 
+# Problem =============================================
+# 125. Find Floor and Ceil of a number in a sorted array
+# Solution ============================================
+
+def find_floor_and_ceil(arr, target):
+    # arr is the sorted list of numbers we are searching through
+    # target is the number we want to find the floor and ceil for
+    # Example: arr = [1, 2, 4, 6, 10, 12, 14] and target = 7
+
+    # floor_value starts at -1 meaning we have not found a floor yet
+    # It will be updated when we find a number less than or equal to target
+    floor_value = -1
+
+    # ceil_value starts at -1 meaning we have not found a ceil yet
+    # It will be updated when we find a number greater than or equal to target
+    ceil_value = -1
+
+    # low is the starting index of the search area
+    # Index 0 means we start at the first element of the array
+    # Example: arr[0] is 1 in our array
+    low = 0
+
+    # high is the ending index of the search area
+    # len(arr) gives the total count of elements in the array
+    # We subtract 1 because index starts at 0, not 1
+    # Example: len([1, 2, 4, 6, 10, 12, 14]) is 7, so high is 6
+    # arr[6] is 14, which is the last element
+    high = len(arr) - 1
+
+    # Binary search loop
+    while low <= high:
+        mid = (low + high) // 2  # Find the middle index
+
+        if arr[mid] == target:
+            # Exact match means floor and ceil are the same
+            return arr[mid], arr[mid]
+        elif arr[mid] < target:
+            floor_value = arr[mid]  # arr[mid] is a candidate for floor
+            low = mid + 1           # Search the right half
+        else:
+            ceil_value = arr[mid]   # arr[mid] is a candidate for ceil
+            high = mid - 1          # Search the left half
+
+    return floor_value, ceil_value
+
+arr = [1, 2, 4, 6, 10, 12, 14]
+target = 7
+floor_value, ceil_value = find_floor_and_ceil(arr, target)
+print("Floor:", floor_value)
+print("Ceil:", ceil_value)
+
+# Comment =============================================
+# Floor means the largest number in the array that is less than or equal to the target.
+# Ceil means the smallest number in the array that is greater than or equal to the target.
+# We use binary search because the array is already sorted.
+# Binary search cuts the search area in half each time, which is much faster than checking every element.
+# We track floor and ceil as candidates and update them as we search.
+# If the middle value is less than the target, it could be the floor, so we save it and move right.
+# If the middle value is greater than the target, it could be the ceil, so we save it and move left.
+# If the middle value equals the target, both floor and ceil are the same number.
+
+# Math/Calculations ===================================
+# Array is [1, 2, 4, 6, 10, 12, 14], target is 7.
+# Step 1: low is 0, high is 6, mid is 3. arr[3] is 6. 6 is less than 7, so floor is 6. Move low to 4.
+# Step 2: low is 4, high is 6, mid is 5. arr[5] is 12. 12 is greater than 7, so ceil is 12. Move high to 4.
+# Step 3: low is 4, high is 4, mid is 4. arr[4] is 10. 10 is greater than 7, so ceil is 10. Move high to 3.
+# Step 4: low is 4, high is 3. Loop ends because low is greater than high.
+# Final floor is 6 and final ceil is 10.
+
+# Output ==============================================
+# Floor: 6
+# Ceil: 10
 # Problem =============================================
 # 124. Find smallest missing element from a sorted array
 # Solution ============================================
