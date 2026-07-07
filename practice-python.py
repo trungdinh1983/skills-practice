@@ -15,7 +15,78 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+# Problem =============================================
+# 126.Search in a nearly sorted array in O(logn) time
+# We are given a sorted array, but each element could be swapped
+# with its next or previous neighbor. We need to search for a target
+# value in this array and return its index. The search must run in
+# order log n time, which means we need to use a binary search idea
+# instead of checking every single number one by one.
 
+# Solution============================================
+def search_nearly_sorted(numbers, target):
+    # This variable marks the start of the search area
+    low = 0
+    # This variable marks the end of the search area
+    high = len(numbers) - 1
+
+    # We keep searching while the start is not past the end
+    while low <= high:
+        # Find the middle position of the current search area
+        middle = (low + high) // 2
+
+        # Check the middle number first
+        if numbers[middle] == target:
+            return middle
+        # Check the number right before the middle position
+        if middle - 1 >= low and numbers[middle - 1] == target:
+            return middle - 1
+        # Check the number right after the middle position
+        if middle + 1 <= high and numbers[middle + 1] == target:
+            return middle + 1
+
+        # If the middle number is smaller than the target,
+        # the target must be in the right side, so we move low forward
+        if numbers[middle] < target:
+            low = middle + 2
+        # Otherwise the target must be in the left side,
+        # so we move high backward
+        else:
+            high = middle - 2
+
+    # If we finish the loop and never found the target, return negative one
+    return -1
+
+
+# Comment =============================================
+# The main idea is that even though numbers can be swapped with a
+# neighbor, the array is still close to sorted. So we still use the
+# binary search idea of cutting the search area in half each time.
+# The only difference from normal binary search is that at each middle
+# position, we also check one step to the left and one step to the
+# right, because the target might have been swapped into one of those
+# spots.
+
+# Math/Calculations ===================================
+# Normal binary search cuts the array in half every time, giving a
+# time cost of order log base two of n.
+# In this problem, at each step we still cut the search area roughly
+# in half, since we move low or high by two positions instead of one.
+# Checking the middle, left neighbor, and right neighbor only adds a
+# constant number of extra steps each time, which does not change the
+# overall speed.
+# So the total time cost is still order log base two of n.
+
+# Output ==============================================
+# Example: numbers = [10, 5, 20, 15, 30], target = 5
+# Middle position starts at index 2, value 20, not a match
+# Check left neighbor at index 1, value 5, this is a match
+# Result: index 1
+
+# Example: numbers = [2, 1, 4, 3, 6, 5, 8, 7], target = 8
+# Program will return index 6
+print(search_nearly_sorted([10, 5, 20, 15, 30], 5))
+print(search_nearly_sorted([2, 1, 4, 3, 6, 5, 8, 7], 8))
 # Problem =============================================
 # 125. Find Floor and Ceil of a number in a sorted array
 # Solution ============================================
