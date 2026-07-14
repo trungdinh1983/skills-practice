@@ -16,6 +16,62 @@
 
 # Output ==============================================
 # Problem =============================================
+
+# Problem =============================================
+# Find the number of 1's in a sorted binary array
+# 127. Given a sorted binary array, efficiently count the total number of 1's in it.
+#
+# For example,
+#
+# Input:  nums[] = [0, 0, 0, 0, 1, 1, 1] Output: The total number of 1's present is 3
+# Input:  nums[] = [0, 0, 1, 1, 1, 1, 1] Output: The total number of 1's present is 5
+
+# Solution============================================
+def count_ones(nums):
+    low = 0
+    high = len(nums) - 1
+    first_one_index = len(nums)
+
+    while low <= high:
+        middle = (low + high) // 2
+        if nums[middle] == 1:
+            first_one_index = middle
+            high = middle - 1
+        else:
+            low = middle + 1
+
+    return len(nums) - first_one_index
+
+
+numbers_list = [0, 0, 0, 0, 1, 1, 1]
+total_ones = count_ones(numbers_list)
+print("The total number of 1's present is", total_ones)
+
+# Comment =============================================
+# The array is sorted, so all the zero values come first and all the one
+# values come after them. This means we do not need to check every single
+# number one by one. Instead we can use a method called binary search to
+# find the first place where the number one appears. Binary search works
+# by checking the middle number of the list and deciding if we should
+# search the left half or the right half next. We keep cutting the search
+# area in half until we find the first one value. Once we know where the
+# first one is located, we can find the total count of ones by subtracting
+# that position from the total length of the list. This is much faster
+# than checking every number one at a time.
+
+# Math/Calculations ===================================
+# The list has seven numbers in total, at positions zero through six.
+# The values are zero, zero, zero, zero, one, one, one.
+# The first one value appears at position four.
+# The total length of the list is seven.
+# To find the total number of ones we subtract the position of the first
+# one from the total length of the list.
+# Seven minus four equals three.
+# So the total number of ones present is three.
+
+# Output ==============================================
+# The total number of 1's present is 3
+
 # 126.Search in a nearly sorted array in O(logn) time
 # We are given a sorted array, but each element could be swapped
 # with its next or previous neighbor. We need to search for a target
