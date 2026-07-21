@@ -15,7 +15,73 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+
 # Problem =============================================
+# 128. Find the peak element in an array
+# Given an integer array, find the peak element in it. A peak element is an element that is greater than its neighbors. There might be multiple peak elements in an array, and the solution should report any peak element.
+#
+# An element A[i] of an array A is a peak element if it's not smaller than its neighbor(s).
+#
+# A[i-1] <= A[i] >= A[i+1] for 0 < i < n-1
+# A[i-1] <= A[i] if i = n - 1
+# A[i] >= A[i+1] if i = 0
+#
+# For example,
+# Input : [8, 9, 10, 2, 5, 6]
+# Output: The peak element is 10 (or 6)
+# Input : [8, 9, 10, 12, 15]
+# Output: The peak element is 15
+# Input : [10, 8, 6, 5, 3, 2]
+# Output: The peak element is 10
+
+# Solution ============================================
+def find_peak_element(numbers):
+    # Set the search range from the first position to the last position
+    low_position = 0
+    high_position = len(numbers) - 1
+    # Keep searching while the range has more than one element
+    while low_position < high_position:
+        # Find the middle position of the current range
+        middle_position = (low_position + high_position) // 2
+        # If the middle element is smaller than the next element, a peak is on the right side
+        if numbers[middle_position] < numbers[middle_position + 1]:
+            low_position = middle_position + 1
+        # Otherwise a peak is at the middle or on the left side
+        else:
+            high_position = middle_position
+    # When the range narrows to one element, that element is a peak
+    return numbers[low_position]
+
+# Test the function with three example arrays
+print("The peak element is", find_peak_element([8, 9, 10, 2, 5, 6]))
+print("The peak element is", find_peak_element([8, 9, 10, 12, 15]))
+print("The peak element is", find_peak_element([10, 8, 6, 5, 3, 2]))
+
+# Comment =============================================
+# This solution uses binary search to find a peak quickly.
+# The idea is simple. Look at the middle element and its right neighbor.
+# If the middle element is smaller than its right neighbor, the numbers are going up.
+# Going up means a peak must exist somewhere on the right side.
+# If the middle element is not smaller, the numbers are going down or flat.
+# Going down means the middle element itself could be a peak, or a peak is on the left side.
+# Each step cuts the search range in half, so the search is very fast.
+# The loop stops when only one element remains, and that element is a peak.
+
+# Math/Calculations ===================================
+# Example with the array [8, 9, 10, 2, 5, 6]:
+# Step 1: low_position = 0, high_position = 5, middle_position = (0 + 5) // 2 = 2
+#         numbers[2] = 10 and numbers[3] = 2, since 10 is not smaller than 2, high_position = 2
+# Step 2: low_position = 0, high_position = 2, middle_position = (0 + 2) // 2 = 1
+#         numbers[1] = 9 and numbers[2] = 10, since 9 is smaller than 10, low_position = 2
+# Step 3: low_position = 2 and high_position = 2, the loop stops
+# The answer is numbers[2] which is 10
+# Time cost: the range is cut in half each step, so the time is logarithm of n
+# Space cost: only a few variables are used, so the space is constant
+
+# Output ==============================================
+# The peak element is 10
+# The peak element is 15
+# The peak element is 10
 
 # Problem =============================================
 # Find the number of 1's in a sorted binary array
