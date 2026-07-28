@@ -15,7 +15,128 @@
 # Math/Calculations ===================================
 
 # Output ==============================================
+# Problem =============================================
+# 129.Maximum Sum Subarray using Divide & Conquer ; Given an integer array, find the maximum sum among all subarrays possible.
+#
+# The problem differs from the problem of finding the maximum subsequence sum. Unlike subsequences, subarrays are required to occupy consecutive positions within the original array.
+#
+#  For example,
+#
+# Input:  nums[] = [2, -4, 1, 9, -6, 7, -3] Output: The maximum sum of the subarray is 11 (Marked in Green)
 
+
+# Solution============================================
+
+def maximum_crossing_sum(numbers, left_index, middle_index, right_index):
+    # This function finds the best sum of a piece that must touch the middle.
+    # First we walk from the middle toward the left and keep the best total.
+    best_left_total = numbers[middle_index]
+    running_total = 0
+    for position in range(middle_index, left_index - 1, -1):
+        running_total = running_total + numbers[position]
+        if running_total > best_left_total:
+            best_left_total = running_total
+
+    # Now we walk from just right of the middle toward the right and keep the best total.
+    best_right_total = numbers[middle_index + 1]
+    running_total = 0
+    for position in range(middle_index + 1, right_index + 1):
+        running_total = running_total + numbers[position]
+        if running_total > best_right_total:
+            best_right_total = running_total
+
+    # The crossing piece is the best left part joined with the best right part.
+    return best_left_total + best_right_total
+
+
+def maximum_subarray_sum(numbers, left_index, right_index):
+    # When only one number is left, that number is the answer for this small part.
+    if left_index == right_index:
+        return numbers[left_index]
+
+    # Cut the current part into two halves.
+    middle_index = (left_index + right_index) // 2
+
+    # Best sum that stays inside the left half.
+    left_answer = maximum_subarray_sum(numbers, left_index, middle_index)
+    # Best sum that stays inside the right half.
+    right_answer = maximum_subarray_sum(numbers, middle_index + 1, right_index)
+    # Best sum that crosses over the middle line.
+    crossing_answer = maximum_crossing_sum(numbers, left_index, middle_index, right_index)
+
+    # The true answer is the largest of these three choices.
+    return max(left_answer, right_answer, crossing_answer)
+
+
+numbers = [2, -4, 1, 9, -6, 7, -3]
+answer = maximum_subarray_sum(numbers, 0, len(numbers) - 1)
+print("The maximum sum of the subarray is", answer)
+
+
+# Comment =============================================
+# A subarray is a group of numbers that sit next to each other in the list.
+# We are allowed to pick any starting spot and any ending spot, but we cannot skip numbers in between.
+#
+# Divide and conquer means we solve a big problem by cutting it into smaller problems.
+# We cut the list in half at the middle. The best subarray must be in one of three places.
+# One, it sits completely inside the left half.
+# Two, it sits completely inside the right half.
+# Three, it starts in the left half and ends in the right half, so it crosses the middle.
+#
+# The first two cases are solved by calling the same function again on a smaller part.
+# The third case cannot be solved by cutting again, so we solve it with two simple loops.
+# We start at the middle and add numbers one at a time going left, and we remember the best total we ever saw.
+# We do the same thing going right. Adding the two best totals gives the best crossing subarray.
+#
+# We start the best totals with a real number from the list instead of zero.
+# This matters when every number is negative, because zero would be a wrong answer.
+#
+# The list is cut in half about log base two of n times, and each level does about n additions.
+# So the total work is n times log n, which is faster than checking every possible subarray.
+
+
+# Math/Calculations ===================================
+# Input list: [2, -4, 1, 9, -6, 7, -3]
+# Index positions: 0 1 2 3 4 5 6
+#
+# Step one, cut the whole list at middle index 3.
+#
+# Left half is indexes 0 to 3, which is [2, -4, 1, 9]
+#   Cut at middle index 1.
+#   Indexes 0 to 1 is [2, -4]
+#     Left is 2. Right is -4. Crossing is 2 plus -4 which is -2. Best is 2.
+#   Indexes 2 to 3 is [1, 9]
+#     Left is 1. Right is 9. Crossing is 1 plus 9 which is 10. Best is 10.
+#   Crossing for indexes 0 to 3, middle at index 1.
+#     Going left from index 1: -4, then -4 plus 2 is -2. Best left total is -2.
+#     Going right from index 2: 1, then 1 plus 9 is 10. Best right total is 10.
+#     Crossing total is -2 plus 10 which is 8.
+#   Best of 2, 10, and 8 is 10.
+#
+# Right half is indexes 4 to 6, which is [-6, 7, -3]
+#   Cut at middle index 5.
+#   Indexes 4 to 5 is [-6, 7]
+#     Left is -6. Right is 7. Crossing is -6 plus 7 which is 1. Best is 7.
+#   Index 6 alone is -3.
+#   Crossing for indexes 4 to 6, middle at index 5.
+#     Going left from index 5: 7, then 7 plus -6 is 1. Best left total is 7.
+#     Going right from index 6: -3. Best right total is -3.
+#     Crossing total is 7 plus -3 which is 4.
+#   Best of 7, -3, and 4 is 7.
+#
+# Crossing for the whole list, middle at index 3.
+#   Going left from index 3: 9, then 9 plus 1 is 10, then 10 plus -4 is 6, then 6 plus 2 is 8.
+#   Best left total is 10, which covers indexes 2 to 3.
+#   Going right from index 4: -6, then -6 plus 7 is 1, then 1 plus -3 is -2.
+#   Best right total is 1, which covers indexes 4 to 5.
+#   Crossing total is 10 plus 1 which is 11.
+#
+# Final answer is the best of 10, 7, and 11, which is 11.
+# That sum comes from the subarray [1, 9, -6, 7] at indexes 2 to 5.
+
+
+# Output ==============================================
+# The maximum sum of the subarray is 11
 # Problem =============================================
 # 128. Find the peak element in an array
 # Given an integer array, find the peak element in it. A peak element is an element that is greater than its neighbors. There might be multiple peak elements in an array, and the solution should report any peak element.
