@@ -16,6 +16,128 @@
 
 # Output ==============================================
 # Problem =============================================
+# 130.Find Minimum and Maximum element in an array using minimum comparisons: Given an integer array, find out the minimum and maximum element present using minimum comparisons.
+#
+# For example,
+#
+# Input: nums[] = [5, 7, 2, 4, 9, 6] Output: The minimum array element is 2The maximum array element is 9
+
+
+# Solution============================================
+
+def find_minimum_and_maximum(numbers):
+    # If the list has no numbers, there is nothing to find
+    if len(numbers) == 0:
+        return None, None
+
+    # Set up the starting minimum and maximum, and the starting position
+    if len(numbers) % 2 == 0:
+        # The count is even, so compare the first two numbers one time
+        if numbers[0] < numbers[1]:
+            minimum = numbers[0]
+            maximum = numbers[1]
+        else:
+            minimum = numbers[1]
+            maximum = numbers[0]
+        position = 2
+    else:
+        # The count is odd, so the first number is both the minimum and the maximum for now
+        minimum = numbers[0]
+        maximum = numbers[0]
+        position = 1
+
+    # Walk through the rest of the list two numbers at a time
+    while position < len(numbers):
+        smaller = numbers[position]
+        larger = numbers[position + 1]
+
+        # One comparison puts the pair in order
+        if smaller > larger:
+            temporary = smaller
+            smaller = larger
+            larger = temporary
+
+        # Only the smaller one can beat the minimum
+        if smaller < minimum:
+            minimum = smaller
+
+        # Only the larger one can beat the maximum
+        if larger > maximum:
+            maximum = larger
+
+        # Move forward by two positions
+        position = position + 2
+
+    return minimum, maximum
+
+
+numbers = [5, 7, 2, 4, 9, 6]
+minimum_value, maximum_value = find_minimum_and_maximum(numbers)
+print("The minimum array element is", minimum_value)
+print("The maximum array element is", maximum_value)
+
+
+# Comment =============================================
+# The simple way to solve this is to look at every number and compare it to the
+# minimum and then compare it to the maximum. That costs two comparisons for
+# every number, so it is slower than it needs to be.
+#
+# The trick here is to take the numbers two at a time. First we compare the two
+# numbers in the pair against each other. Now we know which one is smaller and
+# which one is larger. The smaller one is the only one that can beat the
+# current minimum, and the larger one is the only one that can beat the current
+# maximum. So each pair of numbers costs only three comparisons instead of four.
+#
+# Before the loop starts we handle the beginning of the list. If the count of
+# numbers is even, we compare the first two numbers one time and use them as the
+# starting minimum and maximum. If the count is odd, we simply use the first
+# number as both the starting minimum and the starting maximum, which costs no
+# comparison at all. After that the leftover count is always even, so every step
+# of the loop always has a full pair to work with.
+#
+# The variable named temporary is used to swap two values. We save one value in
+# temporary so it is not lost while we move the other value into its place.
+
+
+# Math/Calculations ===================================
+# Let n be the count of numbers in the list.
+#
+# Simple method:
+#     Two comparisons for each number after the first one.
+#     Total comparisons = 2 times (n minus 1)
+#
+# Pair method used above:
+#     One comparison to order each pair.
+#     One comparison of the smaller value against the minimum.
+#     One comparison of the larger value against the maximum.
+#     That is three comparisons for every two numbers.
+#     Total comparisons = 3 times n divided by 2, minus 2
+#
+# For the example list [5, 7, 2, 4, 9, 6] where n is 6:
+#     Simple method:  2 times (6 minus 1) = 10 comparisons
+#     Pair method:    (3 times 6) divided by 2, minus 2 = 9 minus 2 = 7 comparisons
+#
+# Step by step trace of the example:
+#     The count 6 is even, so compare 5 and 7. Comparison count is 1.
+#         minimum is 5, maximum is 7, position is 2
+#     Pair (2, 4). Compare 2 and 4, they are already in order. Comparison count is 2.
+#         Compare 2 against minimum 5, so minimum becomes 2. Comparison count is 3.
+#         Compare 4 against maximum 7, no change. Comparison count is 4.
+#         position is 4
+#     Pair (9, 6). Compare 9 and 6, so swap them to get 6 and 9. Comparison count is 5.
+#         Compare 6 against minimum 2, no change. Comparison count is 6.
+#         Compare 9 against maximum 7, so maximum becomes 9. Comparison count is 7.
+#         position is 6
+#     The loop ends. minimum is 2 and maximum is 9 after 7 comparisons.
+#
+# Time taken grows in a straight line with the count of numbers, written as O(n).
+# Extra memory used stays the same no matter the count, written as O(1).
+
+
+# Output ==============================================
+# The minimum array element is 2
+# The maximum array element is 9
+# Problem =============================================
 # 129.Maximum Sum Subarray using Divide & Conquer ; Given an integer array, find the maximum sum among all subarrays possible.
 #
 # The problem differs from the problem of finding the maximum subsequence sum. Unlike subsequences, subarrays are required to occupy consecutive positions within the original array.
