@@ -16,6 +16,160 @@
 
 # Output ==============================================
 # Problem =============================================
+# 131. Matrix Chain Multiplication: Determine the optimal
+# parenthesization of a product of n matrices.
+#
+# Matrix chain multiplication (or Matrix Chain Ordering Problem, MCOP) is an optimization problem
+# that to find the most efficient way to multiply a given sequence of matrices. The problem is not
+# actually to perform the multiplications but merely to decide the sequence of the matrix
+# multiplications involved.
+#
+# The matrix multiplication is associative as no matter how the product is parenthesized, the result
+# obtained will remain the same. For example, for four matrices A, B, C, and D, we would have:
+#
+# ((AB)C)D = ((A(BC))D) = (AB)(CD) = A((BC)D) = A(B(CD))
+#
+# However, the order in which the product is parenthesized affects the number of simple arithmetic
+# operations needed to compute the product. For example, if A is a 10 x 30 matrix, B is a 30 x 5
+# matrix, and C is a 5 x 60 matrix, then computing (AB)C needs (10x30x5) + (10x5x60) = 1500 + 3000
+# = 4500 operations while computing A(BC) needs (30x5x60) + (10x30x60) = 9000 + 18000 = 27000
+# operations. Clearly, the first method is more efficient.
+
+# Solution============================================
+
+def make_empty_table(size):
+    # Build a square table of the given size and fill every cell with the number zero.
+    table = []
+    for row_number in range(size):
+        one_row = []
+        for column_number in range(size):
+            one_row.append(0)
+        table.append(one_row)
+    return table
+
+
+def find_best_order(dimensions):
+    # The list called dimensions holds the sizes of the matrices.
+    # If there are three matrices, this list holds four numbers.
+    # Matrix number one is dimensions[0] by dimensions[1].
+    # Matrix number two is dimensions[1] by dimensions[2], and so on.
+    number_of_matrices = len(dimensions) - 1
+
+    # The cost table remembers the smallest number of operations for each group of matrices.
+    cost_table = make_empty_table(number_of_matrices)
+
+    # The split table remembers where we cut each group into two smaller groups.
+    split_table = make_empty_table(number_of_matrices)
+
+    # We look at small groups first, then use those answers to solve bigger groups.
+    # The variable group_length is how many matrices are in the group we are solving.
+    for group_length in range(2, number_of_matrices + 1):
+
+        # The variable start is the first matrix in the group.
+        for start in range(0, number_of_matrices - group_length + 1):
+
+            # The variable end is the last matrix in the group.
+            end = start + group_length - 1
+
+            # Begin with a very large number so any real answer will be smaller.
+            cost_table[start][end] = float("inf")
+
+            # The variable cut is the place where we split the group into a left part
+            # and a right part. The left part is start through cut.
+            # The right part is cut plus one through end.
+            for cut in range(start, end):
+                left_cost = cost_table[start][cut]
+                right_cost = cost_table[cut + 1][end]
+
+                # Multiplying the left result by the right result costs this many operations.
+                joining_cost = dimensions[start] * dimensions[cut + 1] * dimensions[end + 1]
+
+                total_cost = left_cost + right_cost + joining_cost
+
+                # Keep this cut only if it is cheaper than the best cut we have seen so far.
+                if total_cost < cost_table[start][end]:
+                    cost_table[start][end] = total_cost
+                    split_table[start][end] = cut
+
+    return cost_table, split_table
+
+
+def build_parenthesization(split_table, start, end):
+    # If the group holds only one matrix, return the name of that matrix.
+    if start == end:
+        return "M" + str(start + 1)
+
+    # Otherwise, look up where we cut the group and build the left and right parts.
+    cut = split_table[start][end]
+    left_part = build_parenthesization(split_table, start, cut)
+    right_part = build_parenthesization(split_table, cut + 1, end)
+    return "(" + left_part + right_part + ")"
+
+
+# Run the solution with the example from the problem.
+matrix_dimensions = [10, 30, 5, 60]
+finished_cost_table, finished_split_table = find_best_order(matrix_dimensions)
+
+last_matrix_index = len(matrix_dimensions) - 2
+smallest_cost = finished_cost_table[0][last_matrix_index]
+best_grouping = build_parenthesization(finished_split_table, 0, last_matrix_index)
+
+print("Matrix dimensions list:", matrix_dimensions)
+print("Smallest number of operations:", smallest_cost)
+print("Best parenthesization:", best_grouping)
+
+# Comment =============================================
+# The plan is called dynamic programming. It means we solve small pieces first and save the
+# answers, so we never solve the same piece twice.
+#
+# Step one. We store the matrix sizes in one list of numbers. Three matrices need four numbers
+# because neighboring matrices share a side.
+#
+# Step two. We solve every pair of neighboring matrices, because a pair has only one possible
+# order. There is nothing to decide.
+#
+# Step three. We solve every group of three matrices. For each group we try every place we could
+# cut it into a left part and a right part. Both parts are already solved, so we just add their
+# saved costs plus the cost of joining the two results together.
+#
+# Step four. We keep growing the group size until the group holds all the matrices. The answer for
+# the whole group is the answer to the problem.
+#
+# Step five. The split table remembers the winning cut for every group. We follow those cuts
+# backward to print the parentheses.
+#
+# Why the joining cost uses three numbers. When we multiply a matrix that is a by b times a matrix
+# that is b by c, the work is a times b times c. In the code, a is dimensions[start],
+# b is dimensions[cut plus one], and c is dimensions[end plus one].
+
+# Math/Calculations ===================================
+# The dimensions list is 10, 30, 5, 60.
+# This means matrix one is 10 by 30, matrix two is 30 by 5, and matrix three is 5 by 60.
+#
+# Groups of two matrices.
+# Matrix one times matrix two costs 10 times 30 times 5, which is 1500.
+# Matrix two times matrix three costs 30 times 5 times 60, which is 9000.
+#
+# Group of three matrices. There are two possible cuts.
+# Cut after matrix one, which is matrix one times the group of matrix two and matrix three.
+#   Left cost is 0. Right cost is 9000. Joining cost is 10 times 30 times 60, which is 18000.
+#   Total is 0 plus 9000 plus 18000, which is 27000.
+# Cut after matrix two, which is the group of matrix one and matrix two times matrix three.
+#   Left cost is 1500. Right cost is 0. Joining cost is 10 times 5 times 60, which is 3000.
+#   Total is 1500 plus 0 plus 3000, which is 4500.
+#
+# The smaller total is 4500, so the winning cut is after matrix two.
+# Following that cut gives the grouping ((M1M2)M3).
+#
+# Amount of work for the whole method. For every group we try every cut, so the running time grows
+# with the number of matrices multiplied by itself three times. The tables use the number of
+# matrices multiplied by itself two times worth of memory.
+
+# Output ==============================================
+# Matrix dimensions list: [10, 30, 5, 60]
+# Smallest number of operations: 4500
+# Best parenthesization: ((M1M2)M3)
+# Problem =============================================
 # 130.Find Minimum and Maximum element in an array using minimum comparisons: Given an integer array, find out the minimum and maximum element present using minimum comparisons.
 #
 # For example,
