@@ -14,7 +14,122 @@
 
 # Math/Calculations ===================================
 
+
 # Output ==============================================
+
+# Problem =============================================
+# Keep exact problem text and do not change wording:
+# 132.0–1 Knapsack problem : In the 0–1 Knapsack problem, we are given a set of items,
+# each with a weight and a value, and we need to determine the number of each item to
+# include in a collection so that the total weight is less than or equal to a given
+# limit and the total value is as large as possible.
+#
+# Please note that the items are indivisible; we can either take an item or not
+# (0-1 property). For example,
+#
+# Input: value = [ 20, 5, 10, 40, 15, 25 ] weight = [ 1, 2, 3, 8, 7, 4 ] int W = 10
+# Output: Knapsack value is 60 value = 20 + 40 = 60 weight = 1 + 8 = 9 < W
+
+
+# Solution============================================
+
+def find_best_knapsack_value(value_list, weight_list, weight_limit):
+    # Count how many items we have in total.
+    number_of_items = len(value_list)
+
+    # Build a table of zeros. One row for each item count, one column for each weight.
+    table = [[0] * (weight_limit + 1) for row_number in range(number_of_items + 1)]
+
+    # Look at one item at a time. Row one means the first item is now available.
+    for item_number in range(1, number_of_items + 1):
+
+        # Look at every possible amount of space in the bag, from zero to the limit.
+        for space_left in range(weight_limit + 1):
+
+            # First choice: skip this item. The best value stays the same as the row above.
+            best_value = table[item_number - 1][space_left]
+
+            # Second choice: take this item, but only if it fits in the space we have.
+            if weight_list[item_number - 1] <= space_left:
+                space_after_taking = space_left - weight_list[item_number - 1]
+                value_when_taking = value_list[item_number - 1] + table[item_number - 1][space_after_taking]
+
+                # Keep the larger of the two choices.
+                if value_when_taking > best_value:
+                    best_value = value_when_taking
+
+            # Store the winner for this item and this amount of space.
+            table[item_number][space_left] = best_value
+
+    # The bottom right corner holds the answer for all items and the full weight limit.
+    return table[number_of_items][weight_limit]
+
+
+# Run the example from the problem.
+value_list = [20, 5, 10, 40, 15, 25]
+weight_list = [1, 2, 3, 8, 7, 4]
+weight_limit = 10
+
+answer = find_best_knapsack_value(value_list, weight_list, weight_limit)
+print("Knapsack value is", answer)
+
+
+# Comment =============================================
+# Each item has two states only. We either leave it out or we put it in the bag.
+# We cannot cut an item in half. That is what the zero one part of the name means.
+#
+# Trying every possible group of items is very slow, because six items already give
+# sixty four groups, and twenty items give more than one million groups.
+#
+# So we build a table instead. The value in the table at row item number and column
+# space left answers this small question: if I am only allowed to use the first few
+# items, and my bag can hold only that much weight, what is the best total value?
+#
+# We fill the table from the top left to the bottom right. Every answer we need for a
+# new box was already worked out and saved in the row above it. So each box costs us
+# only one comparison, and we never repeat the same work twice.
+#
+# Row zero stays all zeros because with no items available the best value is zero.
+# Column zero stays all zeros because with no space in the bag we cannot take anything.
+#
+# The two choices in the loop are the whole idea:
+#   Skip the item. Copy the value straight down from the row above.
+#   Take the item. Add its value, then look up the best value for the leftover space
+#   using only the earlier items. We look at the row above so the same item is never
+#   used twice.
+# We keep whichever choice gives the larger number.
+
+
+# Math/Calculations ===================================
+# The items are, written as weight and value pairs:
+#   Item one:   weight 1, value 20
+#   Item two:   weight 2, value 5
+#   Item three: weight 3, value 10
+#   Item four:  weight 8, value 40
+#   Item five:  weight 7, value 15
+#   Item six:   weight 4, value 25
+# The weight limit is 10.
+#
+# One winning group is item one and item four:
+#   Total weight is 1 plus 8, which is 9. That is less than 10, so it fits.
+#   Total value is 20 plus 40, which is 60.
+#
+# Another winning group is item one, item two, item three, and item six:
+#   Total weight is 1 plus 2 plus 3 plus 4, which is exactly 10. That fits.
+#   Total value is 20 plus 5 plus 10 plus 25, which is also 60.
+#
+# So sixty is the largest total value, and two different groups reach it.
+#
+# Size of the work:
+#   The table has number of items plus one rows, which is 7 rows here.
+#   The table has weight limit plus one columns, which is 11 columns here.
+#   That is 77 boxes, and each box takes one addition and one comparison.
+#   In general the running time is number of items multiplied by weight limit.
+
+
+# Output ==============================================
+# Knapsack value is 60
+
 # Problem =============================================
 # 131. Matrix Chain Multiplication: Determine the optimal
 # parenthesization of a product of n matrices.
