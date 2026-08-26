@@ -19,6 +19,112 @@
 
 # Problem =============================================
 # Keep exact problem text and do not change wording:
+# 133.Maximize value of the expression : Given an array A, maximize value of expression (A[s] - A[r] + A[q] - A[p]), where p, q, r, and s are indices of the array and s > r > q > p.
+#
+# For example,
+#
+# Input:  A[] = [3, 9, 10, 1, 30, 40] Output: 46 Explanation: The expression (40 - 1 + 10 - 3) will result in the maximum value
+
+
+# Solution============================================
+
+def maximize_expression(numbers):
+    # Start every best value at negative infinity, which means "nothing found yet".
+    value_after_one = float("-inf")    # best value of (minus A[p])
+    value_after_two = float("-inf")    # best value of (A[q] minus A[p])
+    value_after_three = float("-inf")  # best value of (minus A[r] plus A[q] minus A[p])
+    value_after_four = float("-inf")   # best value of the complete expression
+
+    for current_number in numbers:
+        # Update from the last part to the first part.
+        # This order makes sure every index used is smaller than the current index.
+        value_after_four = max(value_after_four, value_after_three + current_number)
+        value_after_three = max(value_after_three, value_after_two - current_number)
+        value_after_two = max(value_after_two, value_after_one + current_number)
+        value_after_one = max(value_after_one, -current_number)
+
+    return value_after_four
+
+
+array_of_numbers = [3, 9, 10, 1, 30, 40]
+print(maximize_expression(array_of_numbers))
+
+
+# Comment =============================================
+# The simple idea would be to try every choice of the four indices.
+# That would need four loops inside each other and would be very slow.
+#
+# A faster idea is to build the expression one piece at a time.
+# The expression is (A[s] minus A[r] plus A[q] minus A[p]).
+# Read it from right to left, so the pieces are added in this order:
+#   piece one   is (minus A[p])
+#   piece two   is (minus A[p] plus A[q])
+#   piece three is (minus A[p] plus A[q] minus A[r])
+#   piece four  is (minus A[p] plus A[q] minus A[r] plus A[s])
+#
+# We walk through the array one time and keep the best value for each piece.
+# When we look at a number, we ask four questions:
+#   Can this number be the final number A[s] added to the best piece three?
+#   Can this number be A[r] subtracted from the best piece two?
+#   Can this number be A[q] added to the best piece one?
+#   Can this number be A[p] and start a new piece one?
+#
+# We must update piece four first, then piece three, then piece two, then piece one.
+# The reason is that each line then uses a best value that was built only from
+# numbers that came before the current number. That keeps the rule s > r > q > p true.
+#
+# The loop runs one time over the array, so the work grows in a straight line
+# with the size of the array. The extra memory used is only four variables.
+# The array must have at least four numbers for a real answer to exist.
+
+
+# Math/Calculations ===================================
+# The array is [3, 9, 10, 1, 30, 40].
+# The word "none" below means negative infinity, so no valid piece was found yet.
+#
+# current number 3:
+#   piece four  stays none
+#   piece three stays none
+#   piece two   stays none
+#   piece one   becomes minus 3
+#
+# current number 9:
+#   piece four  stays none
+#   piece three stays none
+#   piece two   becomes minus 3 plus 9 which is 6
+#   piece one   stays minus 3, because minus 9 is smaller
+#
+# current number 10:
+#   piece four  stays none
+#   piece three becomes 6 minus 10 which is minus 4
+#   piece two   becomes minus 3 plus 10 which is 7
+#   piece one   stays minus 3
+#
+# current number 1:
+#   piece four  becomes minus 4 plus 1 which is minus 3
+#   piece three becomes 7 minus 1 which is 6
+#   piece two   stays 7
+#   piece one   becomes minus 1
+#
+# current number 30:
+#   piece four  becomes 6 plus 30 which is 36
+#   piece three stays 6
+#   piece two   becomes minus 1 plus 30 which is 29
+#   piece one   stays minus 1
+#
+# current number 40:
+#   piece four  becomes 6 plus 40 which is 46
+#
+# The final answer is 46.
+# This matches the expression 40 minus 1 plus 10 minus 3, which equals 46.
+# Here A[p] is 3, A[q] is 10, A[r] is 1, and A[s] is 40.
+
+
+# Output ==============================================
+# 46
+
+# Problem =============================================
+# Keep exact problem text and do not change wording:
 # 132.0–1 Knapsack problem : In the 0–1 Knapsack problem, we are given a set of items,
 # each with a weight and a value, and we need to determine the number of each item to
 # include in a collection so that the total weight is less than or equal to a given
