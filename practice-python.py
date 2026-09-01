@@ -18,6 +18,87 @@
 # Output ==============================================
 
 # Problem =============================================
+# 134.Partition problem:
+# Given a list of positive whole numbers, decide if the list can be split
+# into two groups so that the sum of the first group is equal to the sum
+# of the second group.
+
+# Solution============================================
+
+def can_partition(numbers):
+    # Add every number in the list together.
+    total = sum(numbers)
+    # If the total is an odd number, two equal halves are impossible.
+    if total % 2 != 0:
+        return False
+    # Each group must add up to exactly one half of the total.
+    half = total // 2
+    # Make a list of true and false answers for every sum from zero to half.
+    # The position in the list is the sum we are asking about.
+    reachable = [False] * (half + 1)
+    # A sum of zero is always possible, because we can pick nothing.
+    reachable[0] = True
+    # Look at one number at a time.
+    for number in numbers:
+        # Walk backward so each number is used only one time.
+        for amount in range(half, number - 1, -1):
+            # If the smaller sum was possible, then this bigger sum is possible.
+            if reachable[amount - number]:
+                reachable[amount] = True
+    # The answer is whether we can reach exactly one half of the total.
+    return reachable[half]
+
+
+print(can_partition([1, 5, 11, 5]))
+print(can_partition([1, 2, 3, 5]))
+
+# Comment =============================================
+# The main idea is that we only need to build one group.
+# If one group adds up to one half of the total, then the numbers left over
+# must add up to the other half by themselves.
+# So the question becomes simpler: can we pick some numbers that add up to half?
+#
+# The list named reachable remembers which sums we can already build.
+# At the start only the sum zero is possible.
+# Each time we look at a new number, we ask which new sums it creates.
+# If the sum five was already possible and the new number is six,
+# then the sum eleven is now possible too.
+#
+# We count backward in the inner loop for one important reason.
+# Counting forward would let the same number be added again and again
+# in the same pass, as if we owned many copies of it.
+# Counting backward reads only the older answers, so each number is used once.
+#
+# The odd total check at the top is a fast exit.
+# An odd number cannot be cut into two equal whole number halves.
+
+# Math/Calculations ===================================
+# First example: the list is 1, 5, 11, 5.
+# Total is 1 plus 5 plus 11 plus 5, which is 22.
+# 22 divided by 2 leaves no remainder, so half is 11.
+# Sums we can build as we add each number:
+#   start          possible sums are 0
+#   after 1        possible sums are 0 and 1
+#   after 5        possible sums are 0, 1, 5, 6
+#   after 11       possible sums are 0, 1, 5, 6, 11, 12, 16, 17
+#   after 5        the sum 11 is still possible
+# The sum 11 is reachable, so the answer is true.
+# One valid split is the group 11 and the group 1, 5, 5.
+#
+# Second example: the list is 1, 2, 3, 5.
+# Total is 1 plus 2 plus 3 plus 5, which is 11.
+# 11 divided by 2 leaves a remainder of 1, so the total is odd.
+# We stop right away and the answer is false.
+#
+# Speed: the outer loop runs one time for each number in the list,
+# and the inner loop runs about half the total times.
+# So the work is the count of numbers multiplied by half of the total.
+
+# Output ==============================================
+# True
+# False
+
+# Problem =============================================
 # Keep exact problem text and do not change wording:
 # 133.Maximize value of the expression : Given an array A, maximize value of expression (A[s] - A[r] + A[q] - A[p]), where p, q, r, and s are indices of the array and s > r > q > p.
 #
