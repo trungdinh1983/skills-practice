@@ -18,6 +18,95 @@
 # Output ==============================================
 
 # Problem =============================================
+# Keep exact problem text and do not change wording:
+#
+# 135.Subset sum problem : Dynamic Programming Solution
+# Given a set of positive integers and an integer k, check if there is any non-empty subset that sums to k.
+#
+# For example,
+#
+# Input: A = { 7, 3, 2, 5, 8 }k = 14 Output: Subset with the given sum exists Subset { 7, 2, 5 } sums to 14
+
+# Solution============================================
+
+def subset_sum_exists(numbers, target):
+    # This list remembers which totals we can already build.
+    # Position zero means a total of zero, which we can always build by picking nothing.
+    possible = [False] * (target + 1)
+    possible[0] = True
+
+    # Look at one number at a time.
+    for number in numbers:
+        # Make a fresh copy so each number is used at most one time.
+        new_possible = list(possible)
+        # Try adding the current number to every total we could already build.
+        for total in range(0, target + 1):
+            if possible[total] and total + number <= target:
+                new_possible[total + number] = True
+        possible = new_possible
+
+    # The target must be one or more, because the subset must not be empty.
+    return target > 0 and possible[target]
+
+
+numbers = [7, 3, 2, 5, 8]
+target = 14
+
+if subset_sum_exists(numbers, target):
+    print("Subset with the given sum exists")
+else:
+    print("Subset with the given sum does not exist")
+
+# Comment =============================================
+# The plain idea is to ask a smaller question many times instead of testing every
+# possible subset one by one.
+#
+# We build a list called possible. Every position in that list stands for one total,
+# from zero up to the target. If the value stored at a position is True, it means we
+# have found some group of numbers that adds up to that total.
+#
+# At the start only the total zero is marked True, because picking no numbers gives
+# a sum of zero.
+#
+# Then we walk through the numbers one at a time. For each number we ask this simple
+# question about every total we already know how to make: if I add this number to that
+# total, do I land on a new total that is still not larger than the target? If yes, we
+# mark that new total as True.
+#
+# We copy the list into new_possible before we start marking. Without the copy, a total
+# we just marked could be used again in the same round, which would let us take the same
+# number two or more times. The problem allows each number only one time.
+#
+# After all numbers are seen, we look at the position for the target. If it is True,
+# some group of the given numbers adds up to the target.
+#
+# The check that the target is greater than zero is there because the problem asks for a
+# non-empty subset. Position zero is always True, but it stands for choosing nothing.
+#
+# The amount of work is the count of numbers multiplied by the target value. For five
+# numbers and a target of fourteen that is a very small amount of work compared with
+# testing all thirty-two possible subsets.
+
+# Math/Calculations ===================================
+# Numbers are 7, 3, 2, 5, 8 and the target is 14.
+# Below is the set of totals marked True after each number is used.
+#
+# Start:            0
+# After using 7:    0, 7
+# After using 3:    0, 3, 7, 10
+# After using 2:    0, 2, 3, 5, 7, 9, 10, 12
+# After using 5:    0, 2, 3, 5, 7, 8, 9, 10, 12, 14
+# After using 8:    0, 2, 3, 5, 7, 8, 9, 10, 12, 14
+#
+# The total 14 first appears while using the number 5, because 9 was already reachable
+# and 9 plus 5 is 14. The total 9 came from 7 plus 2. So the group is 7, 2 and 5, and
+# 7 plus 2 plus 5 equals 14.
+#
+# Totals larger than 14 are never stored, because the list stops at the target.
+
+# Output ==============================================
+# Subset with the given sum exists
+# Problem =============================================
 # 134.Partition problem:
 # Given a list of positive whole numbers, decide if the list can be split
 # into two groups so that the sum of the first group is equal to the sum
