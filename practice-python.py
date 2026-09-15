@@ -18,6 +18,83 @@
 # Output ==============================================
 
 # Problem =============================================
+# 136.Minimum Sum Partition problem. 
+# Given a set of positive integers S, partition set S into two subsets, S1 and S2, such that the difference between the sum of elements in S1 and S2 is minimized. The solution should return the minimum absolute difference between the sum of elements of two partitions.
+#
+# For example, consider S = {10, 20, 15, 5, 25}.
+#
+#  We can partition S into two partitions where the minimum absolute difference between the sum of elements is 5.
+#
+# S1 = {10, 20, 5}S2 = {15, 25}
+#
+# Note that this solution is not unique. The following is another solution:
+#
+# S1 = {10, 25}S2 = {20, 15, 5}
+
+# Solution ============================================
+
+def minimum_difference(numbers):
+    # Add up every number in the list.
+    total = sum(numbers)
+    # Half of the total, rounded down. One group should get as close to this as possible.
+    half = total // 2
+    # possible[amount] is True when some numbers can add up to exactly that amount.
+    # At the start, only the amount 0 is possible, because we can pick no numbers.
+    possible = [True] + [False] * half
+    # Look at each number one at a time.
+    for number in numbers:
+        # Go from half down to number, one step at a time, so each number is used only once.
+        for amount in range(half, number - 1, -1):
+            # If we could already make (amount minus number), adding this number makes amount.
+            if possible[amount - number]:
+                possible[amount] = True
+    # Find the largest possible amount that is not more than half.
+    best = 0
+    for amount in range(half + 1):
+        if possible[amount]:
+            best = amount
+    # One group has best. The other group has total minus best. Return the gap between them.
+    return total - 2 * best
+
+print(minimum_difference([10, 20, 15, 5, 25]))
+
+# Comment =============================================
+# The idea: if one group has a sum called best, the other group has total minus best.
+# The difference is (total minus best) minus best, which is total minus 2 times best.
+# To make the difference small, best should be as close to half of the total as possible.
+# So the question becomes: what is the largest sum, not more than half, that we can build?
+# We use a list of True and False values to remember which sums we can build.
+# This method is called dynamic programming. It means we save small answers and reuse them.
+# The inner loop goes backward, from big amounts to small amounts.
+# Going backward stops us from using the same number twice in one step.
+# If we went forward, a number like 5 could be added again and again, which is wrong.
+# The line range(half, number - 1, -1) means: start at half, stop just before number minus 1, move down by 1.
+# The line [True] + [False] * half makes a list with one True followed by half copies of False.
+# Time needed: about (how many numbers) times (half of the total) steps.
+# Memory needed: a list with about half of the total plus one spots.
+
+# Math/Calculations ===================================
+# Numbers: 10, 20, 15, 5, 25
+# Total = 10 + 20 + 15 + 5 + 25 = 75
+# Half = 75 divided by 2, rounded down = 37
+#
+# Sums we can build, updated after each number (only sums up to 37 are kept):
+# Start:           0
+# After adding 10: 0, 10
+# After adding 20: 0, 10, 20, 30
+# After adding 15: 0, 10, 15, 20, 25, 30, 35   (45 is more than 37, so it is skipped)
+# After adding 5:  0, 5, 10, 15, 20, 25, 30, 35
+# After adding 25: 0, 5, 10, 15, 20, 25, 30, 35   (nothing new up to 37)
+#
+# Largest sum not more than 37 is 35.
+# One group sums to 35, for example 10 + 25.
+# Other group sums to 75 minus 35 = 40, for example 20 + 15 + 5.
+# Difference = 75 minus 2 times 35 = 75 minus 70 = 5
+
+# Output ==============================================
+# 5
+
+# Problem =============================================
 # Keep exact problem text and do not change wording:
 #
 # 135.Subset sum problem : Dynamic Programming Solution
