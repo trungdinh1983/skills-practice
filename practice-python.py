@@ -18,6 +18,103 @@
 # Output ==============================================
 
 # Problem =============================================
+# 137. Rod Cutting : Given a rod of length n and a list of rod prices of length i,
+# where 1 <= i <= n, find the optimal way to cut the rod into smaller rods to
+# maximize profit.
+#
+# For example, consider the following rod lengths and values:
+#
+# Input: length[] = [1, 2, 3, 4, 5, 6, 7, 8]
+#        price[]  = [1, 5, 8, 9, 10, 17, 17, 20]
+# Rod length: 4
+# Best: Cut the rod into two pieces of length 2 each to gain revenue of 5 + 5 = 10
+#
+# Cut           Profit
+# 4             9
+# 1, 3          (1 + 8) = 9
+# 2, 2          (5 + 5) = 10
+# 3, 1          (8 + 1) = 9
+# 1, 1, 2       (1 + 1 + 5) = 7
+# 1, 2, 1       (1 + 5 + 1) = 7
+# 2, 1, 1       (5 + 1 + 1) = 7
+# 1, 1, 1, 1    (1 + 1 + 1 + 1) = 4
+
+# Solution ============================================
+def cut_rod(prices, rod_length):
+    # best_profit at position k holds the most money we can make from a rod of length k
+    best_profit = [0] * (rod_length + 1)
+    # first_cut at position k holds the length of the first piece in the best plan
+    first_cut = [0] * (rod_length + 1)
+    # Solve every shorter length first, from 1 up to the full rod length
+    for current_length in range(1, rod_length + 1):
+        # Try every possible size for the first piece
+        for piece_length in range(1, current_length + 1):
+            # Money from this piece plus the best money from the rest of the rod
+            profit = prices[piece_length - 1] + best_profit[current_length - piece_length]
+            # Keep this choice if it beats the best one found so far
+            if profit > best_profit[current_length]:
+                best_profit[current_length] = profit
+                first_cut[current_length] = piece_length
+    # Walk back through the saved first cuts to list every piece
+    pieces = []
+    remaining = rod_length
+    while remaining > 0:
+        pieces.append(first_cut[remaining])
+        remaining = remaining - first_cut[remaining]
+    return best_profit[rod_length], pieces
+
+# The price at position 0 is for a piece of length 1, position 1 is for length 2, and so on
+prices = [1, 5, 8, 9, 10, 17, 17, 20]
+maximum_profit, pieces = cut_rod(prices, 4)
+print("Maximum profit:", maximum_profit)
+print("Pieces:", pieces)
+
+# Comment =============================================
+# This solution uses a method called dynamic programming.
+# The idea is simple. The best answer for a long rod is built from
+# the best answers for shorter rods.
+# For each rod length, we try every size for the first piece.
+# The rest of the rod already has its best answer saved, so we just look it up.
+# This avoids checking every possible cut combination again and again.
+# The first_cut list remembers which first piece gave the best answer.
+# At the end, we follow those saved first pieces to list all the cuts.
+# The time needed grows with the rod length times the rod length.
+# The extra memory needed grows with the rod length.
+
+# Math/Calculations ===================================
+# best profit for length 0 = 0
+#
+# Length 1:
+#   first piece 1: 1 + best profit of 0 (0) = 1
+#   best = 1, first piece = 1
+#
+# Length 2:
+#   first piece 1: 1 + best profit of 1 (1) = 2
+#   first piece 2: 5 + best profit of 0 (0) = 5
+#   best = 5, first piece = 2
+#
+# Length 3:
+#   first piece 1: 1 + best profit of 2 (5) = 6
+#   first piece 2: 5 + best profit of 1 (1) = 6
+#   first piece 3: 8 + best profit of 0 (0) = 8
+#   best = 8, first piece = 3
+#
+# Length 4:
+#   first piece 1: 1 + best profit of 3 (8) = 9
+#   first piece 2: 5 + best profit of 2 (5) = 10
+#   first piece 3: 8 + best profit of 1 (1) = 9
+#   first piece 4: 9 + best profit of 0 (0) = 9
+#   best = 10, first piece = 2
+#
+# Listing the pieces:
+#   remaining 4, first piece is 2, remaining becomes 2
+#   remaining 2, first piece is 2, remaining becomes 0
+#   pieces = 2 and 2
+
+# Output ==============================================
+# Maximum profit: 10
+# Pieces: [2, 2]
+# Problem =============================================
 # 136.Minimum Sum Partition problem. 
 # Given a set of positive integers S, partition set S into two subsets, S1 and S2, such that the difference between the sum of elements in S1 and S2 is minimized. The solution should return the minimum absolute difference between the sum of elements of two partitions.
 #
