@@ -16,7 +16,95 @@
 
 
 # Output ==============================================
+# Problem =============================================
+# 138.Coin change-making problem (unlimited supply of coins) : Given an unlimited supply of coins of given denominations, find the minimum number of coins required to get the desired change.
+#
+# For example, consider S = { 1, 3, 5, 7 }.
+#
+# If the desired change is 15, the minimum number of coins required is 3 (7 + 7 + 1) or (5 + 5 + 5) or (3 + 5 + 7)  If the desired change is 18, the minimum number of coins required is 4 (7 + 7 + 3 + 1) or (5 + 5 + 5 + 3) or (7 + 5 + 5 + 1)
 
+# Solution ============================================
+
+def find_minimum_coins(coins, desired_change):
+    # Make a list with one spot for every amount from 0 up to the desired change.
+    # Each spot will hold the fewest coins needed for that amount.
+    # We start every spot with a number that is too big, meaning "not possible yet".
+    minimum_coins = [desired_change + 1] * (desired_change + 1)
+
+    # Zero change needs zero coins.
+    minimum_coins[0] = 0
+
+    # Go through every amount, from 1 up to the desired change.
+    for amount in range(1, desired_change + 1):
+        # Try every coin for this amount.
+        for coin in coins:
+            # The coin can only be used if it is not bigger than the amount.
+            # If using it gives fewer coins than we have now, save the new smaller count.
+            if coin <= amount and minimum_coins[amount - coin] + 1 < minimum_coins[amount]:
+                minimum_coins[amount] = minimum_coins[amount - coin] + 1
+
+    # If the count is still too big, the change cannot be made with these coins.
+    if minimum_coins[desired_change] > desired_change:
+        return -1
+
+    # Return the fewest coins for the desired change.
+    return minimum_coins[desired_change]
+
+
+coins = [1, 3, 5, 7]
+print("Desired change 15, minimum coins:", find_minimum_coins(coins, 15))
+print("Desired change 18, minimum coins:", find_minimum_coins(coins, 18))
+
+# Comment =============================================
+# This solution uses a method called dynamic programming.
+# The idea is simple. We solve small amounts first.
+# Then we use those answers to solve bigger amounts.
+# For any amount, we try each coin as the last coin.
+# If the last coin is 7, we still need the amount minus 7.
+# We already know the best answer for that smaller amount.
+# So the answer is that smaller answer plus 1 coin.
+# We pick the coin that gives the smallest total.
+# Coins can be used again and again, because every amount
+# looks back at the full list of coins each time.
+# If an amount cannot be made at all, the function returns -1.
+# The running time grows with the desired change multiplied
+# by the number of coin types. The extra memory grows with
+# the desired change, because of the list.
+
+# Math/Calculations ===================================
+# Coins are 1, 3, 5, and 7.
+# The rule for each amount is:
+#   fewest coins for amount = smallest of (fewest coins for amount minus coin) plus 1
+#
+# Amount 0  -> 0 coins
+# Amount 1  -> 1 coin   (1)
+# Amount 2  -> 2 coins  (1 + 1)
+# Amount 3  -> 1 coin   (3)
+# Amount 4  -> 2 coins  (3 + 1)
+# Amount 5  -> 1 coin   (5)
+# Amount 6  -> 2 coins  (5 + 1)
+# Amount 7  -> 1 coin   (7)
+# Amount 8  -> 2 coins  (7 + 1)
+# Amount 9  -> 3 coins  (7 + 1 + 1)
+# Amount 10 -> 2 coins  (7 + 3)
+# Amount 11 -> 3 coins  (7 + 3 + 1)
+# Amount 12 -> 2 coins  (7 + 5)
+# Amount 13 -> 3 coins  (7 + 5 + 1)
+# Amount 14 -> 2 coins  (7 + 7)
+# Amount 15 -> 3 coins  (7 + 7 + 1)
+# Amount 16 -> 4 coins  (7 + 7 + 1 + 1)
+# Amount 17 -> 3 coins  (7 + 7 + 3)
+# Amount 18 -> 4 coins  (7 + 7 + 3 + 1)
+#
+# Check for 15: amount 15 minus coin 7 is 8. Amount 8 needs 2 coins. So 2 + 1 = 3 coins.
+# Check for 18: amount 18 minus coin 7 is 11. Amount 11 needs 3 coins. So 3 + 1 = 4 coins.
+# Why 18 cannot use 3 coins: every coin is an odd number.
+# Three odd numbers always add up to an odd number, and 18 is even.
+# So 18 needs an even number of coins. Two coins reach at most 14. So 4 is the smallest.
+
+# Output ==============================================
+# Desired change 15, minimum coins: 3
+# Desired change 18, minimum coins: 4
 # Problem =============================================
 # 137. Rod Cutting : Given a rod of length n and a list of rod prices of length i,
 # where 1 <= i <= n, find the optimal way to cut the rod into smaller rods to
