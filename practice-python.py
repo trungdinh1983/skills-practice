@@ -16,6 +16,77 @@
 
 
 # Output ==============================================
+
+# Problem =============================================
+# 139.Coin Change Problem (Total number of ways to get the denomination of coins) Given an unlimited supply of coins of given denominations, find the total number of distinct ways to get the desired change.
+#
+# For example,
+#
+# Input: S = { 1, 3, 5, 7 }, target = 8 The total number of ways is 6 { 1, 7 }{ 3, 5 }{ 1, 1, 3, 3 }{ 1, 1, 1, 5 }{ 1, 1, 1, 1, 1, 3 }{ 1, 1, 1, 1, 1, 1, 1, 1 }  Input: S = { 1, 2, 3 }, target = 4 The total number of ways is 4 { 1, 3 }{ 2, 2 }{ 1, 1, 2 }{ 1, 1, 1, 1 }
+
+# Solution ============================================
+
+def count_ways(coins, target):
+    # Make a list where position number holds the number of ways to make that amount
+    ways = [0] * (target + 1)
+    # There is exactly one way to make the amount zero, which is to use no coins
+    ways[0] = 1
+    # Look at one coin at a time so the same group of coins is never counted twice
+    for coin in coins:
+        # Update every amount that this coin can help build
+        for amount in range(coin, target + 1):
+            # Add the ways to make the amount that is left after using this coin
+            ways[amount] = ways[amount] + ways[amount - coin]
+    # The last position holds the answer for the target amount
+    return ways[target]
+
+print("The total number of ways is", count_ways([1, 3, 5, 7], 8))
+print("The total number of ways is", count_ways([1, 2, 3], 4))
+
+# Comment =============================================
+# This solution uses a method called dynamic programming.
+# Dynamic programming means we solve small problems first.
+# Then we use those small answers to build bigger answers.
+# The list named ways stores the answer for every amount from zero up to the target.
+# We loop over the coins on the outside and over the amounts on the inside.
+# This order is important.
+# It makes sure the order of coins does not matter.
+# So one plus three and three plus one are counted as the same single way.
+# If we swapped the two loops, we would count different orders as different ways, which is wrong here.
+# Each coin can be used again and again, because the supply is unlimited.
+# That is why the inner loop goes upward from the coin value to the target.
+# The running time grows with the number of coins multiplied by the target amount.
+# The memory used grows with the target amount, because we keep one list of that size.
+
+# Math/Calculations ===================================
+# Example with coins 1, 2, 3 and target 4.
+# Start: ways for amounts 0, 1, 2, 3, 4 is 1, 0, 0, 0, 0
+#
+# Use coin 1:
+# amount 1 gets 0 plus ways of 0 which is 1, so it becomes 1
+# amount 2 gets 0 plus ways of 1 which is 1, so it becomes 1
+# amount 3 gets 0 plus ways of 2 which is 1, so it becomes 1
+# amount 4 gets 0 plus ways of 3 which is 1, so it becomes 1
+# Now the list is 1, 1, 1, 1, 1
+#
+# Use coin 2:
+# amount 2 gets 1 plus ways of 0 which is 1, so it becomes 2
+# amount 3 gets 1 plus ways of 1 which is 1, so it becomes 2
+# amount 4 gets 1 plus ways of 2 which is 2, so it becomes 3
+# Now the list is 1, 1, 2, 2, 3
+#
+# Use coin 3:
+# amount 3 gets 2 plus ways of 0 which is 1, so it becomes 3
+# amount 4 gets 3 plus ways of 1 which is 1, so it becomes 4
+# Now the list is 1, 1, 2, 3, 4
+#
+# The answer for target 4 is the last number, which is 4.
+# The same steps with coins 1, 3, 5, 7 and target 8 give the answer 6.
+
+# Output ==============================================
+# The total number of ways is 6
+# The total number of ways is 4
+
 # Problem =============================================
 # 138.Coin change-making problem (unlimited supply of coins) : Given an unlimited supply of coins of given denominations, find the minimum number of coins required to get the desired change.
 #
