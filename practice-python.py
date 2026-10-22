@@ -18,6 +18,71 @@
 # Output ==============================================
 
 # Problem =============================================
+# 140.Longest alternating subsequence Problem
+# The longest alternating subsequence is a problem of finding a subsequence of a given sequence in which the elements are in alternating order and in which the sequence is as long as possible. In order words, we need to find the length of the longest subsequence with alternate low and high elements.
+#
+# For example, consider array A[] = [8, 9, 6, 4, 5, 7, 3, 2, 4]. The longest alternating subsequence length is 6, and the subsequence is [8, 9, 6, 7, 3, 4] as (8 < 9 > 6 < 7 > 3 < 4).
+#
+# Note that the longest alternating subsequence is not unique. Following are a few more subsequences of length 6:
+
+
+# Solution ============================================
+
+# This is the list of numbers we want to check.
+numbers = [8, 9, 6, 4, 5, 7, 3, 2, 4]
+
+# This is the longest length so far that ends by going up.
+going_up = 1
+
+# This is the longest length so far that ends by going down.
+going_down = 1
+
+# Look at each number, starting from the second one.
+for index in range(1, len(numbers)):
+    # If this number is bigger than the one before, it goes up.
+    if numbers[index] > numbers[index - 1]:
+        # Going up can only follow a step that went down.
+        going_up = going_down + 1
+    # If this number is smaller than the one before, it goes down.
+    elif numbers[index] < numbers[index - 1]:
+        # Going down can only follow a step that went up.
+        going_down = going_up + 1
+
+# The answer is the bigger of the two lengths.
+print("Longest alternating subsequence length:", max(going_up, going_down))
+
+
+# Comment =============================================
+# We keep only two numbers while we walk through the list.
+# The first number, going_up, is the longest pattern that ends with a rise.
+# The second number, going_down, is the longest pattern that ends with a fall.
+# When we see a rise, we add one to the best pattern that ended with a fall.
+# When we see a fall, we add one to the best pattern that ended with a rise.
+# When two numbers are equal, nothing changes, because equal is not up or down.
+# We look at each number only one time.
+# So the time needed grows in a straight line with the size of the list.
+# We only store two numbers, so the extra memory used stays the same size.
+
+
+# Math/Calculations ===================================
+# Start: going_up = 1, going_down = 1
+# 9 compared to 8: bigger, so going_up = 1 + 1 = 2
+# 6 compared to 9: smaller, so going_down = 2 + 1 = 3
+# 4 compared to 6: smaller, so going_down = 2 + 1 = 3
+# 5 compared to 4: bigger, so going_up = 3 + 1 = 4
+# 7 compared to 5: bigger, so going_up = 3 + 1 = 4
+# 3 compared to 7: smaller, so going_down = 4 + 1 = 5
+# 2 compared to 3: smaller, so going_down = 4 + 1 = 5
+# 4 compared to 2: bigger, so going_up = 5 + 1 = 6
+# Final: going_up = 6, going_down = 5
+# The bigger value is 6.
+# One matching pattern is 8 < 9 > 6 < 7 > 3 < 4, which has 6 numbers.
+
+
+# Output ==============================================
+# Longest alternating subsequence length: 6
+
+# Problem =============================================
 # 139.Coin Change Problem (Total number of ways to get the denomination of coins) Given an unlimited supply of coins of given denominations, find the total number of distinct ways to get the desired change.
 #
 # For example,
