@@ -17,6 +17,84 @@
 
 # Output ==============================================
 
+
+# Problem =============================================
+# 141.Combinations of words formed by replacing given numbers with corresponding alphabets : Given a set of single-digit positive numbers, find all possible combinations of words formed by replacing the continuous digits with corresponding character in the English alphabet, i.e., subset {1} can be replaced by A, {2} can be replaced by B, {1, 0} can be replaced by J, {2, 1} can be replaced by U, etc.
+#
+# For example,
+#
+# Input:  digits[] = { 1, 2, 2 }Output: ABB, AV, LB {1, 2, 2} = ABB{1, 22} = AV{12, 2} = LB  Input:  digits[] = { 1, 2, 2, 1 }Output: ABBA, ABU, AVA, LBA, LU {1, 2, 2, 1} = ABBA{1, 2, 21} = ABU{1, 22, 1} = AVA{12, 2, 1} = LBA{12, 21} = LU
+
+# Solution ============================================
+
+# This function builds every possible word, one letter at a time.
+# digits is the list of numbers.
+# index is the position we are looking at right now.
+# word is the word we have built so far.
+# results is the list where we save every finished word.
+def find_words(digits, index, word, results):
+    # If we used all the digits, the word is finished, so we save it.
+    if index == len(digits):
+        results.append(word)
+        return
+
+    # Choice one: use only one digit to make a letter.
+    # The number 1 becomes A, 2 becomes B, and so on.
+    number = digits[index]
+    if number >= 1:
+        find_words(digits, index + 1, word + chr(64 + number), results)
+
+    # Choice two: use two digits together to make a letter.
+    # We can only do this if there is a next digit.
+    if index + 1 < len(digits):
+        number = digits[index] * 10 + digits[index + 1]
+        # Only the numbers from 10 to 26 match a letter.
+        if number >= 10 and number <= 26:
+            find_words(digits, index + 2, word + chr(64 + number), results)
+
+
+# First example.
+results = []
+find_words([1, 2, 2], 0, "", results)
+print(", ".join(results))
+
+# Second example.
+results = []
+find_words([1, 2, 2, 1], 0, "", results)
+print(", ".join(results))
+
+# Comment =============================================
+# At every position we have two choices.
+# The first choice is to turn one digit into a letter.
+# The second choice is to join two digits into one number and turn that into a letter.
+# The function calls itself for each choice. This is called recursion.
+# When we reach the end of the list, one full word is complete and we save it.
+# We skip a single digit of 0, because 0 has no letter.
+# We skip a two digit number above 26, because the alphabet has only 26 letters.
+# The function chr turns a number into a character.
+# The join command puts all words in one line with a comma and a space between them.
+
+# Math/Calculations ===================================
+# The letter A has the computer code 65.
+# So the letter for a number is chr(64 + number).
+# Example: 64 + 1 = 65, which is A.
+# Example: 64 + 12 = 76, which is L.
+# Example: 64 + 22 = 86, which is V.
+# Example: 64 + 21 = 85, which is U.
+# Two digits become one number like this: first digit times 10 plus second digit.
+# Example: 1 * 10 + 2 = 12.
+# Example: 2 * 10 + 1 = 21.
+# Trace for the input 1, 2, 2:
+#   1, 2, 2   gives A, B, B   which is ABB
+#   1, 22     gives A, V      which is AV
+#   12, 2     gives L, B      which is LB
+# Each position splits into at most two paths.
+# So the number of words grows quickly, at most about 2 to the power of the number of digits.
+
+# Output ==============================================
+# ABB, AV, LB
+# ABBA, ABU, AVA, LBA, LU
+
 # Problem =============================================
 # 140.Longest alternating subsequence Problem
 # The longest alternating subsequence is a problem of finding a subsequence of a given sequence in which the elements are in alternating order and in which the sequence is as long as possible. In order words, we need to find the length of the longest subsequence with alternate low and high elements.
